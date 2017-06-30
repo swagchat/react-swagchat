@@ -7,7 +7,7 @@ SwagChat is an open source chat components for your webapps.
 
 This is UIKit for React.
 
-![Architecture](https://client.fairway.ne.jp/swagchat/img/react-swagchat-sample-ui.png "Architecture")
+![Architecture](https://client.fairway.ne.jp/swagchat/img/react-swagchat-sample-ui-20170630.png "Architecture")
 
 ## Components
 
