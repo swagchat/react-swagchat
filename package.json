@@ -1,6 +1,6 @@
 {
   "name": "react-swagchat",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Open source chat components - SwagChat UIKit for React",
   "keywords": [
     "swagchat",
@@ -41,6 +41,7 @@
     "react-router-dom": "4.1.1",
     "react-router-redux": "5.0.0-alpha.6",
     "react-scroll": "1.5.2",
+    "redux": "^3.7.1",
     "redux-logger": "3.0.6",
     "redux-saga": "0.15.3",
     "swagchat-sdk": "^0.7.0"
