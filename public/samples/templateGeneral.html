@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SwagChat - Template General</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://unpkg.com/react-swagchat/dist/react-swagchat.min.css">
+  </head>
+  <body>
+    <div id="swagchat" />
+    <script src="https://unpkg.com/react-swagchat/dist/react-swagchat.min.js"></script>
+    <script>
+      renderTemplateGeneral({
+        renderDomId: 'swagchat',
+        roomListTitle: 'Room List',
+        noRoomListText: 'No rooms.',
+        noRoomListImage: 'https://unpkg.com/react-swagchat/dist/img/no-image.png',
+        noMessageText: 'No messages.',
+        noMessageImage: 'https://unpkg.com/react-swagchat/dist/img/no-image.png',
+        inputMessagePlaceholderText: 'Input text...',
+        roomSettingTitle: 'Room Settings',
+        roomMembersTitle: 'Members',
+        apiEndpoint: 'http://localhost:9000/v0',
+        realtimeEndpoint: 'ws://localhost:9100/v0',
+        userId: 'USER_ID',
+        userAccessToken: 'ACCESS_TOKEN',
+      });
+    </script>
+  </body>
+</html>

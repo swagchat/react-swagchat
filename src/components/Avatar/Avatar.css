@@ -1,0 +1,9 @@
+.avatar {
+  background-color: rgb(188, 188, 188);
+  user-select: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  /*top: 16px;
+  left: 16px;*/
+}

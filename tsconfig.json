@@ -1,0 +1,39 @@
+{
+  "version": "2.2.1",
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["dom", "es6", "es7"],
+    "target": "es5",
+    "jsx": "react",
+    "sourceMap": true,
+    "outDir": "./lib/",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots" : ["./types", "./node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "react-router": ["types/react-router"],
+      "react-router-redux": ["types/react-router-redux"]
+    }
+  },
+  "compileOnSave": false,
+  "include": [
+    "src/**/*",
+    "node_modules/redux-saga/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "lib",
+    "node_modules"
+  ]
+}

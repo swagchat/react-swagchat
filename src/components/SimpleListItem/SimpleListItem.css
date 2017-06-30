@@ -1,0 +1,18 @@
+.simple-list-item-wrap {
+  min-width: 320px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #fefefe;
+}
+
+.simple-list-item-wrap-flex1 {
+  width: 60px;
+  margin: 10px;
+}
+
+.simple-list-item-wrap-flex2 {
+  width: 100%;
+  margin: 10px;
+  height: 60px;
+  line-height: 60px;
+}

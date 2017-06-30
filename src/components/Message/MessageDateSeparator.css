@@ -1,0 +1,27 @@
+.message-date-separator-root {
+  padding-top:10px;
+}
+.message-date-separator-date {
+  font-size: 0.6em;
+  color: #212121;
+  width: auto;
+  word-break: break-all;
+  background-color: #E0E0E0;
+  border: 0px solid #E0E0E0;
+  border-radius: 15px;
+  padding: 5px 10px;
+  margin: -12px 0 20px 43%;
+  text-align: center;
+  clear: both;
+  float: left;
+  font-weight: 100;
+}
+.message-date-separator-separate {
+  width: 100%;
+  border-top: 1px solid;
+  border-color: #E0E0E0;
+}
+.message-date-separator-clear {
+  clear: both;
+  margin-bottom: 30px;
+};

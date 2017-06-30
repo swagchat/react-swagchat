@@ -1,0 +1,47 @@
+.image-item-avatar {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin-left: 10px;
+}
+.image-item-name {
+  font-size: 0.6em;
+  margin-top: -40px;
+  margin-left: 70px;
+  margin-bottom: 0;
+  color: #212121;
+  font-weight: 100,
+}
+.image-item-message-left {
+  width: 50%;
+  margin: 5px 10px 5px 60px;
+  border-radius: 20px;
+  clear: both;
+  float: left;
+}
+.image-item-message-right {
+  width: 50%;
+  position: relative;
+  margin: 10px 0px 5px 10px;
+  right: 10px;
+  border-radius: 20px;
+  clear: both;
+  float: right;
+}
+.image-item-time-left {
+  font-size: 0.6em;
+  color: #212121;
+  margin-top: 5px;
+  float: left;
+}
+.image-item-time-right {
+  font-size: 0.6em;
+  color: #212121;
+  margin-top: 10px;
+  margin-right: 10px;
+  float: right;
+}
+.image-item-clear {
+  clear: both;
+  margin-bottom: 30px;
+};

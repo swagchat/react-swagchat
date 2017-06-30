@@ -1,0 +1,23 @@
+.room-setting-page-root {
+  margin-top: 47px;
+}
+
+.room-setting-page-user-wrap {
+  min-width: 320px;
+  margin-top: 47px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #fefefe;
+}
+
+.room-setting-page-user-wrap-flex1 {
+  width: 60px;
+  margin: 10px;
+}
+
+.room-setting-page-user-wrap-flex2 {
+  width: 100%;
+  margin: 10px;
+  height: 60px;
+  line-height: 60px;
+}
