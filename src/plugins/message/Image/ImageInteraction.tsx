@@ -56,6 +56,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
     this.props.updateStyle(this.initialInteractionStyle);
     this.props.updateMenuIndex(0);
     this.props.assetPostAndSendMessage(this.selectImage);
+    this.selectImage = null;
   }
 
   render(): JSX.Element {
