@@ -27,10 +27,29 @@ import {
   PluginMessageText,
   PluginMessageImage
 } from '../plugins/message';
+import { getAuthInfoFromStorage } from '../utils';
 
 export class RouteMessagePage extends React.Component<any, void> {
   constructor(props: any, context: IContext) {
     super(props, context);
+
+    let apiKey;
+    let userId;
+    let userAccessToken;
+    if (props.route.userId) {
+      apiKey = props.route.apiKey;
+      userId = props.route.userId;
+      userAccessToken = props.route.userAccessToken;
+    } else if (props.userId) {
+      apiKey = props.route.apiKey;
+      userId = props.route.userId;
+      userAccessToken = props.route.userAccessToken;
+    } else {
+      const scObj = getAuthInfoFromStorage();
+      apiKey = scObj.apiKey;
+      userId = scObj.userId;
+      userAccessToken = scObj.userAccessToken;
+    }
 
     const scMessagePlugins = this.props.route && this.props.route.scMessagePlugins ? this.props.route.scMessagePlugins : [
       new PluginMessageText(),
@@ -50,11 +69,11 @@ export class RouteMessagePage extends React.Component<any, void> {
     store.dispatch(setNoMessageImageActionCreator(props.route ? props.route.noMessageImage : props.noMessageImage));
     store.dispatch(setInputMessagePlaceholderTextActionCreator(props.route ? props.route.inputMessagePlaceholderText : props.inputMessagePlaceholderText));
     store.dispatch(combinedUserAndRoomAndMessagesFetchRequestActionCreator(
-      props.route ? props.route.apiKey : props.apiKey,
+      apiKey,
       props.route ? props.route.apiEndpoint : props.apiEndpoint,
       props.route ? props.route.realtimeEndpoint : props.realtimeEndpoint,
-      props.route ? props.route.userId : props.userId,
-      props.route ? props.route.userAccessToken : props.userAccessToken,
+      userId,
+      userAccessToken,
       props.params.roomId,
     ));
   }
