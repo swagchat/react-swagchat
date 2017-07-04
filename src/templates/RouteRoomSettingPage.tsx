@@ -16,20 +16,39 @@ import { store, routerHistory } from '../stores';
 import {
   ContainerRoomSettingPage,
 } from '../containers/';
+import { getAuthInfoFromStorage } from '../utils';
 
 export class RouteRoomSettingPage extends React.Component<any, void> {
   constructor(props: any, context: IContext) {
     super(props, context);
 
+    let apiKey;
+    let userId;
+    let userAccessToken;
+    if (props.route.userId) {
+      apiKey = props.route.apiKey;
+      userId = props.route.userId;
+      userAccessToken = props.route.userAccessToken;
+    } else if (props.userId) {
+      apiKey = props.route.apiKey;
+      userId = props.route.userId;
+      userAccessToken = props.route.userAccessToken;
+    } else {
+      const scObj = getAuthInfoFromStorage();
+      apiKey = scObj.apiKey;
+      userId = scObj.userId;
+      userAccessToken = scObj.userAccessToken;
+    }
+
     store.dispatch(clearMessagesActionCreator());
     store.dispatch(setRoomSettingTitleActionCreator(props.route ? props.route.roomSettingTitle : props.roomSettingTitle));
     store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
     store.dispatch(combinedUserAndRoomFetchRequestActionCreator(
-      props.route ? props.route.apiKey : props.apiKey,
+      apiKey,
       props.route ? props.route.apiEndpoint : props.apiEndpoint,
       props.route ? props.route.realtimeEndpoint : props.realtimeEndpoint,
-      props.route ? props.route.userId : props.userId,
-      props.route ? props.route.userAccessToken : props.userAccessToken,
+      userId,
+      userAccessToken,
       props.params.roomId,
     ));
   }
