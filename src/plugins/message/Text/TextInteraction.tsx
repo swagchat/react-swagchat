@@ -112,6 +112,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
     this.props.sendMessages();
     this.props.updateStyle(this.initialInteractionStyle);
     this.textareaDom.value = '';
+    this.textValue = '';
   }
 
   render(): JSX.Element {
