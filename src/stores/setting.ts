@@ -11,4 +11,6 @@ export interface ISettingState {
   inputMessagePlaceholderText: string;
   roomSettingTitle: string;
   roomMembersTitle: string;
+  noContactListText: string;
+  noContactListImage: string;
 }

@@ -10,6 +10,8 @@ import {
   ISetInputMessagePlaceholderTextAction,
   ISetRoomSettingTitleAction,
   ISetRoomMembersTitleAction,
+  ISetNoContactListTextAction,
+  ISetNoContactListImageAction,
   SET_SETTING,
   SET_ROOM_LIST_TITLE,
   SET_ROOM_LIST_TABBAR,
@@ -20,20 +22,24 @@ import {
   SET_INPUT_MESSAGE_PLACEHOLDER_TEXT,
   SET_ROOM_SETTING_TITLE,
   SET_ROOM_MENBERS_TITLE,
+  SET_NO_CONTACT_LIST_TEXT,
+  SET_NO_CONTACT_LIST_IMAGE,
   SettingActions,
 } from '../actions/setting';
 
 const getInitialState = (): ISettingState => ({
   setting: {},
-  roomListTitle: '',
+  roomListTitle: 'Room list',
   roomListTabbar: null,
-  noRoomListText: '',
+  noRoomListText: 'No rooms.',
   noRoomListImage: '',
-  noMessageText: '',
+  noMessageText: 'No messages.',
   noMessageImage: '',
   inputMessagePlaceholderText: '',
-  roomSettingTitle: '',
-  roomMembersTitle: '',
+  roomSettingTitle: 'Settings',
+  roomMembersTitle: 'Members',
+  noContactListText: 'No contacts.',
+  noContactListImage: '',
 });
 
 export function setting(state: ISettingState = getInitialState(), action: SettingActions): ISettingState {
@@ -118,6 +124,23 @@ export function setting(state: ISettingState = getInitialState(), action: Settin
           roomMembersTitle: (<ISetRoomMembersTitleAction>action).roomMembersTitle,
         }
       );
+    case SET_NO_CONTACT_LIST_TEXT:
+      return Object.assign(
+        {},
+        state,
+        {
+          noContactListText: (<ISetNoContactListTextAction>action).noContactListText,
+        }
+      );
+    case SET_NO_CONTACT_LIST_IMAGE:
+      return Object.assign(
+        {},
+        state,
+        {
+          noContactListImage: (<ISetNoContactListImageAction>action).noContactListImage,
+        }
+      );
+
     default:
       return state;
   }

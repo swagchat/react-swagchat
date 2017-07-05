@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { IUser } from 'swagchat-sdk';
-import { IOnClickProps, Avatar, Button, CheckCircle } from '../../';
+import { IOnClickProps, Avatar, Button, RadioButtonChecked, RadioButtonUnChecked } from '../../';
 
 export interface ICheckListItemProps extends IOnClickProps {
-  user: IUser;
+  name: string;
+  pictureUrl: string;
+  width?: number;
+  height?: number;
+  isChecked: boolean;
 }
 
 export class CheckListItem extends React.Component<ICheckListItemProps, void> {
@@ -15,18 +19,21 @@ export class CheckListItem extends React.Component<ICheckListItemProps, void> {
 
   render(): JSX.Element  {
     return (
-      <div className="check-list-item-root" onClick={this.onClick.bind(this, this.props.user)}>
-        <div className="check-list-item-flex1">
-          <Avatar
-            src={this.props.user.pictureUrl ? this.props.user.pictureUrl : ''}
-            className="check-list-item-avatar"
-          />
+      <div className="check-list-item-wrap" onClick={this.props.onClick}>
+        <div className="check-list-item-flex1" style={{height: this.props.width + 'px', lineHeight: this.props.width + 'px'}}>
+          <Avatar src={this.props.pictureUrl} width={this.props.width} height={this.props.height} />
         </div>
-        <div className="check-list-item-flex2">
-          <div className="check-list-item-subject">{this.props.user.name}</div>
+        <div className="check-list-item-flex2" style={{height: this.props.width + 'px', lineHeight: this.props.width + 'px'}}>
+          <div className="check-list-item-subject">{this.props.name}</div>
         </div>
-        <div className="check-list-item-flex3">
-          <Button icon={<CheckCircle />} />
+        <div className="check-list-item-flex3" style={{height: this.props.width + 'px', lineHeight: this.props.width + 'px'}}>
+          {(() => {
+            if (this.props.isChecked) {
+              return <Button icon={<RadioButtonChecked />} />;
+            } else {
+              return <Button icon={<RadioButtonUnChecked style={{fill: 'rgba(153, 153, 153, 0.2)'}} />} />;
+            }
+          })()}
         </div>
       </div>
     );
