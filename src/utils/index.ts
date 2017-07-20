@@ -44,3 +44,31 @@ export function opponentUser(users: IUserForRoom[] | IUserMini[], myUserId: stri
   });
   return userForRooms;
 }
+
+export interface IAuthInfo {
+  apiKey: string;
+  userId: string;
+  userAccessToken: string;
+}
+
+export function getAuthInfoFromStorage(): IAuthInfo {
+  let scObj: IAuthInfo = {
+    apiKey: '',
+    userId: '',
+    userAccessToken: '',
+  };
+
+  const ssSc = sessionStorage.getItem('swagchat');
+  if (ssSc) {
+    scObj = JSON.parse(ssSc);
+    return scObj;
+  }
+
+  const lsSc = localStorage.getItem('swagchat');
+  if (lsSc) {
+    scObj = JSON.parse(lsSc);
+    return scObj;
+  }
+
+  return scObj;
+}
