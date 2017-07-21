@@ -54,19 +54,9 @@ Using the `renderTemplateGeneral` function you can create the general chat UI (i
   <script src="https://unpkg.com/react-swagchat/dist/react-swagchat.min.js"></script>
   <script>
     renderTemplateGeneral({
-      renderDomId: 'swagchat',
-      roomListTitle: 'Room List',
-      noRoomListText: 'No rooms.',
-      noRoomListImage: 'https://unpkg.com/react-swagchat/dist/img/no-image.png',
-      noMessageText: 'No messages.',
-      noMessageImage: 'https://unpkg.com/react-swagchat/dist/img/no-image.png',
-      inputMessagePlaceholderText: 'Input text...',
-      roomSettingTitle: 'Room Settings',
-      roomMembersTitle: 'Members',
       apiEndpoint: 'http://localhost:9000/v0',
       realtimeEndpoint: 'ws://localhost:9100/v0',
       userId: 'USER_ID',
-      userAccessToken: 'ACCESS_TOKEN',
     });
   </script>
 </body>
