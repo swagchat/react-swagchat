@@ -95,24 +95,23 @@ export class TemplateGeneral extends React.Component<any, void> {
 export const renderTemplateGeneral = (params: any) => {
   ReactDom.render(
     <TemplateGeneral
-      roomListTitle={params.roomListTitle}
-      noRoomListText={params.noRoomListText}
-      noRoomListImage={params.noRoomListImage}
-      noMessageText={params.noMessageText}
-      noMessageImage={params.noMessageImage}
-      inputMessagePlaceholderText={params.inputMessagePlaceholderText}
-      roomSettingTitle={params.roomSettingTitle}
-      roomMembersTitle={params.roomMembersTitle}
-      renderDomId={params.renderDomId}
-      apiKey={params.apiKey}
-      apiEndpoint={params.apiEndpoint}
-      realtimeEndpoint={params.realtimeEndpoint}
-      userId={params.userId}
-      userAccessToken={params.userAccessToken}
-      roomListRoutePath={params.roomListRoutePath}
-      messageRoutePath={params.messageRoutePath}
-      roomSettingRoutePath={params.roomSettingRoutePath}
-      selectContactRoutePath={params.selectContactRoutePath}
-    />, document.getElementById(params.renderDomId)
+      roomListTitle={params.roomListTitle ? params.roomListTitle : 'Room List'}
+      noRoomListText={params.noRoomListText ? params.noRoomListText : 'No rooms.'}
+      noRoomListImage={params.noRoomListImage ? params.noRoomListImage : ''}
+      noMessageText={params.noMessageText ? params.noMessageText : 'No messages.'}
+      noMessageImage={params.noMessageImage ? params.noMessageImage : ''}
+      inputMessagePlaceholderText={params.inputMessagePlaceholderText ? params.inputMessagePlaceholderText : 'Input text...'}
+      roomSettingTitle={params.roomSettingTitle ? params.roomSettingTitle : 'Room Settings'}
+      roomMembersTitle={params.roomMembersTitle ? params.roomMembersTitle : 'Members'}
+      apiKey={params.apiKey ? params.apiKey : ''}
+      apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
+      realtimeEndpoint={params.realtimeEndpoint ? params.realtimeEndpoint : ''}
+      userId={params.userId ? params.userId : ''}
+      userAccessToken={params.userAccessToken ? params.userAccessToken : ''}
+      roomListRoutePath={params.roomListRoutePath ? params.roomListRoutePath : '/'}
+      messageRoutePath={params.messageRoutePath ? params.messageRoutePath : '/messages'}
+      roomSettingRoutePath={params.roomSettingRoutePath ? params.roomSettingRoutePath : '/roomSetting'}
+      selectContactRoutePath={params.selectContactRoutePath ? params.selectContactRoutePath : '/selectContact'}
+    />, document.getElementById(params.renderDomId ? params.renderDomId : 'swagchat')
   );
 };
