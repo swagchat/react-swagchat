@@ -3,8 +3,6 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { IUser,  } from 'swagchat-sdk';
-
-import {  contactsFetchRequestActionCreator, IContactsFetchRequestAction } from '../../actions/user';
 import { State } from '../../stores';
 import {
   TopBar,
@@ -17,22 +15,9 @@ import { IUserState } from '../../stores/user';
 export interface ISelectContactPageProps extends RouteComponentProps<any> {
   title: string;
   userState: IUserState;
-  contactsFetchRequest: () => IContactsFetchRequestAction;
 }
 
 class SelectContactPage extends React.Component<ISelectContactPageProps, void> {
-  componentDidMount() {
-    if (this.props.history.action === 'PUSH') {
-      this.props.contactsFetchRequest();
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.history.action === 'POP' && this.props.userState.contacts.length === 0) {
-      this.props.contactsFetchRequest();
-    }
-  }
-
   onContactTap(user: IUser) {
     console.log('SelectContactPage.onContactTap');
     console.log(user);
@@ -74,9 +59,8 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: ISelectContactPageProps) => {
   ownProps; // TODO
-  return {
-    contactsFetchRequest: () => dispatch(contactsFetchRequestActionCreator()),
-  };
+  dispatch; // TODO
+  return {};
 };
 
 export const ContainerSelectContactPage = connect(

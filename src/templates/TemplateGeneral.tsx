@@ -17,11 +17,12 @@ import {
   setInputMessagePlaceholderTextActionCreator,
   setRoomSettingTitleActionCreator,
   setRoomMembersTitleActionCreator,
+  setRoomListRoutePathActionCreator,
+  setMessageRoutePathActionCreator,
+  setRoomSettingRoutePathActionCreator,
+  setSelectContactRoutePathActionCreator,
 } from '../actions/setting';
-import {
-  setUserAuthParamsActionCreator,
-  userAuthRequestActionCreator
-} from '../actions/user';
+import { setUserAuthParamsActionCreator } from '../actions/user';
 import { IContext } from '../';
 import { store, routerHistory } from '../stores';
 import {
@@ -61,6 +62,10 @@ export class TemplateGeneral extends React.Component<any, void> {
     store.dispatch(setInputMessagePlaceholderTextActionCreator(props.route ? props.route.inputMessagePlaceholderText : props.inputMessagePlaceholderText));
     store.dispatch(setRoomSettingTitleActionCreator(props.route ? props.route.roomSettingTitle : props.roomSettingTitle));
     store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
+    store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
+    store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
+    store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
+    store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
 
     store.dispatch(setUserAuthParamsActionCreator(
       props.route ? props.route.apiKey : props.apiKey,
@@ -69,7 +74,6 @@ export class TemplateGeneral extends React.Component<any, void> {
       props.route ? props.route.userId : props.userId,
       props.route ? props.route.userAccessToken : props.userAccessToken,
     ));
-    store.dispatch(userAuthRequestActionCreator());
   }
 
   render(): JSX.Element {
@@ -77,10 +81,10 @@ export class TemplateGeneral extends React.Component<any, void> {
       <Provider store={store}>
         <ConnectedRouter history={routerHistory}>
           <Switch>
-            <Route exact path="/" component={ContainerRoomListPage} />
-            <Route path="/messages/:messageId" component={ContainerMessagePage} />
-            <Route path="/roomSetting/:roomId" component={ContainerRoomSettingPage} />
-            <Route path="/selectContact" component={ContainerSelectContactPage} />
+            <Route exact path={store.getState().setting.roomListRoutePath} component={ContainerRoomListPage} />
+            <Route path={store.getState().setting.messageRoutePath + '/:messageId'} component={ContainerMessagePage} />
+            <Route path={store.getState().setting.roomSettingRoutePath + '/:roomId'} component={ContainerRoomSettingPage} />
+            <Route path={store.getState().setting.selectContactRoutePath} component={ContainerSelectContactPage} />
           </Switch>
         </ConnectedRouter>
       </Provider>
@@ -91,20 +95,23 @@ export class TemplateGeneral extends React.Component<any, void> {
 export const renderTemplateGeneral = (params: any) => {
   ReactDom.render(
     <TemplateGeneral
-      roomListTitle={params.roomListTitle}
-      noRoomListText={params.noRoomListText}
-      noRoomListImage={params.noRoomListImage}
-      noMessageText={params.noMessageText}
-      noMessageImage={params.noMessageImage}
-      inputMessagePlaceholderText={params.inputMessagePlaceholderText}
-      roomSettingTitle={params.roomSettingTitle}
-      roomMembersTitle={params.roomMembersTitle}
-      renderDomId={params.renderDomId}
-      apiKey={params.apiKey}
-      apiEndpoint={params.apiEndpoint}
-      realtimeEndpoint={params.realtimeEndpoint}
-      userId={params.userId}
-      userAccessToken={params.userAccessToken}
-    />, document.getElementById(params.renderDomId)
+      roomListTitle={params.roomListTitle ? params.roomListTitle : 'Room List'}
+      noRoomListText={params.noRoomListText ? params.noRoomListText : 'No rooms.'}
+      noRoomListImage={params.noRoomListImage ? params.noRoomListImage : ''}
+      noMessageText={params.noMessageText ? params.noMessageText : 'No messages.'}
+      noMessageImage={params.noMessageImage ? params.noMessageImage : ''}
+      inputMessagePlaceholderText={params.inputMessagePlaceholderText ? params.inputMessagePlaceholderText : 'Input text...'}
+      roomSettingTitle={params.roomSettingTitle ? params.roomSettingTitle : 'Room Settings'}
+      roomMembersTitle={params.roomMembersTitle ? params.roomMembersTitle : 'Members'}
+      apiKey={params.apiKey ? params.apiKey : ''}
+      apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
+      realtimeEndpoint={params.realtimeEndpoint ? params.realtimeEndpoint : ''}
+      userId={params.userId ? params.userId : ''}
+      userAccessToken={params.userAccessToken ? params.userAccessToken : ''}
+      roomListRoutePath={params.roomListRoutePath ? params.roomListRoutePath : '/'}
+      messageRoutePath={params.messageRoutePath ? params.messageRoutePath : '/messages'}
+      roomSettingRoutePath={params.roomSettingRoutePath ? params.roomSettingRoutePath : '/roomSetting'}
+      selectContactRoutePath={params.selectContactRoutePath ? params.selectContactRoutePath : '/selectContact'}
+    />, document.getElementById(params.renderDomId ? params.renderDomId : 'swagchat')
   );
 };
