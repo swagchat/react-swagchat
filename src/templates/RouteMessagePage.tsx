@@ -3,6 +3,7 @@ import * as ReactDom from 'react-dom';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
+import { setUserAuthParamsActionCreator } from '../actions/user';
 import {
   setPluginMessageActionCreator,
   setCustomPluginMessageActionCreator,
@@ -11,18 +12,11 @@ import {
   setNoMessageTextActionCreator,
   setNoMessageImageActionCreator,
   setInputMessagePlaceholderTextActionCreator,
+  setMessageRoutePathActionCreator,
 } from '../actions/setting';
-import {
-  clearMessagesActionCreator,
-} from '../actions/message';
-import {
-  combinedUserAndRoomAndMessagesFetchRequestActionCreator,
-} from '../actions/combined';
 import { IContext } from '../';
 import { store, routerHistory } from '../stores';
-import {
-  ContainerMessagePage,
-} from '../containers/';
+import { ContainerMessagePage } from '../containers/';
 import {
   PluginMessageText,
   PluginMessageImage
@@ -64,17 +58,17 @@ export class RouteMessagePage extends React.Component<any, void> {
     ];
     store.dispatch(setCustomPluginMessageActionCreator(scCustomMessagePlugins));
 
-    store.dispatch(clearMessagesActionCreator());
     store.dispatch(setNoMessageTextActionCreator(props.route ? props.route.noMessageText : props.noMessageText));
     store.dispatch(setNoMessageImageActionCreator(props.route ? props.route.noMessageImage : props.noMessageImage));
     store.dispatch(setInputMessagePlaceholderTextActionCreator(props.route ? props.route.inputMessagePlaceholderText : props.inputMessagePlaceholderText));
-    store.dispatch(combinedUserAndRoomAndMessagesFetchRequestActionCreator(
+    store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
+
+    store.dispatch(setUserAuthParamsActionCreator(
       apiKey,
       props.route ? props.route.apiEndpoint : props.apiEndpoint,
       props.route ? props.route.realtimeEndpoint : props.realtimeEndpoint,
       userId,
       userAccessToken,
-      props.params.roomId,
     ));
   }
 
@@ -101,6 +95,7 @@ export const renderMessagePage = (params: any) => {
       realtimeEndpoint={params.realtimeEndpoint}
       userId={params.userId}
       userAccessToken={params.userAccessToken}
+      messageRoutePath={params.messageRoutePath}
     />, document.getElementById(params.renderDomId)
   );
 };

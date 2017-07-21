@@ -3,14 +3,12 @@ import * as ReactDom from 'react-dom';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
+import { setUserAuthParamsActionCreator } from '../actions/user';
 import {
   setRoomSettingTitleActionCreator,
   setRoomMembersTitleActionCreator,
+  setRoomSettingRoutePathActionCreator,
 } from '../actions/setting';
-import {
-  clearMessagesActionCreator,
-} from '../actions/message';
-import { combinedUserAndRoomFetchRequestActionCreator } from '../actions/combined';
 import { IContext } from '../';
 import { store, routerHistory } from '../stores';
 import {
@@ -40,16 +38,16 @@ export class RouteRoomSettingPage extends React.Component<any, void> {
       userAccessToken = scObj.userAccessToken;
     }
 
-    store.dispatch(clearMessagesActionCreator());
     store.dispatch(setRoomSettingTitleActionCreator(props.route ? props.route.roomSettingTitle : props.roomSettingTitle));
     store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
-    store.dispatch(combinedUserAndRoomFetchRequestActionCreator(
+    store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
+
+    store.dispatch(setUserAuthParamsActionCreator(
       apiKey,
       props.route ? props.route.apiEndpoint : props.apiEndpoint,
       props.route ? props.route.realtimeEndpoint : props.realtimeEndpoint,
       userId,
       userAccessToken,
-      props.params.roomId,
     ));
   }
 
@@ -75,6 +73,7 @@ export const renderRoomSetting = (params: any) => {
       realtimeEndpoint={params.realtimeEndpoint}
       userId={params.userId}
       userAccessToken={params.userAccessToken}
+      roomSettingRoutePath={params.roomSettingRoutePath}
     />, document.getElementById(params.renderDomId)
   );
 };

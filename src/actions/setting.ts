@@ -11,6 +11,10 @@ export const SET_NO_MESSAGE_IMAGE = 'SET_NO_MESSAGE_IMAGE';
 export const SET_INPUT_MESSAGE_PLACEHOLDER_TEXT = 'SET_INPUT_MESSAGE_PLACEHOLDER_TEXT';
 export const SET_ROOM_SETTING_TITLE = 'SET_ROOM_SETTING_TITLE';
 export const SET_ROOM_MENBERS_TITLE = 'SET_ROOM_MENBERS_TITLE';
+export const SET_ROOM_LIST_ROUTE_PATH = 'SET_ROOM_LIST_ROUTE_PATH';
+export const SET_MESSAGE_ROUTE_PATH = 'SET_MESSAGE_ROUTE_PATH';
+export const SET_ROOM_SETTING_ROUTE_PATH = 'SET_ROOM_SETTING_ROUTE_PATH';
+export const SET_SELECT_CONTACT_ROUTE_PATH = 'SET_SELECT_CONTACT_ROUTE_PATH';
 
 export type SettingActionTypes = typeof SET_SETTING
   | typeof SET_ROOM_LIST_TITLE
@@ -22,6 +26,10 @@ export type SettingActionTypes = typeof SET_SETTING
   | typeof SET_INPUT_MESSAGE_PLACEHOLDER_TEXT
   | typeof SET_ROOM_SETTING_TITLE
   | typeof SET_ROOM_MENBERS_TITLE
+  | typeof SET_ROOM_LIST_ROUTE_PATH
+  | typeof SET_MESSAGE_ROUTE_PATH
+  | typeof SET_ROOM_SETTING_ROUTE_PATH
+  | typeof SET_SELECT_CONTACT_ROUTE_PATH
 ;
 
 export interface ISetSettingAction extends Action {
@@ -114,6 +122,42 @@ export const setRoomMembersTitleActionCreator = (roomMembersTitle: string): ISet
   roomMembersTitle: roomMembersTitle,
 });
 
+export interface ISetRoomListRoutePathAction extends Action {
+  type: SettingActionTypes;
+  roomListRoutePath: string;
+}
+export const setRoomListRoutePathActionCreator = (roomListRoutePath: string): ISetRoomListRoutePathAction => ({
+  type: SET_ROOM_LIST_ROUTE_PATH,
+  roomListRoutePath: roomListRoutePath,
+});
+
+export interface ISetMessageRoutePathAction extends Action {
+  type: SettingActionTypes;
+  messageRoutePath: string;
+}
+export const setMessageRoutePathActionCreator = (messageRoutePath: string): ISetMessageRoutePathAction => ({
+  type: SET_MESSAGE_ROUTE_PATH,
+  messageRoutePath: messageRoutePath,
+});
+
+export interface ISetRoomSettingRoutePathAction extends Action {
+  type: SettingActionTypes;
+  roomSettingRoutePath: string;
+}
+export const setRoomSettingRoutePathActionCreator = (roomSettingRoutePath: string): ISetRoomSettingRoutePathAction => ({
+  type: SET_ROOM_SETTING_ROUTE_PATH,
+  roomSettingRoutePath: roomSettingRoutePath,
+});
+
+export interface ISetSelectContactRoutePathAction extends Action {
+  type: SettingActionTypes;
+  selectContactRoutePath: string;
+}
+export const setSelectContactRoutePathActionCreator = (selectContactRoutePath: string): ISetSelectContactRoutePathAction => ({
+  type: SET_SELECT_CONTACT_ROUTE_PATH,
+  selectContactRoutePath: selectContactRoutePath,
+});
+
 export type SettingActions = ISetSettingAction
   | ISetRoomListTitleAction
   | ISetRoomListTabbarAction
@@ -124,4 +168,8 @@ export type SettingActions = ISetSettingAction
   | ISetInputMessagePlaceholderTextAction
   | ISetRoomSettingTitleAction
   | ISetRoomMembersTitleAction
+  | ISetRoomListRoutePathAction
+  | ISetMessageRoutePathAction
+  | ISetRoomSettingRoutePathAction
+  | ISetSelectContactRoutePathAction
 ;

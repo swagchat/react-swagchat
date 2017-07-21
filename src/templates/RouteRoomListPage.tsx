@@ -10,14 +10,9 @@ import {
   setNoRoomListImageActionCreator,
   setRoomSettingTitleActionCreator,
   setRoomMembersTitleActionCreator,
+  setRoomListRoutePathActionCreator,
 } from '../actions/setting';
-import {
-  clearMessagesActionCreator,
-} from '../actions/message';
-import {
-  setUserAuthParamsActionCreator,
-  userAuthRequestActionCreator
-} from '../actions/user';
+import { setUserAuthParamsActionCreator } from '../actions/user';
 import { IContext } from '../';
 import { store, routerHistory } from '../stores';
 import { ContainerRoomListPage } from '../containers/';
@@ -45,13 +40,13 @@ export class RouteRoomListPage extends React.Component<any, void> {
       userAccessToken = scObj.userAccessToken;
     }
 
-    store.dispatch(clearMessagesActionCreator());
     store.dispatch(setRoomListTitleActionCreator(props.route ? props.route.roomListTitle : props.roomListTitle));
     store.dispatch(setRoomListTabbarActionCreator(props.route ? props.route.tabbar : props.tabbar));
     store.dispatch(setNoRoomListTextActionCreator(props.route ? props.route.noRoomListText : props.noRoomListText));
     store.dispatch(setNoRoomListImageActionCreator(props.route ? props.route.noRoomListImage : props.noRoomListImage));
     store.dispatch(setRoomSettingTitleActionCreator(props.route ? props.route.roomSettingTitle : props.roomSettingTitle));
     store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
+    store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
     store.dispatch(setUserAuthParamsActionCreator(
       apiKey,
       props.route ? props.route.apiEndpoint : props.apiEndpoint,
@@ -59,7 +54,6 @@ export class RouteRoomListPage extends React.Component<any, void> {
       userId,
       userAccessToken,
     ));
-    store.dispatch(userAuthRequestActionCreator());
   }
 
   render(): JSX.Element {
@@ -87,6 +81,7 @@ export const renderRoomList = (params: any) => {
       realtimeEndpoint={params.realtimeEndpoint}
       userId={params.userId}
       userAccessToken={params.userAccessToken}
+      roomListRoutePath={params.roomListRoutePath}
     />, document.getElementById(params.renderDomId)
   );
 };

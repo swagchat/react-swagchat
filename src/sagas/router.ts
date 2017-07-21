@@ -7,15 +7,26 @@ import { userFetchRequestSuccessActionCreator, userFetchRequestFailureActionCrea
 import { setClientActionCreator } from '../actions/client';
 import { roomFetchRequestActionCreator } from '../actions/room';
 import { clearMessagesActionCreator } from '../actions/message';
+import { userAuthRequestActionCreator, contactsFetchRequestActionCreator } from '../actions/user';
 
 function* locationChange() {
   const state: State = yield select();
-  const pathname = state.router.location!.pathname;
-  if (pathname === '/') {
-    yield put(clearMessagesActionCreator());
+  if (!state.router.location) {
+    return;
   }
 
-  if (pathname.startsWith('/messages') || pathname.startsWith('/roomSetting')) {
+  const pathname = state.router.location!.pathname;
+
+  let roomListPathRegExp = state.setting.roomListRoutePath ? pathname.match(new RegExp('^' + state.setting.roomListRoutePath + '$')) : null;
+  let messagePathRegExp = state.setting.messageRoutePath ? pathname.match(new RegExp('^' + state.setting.messageRoutePath)) : null;
+  let roomSettingPathRegExp = state.setting.roomSettingRoutePath ? pathname.match(new RegExp('^' + state.setting.roomSettingRoutePath)) : null;
+  let selectContactPathRegExp = state.setting.selectContactRoutePath ? pathname.match(new RegExp('^' + state.setting.selectContactRoutePath)) : null;
+
+  if (roomListPathRegExp) {
+    yield put(clearMessagesActionCreator());
+    yield put(userAuthRequestActionCreator());
+  }
+  if (messagePathRegExp || roomSettingPathRegExp) {
     const res: IFetchUserResponse = yield call(() => {
       return User.auth({
         apiKey: state.user.apiKey,
@@ -30,16 +41,24 @@ function* locationChange() {
       yield put(userFetchRequestSuccessActionCreator(res.user));
 
       let roomId;
-      if (pathname.startsWith('/messages')) {
-        roomId = pathname.replace(/\/messages\//g, '');
-        yield put(combinedRoomAndMessagesFetchRequestActionCreator(roomId));
-      } else if (pathname.startsWith('/roomSetting')) {
-        roomId = pathname.replace(/\/roomSetting\//g, '');
-        yield put(roomFetchRequestActionCreator(roomId));
+      if (messagePathRegExp) {
+        yield put(clearMessagesActionCreator());
+        roomId = pathname.match(new RegExp(state.setting.messageRoutePath + '([a-zA-z0-9-]+)'));
+        if (roomId) {
+          yield put(combinedRoomAndMessagesFetchRequestActionCreator(roomId[1]));
+        }
+      } else if (roomSettingPathRegExp) {
+        roomId = pathname.match(new RegExp(state.setting.roomSettingRoutePath + '([a-zA-z0-9-]+)'));
+        if (roomId) {
+          yield put(roomFetchRequestActionCreator(roomId[1]));
+        }
       }
     } else {
       yield put(userFetchRequestFailureActionCreator(res.error!));
     }
+  }
+  if (selectContactPathRegExp) {
+    yield put(contactsFetchRequestActionCreator());
   }
 }
 

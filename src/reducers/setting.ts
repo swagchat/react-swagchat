@@ -10,6 +10,10 @@ import {
   ISetInputMessagePlaceholderTextAction,
   ISetRoomSettingTitleAction,
   ISetRoomMembersTitleAction,
+  ISetRoomListRoutePathAction,
+  ISetMessageRoutePathAction,
+  ISetRoomSettingRoutePathAction,
+  ISetSelectContactRoutePathAction,
   SET_SETTING,
   SET_ROOM_LIST_TITLE,
   SET_ROOM_LIST_TABBAR,
@@ -20,6 +24,10 @@ import {
   SET_INPUT_MESSAGE_PLACEHOLDER_TEXT,
   SET_ROOM_SETTING_TITLE,
   SET_ROOM_MENBERS_TITLE,
+  SET_ROOM_LIST_ROUTE_PATH,
+  SET_MESSAGE_ROUTE_PATH,
+  SET_ROOM_SETTING_ROUTE_PATH,
+  SET_SELECT_CONTACT_ROUTE_PATH,
   SettingActions,
 } from '../actions/setting';
 
@@ -34,6 +42,10 @@ const getInitialState = (): ISettingState => ({
   inputMessagePlaceholderText: '',
   roomSettingTitle: '',
   roomMembersTitle: '',
+  roomListRoutePath: '',
+  messageRoutePath: '',
+  roomSettingRoutePath: '',
+  selectContactRoutePath: '',
 });
 
 export function setting(state: ISettingState = getInitialState(), action: SettingActions): ISettingState {
@@ -116,6 +128,38 @@ export function setting(state: ISettingState = getInitialState(), action: Settin
         state,
         {
           roomMembersTitle: (<ISetRoomMembersTitleAction>action).roomMembersTitle,
+        }
+      );
+    case SET_ROOM_LIST_ROUTE_PATH:
+      return Object.assign(
+        {},
+        state,
+        {
+          roomListRoutePath: (<ISetRoomListRoutePathAction>action).roomListRoutePath,
+        }
+      );
+    case SET_MESSAGE_ROUTE_PATH:
+      return Object.assign(
+        {},
+        state,
+        {
+          messageRoutePath: (<ISetMessageRoutePathAction>action).messageRoutePath,
+        }
+      );
+    case SET_ROOM_SETTING_ROUTE_PATH:
+      return Object.assign(
+        {},
+        state,
+        {
+          roomSettingRoutePath: (<ISetRoomSettingRoutePathAction>action).roomSettingRoutePath,
+        }
+      );
+    case SET_SELECT_CONTACT_ROUTE_PATH:
+      return Object.assign(
+        {},
+        state,
+        {
+          selectContactRoutePath: (<ISetSelectContactRoutePathAction>action).selectContactRoutePath,
         }
       );
     default:
