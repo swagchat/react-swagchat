@@ -11,4 +11,8 @@ export interface ISettingState {
     inputMessagePlaceholderText: string;
     roomSettingTitle: string;
     roomMembersTitle: string;
+    roomListRoutePath: string;
+    messageRoutePath: string;
+    roomSettingRoutePath: string;
+    selectContactRoutePath: string;
 }
