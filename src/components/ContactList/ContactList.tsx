@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { IUser } from 'swagchat-sdk';
 
-import { IOnClickProps, SimpleListItem } from '../../';
+import { IOnClickProps, CheckListItem } from '../../';
 
 export interface IContactListProps extends IOnClickProps {
   contacts: IUser[];
+  selectedContacts: {[key: string]: IUser};
   hasTopBar?: boolean;
-  displayNoDataText?: string;
-  displayNoDataImage?: string;
+  noContactListText?: string;
+  noContactListImage?: string;
 }
 
 export class ContactList extends React.Component<IContactListProps, void> {
@@ -22,7 +23,7 @@ export class ContactList extends React.Component<IContactListProps, void> {
   }
 
   render(): JSX.Element {
-    const {contacts, hasTopBar, displayNoDataText, displayNoDataImage} = this.props;
+    const {contacts, selectedContacts, hasTopBar, noContactListText, noContactListImage} = this.props;
     return (
       <div className="page-container" style={hasTopBar ? {marginTop: '47px'} : {}}>
         {(() => {
@@ -30,13 +31,14 @@ export class ContactList extends React.Component<IContactListProps, void> {
             let roomItems = new Array;
             for (let i = 0; i < contacts.length; i++) {
               roomItems.push(
-                <SimpleListItem
+                <CheckListItem
                   key={'contact-list-item-' + i}
                   name={contacts[i].name}
                   pictureUrl={contacts[i].pictureUrl}
                   width={40}
                   height={40}
                   onClick={this.onClick.bind(this, contacts[i])}
+                  isChecked={(selectedContacts[contacts[i].userId]) ? true : false}
                 />
               );
             }
@@ -44,8 +46,8 @@ export class ContactList extends React.Component<IContactListProps, void> {
           } else {
             return (
               <div className="nodata-wrap">
-                {displayNoDataImage !== '' ? <img src={displayNoDataImage} /> : ''}
-                <p className="nodata-text">{displayNoDataText !== '' ? displayNoDataText : ''}</p>
+                {noContactListImage !== '' ? <img className="nodata-image" src={noContactListImage} /> : ''}
+                <p className="nodata-text">{noContactListText !== '' ? noContactListText : ''}</p>
               </div>
             );
           }

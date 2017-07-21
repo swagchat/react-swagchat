@@ -10,6 +10,7 @@ import {
   IUserBlockFetchRequestFailureAction,
   IUserUnBlockFetchRequestSuccessAction,
   IUserUnBlockFetchRequestFailureAction,
+  IUpdateSelectContactsAction,
   SET_USER_AUTH_PARAMS,
   CONTACTS_FETCH_REQUEST_SUCCESS,
   CONTACTS_FETCH_REQUEST_FAILURE,
@@ -21,6 +22,8 @@ import {
   USER_BLOCK_FETCH_REQUEST_FAILURE,
   USER_UNBLOCK_FETCH_REQUEST_SUCCESS,
   USER_UNBLOCK_FETCH_REQUEST_FAILURE,
+  UPDATE_SELECT_CONTACTS,
+  CLEAR_SELECT_CONTACTS,
   UserActions,
 } from '../actions/user';
 
@@ -34,6 +37,7 @@ const getInitialState = (): IUserState => ({
   userRooms: [],
   users: [],
   contacts: [],
+  selectContacts: {},
   blocks: [],
   problemDetail: null,
 });
@@ -132,6 +136,30 @@ export function user(state: IUserState = getInitialState(), action: UserActions)
         {
           user: null,
           problemDetail: (<IUserUnBlockFetchRequestFailureAction>action).problemDetail,
+        }
+      );
+    case UPDATE_SELECT_CONTACTS:
+      const updateSelectContactsAction = <IUpdateSelectContactsAction>action;
+      const contactUserId = updateSelectContactsAction.contact.userId;
+      let selectContacts = Object.assign({}, state.selectContacts);
+      if (selectContacts[contactUserId]) {
+        delete selectContacts[contactUserId];
+      } else {
+        selectContacts[contactUserId] = updateSelectContactsAction.contact;
+      }
+      return Object.assign(
+        {},
+        state,
+        {
+          selectContacts: selectContacts,
+        }
+      );
+    case CLEAR_SELECT_CONTACTS:
+      return Object.assign(
+        {},
+        state,
+        {
+          selectContacts: {},
         }
       );
     default:

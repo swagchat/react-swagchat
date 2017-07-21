@@ -15,6 +15,8 @@ export {
   Keyboard,
   Camera,
   Send,
+  RadioButtonChecked,
+  RadioButtonUnChecked,
 } from './components/icons/';
 export {
   ContainerRoomListPage,

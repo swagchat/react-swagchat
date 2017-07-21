@@ -10,6 +10,7 @@ export interface IUserState {
   userRooms: IRoomForUser[];
   users: IUser[];
   contacts: IUser[];
+  selectContacts: {[key: string]: IUser};
   blocks: string[];
   problemDetail: IProblemDetail | null;
 }
