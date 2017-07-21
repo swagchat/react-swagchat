@@ -43,12 +43,12 @@ function* locationChange() {
       let roomId;
       if (messagePathRegExp) {
         yield put(clearMessagesActionCreator());
-        roomId = pathname.match(new RegExp(state.setting.messageRoutePath + '([a-zA-z0-9-]+)'));
+        roomId = pathname.match(new RegExp(state.setting.messageRoutePath + '/([a-zA-z0-9-]+)'));
         if (roomId) {
           yield put(combinedRoomAndMessagesFetchRequestActionCreator(roomId[1]));
         }
       } else if (roomSettingPathRegExp) {
-        roomId = pathname.match(new RegExp(state.setting.roomSettingRoutePath + '([a-zA-z0-9-]+)'));
+        roomId = pathname.match(new RegExp(state.setting.roomSettingRoutePath + '/([a-zA-z0-9-]+)'));
         if (roomId) {
           yield put(roomFetchRequestActionCreator(roomId[1]));
         }

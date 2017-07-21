@@ -82,8 +82,8 @@ export class TemplateGeneral extends React.Component<any, void> {
         <ConnectedRouter history={routerHistory}>
           <Switch>
             <Route exact path={store.getState().setting.roomListRoutePath} component={ContainerRoomListPage} />
-            <Route path={store.getState().setting.messageRoutePath + ':messageId'} component={ContainerMessagePage} />
-            <Route path={store.getState().setting.roomSettingRoutePath + ':roomId'} component={ContainerRoomSettingPage} />
+            <Route path={store.getState().setting.messageRoutePath + '/:messageId'} component={ContainerMessagePage} />
+            <Route path={store.getState().setting.roomSettingRoutePath + '/:roomId'} component={ContainerRoomSettingPage} />
             <Route path={store.getState().setting.selectContactRoutePath} component={ContainerSelectContactPage} />
           </Switch>
         </ConnectedRouter>
