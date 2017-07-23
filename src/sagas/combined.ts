@@ -194,6 +194,7 @@ function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetch
   } else {
     action.room.type = RoomType.PRIVATE_ROOM;
   }
+  action.room.userIds = selectContactUserIds;
 
   let existRoomId = '';
   if (action.room.type === RoomType.ONE_ON_ONE) {
@@ -209,11 +210,7 @@ function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetch
         }
       }
     }
-  }
-
-  let fetchRoomRes: IFetchRoomResponse;
-  if (existRoomId === '') {
-    action.room.userIds = selectContactUserIds;
+  } else {
     let roomName = state.user.user!.name + ', ';
     for (let i = 0; i < selectContactUserNames.length; i++) {
       if (i === selectContactUserNames.length - 1) {
@@ -223,6 +220,10 @@ function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetch
       }
     }
     action.room.name = roomName;
+  }
+
+  let fetchRoomRes: IFetchRoomResponse;
+  if (existRoomId === '') {
     fetchRoomRes = yield call((room: IRoom) => {
       return state.client.client!.createRoom(room);
     }, action.room);
@@ -231,6 +232,7 @@ function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetch
       return state.client.client!.getRoom(roomId);
     }, existRoomId);
   }
+
   if (fetchRoomRes.room) {
     yield put(roomFetchRequestSuccessActionCreator(fetchRoomRes.room));
     yield put(beforeMessagesFetchActionActionCreator(fetchRoomRes.room.messageCount, 20));
