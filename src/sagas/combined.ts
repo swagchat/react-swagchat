@@ -1,6 +1,16 @@
 import { takeLatest, call, put, select, ForkEffect } from 'redux-saga/effects';
-import { User, IRoom, IFetchUserResponse, IFetchRoomResponse, IPostAssetResponse, IFetchMessagesResponse } from 'swagchat-sdk';
+import {
+  User,
+  IRoom,
+  IMessage,
+  IFetchUserResponse,
+  IFetchRoomResponse,
+  IPostAssetResponse,
+  IFetchMessagesResponse,
+  RoomType
+} from 'swagchat-sdk';
 import * as Scroll from 'react-scroll';
+import { replace } from 'react-router-redux';
 
 import {
   setClientActionCreator,
@@ -21,7 +31,7 @@ import {
   ICombinedUserAndRoomFetchRequestAction,
   ICombinedUpdateMessagesAction,
   ICombinedCreateRoomAndMessagesFetchRequestAction,
-  // combinedUpdateMessagesActionCreator,
+  combinedUpdateMessagesActionCreator,
   COMBINED_ROOM_AND_MESSAGES_FETCH_REQUEST,
   COMBINED_USER_AND_ROOM_AND_MESSAGES_FETCH_REQUEST,
   COMBINED_USER_AND_ROOM_FETCH_REQUEST,
@@ -34,7 +44,6 @@ import {
   createMessageActionCreator,
   messagesSendRequestActionCreator,
   beforeMessagesFetchActionActionCreator,
-  // messagesFetchRequestActionCreator,
   messagesFetchRequestSuccessActionCreator,
   messagesFetchRequestFailureActionCreator,
 } from '../actions/message';
@@ -42,8 +51,8 @@ import {
   assetPostRequestSuccessActionCreator,
   assetPostRequestFailureActionCreator,
 } from '../actions/asset';
-import { State } from '../stores';
-// import { logColor } from '../';
+import { State, store } from '../stores';
+import { logColor } from '../';
 
 function* fetchRoomAndMessages(action: IRoomFetchRequestAction) {
   const state: State = yield select();
@@ -67,10 +76,10 @@ function* fetchRoomAndMessages(action: IRoomFetchRequestAction) {
       yield put(messagesFetchRequestFailureActionCreator(fetchMessageRes.error!));
     }
 
-    // fetchRoomRes.room.subscribeMessage((message: IMessage) => {
-    //   console.info('%c[ReactSwagChat]Receive message(push)', 'color:' + logColor);
-    //   store.dispatch(combinedUpdateMessagesActionCreator([message]));
-    // });
+    fetchRoomRes.room.subscribeMessage((message: IMessage) => {
+      console.info('%c[ReactSwagChat]Receive message(push)', 'color:' + logColor);
+      store.dispatch(combinedUpdateMessagesActionCreator([message]));
+    });
   } else {
     yield put(roomFetchRequestFailureActionCreator(fetchRoomRes.error!));
   }
@@ -172,9 +181,56 @@ function* updateMessages(action: ICombinedUpdateMessagesAction) {
 
 function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetchRequestAction) {
   const state: State = yield select();
-  const fetchRoomRes: IFetchRoomResponse = yield call((room: IRoom) => {
-    return state.client.client!.createRoom(room);
-  }, action.room);
+  const selectContactUserKeys = Object.keys(state.user.selectContacts);
+  let selectContactUserIds = new Array();
+  let selectContactUserNames = new Array();
+  for (let i = 0; i < selectContactUserKeys.length; i++) {
+    let user = state.user.selectContacts[selectContactUserKeys[i]];
+    selectContactUserIds.push(user.userId);
+    selectContactUserNames.push(user.name);
+  }
+  if (selectContactUserIds.length === 1) {
+    action.room.type = RoomType.ONE_ON_ONE;
+  } else {
+    action.room.type = RoomType.PRIVATE_ROOM;
+  }
+
+  let existRoomId = '';
+  if (action.room.type === RoomType.ONE_ON_ONE) {
+    // exist check
+    for (let i = 0; i < state.user.userRooms.length; i++) {
+      let userRoom = state.user.userRooms[i];
+      if (userRoom.type === RoomType.ONE_ON_ONE) {
+        for (let j = 0; j < userRoom.users.length; j++) {
+          let user = userRoom.users[j];
+          if (user.userId === selectContactUserIds[0]) {
+            existRoomId = user.roomId;
+          }
+        }
+      }
+    }
+  }
+
+  let fetchRoomRes: IFetchRoomResponse;
+  if (existRoomId === '') {
+    action.room.userIds = selectContactUserIds;
+    let roomName = state.user.user!.name + ', ';
+    for (let i = 0; i < selectContactUserNames.length; i++) {
+      if (i === selectContactUserNames.length - 1) {
+        roomName += selectContactUserNames[i];
+      } else {
+        roomName += selectContactUserNames[i] + ', ';
+      }
+    }
+    action.room.name = roomName;
+    fetchRoomRes = yield call((room: IRoom) => {
+      return state.client.client!.createRoom(room);
+    }, action.room);
+  } else {
+    fetchRoomRes = yield call((roomId: string) => {
+      return state.client.client!.getRoom(roomId);
+    }, existRoomId);
+  }
   if (fetchRoomRes.room) {
     yield put(roomFetchRequestSuccessActionCreator(fetchRoomRes.room));
     yield put(beforeMessagesFetchActionActionCreator(fetchRoomRes.room.messageCount, 20));
@@ -188,14 +244,14 @@ function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetch
       yield put(messagesFetchRequestSuccessActionCreator(fetchMessageRes.messages!));
       yield put(markAsReadRequestActionCreator(fetchRoomRes.room.roomId));
       Scroll.animateScroll.scrollToBottom({duration: 0});
+      store.dispatch(replace('/messages/' + fetchRoomRes.room.roomId));
+      fetchRoomRes.room.subscribeMessage((message: IMessage) => {
+        console.info('%c[ReactSwagChat]Receive message(push)', 'color:' + logColor);
+        store.dispatch(combinedUpdateMessagesActionCreator([message]));
+      });
     } else {
       yield put(messagesFetchRequestFailureActionCreator(fetchMessageRes.error!));
     }
-
-    // fetchRoomRes.room.subscribeMessage((message: IMessage) => {
-      // console.info('%c[ReactSwagChat]Receive message(push)', 'color:' + logColor);
-      // store.dispatch(combinedUpdateMessagesActionCreator([message]));
-    // });
   } else {
     yield put(roomFetchRequestFailureActionCreator(fetchRoomRes.error!));
   }

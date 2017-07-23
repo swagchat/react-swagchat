@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { push } from 'react-router-redux';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { IUser, IRoom, RoomType } from 'swagchat-sdk';
-
+import { IUser, IRoom } from 'swagchat-sdk';
 import {
   contactsFetchRequestActionCreator,
   updateSelectContactsActionCreator,
@@ -12,7 +12,7 @@ import {
   IUpdateSelectContactsAction,
   IClearSelectContactsAction,
 } from '../../actions/user';
-import { State } from '../../stores';
+import { State, store } from '../../stores';
 import {
   TopBar,
   ContactList,
@@ -47,7 +47,7 @@ class SelectContactPage extends React.Component<ISelectContactPageProps, void> {
 
   onCloseButton() {
     if (this.props.history) {
-      this.props.history.push({pathname: '/'});
+      store.dispatch(push('/'));
     }
   }
 
@@ -55,7 +55,7 @@ class SelectContactPage extends React.Component<ISelectContactPageProps, void> {
     console.log('onOkButton');
     const room: IRoom = {
       userId: this.props.userState.userId,
-      type: RoomType.ONE_ON_ONE,
+      type: 0, // Update in saga
       name: '',
     };
     this.props.combinedCreateRoomAndMessagesFetchRequest(room);
