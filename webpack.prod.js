@@ -40,16 +40,14 @@ module.exports = {
             browsers: ['last 2 versions']
           })
         ]
-      }
+      },
+      minimize: true,
+      debug: false
     }),
     new ExtractTextPlugin({
       filename: distDir + '/react-swagchat.min.css',
       disable: false,
       allChunks: true 
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
     }),
     // new webpack.optimize.UglifyJsPlugin({
     //   beautify: false,

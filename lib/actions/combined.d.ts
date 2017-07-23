@@ -1,11 +1,12 @@
 import { Action } from 'redux';
-import { IMessage } from 'swagchat-sdk';
+import { IMessage, IRoom } from 'swagchat-sdk';
 export declare const COMBINED_ROOM_AND_MESSAGES_FETCH_REQUEST = "COMBINED_ROOM_AND_MESSAGES_FETCH_REQUEST";
 export declare const COMBINED_USER_AND_ROOM_AND_MESSAGES_FETCH_REQUEST = "COMBINED_USER_AND_ROOM_AND_MESSAGES_FETCH_REQUEST";
 export declare const COMBINED_USER_AND_ROOM_FETCH_REQUEST = "COMBINED_USER_AND_ROOM_FETCH_REQUEST";
 export declare const COMBINED_ASSET_POST_AND_SEND_MESSAGE_REQUEST = "COMBINED_ASSET_POST_AND_SEND_MESSAGE_REQUEST";
 export declare const COMBINED_UPDATE_MESSAGES = "COMBINED_UPDATE_MESSAGES";
-export declare type CombinedActionTypes = typeof COMBINED_ROOM_AND_MESSAGES_FETCH_REQUEST | typeof COMBINED_USER_AND_ROOM_AND_MESSAGES_FETCH_REQUEST | typeof COMBINED_USER_AND_ROOM_FETCH_REQUEST | typeof COMBINED_ASSET_POST_AND_SEND_MESSAGE_REQUEST | typeof COMBINED_UPDATE_MESSAGES;
+export declare const COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST = "COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST";
+export declare type CombinedActionTypes = typeof COMBINED_ROOM_AND_MESSAGES_FETCH_REQUEST | typeof COMBINED_USER_AND_ROOM_AND_MESSAGES_FETCH_REQUEST | typeof COMBINED_USER_AND_ROOM_FETCH_REQUEST | typeof COMBINED_ASSET_POST_AND_SEND_MESSAGE_REQUEST | typeof COMBINED_UPDATE_MESSAGES | typeof COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST;
 export interface ICombinedRoomAndMessagesFetchRequestAction extends Action {
     type: CombinedActionTypes;
     roomId: string;
@@ -41,4 +42,9 @@ export interface ICombinedUpdateMessagesAction extends Action {
     messages: IMessage[];
 }
 export declare const combinedUpdateMessagesActionCreator: (messages: IMessage[]) => ICombinedUpdateMessagesAction;
-export declare type CombinedActions = ICombinedRoomAndMessagesFetchRequestAction | ICombinedUserAndRoomAndMessagesFetchRequestAction | ICombinedUserAndRoomFetchRequestAction | ICombinedAssetPostAndSendMessageRequestAction | ICombinedUpdateMessagesAction;
+export interface ICombinedCreateRoomAndMessagesFetchRequestAction extends Action {
+    type: CombinedActionTypes;
+    room: IRoom;
+}
+export declare const combinedCreateRoomAndMessagesFetchRequestActionCreator: (room: IRoom) => ICombinedCreateRoomAndMessagesFetchRequestAction;
+export declare type CombinedActions = ICombinedRoomAndMessagesFetchRequestAction | ICombinedUserAndRoomAndMessagesFetchRequestAction | ICombinedUserAndRoomFetchRequestAction | ICombinedAssetPostAndSendMessageRequestAction | ICombinedUpdateMessagesAction | ICombinedCreateRoomAndMessagesFetchRequestAction;

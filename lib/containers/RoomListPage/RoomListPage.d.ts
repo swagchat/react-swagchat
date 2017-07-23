@@ -15,6 +15,7 @@ export interface IRoomListPageProps extends RouteComponentProps<any> {
     };
     noRoomListText: string;
     noRoomListImage: string;
+    noAvatarImages: string[];
     roomListTabbar: React.ComponentClass<any> | null;
 }
 export declare const ContainerRoomListPage: React.ComponentClass<IRoomListPageProps>;

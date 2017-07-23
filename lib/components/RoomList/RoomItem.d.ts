@@ -8,6 +8,7 @@ export interface IRoomItemProps {
         [key: number]: IPluginRoomListItem;
     };
     userRoom: IRoomForUser;
+    noAvatarImages: string[];
     onClick?: Function;
     customRoomListItems?: {
         [key: number]: IPluginRoomListItem;

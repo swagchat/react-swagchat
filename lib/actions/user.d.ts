@@ -17,7 +17,9 @@ export declare const USER_BLOCK_FETCH_REQUEST_FAILURE = "USER_BLOCK_FETCH_REQUES
 export declare const USER_UNBLOCK_FETCH_REQUEST = "USER_UNBLOCK_FETCH_REQUEST";
 export declare const USER_UNBLOCK_FETCH_REQUEST_SUCCESS = "USER_UNBLOCK_FETCH_REQUEST_SUCCESS";
 export declare const USER_UNBLOCK_FETCH_REQUEST_FAILURE = "USER_UNBLOCK_FETCH_REQUEST_FAILURE";
-export declare type UserActionTypes = typeof SET_USER_AUTH_PARAMS | typeof USER_AUTH_REQUEST | typeof CONTACTS_FETCH_REQUEST | typeof CONTACTS_FETCH_REQUEST_SUCCESS | typeof CONTACTS_FETCH_REQUEST_FAILURE | typeof USER_FETCH_REQUEST | typeof USER_FETCH_REQUEST_SUCCESS | typeof USER_FETCH_REQUEST_FAILURE | typeof MARK_AS_READ_REQUEST | typeof MARK_AS_READ_REQUEST_SUCCESS | typeof MARK_AS_READ_REQUEST_FAILURE | typeof USER_BLOCK_FETCH_REQUEST | typeof USER_BLOCK_FETCH_REQUEST_SUCCESS | typeof USER_BLOCK_FETCH_REQUEST_FAILURE | typeof USER_UNBLOCK_FETCH_REQUEST | typeof USER_UNBLOCK_FETCH_REQUEST_SUCCESS | typeof USER_UNBLOCK_FETCH_REQUEST_FAILURE;
+export declare const UPDATE_SELECT_CONTACTS = "UPDATE_SELECT_CONTACTS";
+export declare const CLEAR_SELECT_CONTACTS = "CLEAR_SELECT_CONTACTS";
+export declare type UserActionTypes = typeof SET_USER_AUTH_PARAMS | typeof USER_AUTH_REQUEST | typeof CONTACTS_FETCH_REQUEST | typeof CONTACTS_FETCH_REQUEST_SUCCESS | typeof CONTACTS_FETCH_REQUEST_FAILURE | typeof USER_FETCH_REQUEST | typeof USER_FETCH_REQUEST_SUCCESS | typeof USER_FETCH_REQUEST_FAILURE | typeof MARK_AS_READ_REQUEST | typeof MARK_AS_READ_REQUEST_SUCCESS | typeof MARK_AS_READ_REQUEST_FAILURE | typeof USER_BLOCK_FETCH_REQUEST | typeof USER_BLOCK_FETCH_REQUEST_SUCCESS | typeof USER_BLOCK_FETCH_REQUEST_FAILURE | typeof USER_UNBLOCK_FETCH_REQUEST | typeof USER_UNBLOCK_FETCH_REQUEST_SUCCESS | typeof USER_UNBLOCK_FETCH_REQUEST_FAILURE | typeof UPDATE_SELECT_CONTACTS | typeof CLEAR_SELECT_CONTACTS;
 export interface ISetUserAuthParamsAction extends Action {
     type: UserActionTypes;
     apiKey: string;
@@ -105,4 +107,13 @@ export interface IUserUnBlockFetchRequestFailureAction extends Action {
     problemDetail: IProblemDetail;
 }
 export declare const userUnBlockFetchRequestFailureActionCreator: (problemDetail: IProblemDetail) => IUserUnBlockFetchRequestFailureAction;
-export declare type UserActions = ISetUserAuthParamsAction | IUserAuthRequestAction | IContactsFetchRequestAction | IContactsFetchRequestSuccessAction | IContactsFetchRequestFailureAction | IUserFetchRequestAction | IUserFetchRequestSuccessAction | IUserFetchRequestFailureAction | IMarkAsReadRequestAction | IMarkAsReadRequestSuccessAction | IMarkAsReadRequestFailureAction | IUserBlockFetchRequestAction | IUserBlockFetchRequestSuccessAction | IUserBlockFetchRequestFailureAction | IUserUnBlockFetchRequestAction | IUserUnBlockFetchRequestSuccessAction | IUserUnBlockFetchRequestFailureAction;
+export interface IUpdateSelectContactsAction extends Action {
+    type: UserActionTypes;
+    contact: IUser;
+}
+export declare const updateSelectContactsActionCreator: (contact: IUser) => IUpdateSelectContactsAction;
+export interface IClearSelectContactsAction extends Action {
+    type: UserActionTypes;
+}
+export declare const clearSelectContactsActionCreator: () => IClearSelectContactsAction;
+export declare type UserActions = ISetUserAuthParamsAction | IUserAuthRequestAction | IContactsFetchRequestAction | IContactsFetchRequestSuccessAction | IContactsFetchRequestFailureAction | IUserFetchRequestAction | IUserFetchRequestSuccessAction | IUserFetchRequestFailureAction | IMarkAsReadRequestAction | IMarkAsReadRequestSuccessAction | IMarkAsReadRequestFailureAction | IUserBlockFetchRequestAction | IUserBlockFetchRequestSuccessAction | IUserBlockFetchRequestFailureAction | IUserUnBlockFetchRequestAction | IUserUnBlockFetchRequestSuccessAction | IUserUnBlockFetchRequestFailureAction | IUpdateSelectContactsAction | IClearSelectContactsAction;

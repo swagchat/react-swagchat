@@ -14,6 +14,7 @@ export interface IRoomListProps extends IOnClickProps {
     hasTabBar?: boolean;
     noRoomListText?: string;
     noRoomListImage?: string;
+    noAvatarImages: string[];
 }
 export declare class RoomList extends React.Component<IRoomListProps, void> {
     static defaultProps: Partial<IRoomListProps>;
