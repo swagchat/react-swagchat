@@ -14,6 +14,7 @@ import {
   setNoRoomListImageActionCreator,
   setNoMessageTextActionCreator,
   setNoMessageImageActionCreator,
+  setNoAvatarImagesActionCreator,
   setInputMessagePlaceholderTextActionCreator,
   setRoomSettingTitleActionCreator,
   setRoomMembersTitleActionCreator,
@@ -62,6 +63,7 @@ export class TemplateGeneral extends React.Component<any, void> {
     store.dispatch(setInputMessagePlaceholderTextActionCreator(props.route ? props.route.inputMessagePlaceholderText : props.inputMessagePlaceholderText));
     store.dispatch(setRoomSettingTitleActionCreator(props.route ? props.route.roomSettingTitle : props.roomSettingTitle));
     store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
+    store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
     store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
     store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
     store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
@@ -103,6 +105,7 @@ export const renderTemplateGeneral = (params: any) => {
       inputMessagePlaceholderText={params.inputMessagePlaceholderText ? params.inputMessagePlaceholderText : 'Input text...'}
       roomSettingTitle={params.roomSettingTitle ? params.roomSettingTitle : 'Room Settings'}
       roomMembersTitle={params.roomMembersTitle ? params.roomMembersTitle : 'Members'}
+      noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
       apiKey={params.apiKey ? params.apiKey : ''}
       apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
       realtimeEndpoint={params.realtimeEndpoint ? params.realtimeEndpoint : ''}

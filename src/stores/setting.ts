@@ -13,6 +13,7 @@ export interface ISettingState {
   roomMembersTitle: string;
   noContactListText: string;
   noContactListImage: string;
+  noAvatarImages: string[];
   roomListRoutePath: string;
   messageRoutePath: string;
   roomSettingRoutePath: string;

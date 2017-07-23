@@ -13,7 +13,7 @@ export class RoomNameWithMessage extends React.Component<IPluginRoomListItemProp
   }
 
   render(): JSX.Element  {
-    const {myUserId, userRoom} = this.props;
+    const {myUserId, userRoom, noAvatarImages} = this.props;
     if (this.props.userRoom.roomId === '') {
       return <div />;
     }
@@ -34,7 +34,7 @@ export class RoomNameWithMessage extends React.Component<IPluginRoomListItemProp
       <div className="room-name-with-message-root" onClick={this.onClick.bind(this, userRoom)}>
         <div className="room-name-with-message-flex1">
           <Avatar
-            src={pictureUrl ? pictureUrl : ''}
+            src={pictureUrl ? pictureUrl : noAvatarImages[0]}
             className="room-name-with-message-avatar"
           />
         </div>

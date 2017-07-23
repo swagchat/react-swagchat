@@ -4,6 +4,7 @@ import { IRoomForUser } from 'swagchat-sdk';
 export interface IPluginRoomListItemProps {
   myUserId: string;
   userRoom: IRoomForUser;
+  noAvatarImages: string[];
   onClick?: Function;
 }
 

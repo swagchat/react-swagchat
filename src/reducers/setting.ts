@@ -12,6 +12,7 @@ import {
   ISetRoomMembersTitleAction,
   ISetNoContactListTextAction,
   ISetNoContactListImageAction,
+  ISetNoAvatarImagesAction,
   ISetRoomListRoutePathAction,
   ISetMessageRoutePathAction,
   ISetRoomSettingRoutePathAction,
@@ -28,6 +29,7 @@ import {
   SET_ROOM_MENBERS_TITLE,
   SET_NO_CONTACT_LIST_TEXT,
   SET_NO_CONTACT_LIST_IMAGE,
+  SET_NO_AVATAR_IMAGES,
   SET_ROOM_LIST_ROUTE_PATH,
   SET_MESSAGE_ROUTE_PATH,
   SET_ROOM_SETTING_ROUTE_PATH,
@@ -48,6 +50,7 @@ const getInitialState = (): ISettingState => ({
   roomMembersTitle: 'Members',
   noContactListText: 'No contacts.',
   noContactListImage: '',
+  noAvatarImages: [],
   roomListRoutePath: '',
   messageRoutePath: '',
   roomSettingRoutePath: '',
@@ -142,6 +145,14 @@ export function setting(state: ISettingState = getInitialState(), action: Settin
         state,
         {
           noContactListImage: (<ISetNoContactListImageAction>action).noContactListImage,
+        }
+      );
+    case SET_NO_AVATAR_IMAGES:
+      return Object.assign(
+        {},
+        state,
+        {
+          noAvatarImages: (<ISetNoAvatarImagesAction>action).noAvatarImages,
         }
       );
     case SET_ROOM_MENBERS_TITLE:

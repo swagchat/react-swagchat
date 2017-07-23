@@ -26,6 +26,7 @@ export interface IRoomListPageProps extends RouteComponentProps<any> {
   roomListItems: {[key: number]: IPluginRoomListItem};
   noRoomListText: string;
   noRoomListImage: string;
+  noAvatarImages: string[];
 
   roomListTabbar: React.ComponentClass<any> | null;
 }
@@ -44,7 +45,7 @@ class RoomListPage extends React.Component<IRoomListPageProps, any> {
   }
 
   render(): JSX.Element  {
-    const {roomListTitle, userId, userRooms, roomListItems, roomListTabbar, noRoomListText, noRoomListImage} = this.props;
+    const {roomListTitle, userId, userRooms, roomListItems, roomListTabbar, noRoomListText, noRoomListImage, noAvatarImages} = this.props;
     return (
       <div>
         <TopBar
@@ -59,6 +60,7 @@ class RoomListPage extends React.Component<IRoomListPageProps, any> {
           hasTabBar={roomListTabbar ? true : false}
           noRoomListText={noRoomListText}
           noRoomListImage={noRoomListImage}
+          noAvatarImages={noAvatarImages}
           onClick={this.onItemTap.bind(this)}
         />
         {roomListTabbar ? roomListTabbar : null}
@@ -81,6 +83,7 @@ const mapStateToProps = (state: State) => {
       roomListItems: state.plugin.roomListItems,
       noRoomListText: state.setting.noRoomListText,
       noRoomListImage: state.setting.noRoomListImage,
+      noAvatarImages: state.setting.noAvatarImages,
 
       roomListTabbar: state.setting.roomListTabbar,
     };

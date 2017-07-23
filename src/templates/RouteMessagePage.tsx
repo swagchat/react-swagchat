@@ -12,6 +12,7 @@ import {
   setNoMessageTextActionCreator,
   setNoMessageImageActionCreator,
   setInputMessagePlaceholderTextActionCreator,
+  setNoAvatarImagesActionCreator,
   setMessageRoutePathActionCreator,
 } from '../actions/setting';
 import { IContext } from '../';
@@ -61,6 +62,7 @@ export class RouteMessagePage extends React.Component<any, void> {
     store.dispatch(setNoMessageTextActionCreator(props.route ? props.route.noMessageText : props.noMessageText));
     store.dispatch(setNoMessageImageActionCreator(props.route ? props.route.noMessageImage : props.noMessageImage));
     store.dispatch(setInputMessagePlaceholderTextActionCreator(props.route ? props.route.inputMessagePlaceholderText : props.inputMessagePlaceholderText));
+    store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
     store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
 
     store.dispatch(setUserAuthParamsActionCreator(
@@ -95,6 +97,7 @@ export const renderMessagePage = (params: any) => {
       realtimeEndpoint={params.realtimeEndpoint}
       userId={params.userId}
       userAccessToken={params.userAccessToken}
+      noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
       messageRoutePath={params.messageRoutePath}
     />, document.getElementById(params.renderDomId)
   );
