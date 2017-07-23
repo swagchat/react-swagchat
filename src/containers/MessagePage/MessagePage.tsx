@@ -123,13 +123,29 @@ export class MessagePage extends React.Component<IProps, void> {
   }
 
   render(): JSX.Element  {
-    if (!(this.props.roomState && this.props.roomState.room)) {
+    const {
+      roomState,
+      settingState,
+      userState,
+      pluginState,
+      history,
+      messageState,
+      styleState,
+      createMessage,
+      sendMessages,
+      updateMenuIndex,
+      updateStyle,
+      assetPostAndSendMessage,
+      markAsRead,
+      updateRoom,
+    } = this.props;
+    if (!(roomState && roomState.room)) {
       return <div />;
     }
-    let name = this.props.roomState.room!.name ? this.props.roomState.room!.name : '';
-    let pictureUrl = this.props.roomState.room!.pictureUrl ? this.props.roomState.room!.pictureUrl : '';
-    if (this.props.roomState.room!.type === RoomType.ONE_ON_ONE) {
-      const users = opponentUser(this.props.roomState.room!.users!, this.props.userState.user!.userId);
+    let name = roomState.room!.name ? roomState.room!.name : '';
+    let pictureUrl = roomState.room!.pictureUrl ? roomState.room!.pictureUrl : '';
+    if (roomState.room!.type === RoomType.ONE_ON_ONE) {
+      const users = opponentUser(roomState.room!.users!, userState.user!.userId);
       if (users && users.length > 0) {
         name = users[0].name;
         pictureUrl = users[0].pictureUrl;
@@ -139,29 +155,29 @@ export class MessagePage extends React.Component<IProps, void> {
       <div>
         <TopBar
           title={name}
-          leftButton={<Button icon={<Back />} onClick={this.props.history.goBack} />}
+          leftButton={<Button icon={<Back />} onClick={history.goBack} />}
           rightButton={<Avatar
             onClick={this.onRoomSetting.bind(this)}
-            src={pictureUrl}
+            src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}
             width={30}
             height={30}
             margin={9}
           />}
         />
         <MessageBody
-          pluginState={this.props.pluginState}
-          userState={this.props.userState}
-          roomState={this.props.roomState}
-          messageState={this.props.messageState}
-          styleState={this.props.styleState}
-          createMessage={this.props.createMessage}
-          sendMessages={this.props.sendMessages}
-          updateMenuIndex={this.props.updateMenuIndex}
-          updateStyle={this.props.updateStyle}
-          settingState={this.props.settingState}
-          assetPostAndSendMessage={this.props.assetPostAndSendMessage}
-          markAsRead={this.props.markAsRead}
-          updateRoom={this.props.updateRoom}
+          pluginState={pluginState}
+          userState={userState}
+          roomState={roomState}
+          messageState={messageState}
+          styleState={styleState}
+          createMessage={createMessage}
+          sendMessages={sendMessages}
+          updateMenuIndex={updateMenuIndex}
+          updateStyle={updateStyle}
+          settingState={settingState}
+          assetPostAndSendMessage={assetPostAndSendMessage}
+          markAsRead={markAsRead}
+          updateRoom={updateRoom}
         />
       </div>
     );

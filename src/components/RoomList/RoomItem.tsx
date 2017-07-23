@@ -6,13 +6,14 @@ export interface IRoomItemProps {
   myUserId: string;
   roomListItems: {[key: number]: IPluginRoomListItem};
   userRoom: IRoomForUser;
+  noAvatarImages: string[];
   onClick?: Function;
   customRoomListItems?: {[key: number]: IPluginRoomListItem};
 }
 
 export class RoomItem extends React.Component<IRoomItemProps, void> {
   render(): JSX.Element {
-    const {myUserId, roomListItems, userRoom, onClick, customRoomListItems} = this.props;
+    const {myUserId, roomListItems, userRoom, onClick, customRoomListItems, noAvatarImages} = this.props;
     return (
       <div>
         {(() => {
@@ -23,6 +24,7 @@ export class RoomItem extends React.Component<IRoomItemProps, void> {
               plugin.item, {
                 myUserId: myUserId,
                 userRoom: userRoom,
+                noAvatarImages: noAvatarImages,
                 onClick: onClick,
               }
             );
@@ -31,6 +33,7 @@ export class RoomItem extends React.Component<IRoomItemProps, void> {
               roomListItems[userRoom.type].item, {
                 myUserId: myUserId,
                 userRoom: userRoom,
+                noAvatarImages: noAvatarImages,
                 onClick: onClick,
               }
             );

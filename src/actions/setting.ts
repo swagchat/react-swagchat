@@ -11,7 +11,10 @@ export const SET_NO_MESSAGE_IMAGE = 'SET_NO_MESSAGE_IMAGE';
 export const SET_INPUT_MESSAGE_PLACEHOLDER_TEXT = 'SET_INPUT_MESSAGE_PLACEHOLDER_TEXT';
 export const SET_ROOM_SETTING_TITLE = 'SET_ROOM_SETTING_TITLE';
 export const SET_ROOM_MENBERS_TITLE = 'SET_ROOM_MENBERS_TITLE';
+export const SET_NO_CONTACT_LIST_TEXT = 'SET_NO_CONTACT_LIST_TEXT';
+export const SET_NO_CONTACT_LIST_IMAGE = 'SET_NO_CONTACT_LIST_IMAGE';
 export const SET_ROOM_LIST_ROUTE_PATH = 'SET_ROOM_LIST_ROUTE_PATH';
+export const SET_NO_AVATAR_IMAGES = 'SET_NO_AVATAR_IMAGES';
 export const SET_MESSAGE_ROUTE_PATH = 'SET_MESSAGE_ROUTE_PATH';
 export const SET_ROOM_SETTING_ROUTE_PATH = 'SET_ROOM_SETTING_ROUTE_PATH';
 export const SET_SELECT_CONTACT_ROUTE_PATH = 'SET_SELECT_CONTACT_ROUTE_PATH';
@@ -26,6 +29,9 @@ export type SettingActionTypes = typeof SET_SETTING
   | typeof SET_INPUT_MESSAGE_PLACEHOLDER_TEXT
   | typeof SET_ROOM_SETTING_TITLE
   | typeof SET_ROOM_MENBERS_TITLE
+  | typeof SET_NO_CONTACT_LIST_TEXT
+  | typeof SET_NO_CONTACT_LIST_IMAGE
+  | typeof SET_NO_AVATAR_IMAGES
   | typeof SET_ROOM_LIST_ROUTE_PATH
   | typeof SET_MESSAGE_ROUTE_PATH
   | typeof SET_ROOM_SETTING_ROUTE_PATH
@@ -122,6 +128,33 @@ export const setRoomMembersTitleActionCreator = (roomMembersTitle: string): ISet
   roomMembersTitle: roomMembersTitle,
 });
 
+export interface ISetNoContactListTextAction extends Action {
+  type: SettingActionTypes;
+  noContactListText: string;
+}
+export const setNoContactListTextActionCreator = (noContactListText: string): ISetNoContactListTextAction => ({
+  type: SET_NO_ROOM_LIST_TEXT,
+  noContactListText: noContactListText,
+});
+
+export interface ISetNoContactListImageAction extends Action {
+  type: SettingActionTypes;
+  noContactListImage: string;
+}
+export const setNoContactListImageActionCreator = (noContactListImage: string): ISetNoContactListImageAction => ({
+  type: SET_NO_ROOM_LIST_IMAGE,
+  noContactListImage: noContactListImage,
+});
+
+export interface ISetNoAvatarImagesAction extends Action {
+  type: SettingActionTypes;
+  noAvatarImages: string[];
+}
+export const setNoAvatarImagesActionCreator = (noAvatarImages: string[]): ISetNoAvatarImagesAction => ({
+  type: SET_NO_AVATAR_IMAGES,
+  noAvatarImages: noAvatarImages,
+});
+
 export interface ISetRoomListRoutePathAction extends Action {
   type: SettingActionTypes;
   roomListRoutePath: string;
@@ -168,6 +201,9 @@ export type SettingActions = ISetSettingAction
   | ISetInputMessagePlaceholderTextAction
   | ISetRoomSettingTitleAction
   | ISetRoomMembersTitleAction
+  | ISetNoContactListTextAction
+  | ISetNoContactListImageAction
+  | ISetNoAvatarImagesAction
   | ISetRoomListRoutePathAction
   | ISetMessageRoutePathAction
   | ISetRoomSettingRoutePathAction

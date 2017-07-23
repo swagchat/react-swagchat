@@ -4,13 +4,16 @@ import { IRoom, IFetchRoomResponse, IFetchRoomUsersResponse } from 'swagchat-sdk
 import {
   ROOM_FETCH_REQUEST,
   ROOM_UPDATE_REQUEST,
+  ROOM_USER_ADD_FETCH_REQUEST,
   ROOM_USER_REMOVE_FETCH_REQUEST,
   IRoomFetchRequestAction,
   IRoomUpdateRequestAction,
+  IRoomUserAddFetchRequestAction,
   IRoomUserRemoveFetchRequestAction,
   roomFetchRequestSuccessActionCreator,
   roomFetchRequestFailureActionCreator,
-
+  roomUserAddFetchRequestSuccessActionCreator,
+  roomUserAddFetchRequestFailureActionCreator,
   roomUserRemoveFetchRequestSuccessActionCreator,
   roomUserRemoveFetchRequestFailureActionCreator,
 } from '../actions/room';
@@ -41,6 +44,20 @@ function* updateRoom(action: IRoomUpdateRequestAction) {
   }
 }
 
+function* fetchRoomUserAdd(action: IRoomUserAddFetchRequestAction) {
+  const state: State  = yield select();
+  const res: IFetchRoomUsersResponse = yield call((userIds: string[]) => {
+    return state.room.room!.addUsers(userIds);
+  }, action.userIds);
+  if (res.roomUsers) {
+    yield put(roomUserAddFetchRequestSuccessActionCreator(res.roomUsers));
+    yield put(userFetchRequestActionCreator(state.user.user!.userId, state.user.user!.accessToken));
+    // location.href = '#';
+  } else {
+    yield put(roomUserAddFetchRequestFailureActionCreator(res.error!));
+  }
+}
+
 function* fetchRoomUserRemove(action: IRoomUserRemoveFetchRequestAction) {
   const state: State  = yield select();
   const res: IFetchRoomUsersResponse = yield call((userIds: string[]) => {
@@ -58,5 +75,6 @@ function* fetchRoomUserRemove(action: IRoomUserRemoveFetchRequestAction) {
 export function* roomSaga(): IterableIterator<ForkEffect> {
   yield takeLatest(ROOM_FETCH_REQUEST, fetchRoom);
   yield takeLatest(ROOM_UPDATE_REQUEST, updateRoom);
+  yield takeLatest(ROOM_USER_ADD_FETCH_REQUEST, fetchRoomUserAdd);
   yield takeLatest(ROOM_USER_REMOVE_FETCH_REQUEST, fetchRoomUserRemove);
 }

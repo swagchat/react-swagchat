@@ -10,6 +10,9 @@ import {
   ISetInputMessagePlaceholderTextAction,
   ISetRoomSettingTitleAction,
   ISetRoomMembersTitleAction,
+  ISetNoContactListTextAction,
+  ISetNoContactListImageAction,
+  ISetNoAvatarImagesAction,
   ISetRoomListRoutePathAction,
   ISetMessageRoutePathAction,
   ISetRoomSettingRoutePathAction,
@@ -24,6 +27,9 @@ import {
   SET_INPUT_MESSAGE_PLACEHOLDER_TEXT,
   SET_ROOM_SETTING_TITLE,
   SET_ROOM_MENBERS_TITLE,
+  SET_NO_CONTACT_LIST_TEXT,
+  SET_NO_CONTACT_LIST_IMAGE,
+  SET_NO_AVATAR_IMAGES,
   SET_ROOM_LIST_ROUTE_PATH,
   SET_MESSAGE_ROUTE_PATH,
   SET_ROOM_SETTING_ROUTE_PATH,
@@ -33,15 +39,18 @@ import {
 
 const getInitialState = (): ISettingState => ({
   setting: {},
-  roomListTitle: '',
+  roomListTitle: 'Room list',
   roomListTabbar: null,
-  noRoomListText: '',
+  noRoomListText: 'No rooms.',
   noRoomListImage: '',
-  noMessageText: '',
+  noMessageText: 'No messages.',
   noMessageImage: '',
   inputMessagePlaceholderText: '',
-  roomSettingTitle: '',
-  roomMembersTitle: '',
+  roomSettingTitle: 'Settings',
+  roomMembersTitle: 'Members',
+  noContactListText: 'No contacts.',
+  noContactListImage: '',
+  noAvatarImages: [],
   roomListRoutePath: '',
   messageRoutePath: '',
   roomSettingRoutePath: '',
@@ -120,6 +129,30 @@ export function setting(state: ISettingState = getInitialState(), action: Settin
         state,
         {
           roomSettingTitle: (<ISetRoomSettingTitleAction>action).roomSettingTitle,
+        }
+      );
+    case SET_NO_CONTACT_LIST_TEXT:
+      return Object.assign(
+        {},
+        state,
+        {
+          noContactListText: (<ISetNoContactListTextAction>action).noContactListText,
+        }
+      );
+    case SET_NO_CONTACT_LIST_IMAGE:
+      return Object.assign(
+        {},
+        state,
+        {
+          noContactListImage: (<ISetNoContactListImageAction>action).noContactListImage,
+        }
+      );
+    case SET_NO_AVATAR_IMAGES:
+      return Object.assign(
+        {},
+        state,
+        {
+          noAvatarImages: (<ISetNoAvatarImagesAction>action).noAvatarImages,
         }
       );
     case SET_ROOM_MENBERS_TITLE:

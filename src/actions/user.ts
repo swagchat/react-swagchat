@@ -18,6 +18,8 @@ export const USER_BLOCK_FETCH_REQUEST_FAILURE = 'USER_BLOCK_FETCH_REQUEST_FAILUR
 export const USER_UNBLOCK_FETCH_REQUEST = 'USER_UNBLOCK_FETCH_REQUEST';
 export const USER_UNBLOCK_FETCH_REQUEST_SUCCESS = 'USER_UNBLOCK_FETCH_REQUEST_SUCCESS';
 export const USER_UNBLOCK_FETCH_REQUEST_FAILURE = 'USER_UNBLOCK_FETCH_REQUEST_FAILURE';
+export const UPDATE_SELECT_CONTACTS = 'UPDATE_SELECT_CONTACTS';
+export const CLEAR_SELECT_CONTACTS = 'CLEAR_SELECT_CONTACTS';
 
 export type UserActionTypes = typeof SET_USER_AUTH_PARAMS
   | typeof USER_AUTH_REQUEST
@@ -36,6 +38,8 @@ export type UserActionTypes = typeof SET_USER_AUTH_PARAMS
   | typeof USER_UNBLOCK_FETCH_REQUEST
   | typeof USER_UNBLOCK_FETCH_REQUEST_SUCCESS
   | typeof USER_UNBLOCK_FETCH_REQUEST_FAILURE
+  | typeof UPDATE_SELECT_CONTACTS
+  | typeof CLEAR_SELECT_CONTACTS
 ;
 
 export interface ISetUserAuthParamsAction extends Action {
@@ -202,6 +206,22 @@ export const userUnBlockFetchRequestFailureActionCreator = (problemDetail: IProb
   problemDetail: problemDetail,
 });
 
+export interface IUpdateSelectContactsAction extends Action {
+  type: UserActionTypes;
+  contact: IUser;
+}
+export const updateSelectContactsActionCreator = (contact: IUser): IUpdateSelectContactsAction => ({
+  type: UPDATE_SELECT_CONTACTS,
+  contact: contact,
+});
+
+export interface IClearSelectContactsAction extends Action {
+  type: UserActionTypes;
+}
+export const clearSelectContactsActionCreator = (): IClearSelectContactsAction => ({
+  type: CLEAR_SELECT_CONTACTS,
+});
+
 export type UserActions = ISetUserAuthParamsAction
   | IUserAuthRequestAction
   | IContactsFetchRequestAction
@@ -219,4 +239,6 @@ export type UserActions = ISetUserAuthParamsAction
   | IUserUnBlockFetchRequestAction
   | IUserUnBlockFetchRequestSuccessAction
   | IUserUnBlockFetchRequestFailureAction
+  | IUpdateSelectContactsAction
+  | IClearSelectContactsAction
 ;

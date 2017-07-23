@@ -61,13 +61,14 @@ class RoomSettingPage extends React.Component<IRoomSettingPageProps, void> {
   }
 
   render(): JSX.Element  {
-    if (!(this.props.roomState && this.props.roomState.room)) {
+    const { settingState, roomState, userState, history, styleState, updateStyle, userBlockFetch, userUnBlockFetch, roomUserRemoveFetch } = this.props;
+    if (!(roomState && roomState.room)) {
       return <div />;
     }
-    let pictureUrl = this.props.roomState.room!.pictureUrl ? this.props.roomState.room!.pictureUrl : '';
-    let name = this.props.roomState.room!.name;
-    if (this.props.roomState.room!.type === RoomType.ONE_ON_ONE) {
-      const users = opponentUser(this.props.roomState.room!.users!, this.props.userState.user!.userId);
+    let pictureUrl = roomState.room!.pictureUrl ? roomState.room!.pictureUrl : '';
+    let name = roomState.room!.name;
+    if (roomState.room!.type === RoomType.ONE_ON_ONE) {
+      const users = opponentUser(roomState.room!.users!, userState.user!.userId);
       if (users && users.length > 0) {
         pictureUrl = users[0].pictureUrl;
         name = users[0].name;
@@ -76,32 +77,32 @@ class RoomSettingPage extends React.Component<IRoomSettingPageProps, void> {
     return (
       <div className="room-setting-page-root">
         <TopBar
-          title={this.props.settingState.roomSettingTitle}
-          leftButton={<Button icon={<Back />} onClick={this.props.history.goBack} />}
+          title={settingState.roomSettingTitle}
+          leftButton={<Button icon={<Back />} onClick={history.goBack} />}
         />
-        <SimpleListItem name={name} pictureUrl={pictureUrl} width={80} height={80} />
+        <SimpleListItem name={name} pictureUrl={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]} width={80} height={80} />
         <RoomSettingList
           desableMarginTop={false}
-          userState={this.props.userState}
-          roomState={this.props.roomState}
-          styleState={this.props.styleState}
+          userState={userState}
+          roomState={roomState}
+          styleState={styleState}
           displayNoDataText="No contacts."
-          updateStyle={this.props.updateStyle}
+          updateStyle={updateStyle}
           onItemTap={this.onItemTap.bind(this)}
-          userBlockFetch={this.props.userBlockFetch}
-          userUnBlockFetch={this.props.userUnBlockFetch}
-          roomUserRemoveFetch={this.props.roomUserRemoveFetch}
+          userBlockFetch={userBlockFetch}
+          userUnBlockFetch={userUnBlockFetch}
+          roomUserRemoveFetch={roomUserRemoveFetch}
         />
 
         {(() => {
-          if (this.props.roomState.room!.type !== RoomType.ONE_ON_ONE && this.props.roomState.room!.isShowUsers && this.props.roomState.room!.type !== RoomType.NOTICE_ROOM) {
+          if (roomState.room!.type !== RoomType.ONE_ON_ONE && roomState.room!.isShowUsers && roomState.room!.type !== RoomType.NOTICE_ROOM) {
             return (
               <div className="layout-box-1">
-                <SubTitleBar title={this.props.settingState.roomMembersTitle} isDisplayBorder={false} />
+                <SubTitleBar title={settingState.roomMembersTitle} isDisplayBorder={false} />
                 {(() => {
                   let users = new Array;
-                  for (let i = 0; i < this.props.roomState.room!.users!.length; i++) {
-                    let user = this.props.roomState.room!.users![i];
+                  for (let i = 0; i < roomState.room!.users!.length; i++) {
+                    let user = roomState.room!.users![i];
                     if (user.isShowUsers) {
                       users.push(<SimpleListItem key={'simple-list-item-' + i} name={user.name} pictureUrl={user.pictureUrl} />);
                     }

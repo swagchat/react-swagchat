@@ -13,6 +13,7 @@ export interface IRoomListProps extends IOnClickProps {
   hasTabBar?: boolean;
   noRoomListText?: string;
   noRoomListImage?: string;
+  noAvatarImages: string[];
 }
 
 export class RoomList extends React.Component<IRoomListProps, void> {
@@ -27,7 +28,7 @@ export class RoomList extends React.Component<IRoomListProps, void> {
   }
 
   render(): JSX.Element {
-    const {myUserId, roomListItems, title, hasTopBar, hasTabBar, noRoomListText, noRoomListImage, userRooms} = this.props;
+    const {myUserId, roomListItems, title, hasTopBar, hasTabBar, noRoomListText, noRoomListImage, userRooms, noAvatarImages} = this.props;
     let style = Object.assign(
       {},
       hasTopBar ? {marginTop: '47px'} : {},
@@ -46,6 +47,7 @@ export class RoomList extends React.Component<IRoomListProps, void> {
                   roomListItems={roomListItems}
                   myUserId={myUserId}
                   userRoom={userRooms[i]}
+                  noAvatarImages={noAvatarImages}
                   onClick={this.onClick.bind(this)}
                   />
               );
