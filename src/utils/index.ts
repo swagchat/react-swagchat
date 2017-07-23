@@ -9,7 +9,7 @@ export function dateHumanize(ISO3339: string): string {
     return itemDate.getHours() + ':' + ('00' + itemDate.getMinutes()).slice(-2);
   } else {
     const dayList = ['日', '月', '火', '水', '木', '金', '土'];
-    return  dayList[new Date().getDay()];
+    return dayList[itemDate.getDay()];
   }
 }
 
