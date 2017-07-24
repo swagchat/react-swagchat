@@ -31,6 +31,7 @@ export interface ISelectContactPageProps extends RouteComponentProps<any> {
   selectContactTitle: string;
   noContactListText: string;
   noContactListImage: string;
+  roomListRoutePath: string;
   contactsFetchRequest: () => IContactsFetchRequestAction;
   updateSelectContacts: (contact: IUser) => IUpdateSelectContactsAction;
   clearSelectContacts: () => IClearSelectContactsAction;
@@ -48,7 +49,7 @@ class SelectContactPage extends React.Component<ISelectContactPageProps, void> {
 
   onCloseButton() {
     if (this.props.history) {
-      store.dispatch(push('/'));
+      store.dispatch(push(this.props.roomListRoutePath));
     }
   }
 
@@ -91,6 +92,7 @@ const mapStateToProps = (state: State) => {
       selectContactTitle: state.setting.selectContactTitle,
       noContactListText: state.setting.noContactListText,
       noContactListImage: state.setting.noContactListImage,
+      roomListRoutePath: state.setting.roomListRoutePath,
     };
   }
   return {};

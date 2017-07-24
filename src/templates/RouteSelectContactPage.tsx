@@ -10,6 +10,7 @@ import {
   setNoContactListImageActionCreator,
   setNoAvatarImagesActionCreator,
   setSelectContactRoutePathActionCreator,
+  setRoomListRoutePathActionCreator,
 } from '../actions/setting';
 import { IContext } from '../';
 import { store, routerHistory } from '../stores';
@@ -45,6 +46,7 @@ export class RouteSelectContactPage extends React.Component<any, void> {
     store.dispatch(setNoContactListImageActionCreator(props.route ? props.route.noContactListImage : props.noContactListImage));
     store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
     store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
+    store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
 
     store.dispatch(setUserAuthParamsActionCreator(
       apiKey,
@@ -80,6 +82,7 @@ export const renderSelectContact = (params: any) => {
       userAccessToken={params.userAccessToken}
       noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
       selectContactRoutePath={params.selectContactRoutePath}
+      roomListRoutePath={params.roomListRoutePath}
     />, document.getElementById(params.renderDomId)
   );
 };
