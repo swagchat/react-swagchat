@@ -27,6 +27,8 @@ export interface IRoomListPageProps extends RouteComponentProps<any> {
   noRoomListText: string;
   noRoomListImage: string;
   noAvatarImages: string[];
+  roomListRoutePath: string;
+  selectContactRoutePath: string;
 
   roomListTabbar: React.ComponentClass<any> | null;
 }
@@ -34,13 +36,13 @@ export interface IRoomListPageProps extends RouteComponentProps<any> {
 class RoomListPage extends React.Component<IRoomListPageProps, any> {
   onItemTap(room: IRoomForUser) {
     if (this.props.history) {
-      store.dispatch(push('/messages/' + room.roomId));
+      store.dispatch(push(this.props.roomListRoutePath + '/' + room.roomId));
     }
   }
 
   onCreateRoomButton() {
     if (this.props.history) {
-      store.dispatch(push('/selectContact'));
+      store.dispatch(push(this.props.selectContactRoutePath));
     }
   }
 
@@ -84,6 +86,8 @@ const mapStateToProps = (state: State) => {
       noRoomListText: state.setting.noRoomListText,
       noRoomListImage: state.setting.noRoomListImage,
       noAvatarImages: state.setting.noAvatarImages,
+      roomListRoutePath: state.setting.roomListRoutePath,
+      selectContactRoutePath: state.setting.selectContactRoutePath,
 
       roomListTabbar: state.setting.roomListTabbar,
     };
