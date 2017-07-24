@@ -66,7 +66,7 @@ export class RouteSelectContactPage extends React.Component<any, void> {
   }
 }
 
-export const renderRoomSetting = (params: any) => {
+export const renderSelectContact = (params: any) => {
   ReactDom.render(
     <RouteSelectContactPage
       selectContactTitle={params.selectContactTitle}

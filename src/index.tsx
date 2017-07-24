@@ -34,6 +34,8 @@ export {
   renderRoomList,
   RouteRoomSettingPage,
   renderRoomSetting,
+  RouteSelectContactPage,
+  renderSelectContact,
 } from './templates/';
 export {
   Avatar,
