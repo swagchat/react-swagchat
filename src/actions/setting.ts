@@ -11,6 +11,7 @@ export const SET_NO_MESSAGE_IMAGE = 'SET_NO_MESSAGE_IMAGE';
 export const SET_INPUT_MESSAGE_PLACEHOLDER_TEXT = 'SET_INPUT_MESSAGE_PLACEHOLDER_TEXT';
 export const SET_ROOM_SETTING_TITLE = 'SET_ROOM_SETTING_TITLE';
 export const SET_ROOM_MENBERS_TITLE = 'SET_ROOM_MENBERS_TITLE';
+export const SET_SELECT_CONTACT_TITLE = 'SET_SELECT_CONTACT_TITLE';
 export const SET_NO_CONTACT_LIST_TEXT = 'SET_NO_CONTACT_LIST_TEXT';
 export const SET_NO_CONTACT_LIST_IMAGE = 'SET_NO_CONTACT_LIST_IMAGE';
 export const SET_ROOM_LIST_ROUTE_PATH = 'SET_ROOM_LIST_ROUTE_PATH';
@@ -29,6 +30,7 @@ export type SettingActionTypes = typeof SET_SETTING
   | typeof SET_INPUT_MESSAGE_PLACEHOLDER_TEXT
   | typeof SET_ROOM_SETTING_TITLE
   | typeof SET_ROOM_MENBERS_TITLE
+  | typeof SET_SELECT_CONTACT_TITLE
   | typeof SET_NO_CONTACT_LIST_TEXT
   | typeof SET_NO_CONTACT_LIST_IMAGE
   | typeof SET_NO_AVATAR_IMAGES
@@ -128,6 +130,15 @@ export const setRoomMembersTitleActionCreator = (roomMembersTitle: string): ISet
   roomMembersTitle: roomMembersTitle,
 });
 
+export interface ISetSelectContactTitleAction extends Action {
+  type: SettingActionTypes;
+  selectContactTitle: string;
+}
+export const setSelectContactTitleActionCreator = (selectContactTitle: string): ISetSelectContactTitleAction => ({
+  type: SET_SELECT_CONTACT_TITLE,
+  selectContactTitle: selectContactTitle,
+});
+
 export interface ISetNoContactListTextAction extends Action {
   type: SettingActionTypes;
   noContactListText: string;
@@ -201,6 +212,7 @@ export type SettingActions = ISetSettingAction
   | ISetInputMessagePlaceholderTextAction
   | ISetRoomSettingTitleAction
   | ISetRoomMembersTitleAction
+  | ISetSelectContactTitleAction
   | ISetNoContactListTextAction
   | ISetNoContactListImageAction
   | ISetNoAvatarImagesAction

@@ -24,14 +24,14 @@ export class RouteRoomSettingPage extends React.Component<any, void> {
     let apiKey;
     let userId;
     let userAccessToken;
-    if (props.route.userId) {
+    if (props.route && props.route.userId) {
       apiKey = props.route.apiKey;
       userId = props.route.userId;
       userAccessToken = props.route.userAccessToken;
     } else if (props.userId) {
-      apiKey = props.route.apiKey;
-      userId = props.route.userId;
-      userAccessToken = props.route.userAccessToken;
+      apiKey = props.apiKey;
+      userId = props.userId;
+      userAccessToken = props.userAccessToken;
     } else {
       const scObj = getAuthInfoFromStorage();
       apiKey = scObj.apiKey;
@@ -57,7 +57,7 @@ export class RouteRoomSettingPage extends React.Component<any, void> {
     return (
       <Provider store={store}>
         <ConnectedRouter history={routerHistory}>
-          <Route exact path="" component={ContainerRoomSettingPage} />
+          <Route path={store.getState().setting.roomSettingRoutePath + '/:roomId'} component={ContainerRoomSettingPage} />
         </ConnectedRouter>
       </Provider>
     );

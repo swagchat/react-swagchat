@@ -5,27 +5,21 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import { setUserAuthParamsActionCreator } from '../actions/user';
 import {
-  setPluginMessageActionCreator,
-  setCustomPluginMessageActionCreator,
-} from '../actions/plugin';
-import {
-  setNoMessageTextActionCreator,
-  setNoMessageImageActionCreator,
-  setInputMessagePlaceholderTextActionCreator,
+  setSelectContactTitleActionCreator,
+  setNoContactListTextActionCreator,
+  setNoContactListImageActionCreator,
   setNoAvatarImagesActionCreator,
-  setMessageRoutePathActionCreator,
-  setRoomSettingRoutePathActionCreator,
+  setSelectContactRoutePathActionCreator,
+  setRoomListRoutePathActionCreator,
 } from '../actions/setting';
 import { IContext } from '../';
 import { store, routerHistory } from '../stores';
-import { ContainerMessagePage } from '../containers/';
 import {
-  PluginMessageText,
-  PluginMessageImage
-} from '../plugins/message';
+  ContainerSelectContactPage,
+} from '../containers/';
 import { getAuthInfoFromStorage } from '../utils';
 
-export class RouteMessagePage extends React.Component<any, void> {
+export class RouteSelectContactPage extends React.Component<any, void> {
   constructor(props: any, context: IContext) {
     super(props, context);
 
@@ -47,25 +41,12 @@ export class RouteMessagePage extends React.Component<any, void> {
       userAccessToken = scObj.userAccessToken;
     }
 
-    const scMessagePlugins = this.props.route && this.props.route.scMessagePlugins ? this.props.route.scMessagePlugins : [
-      new PluginMessageText(),
-      new PluginMessageImage(),
-    ];
-    store.dispatch(setPluginMessageActionCreator(scMessagePlugins));
-
-    const scCustomMessagePlugins = this.props.route && this.props.route.scMessagePlugins ? this.props.route.scMessagePlugins : [
-      new PluginMessageText(),
-      new PluginMessageImage(),
-      new PluginMessageImage(),
-    ];
-    store.dispatch(setCustomPluginMessageActionCreator(scCustomMessagePlugins));
-
-    store.dispatch(setNoMessageTextActionCreator(props.route ? props.route.noMessageText : props.noMessageText));
-    store.dispatch(setNoMessageImageActionCreator(props.route ? props.route.noMessageImage : props.noMessageImage));
-    store.dispatch(setInputMessagePlaceholderTextActionCreator(props.route ? props.route.inputMessagePlaceholderText : props.inputMessagePlaceholderText));
+    store.dispatch(setSelectContactTitleActionCreator(props.route ? props.route.selectContactTitle : props.selectContactTitle));
+    store.dispatch(setNoContactListTextActionCreator(props.route ? props.route.noContactListText : props.noContactListText));
+    store.dispatch(setNoContactListImageActionCreator(props.route ? props.route.noContactListImage : props.noContactListImage));
     store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
-    store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
-    store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
+    store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
+    store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
 
     store.dispatch(setUserAuthParamsActionCreator(
       apiKey,
@@ -80,19 +61,19 @@ export class RouteMessagePage extends React.Component<any, void> {
     return (
       <Provider store={store}>
         <ConnectedRouter history={routerHistory}>
-          <Route path={store.getState().setting.messageRoutePath + '/:roomId'} component={ContainerMessagePage} />
+          <Route path={store.getState().setting.selectContactRoutePath + '/:roomId'} component={ContainerSelectContactPage} />
         </ConnectedRouter>
       </Provider>
     );
   }
 }
 
-export const renderMessagePage = (params: any) => {
+export const renderSelectContact = (params: any) => {
   ReactDom.render(
-    <RouteMessagePage
-      noMessageText={params.noMessageText}
-      noMessageImage={params.noMessageImage}
-      inputMessagePlaceholderText={params.inputMessagePlaceholderText}
+    <RouteSelectContactPage
+      selectContactTitle={params.selectContactTitle}
+      noContactListText={params.noContactListText}
+      noContactListImage={params.noContactListImage}
       renderDomId={params.renderDomId}
       apiKey={params.apiKey}
       apiEndpoint={params.apiEndpoint}
@@ -100,8 +81,8 @@ export const renderMessagePage = (params: any) => {
       userId={params.userId}
       userAccessToken={params.userAccessToken}
       noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
-      messageRoutePath={params.messageRoutePath}
-      roomSettingRoutePath={params.roomSettingRoutePath}
+      selectContactRoutePath={params.selectContactRoutePath}
+      roomListRoutePath={params.roomListRoutePath}
     />, document.getElementById(params.renderDomId)
   );
 };

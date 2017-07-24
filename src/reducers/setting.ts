@@ -10,6 +10,7 @@ import {
   ISetInputMessagePlaceholderTextAction,
   ISetRoomSettingTitleAction,
   ISetRoomMembersTitleAction,
+  ISetSelectContactTitleAction,
   ISetNoContactListTextAction,
   ISetNoContactListImageAction,
   ISetNoAvatarImagesAction,
@@ -27,6 +28,7 @@ import {
   SET_INPUT_MESSAGE_PLACEHOLDER_TEXT,
   SET_ROOM_SETTING_TITLE,
   SET_ROOM_MENBERS_TITLE,
+  SET_SELECT_CONTACT_TITLE,
   SET_NO_CONTACT_LIST_TEXT,
   SET_NO_CONTACT_LIST_IMAGE,
   SET_NO_AVATAR_IMAGES,
@@ -48,6 +50,7 @@ const getInitialState = (): ISettingState => ({
   inputMessagePlaceholderText: '',
   roomSettingTitle: 'Settings',
   roomMembersTitle: 'Members',
+  selectContactTitle: 'Select Contacts',
   noContactListText: 'No contacts.',
   noContactListImage: '',
   noAvatarImages: [],
@@ -129,6 +132,14 @@ export function setting(state: ISettingState = getInitialState(), action: Settin
         state,
         {
           roomSettingTitle: (<ISetRoomSettingTitleAction>action).roomSettingTitle,
+        }
+      );
+    case SET_SELECT_CONTACT_TITLE:
+      return Object.assign(
+        {},
+        state,
+        {
+          selectContactTitle: (<ISetSelectContactTitleAction>action).selectContactTitle,
         }
       );
     case SET_NO_CONTACT_LIST_TEXT:
