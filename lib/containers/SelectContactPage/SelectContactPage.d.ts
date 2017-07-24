@@ -8,8 +8,10 @@ import { ICombinedCreateRoomAndMessagesFetchRequestAction } from '../../actions/
 export interface ISelectContactPageProps extends RouteComponentProps<any> {
     title: string;
     userState: IUserState;
+    selectContactTitle: string;
     noContactListText: string;
     noContactListImage: string;
+    roomListRoutePath: string;
     contactsFetchRequest: () => IContactsFetchRequestAction;
     updateSelectContacts: (contact: IUser) => IUpdateSelectContactsAction;
     clearSelectContacts: () => IClearSelectContactsAction;
