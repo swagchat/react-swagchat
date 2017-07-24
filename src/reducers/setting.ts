@@ -48,6 +48,7 @@ const getInitialState = (): ISettingState => ({
   inputMessagePlaceholderText: '',
   roomSettingTitle: 'Settings',
   roomMembersTitle: 'Members',
+  selectContactTitle: 'Select Contacts',
   noContactListText: 'No contacts.',
   noContactListImage: '',
   noAvatarImages: [],
