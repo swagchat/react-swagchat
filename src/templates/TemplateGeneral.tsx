@@ -18,6 +18,9 @@ import {
   setInputMessagePlaceholderTextActionCreator,
   setRoomSettingTitleActionCreator,
   setRoomMembersTitleActionCreator,
+  setSelectContactTitleActionCreator,
+  setNoContactListTextActionCreator,
+  setNoContactListImageActionCreator,
   setRoomListRoutePathActionCreator,
   setMessageRoutePathActionCreator,
   setRoomSettingRoutePathActionCreator,
@@ -64,6 +67,9 @@ export class TemplateGeneral extends React.Component<any, void> {
     store.dispatch(setRoomSettingTitleActionCreator(props.route ? props.route.roomSettingTitle : props.roomSettingTitle));
     store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
     store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
+    store.dispatch(setSelectContactTitleActionCreator(props.route ? props.route.selectContactTitle : props.selectContactTitle));
+    store.dispatch(setNoContactListTextActionCreator(props.route ? props.route.noContactListText : props.noContactListText));
+    store.dispatch(setNoContactListImageActionCreator(props.route ? props.route.noContactListImage : props.noContactListImage));
     store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
     store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
     store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
@@ -106,6 +112,9 @@ export const renderTemplateGeneral = (params: any) => {
       roomSettingTitle={params.roomSettingTitle ? params.roomSettingTitle : 'Room Settings'}
       roomMembersTitle={params.roomMembersTitle ? params.roomMembersTitle : 'Members'}
       noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
+      selectContactTitle={params.selectContactTitle ? params.selectContactTitle : 'Select Contacts'}
+      noContactListText={params.noContactListText ? params.noContactListText : 'No Contacts'}
+      noContactListImage={params.noContactListImage ? params.noContactListImage : ''}
       apiKey={params.apiKey ? params.apiKey : ''}
       apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
       realtimeEndpoint={params.realtimeEndpoint ? params.realtimeEndpoint : ''}
