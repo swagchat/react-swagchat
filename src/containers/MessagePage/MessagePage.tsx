@@ -118,7 +118,7 @@ export class MessagePage extends React.Component<IProps, void> {
 
   onRoomSetting() {
     if (this.props.history) {
-      store.dispatch(push('/roomSetting/' + this.props.roomState.room!.roomId));
+      store.dispatch(push(this.props.settingState.roomSettingRoutePath + '/' + this.props.roomState.room!.roomId));
     }
   }
 

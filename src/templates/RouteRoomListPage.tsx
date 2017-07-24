@@ -12,6 +12,8 @@ import {
   setRoomMembersTitleActionCreator,
   setNoAvatarImagesActionCreator,
   setRoomListRoutePathActionCreator,
+  setMessageRoutePathActionCreator,
+  setSelectContactRoutePathActionCreator,
 } from '../actions/setting';
 import { setUserAuthParamsActionCreator } from '../actions/user';
 import { IContext } from '../';
@@ -49,6 +51,8 @@ export class RouteRoomListPage extends React.Component<any, void> {
     store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
     store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
     store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
+    store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
+    store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
 
     store.dispatch(setUserAuthParamsActionCreator(
       apiKey,
@@ -86,6 +90,8 @@ export const renderRoomList = (params: any) => {
       userAccessToken={params.userAccessToken}
       noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
       roomListRoutePath={params.roomListRoutePath}
+      messageRoutePath={params.messageRoutePath}
+      selectContactRoutePath={params.selectContactRoutePath}
     />, document.getElementById(params.renderDomId)
   );
 };

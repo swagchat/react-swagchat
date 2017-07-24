@@ -14,6 +14,7 @@ import {
   setInputMessagePlaceholderTextActionCreator,
   setNoAvatarImagesActionCreator,
   setMessageRoutePathActionCreator,
+  setRoomSettingRoutePathActionCreator,
 } from '../actions/setting';
 import { IContext } from '../';
 import { store, routerHistory } from '../stores';
@@ -64,6 +65,7 @@ export class RouteMessagePage extends React.Component<any, void> {
     store.dispatch(setInputMessagePlaceholderTextActionCreator(props.route ? props.route.inputMessagePlaceholderText : props.inputMessagePlaceholderText));
     store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
     store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
+    store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
 
     store.dispatch(setUserAuthParamsActionCreator(
       apiKey,
@@ -99,6 +101,7 @@ export const renderMessagePage = (params: any) => {
       userAccessToken={params.userAccessToken}
       noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
       messageRoutePath={params.messageRoutePath}
+      roomSettingRoutePath={params.roomSettingRoutePath}
     />, document.getElementById(params.renderDomId)
   );
 };
