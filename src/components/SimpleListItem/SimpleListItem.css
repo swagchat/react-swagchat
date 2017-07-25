@@ -7,6 +7,8 @@
 
 .simple-list-item-wrap-flex1 {
   margin: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .simple-list-item-wrap-flex2 {

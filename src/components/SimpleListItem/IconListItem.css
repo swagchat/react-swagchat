@@ -11,15 +11,19 @@
 .icon-list-item-flex1 {
   width: 40px;
   margin: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .icon-list-item-flex2 {
   width: 100%;
   margin: 10px;
-  height: 48px;
-  line-height: 48px;
+  display: flex;
+  align-items: center;
 }
 
 .icon-list-item-flex3 {
   width: 50px;
+  display: flex;
+  align-items: center;
 }

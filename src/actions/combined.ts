@@ -7,6 +7,7 @@ export const COMBINED_USER_AND_ROOM_FETCH_REQUEST = 'COMBINED_USER_AND_ROOM_FETC
 export const COMBINED_ASSET_POST_AND_SEND_MESSAGE_REQUEST = 'COMBINED_ASSET_POST_AND_SEND_MESSAGE_REQUEST';
 export const COMBINED_UPDATE_MESSAGES = 'COMBINED_UPDATE_MESSAGES';
 export const COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST = 'COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST';
+export const COMBINED_ASSET_POST_AND_ROOM_UPDATE_REQUEST = 'COMBINED_ASSET_POST_AND_ROOM_UPDATE_REQUEST';
 
 export type CombinedActionTypes = typeof COMBINED_ROOM_AND_MESSAGES_FETCH_REQUEST
   | typeof COMBINED_USER_AND_ROOM_AND_MESSAGES_FETCH_REQUEST
@@ -14,6 +15,7 @@ export type CombinedActionTypes = typeof COMBINED_ROOM_AND_MESSAGES_FETCH_REQUES
   | typeof COMBINED_ASSET_POST_AND_SEND_MESSAGE_REQUEST
   | typeof COMBINED_UPDATE_MESSAGES
   | typeof COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST
+  | typeof COMBINED_ASSET_POST_AND_ROOM_UPDATE_REQUEST
 ;
 
 export interface ICombinedRoomAndMessagesFetchRequestAction extends Action {
@@ -90,10 +92,19 @@ export const combinedCreateRoomAndMessagesFetchRequestActionCreator = (room: IRo
   room: room,
 });
 
+export interface ICombinedAssetPostAndRoomUpdateRequestAction extends Action {
+  type: CombinedActionTypes;
+}
+export const combinedAssetPostAndRoomUpdateRequestActionCreator = (): ICombinedAssetPostAndRoomUpdateRequestAction => ({
+  type: COMBINED_ASSET_POST_AND_ROOM_UPDATE_REQUEST,
+});
+
+
 export type CombinedActions = ICombinedRoomAndMessagesFetchRequestAction
   | ICombinedUserAndRoomAndMessagesFetchRequestAction
   | ICombinedUserAndRoomFetchRequestAction
   | ICombinedAssetPostAndSendMessageRequestAction
   | ICombinedUpdateMessagesAction
   | ICombinedCreateRoomAndMessagesFetchRequestAction
+  | ICombinedAssetPostAndRoomUpdateRequestAction
 ;

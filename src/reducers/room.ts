@@ -7,12 +7,17 @@ import {
   IRoomUserAddFetchRequestFailureAction,
   IRoomUserRemoveFetchRequestSuccessAction,
   IRoomUserRemoveFetchRequestFailureAction,
+  IRoomUpdateNameAction,
+  IRoomUpdatePictureAction,
   ROOM_FETCH_REQUEST_SUCCESS,
   ROOM_FETCH_REQUEST_FAILURE,
   ROOM_USER_ADD_FETCH_REQUEST_SUCCESS,
   ROOM_USER_ADD_FETCH_REQUEST_FAILURE,
   ROOM_USER_REMOVE_FETCH_REQUEST_SUCCESS,
   ROOM_USER_REMOVE_FETCH_REQUEST_FAILURE,
+  ROOM_UPDATE_NAME,
+  ROOM_UPDATE_PICTURE,
+  ROOM_UPDATE_CLEAR,
   RoomActions,
 } from '../actions/room';
 
@@ -21,6 +26,8 @@ const getInitialState = (): IRoomState => ({
   room: null,
   problemDetail: null,
   roomUsers: null,
+  updateName: '',
+  updatePicture: null,
 });
 
 export function room(state: IRoomState = getInitialState(), action: RoomActions): IRoomState {
@@ -90,6 +97,31 @@ export function room(state: IRoomState = getInitialState(), action: RoomActions)
         state,
         {
           problemDetail: (<IRoomUserRemoveFetchRequestFailureAction>action).problemDetail,
+        }
+      );
+    case ROOM_UPDATE_NAME:
+      return Object.assign(
+        {},
+        state,
+        {
+          updateName: (<IRoomUpdateNameAction>action).updateName,
+        }
+      );
+    case ROOM_UPDATE_PICTURE:
+      return Object.assign(
+        {},
+        state,
+        {
+          updatePicture: (<IRoomUpdatePictureAction>action).updatePicture,
+        }
+      );
+    case ROOM_UPDATE_CLEAR:
+      return Object.assign(
+        {},
+        state,
+        {
+          updateName: '',
+          updatePicture: null,
         }
       );
     default:

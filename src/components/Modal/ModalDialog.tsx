@@ -3,6 +3,7 @@ import { IStyleState } from '../../stores/';
 
 export interface IModalAction {
   name: string;
+  type: string;
   onItemTap: any;
 }
 
@@ -77,7 +78,7 @@ export class ModalDialog extends React.Component<IModalProps, void> {
                 {(() => {
                   let actionItems = new Array;
                   for (let i = 0; i < actions.length; i++) {
-                    actionItems.push(<li key={'modal-dialog-action-item-' + i} onClick={actions[i].onItemTap}>{actions[i].name}</li>);
+                    actionItems.push(<li className={actions[i].type} key={'modal-dialog-action-item-' + i} onClick={actions[i].onItemTap}>{actions[i].name}</li>);
                   }
                   return actionItems;
                 })()}

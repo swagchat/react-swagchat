@@ -12,6 +12,7 @@ export interface IPhotoEditProps extends IOnClickProps {
   width?: number;
   height?: number;
   margin?: number;
+  onUpdatePhoto: (updatePictureUrl: Blob) => void;
 }
 
 export class PhotoEdit extends React.Component<IPhotoEditProps, void> {
@@ -33,6 +34,7 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, void> {
       };
     }.bind(this))(this.selectImage);
     reader.readAsDataURL(this.selectImage);
+    this.props.onUpdatePhoto(this.selectImage);
   }
 
   onPhoto = (e: any) => {

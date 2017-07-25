@@ -24,6 +24,7 @@ import {
   IRoomFetchRequestAction,
   roomFetchRequestSuccessActionCreator,
   roomFetchRequestFailureActionCreator,
+  roomUpdateClearActionCreator,
 } from '../actions/room';
 import {
   ICombinedAssetPostAndSendMessageRequestAction,
@@ -38,6 +39,7 @@ import {
   COMBINED_ASSET_POST_AND_SEND_MESSAGE_REQUEST,
   COMBINED_UPDATE_MESSAGES,
   COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST,
+  COMBINED_ASSET_POST_AND_ROOM_UPDATE_REQUEST,
 } from '../actions/combined';
 import {
   updateMessagesActionCreator,
@@ -259,6 +261,37 @@ function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetch
   }
 }
 
+function* assetPostAndRoomUpdate() {
+  const state: State = yield select();
+
+  let updateRoom: IRoom = {
+    name: state.room.updateName,
+  };
+
+  if (state.room.updatePicture) {
+    const postAssetRes: IPostAssetResponse = yield call((file: Blob) => {
+      return state.user.user!.fileUpload(file);
+    }, state.room.updatePicture);
+    if (postAssetRes.asset) {
+      yield put(assetPostRequestSuccessActionCreator(postAssetRes.asset));
+      if (postAssetRes.asset.sourceUrl) {
+        updateRoom.pictureUrl = postAssetRes.asset.sourceUrl;
+      }
+    } else {
+      yield put(assetPostRequestFailureActionCreator(postAssetRes.error!));
+    }
+  }
+  const fetchRoomRes: IFetchRoomResponse = yield call(() => {
+    return state.room.room!.update(updateRoom);
+  });
+  if (fetchRoomRes.room) {
+    yield put(roomFetchRequestSuccessActionCreator(fetchRoomRes.room));
+  } else {
+    yield put(roomFetchRequestFailureActionCreator(fetchRoomRes.error!));
+  }
+  yield put(roomUpdateClearActionCreator());
+}
+
 export function* combinedSaga(): IterableIterator<ForkEffect> {
   yield takeLatest(COMBINED_ROOM_AND_MESSAGES_FETCH_REQUEST, fetchRoomAndMessages);
   yield takeLatest(COMBINED_USER_AND_ROOM_AND_MESSAGES_FETCH_REQUEST, fetchUserAndRoomAndMessages);
@@ -266,4 +299,5 @@ export function* combinedSaga(): IterableIterator<ForkEffect> {
   yield takeLatest(COMBINED_ASSET_POST_AND_SEND_MESSAGE_REQUEST, assetPostAndSendMessage);
   yield takeLatest(COMBINED_UPDATE_MESSAGES, updateMessages);
   yield takeLatest(COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST, createRoomAndFetchMessages);
+  yield takeLatest(COMBINED_ASSET_POST_AND_ROOM_UPDATE_REQUEST, assetPostAndRoomUpdate);
 }

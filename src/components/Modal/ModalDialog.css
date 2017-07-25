@@ -9,19 +9,16 @@
   justify-content: center;
   align-items: center;
 }
-
 .modal-dialog-content-wrap {
   width: 90%;
   background: #fafafa;
-  border-radius: 5px;
+  border-radius: 20px;
 }
-
 .modal-dialog-content-description {
   text-align: center;
   color: #666;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
-
 .modal-dialog-content-action {
   list-style-type: none;
   text-align: center;
@@ -29,7 +26,6 @@
   padding: 0;
   color: #666;
 }
-
 .modal-dialog-content-action > li {
   border-top: 1px solid #eee;
   font-size: 1rem;
@@ -37,4 +33,17 @@
   font-weight: bold;
   height: 2rem;
   line-height: 2rem;
+  border-radius: 20px;
+  letter-spacing: 3px;
+  margin: 10px;
+  color: white;
+}
+.modal-dialog-content-action > li.positive {
+  /* background: linear-gradient(to top, #d05a82, #dd5e89); */
+  background: linear-gradient(0deg,#3a88d6,#427fbd);
+}
+.modal-dialog-content-action > li.negative {
+  background: linear-gradient(0deg,#ddd,#eee);
+  color: #333;
+  border: 1px solid #ddd;
 }

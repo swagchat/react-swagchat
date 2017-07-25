@@ -18,6 +18,7 @@ export {
   RadioButtonUnChecked,
   Photo,
   Edit,
+  Done,
 } from './components/icons/';
 export {
   ContainerRoomListPage,

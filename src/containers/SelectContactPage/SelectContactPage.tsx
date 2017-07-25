@@ -18,6 +18,7 @@ import {
   ContactList,
   Button,
   Close,
+  Done,
 } from '../../';
 import { IUserState } from '../../stores/user';
 import {
@@ -70,7 +71,7 @@ class SelectContactPage extends React.Component<ISelectContactPageProps, void> {
         <TopBar
           title={selectContactTitle}
           leftButton={<Button icon={<Close />} onClick={this.onCloseButton.bind(this)} />}
-          rightButton={<Button text="OK" onClick={this.onOkButton.bind(this)} />}
+          rightButton={<Button icon={<Done />} onClick={this.onOkButton.bind(this)} />}
         />
         <ContactList
           hasTopBar={true}

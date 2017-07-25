@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IStyleState } from '../../stores/';
-import { Button, Close } from '../../';
+import { Button, Close, Done } from '../../';
+
 interface IModalStyle {
   modalStyle: {
     [key: string]: {
@@ -15,6 +16,7 @@ export interface IModalProps {
   modalKey: string;
   styleState: IStyleState;
   updateStyle: (style: Object) => void;
+  onOkClick: () => void;
 }
 
 export class ModalView extends React.Component<IModalProps, void> {
@@ -54,10 +56,6 @@ export class ModalView extends React.Component<IModalProps, void> {
     e.stopPropagation();
   }
 
-  onOkTap() {
-
-  }
-
   render(): JSX.Element {
     const { title, component, styleState, modalKey} = this.props;
     const style: Object = styleState;
@@ -70,12 +68,12 @@ export class ModalView extends React.Component<IModalProps, void> {
       <div>
         {modalStyle && modalStyle[modalKey] && modalStyle[modalKey].isDisplay ? (
           <div className="modal-dialog-root" onClick={this.onCloseTap.bind(this)}>
-            <div className="modal-dialog-content-wrap" onClick={this.onWrapTap}>
+            <div className="modal-view-content-wrap" onClick={this.onWrapTap}>
               <div className="modal-view-root">
                 <div className="modal-view-header">
-                  <Button icon={<Close />} onClick={this.onCloseTap.bind(this)} />
-                  <div className="room-edit-title">{title}</div>
-                  <Button text="OK" onClick={this.onOkTap.bind(this)} />
+                  <Button icon={<Close className="modal-view-icon" />} onClick={this.onCloseTap.bind(this)} />
+                  <div className="modal-view-title">{title}</div>
+                  <Button icon={<Done className="modal-view-icon" />} onClick={this.props.onOkClick} />
                 </div>
                 {component}
               </div>
