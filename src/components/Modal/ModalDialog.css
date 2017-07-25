@@ -1,4 +1,4 @@
-.modal-root {
+.modal-dialog-root {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -10,19 +10,19 @@
   align-items: center;
 }
 
-.modal-content-wrap {
+.modal-dialog-content-wrap {
   width: 90%;
   background: #fafafa;
   border-radius: 5px;
 }
 
-.modal-content-description {
+.modal-dialog-content-description {
   text-align: center;
   color: #666;
   font-size: 1rem;
 }
 
-.modal-content-action {
+.modal-dialog-content-action {
   list-style-type: none;
   text-align: center;
   margin: 0;
@@ -30,7 +30,7 @@
   color: #666;
 }
 
-.modal-content-action > li {
+.modal-dialog-content-action > li {
   border-top: 1px solid #eee;
   font-size: 1rem;
   padding: 10px;

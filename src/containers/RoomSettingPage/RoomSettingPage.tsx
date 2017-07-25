@@ -50,12 +50,6 @@ export interface IRoomSettingPageProps extends RouteComponentProps<any> {
 }
 
 class RoomSettingPage extends React.Component<IRoomSettingPageProps, void> {
-  componentDidUpdate() {
-    if (this.props.history.action === 'POP' && !this.props.roomState.room) {
-      // store.dispatch(roomFetchRequestActionCreator(this.props.match.params.roomId));
-    }
-  }
-
   onItemTap(user: IUser) {
     console.log(user);
   }

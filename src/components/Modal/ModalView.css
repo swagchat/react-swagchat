@@ -1,0 +1,13 @@
+.modal-view-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.modal-view-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  --webkit-tap-highlight-color: transparent;
+  margin-bottom: 10px;
+}

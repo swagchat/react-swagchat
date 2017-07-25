@@ -1,4 +1,4 @@
-.room-setting-modal-item-root {
+.icon-list-item-root {
   margin-left: 0px;
   position: relative;
   text-decoration: none;
@@ -8,27 +8,18 @@
   justify-content: space-around;
 }
 
-.room-setting-modal-item-avatar {
-  position: absolute;
-}
-
-.room-setting-modal-item-subject {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.room-setting-modal-item-flex1 {
+.icon-list-item-flex1 {
   width: 40px;
   margin: 10px;
 }
 
-.room-setting-modal-item-flex2 {
+.icon-list-item-flex2 {
   width: 100%;
   margin: 10px;
   height: 48px;
   line-height: 48px;
 }
 
-.room-setting-modal-item-flex3 {
+.icon-list-item-flex3 {
   width: 50px;
 }

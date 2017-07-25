@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IOnClickProps } from '../../';
 const classNames = require('classnames');
 
-export interface IBackButtonProps extends IOnClickProps {
+export interface IAvatarProps extends IOnClickProps {
   src: string;
   className?: string;
   width?: number;
@@ -10,7 +10,7 @@ export interface IBackButtonProps extends IOnClickProps {
   margin?: number;
 }
 
-export class Avatar extends React.Component<IBackButtonProps, void> {
+export class Avatar extends React.Component<IAvatarProps, void> {
   render(): JSX.Element  {
     let style: {
       width?: string;

@@ -20,7 +20,7 @@ export class SimpleListItem extends React.Component<ISimpleListItemProps, void> 
         <div className="simple-list-item-wrap-flex1" style={{width: this.props.width + 'px'}}>
           <Avatar src={this.props.pictureUrl} width={this.props.width} height={this.props.height} />
         </div>
-        <div className="simple-list-item-wrap-flex2" style={{height: this.props.width + 'px', lineHeight: this.props.width + 'px'}}>
+        <div className="simple-list-item-wrap-flex2" style={{height: this.props.height + 'px'}}>
           <span>{this.props.name}</span>
         </div>
       </div>
