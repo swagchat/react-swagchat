@@ -61,6 +61,7 @@ export {
   MessageMenu,
   RoomSettingList,
   PhotoEdit,
+  RoomEdit,
 } from './components/';
 export {
   PluginMessageText,

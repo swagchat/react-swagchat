@@ -13,6 +13,7 @@ export const ROOM_USER_REMOVE_FETCH_REQUEST_SUCCESS = 'ROOM_USER_REMOVE_FETCH_RE
 export const ROOM_USER_REMOVE_FETCH_REQUEST_FAILURE = 'ROOM_USER_REMOVE_FETCH_REQUEST_FAILURE';
 export const ROOM_UPDATE_NAME = 'ROOM_UPDATE_NAME';
 export const ROOM_UPDATE_PICTURE = 'ROOM_UPDATE_PICTURE';
+export const ROOM_UPDATE_TYPE = 'ROOM_UPDATE_TYPE';
 export const ROOM_UPDATE_CLEAR = 'ROOM_UPDATE_CLEAR';
 
 export type RoomActionTypes = typeof ROOM_FETCH_REQUEST
@@ -28,6 +29,7 @@ export type RoomActionTypes = typeof ROOM_FETCH_REQUEST
   | typeof ROOM_UPDATE_NAME
   | typeof ROOM_UPDATE_PICTURE
   | typeof ROOM_UPDATE_CLEAR
+  | typeof ROOM_UPDATE_TYPE
 ;
 
 export interface IRoomFetchRequestAction extends Action {
@@ -138,6 +140,15 @@ export const roomUpdatePictureActionCreator = (updatePicture: Blob): IRoomUpdate
   updatePicture: updatePicture,
 });
 
+export interface IRoomUpdateTypeAction extends Action {
+  type: RoomActionTypes;
+  updateType: number;
+}
+export const roomUpdateTypeActionCreator = (updateType: number): IRoomUpdateTypeAction => ({
+  type: ROOM_UPDATE_TYPE,
+  updateType: updateType,
+});
+
 export interface IRoomUpdateClearAction extends Action {
   type: RoomActionTypes;
 }
@@ -157,4 +168,5 @@ export type RoomActions = IRoomFetchRequestAction
   | IRoomUpdateNameAction
   | IRoomUpdatePictureAction
   | IRoomUpdateClearAction
+  | IRoomUpdateTypeAction
 ;

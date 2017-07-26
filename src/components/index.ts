@@ -17,5 +17,5 @@ export { MessageItem } from './Message/MessageItem';
 export { MessageInteraction } from './Message/MessageInteraction';
 export { MessageBody } from './Message/MessageBody';
 export { IRoomSettingListProps, RoomSettingList } from './RoomSettingList/RoomSettingList';
-export { RoomEdit } from './RoomSettingList/RoomEdit';
+export { RoomEdit } from './RoomEdit/RoomEdit';
 export { PhotoEdit } from './PhotoEdit/PhotoEdit';

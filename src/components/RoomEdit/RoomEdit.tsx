@@ -34,6 +34,7 @@ export class RoomEdit extends React.Component<IRoomEditProps, void> {
           className="room-edit-input-text"
           ref={(child) => this.inputTextDom = child}
           type="text"
+          placeholder="グループ名を入力"
           onChange={this.onInputTextChange.bind(this)}
         />
       </div>

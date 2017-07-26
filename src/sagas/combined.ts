@@ -25,7 +25,10 @@ import {
   roomFetchRequestSuccessActionCreator,
   roomFetchRequestFailureActionCreator,
   roomUpdateClearActionCreator,
+  roomUpdateNameActionCreator,
+  roomUpdateTypeActionCreator,
 } from '../actions/room';
+import { updateStyleActionCreator } from '../actions/style';
 import {
   ICombinedAssetPostAndSendMessageRequestAction,
   ICombinedUserAndRoomAndMessagesFetchRequestAction,
@@ -40,6 +43,7 @@ import {
   COMBINED_UPDATE_MESSAGES,
   COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST,
   COMBINED_ASSET_POST_AND_ROOM_UPDATE_REQUEST,
+  COMBINED_ASSET_POST_AND_ROOM_CREATE_AND_MESSAGES_FETCH_REQUEST,
 } from '../actions/combined';
 import {
   updateMessagesActionCreator,
@@ -196,6 +200,7 @@ function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetch
   } else {
     action.room.type = RoomType.PRIVATE_ROOM;
   }
+  yield put(roomUpdateTypeActionCreator(action.room.type));
   action.room.userIds = selectContactUserIds;
 
   let existRoomId = '';
@@ -222,6 +227,18 @@ function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetch
       }
     }
     action.room.name = roomName;
+    yield put(roomUpdateNameActionCreator(roomName));
+  }
+
+  if (action.room.type !== RoomType.ONE_ON_ONE) {
+    yield put(updateStyleActionCreator({
+      modalStyle: {
+        roomCreate: {
+          isDisplay: true,
+        }
+      }
+    }));
+    return;
   }
 
   let fetchRoomRes: IFetchRoomResponse;
@@ -292,6 +309,62 @@ function* assetPostAndRoomUpdate() {
   yield put(roomUpdateClearActionCreator());
 }
 
+function* assetPostAndRoomCreateAndFetchMessages() {
+  const state: State = yield select();
+
+  let createRoom: IRoom = {
+    userId: state.user.userId,
+    name: state.room.updateName,
+    type: state.room.updateType,
+  };
+
+  if (state.user.selectContacts) {
+    createRoom.userIds = Object.keys(state.user.selectContacts);
+  }
+
+  if (state.room.updatePicture) {
+    const postAssetRes: IPostAssetResponse = yield call((file: Blob) => {
+      return state.user.user!.fileUpload(file);
+    }, state.room.updatePicture);
+    if (postAssetRes.asset) {
+      yield put(assetPostRequestSuccessActionCreator(postAssetRes.asset));
+      if (postAssetRes.asset.sourceUrl) {
+        createRoom.pictureUrl = postAssetRes.asset.sourceUrl;
+      }
+    } else {
+      yield put(assetPostRequestFailureActionCreator(postAssetRes.error!));
+    }
+  }
+  const fetchRoomRes: IFetchRoomResponse = yield call(() => {
+    return state.client.client!.createRoom(createRoom);
+  });
+  if (fetchRoomRes.room) {
+    yield put(roomFetchRequestSuccessActionCreator(fetchRoomRes.room));
+    yield put(beforeMessagesFetchActionActionCreator(fetchRoomRes.room.messageCount, 20));
+    const fetchMessageRes: IFetchMessagesResponse = yield call(() => {
+      return fetchRoomRes.room!.getMessages({
+        limit: 20,
+        offset: (fetchRoomRes.room!.messageCount - 20) < 0 ? 0 : fetchRoomRes.room!.messageCount - 20,
+      });
+    });
+    if (fetchMessageRes.messages) {
+      yield put(messagesFetchRequestSuccessActionCreator(fetchMessageRes.messages!));
+      yield put(markAsReadRequestActionCreator(fetchRoomRes.room.roomId));
+      Scroll.animateScroll.scrollToBottom({duration: 0});
+      store.dispatch(replace('/messages/' + fetchRoomRes.room.roomId));
+      fetchRoomRes.room.subscribeMessage((message: IMessage) => {
+        console.info('%c[ReactSwagChat]Receive message(push)', 'color:' + logColor);
+        store.dispatch(combinedUpdateMessagesActionCreator([message]));
+      });
+    } else {
+      yield put(messagesFetchRequestFailureActionCreator(fetchMessageRes.error!));
+    }
+  } else {
+    yield put(roomFetchRequestFailureActionCreator(fetchRoomRes.error!));
+  }
+  yield put(roomUpdateClearActionCreator());
+}
+
 export function* combinedSaga(): IterableIterator<ForkEffect> {
   yield takeLatest(COMBINED_ROOM_AND_MESSAGES_FETCH_REQUEST, fetchRoomAndMessages);
   yield takeLatest(COMBINED_USER_AND_ROOM_AND_MESSAGES_FETCH_REQUEST, fetchUserAndRoomAndMessages);
@@ -300,4 +373,5 @@ export function* combinedSaga(): IterableIterator<ForkEffect> {
   yield takeLatest(COMBINED_UPDATE_MESSAGES, updateMessages);
   yield takeLatest(COMBINED_CREATE_ROOM_AND_MESSAGES_FETCH_REQUEST, createRoomAndFetchMessages);
   yield takeLatest(COMBINED_ASSET_POST_AND_ROOM_UPDATE_REQUEST, assetPostAndRoomUpdate);
+  yield takeLatest(COMBINED_ASSET_POST_AND_ROOM_CREATE_AND_MESSAGES_FETCH_REQUEST, assetPostAndRoomCreateAndFetchMessages);
 }
