@@ -1,8 +1,8 @@
 .text-menu-root {
   margin: 0 10px;
+  height: 24px;
 }
 .text-menu-icon {
-  padding: 8px 10px;
   display: inline-block;
   color: #bdbdbd;
   fill: currentcolor;

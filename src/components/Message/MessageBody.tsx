@@ -69,29 +69,31 @@ export class MessageBody extends React.Component<IProps, void> {
           }
           return messageItems;
         })()}
-        <MessageInteraction
-          pluginState={pluginState}
-          currentMenuIndex={pluginState.currentMenuIndex}
-          styleState={styleState}
-          settingState={settingState}
-          userState={userState}
-          roomState={roomState}
-          createMessage={createMessage}
-          sendMessages={sendMessages}
-          updateStyle={updateStyle}
-          updateMenuIndex={updateMenuIndex}
-          assetPostAndSendMessage={assetPostAndSendMessage}
-          availableMessageTypes={roomState.room!.availableMessageTypes}
-          updateRoom={updateRoom}
-        />
-        <MessageMenu
-          pluginState={pluginState}
-          userState={userState}
-          roomState={roomState}
-          currentMenuIndex={pluginState.currentMenuIndex}
-          updateMenuIndex={updateMenuIndex}
-          availableMessageTypes={roomState.room!.availableMessageTypes}
-        />
+        <div className="message-body-menu">
+          <MessageMenu
+            pluginState={pluginState}
+            userState={userState}
+            roomState={roomState}
+            currentMenuIndex={pluginState.currentMenuIndex}
+            updateMenuIndex={updateMenuIndex}
+            availableMessageTypes={roomState.room!.availableMessageTypes}
+          />
+          <MessageInteraction
+            pluginState={pluginState}
+            currentMenuIndex={pluginState.currentMenuIndex}
+            styleState={styleState}
+            settingState={settingState}
+            userState={userState}
+            roomState={roomState}
+            createMessage={createMessage}
+            sendMessages={sendMessages}
+            updateStyle={updateStyle}
+            updateMenuIndex={updateMenuIndex}
+            assetPostAndSendMessage={assetPostAndSendMessage}
+            availableMessageTypes={roomState.room!.availableMessageTypes}
+            updateRoom={updateRoom}
+          />
+        </div>
       </div>
     );
   }

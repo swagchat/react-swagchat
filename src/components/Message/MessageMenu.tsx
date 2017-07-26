@@ -20,14 +20,14 @@ export class MessageMenu extends React.Component<IProps, void> {
       <div className="message-menu-root">
         {(() => {
           let availableMessageType: string;
-          let interactions = new Array;
+          let menus = new Array;
           if (this.props.availableMessageTypes && this.props.availableMessageTypes.length > 0) {
             for (let i = 0; i < this.props.availableMessageTypes.length; i++) {
               availableMessageType = this.props.availableMessageTypes[i];
               for (let j = 0; j < this.props.pluginState.customMessages.length; j++) {
                 let plugin = this.props.pluginState.customMessages[j];
-                  if (plugin.name === availableMessageType) {
-                    interactions.push(React.createElement(
+                  if (plugin.name === availableMessageType && plugin.name !== 'TextMenu') {
+                    menus.push(React.createElement(
                       this.props.pluginState.customMessages[this.props.currentMenuIndex].menu, {
                         key: 'plugin-message-interaction-' + i,
                         userState: this.props.userState,
@@ -42,19 +42,22 @@ export class MessageMenu extends React.Component<IProps, void> {
             }
           } else {
             for (let i = 0; i < this.props.pluginState.messages.length; i++) {
-              interactions.push(React.createElement(
-                this.props.pluginState.messages[i].menu, {
-                  key: 'plugin-message-interaction-' + i,
-                  userState: this.props.userState,
-                  roomState: this.props.roomState,
-                  ownMenuIndex: i,
-                  currentMenuIndex: this.props.currentMenuIndex,
-                  updateMenuIndex: this.props.updateMenuIndex,
-                }
-              ));
+              const pluginMenu = this.props.pluginState.messages[i].menu;
+              if (pluginMenu.name !== 'TextMenu') {
+                menus.push(React.createElement(
+                  pluginMenu, {
+                    key: 'plugin-message-interaction-' + i,
+                    userState: this.props.userState,
+                    roomState: this.props.roomState,
+                    ownMenuIndex: i,
+                    currentMenuIndex: this.props.currentMenuIndex,
+                    updateMenuIndex: this.props.updateMenuIndex,
+                  }
+                ));
+              }
             }
           }
-          return interactions;
+          return menus;
         })()}
       </div>
     );

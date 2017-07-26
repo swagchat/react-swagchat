@@ -1,17 +1,12 @@
 .text-interaction-root {
-  position: fixed;
-  z-index: 1101;
-  width: 100%;
   display: flex;
-  border-top: 1px solid #efefef;
-  background-color: #fafafa;
 }
-
 .text-interaction-textarea {
   font-weight: 100;
   position: relative;
   width: 100%;
-  border: none;
+  border: 1px solid #eee;
+  border-radius: 20px;
   outline: none;
   background-color: transparent;
   color: #666;
@@ -19,7 +14,6 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webklit-appearance: textfield;
 }
-
 .text-interaction-send-button {
   border: 10px;
   box-sizing: border-box;
@@ -29,7 +23,6 @@
   text-decoration: none;
   padding: 0px;
   outline: none;
-  position: fixed;
   color: #999;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   border-radius: 2px;
@@ -38,9 +31,10 @@
   background-color: transparent;
   text-align: center;
   right: 0px;
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
 }
-
 .text-interaction-send-icon {
   display: inline-block;
   color: #0084ff;
@@ -50,4 +44,6 @@
   vertical-align: middle;
   margin-left: 0px;
   margin-right: 0px;
+  width: 28px;
+  height: 28px;
 }
