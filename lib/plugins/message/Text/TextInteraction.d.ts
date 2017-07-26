@@ -5,12 +5,10 @@ export declare class TextInteraction extends React.Component<IPluginMessageInter
     private sendIconStyle;
     private fontSize;
     private padding;
-    private menuHeight;
     private textValue;
     private textareaDom;
     private newLineCount;
     private initialInteractionStyle;
-    constructor(props: IPluginMessageInteractionProps);
     componentDidMount(): void;
     private onChange(e);
     onClick(): void;

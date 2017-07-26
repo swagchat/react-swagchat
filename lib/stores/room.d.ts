@@ -8,5 +8,6 @@ export interface IRoomState {
     } | null;
     updateName: string;
     updatePicture: Blob | null;
+    updatePictureUrl: string;
     updateType: number;
 }

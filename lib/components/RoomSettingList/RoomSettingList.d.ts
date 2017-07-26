@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
-import { IUserState, IRoomState, IStyleState } from '../../stores/';
+import { IUserState, IRoomState, IStyleState, ISettingState } from '../../stores/';
 export interface IRoomSettingListProps {
     title?: string;
     desableMarginTop?: boolean;
@@ -9,6 +9,7 @@ export interface IRoomSettingListProps {
     userState: IUserState;
     roomState: IRoomState;
     styleState: IStyleState;
+    settingState: ISettingState;
     updateStyle: (style: Object) => void;
     userBlockFetch: (blockUserIds: string[]) => void;
     userUnBlockFetch: (blockUserIds: string[]) => void;

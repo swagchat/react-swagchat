@@ -76,8 +76,17 @@
   margin: 10px;
 }
 .message-body-root {
-  margin: 74px 0;
+  margin: 60px 0;
   min-width: 320px;
+}
+.message-body-menu {
+  position: fixed;
+  z-index: 1101;
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+  bottom: 0;
+  padding: 5px 0;
 }
 .message-date-separator-root {
   padding-top:10px;
@@ -106,12 +115,12 @@
   clear: both;
   margin-bottom: 30px;
 }
+.message-interaction-root {
+  flex: 1 1 0%;
+}
 .message-menu-root {
-  background-color: #fafafa;
-  position: fixed;
+  background-color: #fff;
   bottom: 0;
-  border-top: 1px solid #efefef;
-  width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
@@ -375,26 +384,19 @@
   line-height: 60px;
 }
 .image-interaction-root {
-  display: block;
-  position: fixed;
-  bottom: 40px;
-  width: 100%;
-  height: 140px;
-  background: rgba(0, 0, 0, 0.4);
-  text-align: center;
-  z-index: 10000;
 }
 .image-interaction-confirm-wrap {
   margin-top: 10px;
   height: 120px;
   display: block;
-  position: fixed;
-  bottom: 40px;
   width: 100%;
   height: 140px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
   text-align: center;
   z-index: 10000;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 .image-interaction-confirm-image {
   margin-top: 10px;
@@ -464,9 +466,9 @@
 }
 .image-menu-root {
   margin: 0 10px;
+  height: 24px;
 }
 .image-menu-icon {
-  padding: 8px 10px;
   display: inline-block;
   color: #bdbdbd;
   fill: currentcolor;
@@ -476,18 +478,14 @@
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }
 .text-interaction-root {
-  position: fixed;
-  z-index: 1101;
-  width: 100%;
   display: flex;
-  border-top: 1px solid #efefef;
-  background-color: #fafafa;
 }
 .text-interaction-textarea {
   font-weight: 100;
   position: relative;
   width: 100%;
-  border: none;
+  border: 1px solid #eee;
+  border-radius: 20px;
   outline: none;
   background-color: transparent;
   color: #666;
@@ -504,7 +502,6 @@
   text-decoration: none;
   padding: 0px;
   outline: none;
-  position: fixed;
   color: #999;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   border-radius: 2px;
@@ -513,7 +510,9 @@
   background-color: transparent;
   text-align: center;
   right: 0px;
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
 }
 .text-interaction-send-icon {
   display: inline-block;
@@ -524,6 +523,8 @@
   vertical-align: middle;
   margin-left: 0px;
   margin-right: 0px;
+  width: 28px;
+  height: 28px;
 }
 .text-item-avatar {
   border-radius: 50%;
@@ -585,9 +586,9 @@
 }
 .text-menu-root {
   margin: 0 10px;
+  height: 24px;
 }
 .text-menu-icon {
-  padding: 8px 10px;
   display: inline-block;
   color: #bdbdbd;
   fill: currentcolor;
