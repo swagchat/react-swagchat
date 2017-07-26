@@ -5,4 +5,7 @@ export interface IRoomState {
   room: Room | null;
   problemDetail: IProblemDetail | null;
   roomUsers: {[key: string]: IUserForRoom} | null;
+  updateName: string;
+  updatePicture: Blob | null;
+  updateType: number;
 }

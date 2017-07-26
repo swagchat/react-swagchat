@@ -31,8 +31,16 @@ import {
   userUnBlockFetchRequestActionCreator
 } from '../../actions/user';
 import {
+  combinedAssetPostAndRoomUpdateRequestActionCreator,
+  ICombinedAssetPostAndRoomUpdateRequestAction,
+} from '../../actions/combined';
+import {
   roomUserRemoveFetchRequestActionCreator,
+  roomUpdateNameActionCreator,
+  roomUpdatePictureActionCreator,
   IRoomUserRemoveFetchRequestAction,
+  IRoomUpdateNameAction,
+  IRoomUpdatePictureAction,
 } from '../../actions/room';
 import { opponentUser } from '../../utils';
 
@@ -47,21 +55,31 @@ export interface IRoomSettingPageProps extends RouteComponentProps<any> {
   userBlockFetch: (blockUserIds: string[]) => IUserBlockFetchRequestAction;
   userUnBlockFetch: (blockUserIds: string[]) => IUserUnBlockFetchRequestAction;
   roomUserRemoveFetch: (userIds: string[]) => IRoomUserRemoveFetchRequestAction;
+  roomUpdateName: (updateName: string) => IRoomUpdateNameAction;
+  roomUpdatePicture: (updatePicture: Blob) => IRoomUpdatePictureAction;
+  assetPostAndRoomUpdate: () => ICombinedAssetPostAndRoomUpdateRequestAction;
 }
 
 class RoomSettingPage extends React.Component<IRoomSettingPageProps, void> {
-  componentDidUpdate() {
-    if (this.props.history.action === 'POP' && !this.props.roomState.room) {
-      // store.dispatch(roomFetchRequestActionCreator(this.props.match.params.roomId));
-    }
-  }
-
   onItemTap(user: IUser) {
     console.log(user);
   }
 
   render(): JSX.Element  {
-    const { settingState, roomState, userState, history, styleState, updateStyle, userBlockFetch, userUnBlockFetch, roomUserRemoveFetch } = this.props;
+    const {
+      settingState,
+      roomState,
+      userState,
+      history,
+      styleState,
+      updateStyle,
+      userBlockFetch,
+      userUnBlockFetch,
+      roomUserRemoveFetch,
+      roomUpdateName,
+      roomUpdatePicture,
+      assetPostAndRoomUpdate,
+    } = this.props;
     if (!(roomState && roomState.room)) {
       return <div />;
     }
@@ -92,6 +110,9 @@ class RoomSettingPage extends React.Component<IRoomSettingPageProps, void> {
           userBlockFetch={userBlockFetch}
           userUnBlockFetch={userUnBlockFetch}
           roomUserRemoveFetch={roomUserRemoveFetch}
+          roomUpdateName={roomUpdateName}
+          roomUpdatePicture={roomUpdatePicture}
+          assetPostAndRoomUpdate={assetPostAndRoomUpdate}
         />
 
         {(() => {
@@ -140,6 +161,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IRoomSettingPageP
     userBlockFetch: (blockUserIds: string[]) => dispatch(userBlockFetchRequestActionCreator(blockUserIds)),
     userUnBlockFetch: (blockUserIds: string[]) => dispatch(userUnBlockFetchRequestActionCreator(blockUserIds)),
     roomUserRemoveFetch: (userIds: string[]) => dispatch(roomUserRemoveFetchRequestActionCreator(userIds)),
+    roomUpdateName: (updateName: string) => dispatch(roomUpdateNameActionCreator(updateName)),
+    roomUpdatePicture: (updatePicture: Blob) => dispatch(roomUpdatePictureActionCreator(updatePicture)),
+    assetPostAndRoomUpdate: () => dispatch(combinedAssetPostAndRoomUpdateRequestActionCreator()),
   };
 };
 

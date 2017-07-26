@@ -3,7 +3,6 @@ import {
 } from 'react-router-dom';
 import { Client, IUISettings } from 'swagchat-sdk';
 
-export { RoomSettingList, RoomSettingModalItem } from './components/RoomSettingList';
 export {
   AddCircle,
   Back,
@@ -17,6 +16,9 @@ export {
   Send,
   RadioButtonChecked,
   RadioButtonUnChecked,
+  Photo,
+  Edit,
+  Done,
 } from './components/icons/';
 export {
   ContainerRoomListPage,
@@ -40,11 +42,13 @@ export {
 export {
   Avatar,
   Badge,
-  Modal,
+  ModalView,
+  ModalDialog,
   IModalAction,
   TopBar,
   SubTitleBar,
   SimpleListItem,
+  IconListItem,
   RoomList,
   RoomItem,
   Button,
@@ -55,6 +59,9 @@ export {
   MessageInteraction,
   MessageItem,
   MessageMenu,
+  RoomSettingList,
+  PhotoEdit,
+  RoomEdit,
 } from './components/';
 export {
   PluginMessageText,

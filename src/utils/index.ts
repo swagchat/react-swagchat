@@ -45,6 +45,13 @@ export function opponentUser(users: IUserForRoom[] | IUserMini[], myUserId: stri
   return userForRooms;
 }
 
+export function randomAvatarUrl(avatars: string[]): string {
+  const min = 0;
+  const max = avatars.length - 1;
+  const randomIndex = Math.floor(Math.random() * (max + 1 - min) ) + min;
+  return avatars[randomIndex];
+}
+
 export interface IAuthInfo {
   apiKey: string;
   userId: string;

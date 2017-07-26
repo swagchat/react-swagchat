@@ -10,3 +10,6 @@ export { Camera } from './Camera';
 export { Send } from './Send';
 export { RadioButtonChecked } from './RadioButtonChecked';
 export { RadioButtonUnChecked } from './RadioButtonUnChecked';
+export { Photo } from './Photo';
+export { Edit } from './Edit';
+export { Done } from './Done';
