@@ -9,7 +9,7 @@ import { State, store } from '../../stores';
 import {
   TopBar,
   RoomList,
-  AddCircle,
+  CheckCircleOutline,
   Button,
 } from '../../';
 import { IPluginRoomListItem } from '../../plugins/roomListItem';
@@ -53,7 +53,7 @@ class RoomListPage extends React.Component<IRoomListPageProps, any> {
       <div>
         <TopBar
           title={roomListTitle}
-          rightButton={<Button icon={<AddCircle />} onClick={this.onCreateRoomButton.bind(this)} />}
+          rightButton={<Button icon={<CheckCircleOutline />} onClick={this.onCreateRoomButton.bind(this)} />}
         />
         <RoomList
           myUserId={userId}

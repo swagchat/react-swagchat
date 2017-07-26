@@ -44,7 +44,6 @@ import {
   roomUpdateNameActionCreator,
   IRoomUpdateNameAction,
 } from '../../actions/room';
-import { randomAvatarUrl } from '../../utils';
 
 export interface ISelectContactPageProps extends RouteComponentProps<any> {
   title: string;
@@ -96,7 +95,7 @@ class SelectContactPage extends React.Component<ISelectContactPageProps, void> {
   }
 
   render(): JSX.Element {
-    const { selectContactTitle, userState, roomState, styleState, settingState, noContactListText, noContactListImage, updateStyle, roomUpdateName, roomUpdatePicture } = this.props;
+    const { selectContactTitle, userState, roomState, styleState, noContactListText, noContactListImage, updateStyle, roomUpdateName, roomUpdatePicture } = this.props;
     return (
       <div>
         <TopBar
@@ -117,7 +116,7 @@ class SelectContactPage extends React.Component<ISelectContactPageProps, void> {
           component={
             <RoomEdit
               roomName={roomState.updateName}
-              roomPictureUrl={randomAvatarUrl(settingState.noAvatarImages)}
+              roomPictureUrl={roomState.updatePictureUrl}
               roomUpdateName={roomUpdateName}
               roomUpdatePicture={roomUpdatePicture}
             />

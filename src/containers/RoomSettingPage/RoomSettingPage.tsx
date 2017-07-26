@@ -104,6 +104,7 @@ class RoomSettingPage extends React.Component<IRoomSettingPageProps, void> {
           userState={userState}
           roomState={roomState}
           styleState={styleState}
+          settingState={settingState}
           displayNoDataText="No contacts."
           updateStyle={updateStyle}
           onItemTap={this.onItemTap.bind(this)}

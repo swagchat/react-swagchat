@@ -26,6 +26,7 @@ import {
   roomFetchRequestFailureActionCreator,
   roomUpdateClearActionCreator,
   roomUpdateNameActionCreator,
+  roomUpdatePictureUrlActionCreator,
   roomUpdateTypeActionCreator,
 } from '../actions/room';
 import { updateStyleActionCreator } from '../actions/style';
@@ -59,6 +60,7 @@ import {
 } from '../actions/asset';
 import { State, store } from '../stores';
 import { logColor } from '../';
+import { randomAvatarUrl } from '../utils';
 
 function* fetchRoomAndMessages(action: IRoomFetchRequestAction) {
   const state: State = yield select();
@@ -187,6 +189,7 @@ function* updateMessages(action: ICombinedUpdateMessagesAction) {
 
 function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetchRequestAction) {
   const state: State = yield select();
+
   const selectContactUserKeys = Object.keys(state.user.selectContacts);
   let selectContactUserIds = new Array();
   let selectContactUserNames = new Array();
@@ -228,6 +231,7 @@ function* createRoomAndFetchMessages(action: ICombinedCreateRoomAndMessagesFetch
     }
     action.room.name = roomName;
     yield put(roomUpdateNameActionCreator(roomName));
+    yield put(roomUpdatePictureUrlActionCreator(randomAvatarUrl(state.setting.noAvatarImages)));
   }
 
   if (action.room.type !== RoomType.ONE_ON_ONE) {
@@ -334,7 +338,10 @@ function* assetPostAndRoomCreateAndFetchMessages() {
     } else {
       yield put(assetPostRequestFailureActionCreator(postAssetRes.error!));
     }
+  } else if (state.room.updatePictureUrl) {
+    createRoom.pictureUrl = state.room.updatePictureUrl;
   }
+
   const fetchRoomRes: IFetchRoomResponse = yield call(() => {
     return state.client.client!.createRoom(createRoom);
   });

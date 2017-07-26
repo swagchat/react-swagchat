@@ -11,6 +11,7 @@ export {
   Exit,
   Expand,
   CheckCircle,
+  CheckCircleOutline,
   Keyboard,
   Camera,
   Send,

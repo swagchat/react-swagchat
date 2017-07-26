@@ -4,6 +4,7 @@ import {
   IUserState,
   IRoomState,
   IStyleState,
+  ISettingState,
 } from '../../stores/';
 import {
   Button,
@@ -26,6 +27,7 @@ export interface IRoomSettingListProps {
   userState: IUserState;
   roomState: IRoomState;
   styleState: IStyleState;
+  settingState: ISettingState;
   updateStyle: (style: Object) => void;
   userBlockFetch: (blockUserIds: string[]) => void;
   userUnBlockFetch: (blockUserIds: string[]) => void;
@@ -53,6 +55,7 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, void
         this.props.userBlockFetch([users[0].userId]);
       }
     }
+    this.modalViewTap('block', false);
   }
 
   onRoomEditOkClick = () => {
@@ -79,6 +82,7 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, void
       userState,
       roomState,
       styleState,
+      settingState,
       updateStyle,
       roomUpdateName,
       roomUpdatePicture,
@@ -136,7 +140,7 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, void
                       component={
                         <RoomEdit
                           roomName={roomState.room!.name}
-                          roomPictureUrl={roomState.room!.pictureUrl}
+                          roomPictureUrl={roomState.room!.pictureUrl ? roomState.room!.pictureUrl : settingState.noAvatarImages[0]}
                           roomUpdateName={roomUpdateName}
                           roomUpdatePicture={roomUpdatePicture}
                         />
@@ -147,13 +151,13 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, void
                       onOkClick={this.onRoomEditOkClick.bind(this)}
                     />
                     <IconListItem
-                      title="退会する"
+                      title="退出する"
                       leftIcon={<Button icon={<Exit />} />}
                       onClick={this.modalViewTap.bind(this, 'left', true)}
                     />
                     <ModalDialog
                       modalKey="left"
-                      description="退会しますか？"
+                      description="退出しますか？"
                       actions={leftActions}
                       styleState={styleState}
                       updateStyle={updateStyle}

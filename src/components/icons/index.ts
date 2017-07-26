@@ -13,3 +13,4 @@ export { RadioButtonUnChecked } from './RadioButtonUnChecked';
 export { Photo } from './Photo';
 export { Edit } from './Edit';
 export { Done } from './Done';
+export { CheckCircleOutline } from './CheckCircleOutline';
