@@ -13,11 +13,16 @@ export interface IRoomSettingListProps {
     userBlockFetch: (blockUserIds: string[]) => void;
     userUnBlockFetch: (blockUserIds: string[]) => void;
     roomUserRemoveFetch: (userIds: string[]) => void;
+    roomUpdateName: (updateName: string) => void;
+    roomUpdatePicture: (updatePicture: Blob) => void;
+    assetPostAndRoomUpdate: () => void;
     onItemTap?: Function;
 }
 export declare class RoomSettingList extends React.Component<IRoomSettingListProps, void> {
     static defaultProps: Partial<IRoomSettingListProps>;
-    onBlockItemTap(): void;
-    onLeftItemTap(): void;
+    onBlockItemTap: () => void;
+    onRoomEditOkClick: () => void;
+    onLeftItemTap: () => void;
+    modalViewTap: (modalKey: string, isDisplay: boolean) => void;
     render(): JSX.Element;
 }

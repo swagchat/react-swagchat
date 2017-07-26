@@ -5,7 +5,8 @@ import { IContactsFetchRequestAction } from '../../actions/user';
 import { IUserState, IRoomState, IStyleState, ISettingState } from '../../stores/';
 import { IUpdateStyleAction } from '../../actions/style';
 import { IUserBlockFetchRequestAction, IUserUnBlockFetchRequestAction } from '../../actions/user';
-import { IRoomUserRemoveFetchRequestAction } from '../../actions/room';
+import { ICombinedAssetPostAndRoomUpdateRequestAction } from '../../actions/combined';
+import { IRoomUserRemoveFetchRequestAction, IRoomUpdateNameAction, IRoomUpdatePictureAction } from '../../actions/room';
 export interface IRoomSettingPageProps extends RouteComponentProps<any> {
     title: string;
     userState: IUserState;
@@ -17,5 +18,8 @@ export interface IRoomSettingPageProps extends RouteComponentProps<any> {
     userBlockFetch: (blockUserIds: string[]) => IUserBlockFetchRequestAction;
     userUnBlockFetch: (blockUserIds: string[]) => IUserUnBlockFetchRequestAction;
     roomUserRemoveFetch: (userIds: string[]) => IRoomUserRemoveFetchRequestAction;
+    roomUpdateName: (updateName: string) => IRoomUpdateNameAction;
+    roomUpdatePicture: (updatePicture: Blob) => IRoomUpdatePictureAction;
+    assetPostAndRoomUpdate: () => ICombinedAssetPostAndRoomUpdateRequestAction;
 }
 export declare const ContainerRoomSettingPage: React.ComponentClass<IRoomSettingPageProps>;

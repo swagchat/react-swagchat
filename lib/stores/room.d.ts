@@ -6,4 +6,7 @@ export interface IRoomState {
     roomUsers: {
         [key: string]: IUserForRoom;
     } | null;
+    updateName: string;
+    updatePicture: Blob | null;
+    updateType: number;
 }
