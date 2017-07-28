@@ -8,13 +8,13 @@
 .room-edit-input-text {
   margin-bottom: 10px;
   width: 90%;
+  max-width: 400px;
   height: 2.5rem;
   font-size: 1rem;
   color: #666;
   text-align: center;
-  border-top-width: 0;
-  border-left-width: 0;
-  border-right-width: 0;
-  border-radius: 10px;
+  border: 1px solid #eee;
+  border-radius: 20px;
   padding: 0 10px;
+  -webkit-appearance:none;
 }

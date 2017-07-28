@@ -53,7 +53,6 @@ export class TemplateGeneral extends React.Component<any, void> {
     const scCustomMessagePlugins = this.props.route && this.props.route.scMessagePlugins ? this.props.route.scMessagePlugins : [
       new PluginMessageText(),
       new PluginMessageImage(),
-      new PluginMessageImage(),
     ];
     store.dispatch(setCustomPluginMessageActionCreator(scCustomMessagePlugins));
 
