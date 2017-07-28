@@ -28,6 +28,10 @@ import {
   ISettingState
 } from '../../stores';
 import {
+  IMessageBodyMenuStyle,
+  IPluginMessageTextInteractionStyle,
+} from '../../stores/style';
+import {
   IMarkAsReadRequestAction,
   markAsReadRequestActionCreator,
 } from  '../../actions/user';
@@ -45,7 +49,11 @@ import {
 } from '../../actions/plugin';
 import {
   IUpdateStyleAction,
+  IUpdateMessageBodyMenuStyleAction,
+  IUpdatePluginMessageTextInteractionStyleAction,
   updateStyleActionCreator,
+  updateMessageBodyMenuStyleActionCreator,
+  updatePluginMessageTextInteractionStyleActionCreator,
 } from '../../actions/style';
 import {
   IMessagesFetchRequestAction,
@@ -69,6 +77,8 @@ export interface IProps extends RouteComponentProps<any> {
   sendMessages: () => ISendMessagesAction;
   updateMenuIndex: (currentMenuIndex: number) => IPluginMessageUpdateMenuIndexAction;
   updateStyle: (style: Object) => IUpdateStyleAction;
+  updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => IUpdateMessageBodyMenuStyleAction;
+  updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => IUpdatePluginMessageTextInteractionStyleAction;
   assetPostAndSendMessage: (file: Blob) => ICombinedAssetPostAndSendMessageRequestAction;
   markAsRead: (roomId: string) => IMarkAsReadRequestAction;
   updateRoom: (putRoom: IRoom) => IRoomUpdateRequestAction;
@@ -83,9 +93,11 @@ export class MessagePage extends React.Component<IProps, void> {
       return;
     }
     this.props.messagesFetchRequest();
-    console.info('%c[ReactSwagChat]Loaded message count [' + Object.keys(this.props.messageState.messages).length + ']', 'color:' + logColor);
-    if (this.props.messageState.messagesAllCount <= Object.keys(this.props.messageState.messages).length) {
-      this.isReceiveMessagesFinished = true;
+    if (this.props.messageState.messages) {
+      console.info('%c[ReactSwagChat]Loaded message count [' + Object.keys(this.props.messageState.messages).length + ']', 'color:' + logColor);
+      if (this.props.messageState.messagesAllCount <= Object.keys(this.props.messageState.messages).length) {
+        this.isReceiveMessagesFinished = true;
+      }
     }
   }
 
@@ -135,6 +147,8 @@ export class MessagePage extends React.Component<IProps, void> {
       sendMessages,
       updateMenuIndex,
       updateStyle,
+      updateMessageModyMenuStyle,
+      updatePluginMessageTextInteractionStyle,
       assetPostAndSendMessage,
       markAsRead,
       updateRoom,
@@ -174,6 +188,8 @@ export class MessagePage extends React.Component<IProps, void> {
           sendMessages={sendMessages}
           updateMenuIndex={updateMenuIndex}
           updateStyle={updateStyle}
+          updateMessageModyMenuStyle={updateMessageModyMenuStyle}
+          updatePluginMessageTextInteractionStyle={updatePluginMessageTextInteractionStyle}
           settingState={settingState}
           assetPostAndSendMessage={assetPostAndSendMessage}
           markAsRead={markAsRead}
@@ -207,6 +223,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IProps) => {
     sendMessages: () => dispatch(sendMessagesActionCreator()),
     updateMenuIndex: (currentMenuIndex: number) => dispatch(pluginMessageUpdateMenuIndexActionCreator(currentMenuIndex)),
     updateStyle: (style: Object) => dispatch(updateStyleActionCreator(style)),
+    updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => dispatch(updateMessageBodyMenuStyleActionCreator(messageBodyMenuStyle)),
+    updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => dispatch(updatePluginMessageTextInteractionStyleActionCreator(pluginMessageTextInteractionStyle)),
     assetPostAndSendMessage: (file: Blob) => dispatch(combinedAssetPostAndSendMessageRequestActionCreator(file)),
     markAsRead: (roomId: string) => dispatch(markAsReadRequestActionCreator(roomId)),
     updateRoom: (putRoom: IRoom) => dispatch(roomUpdateRequestActionCreator(putRoom)),

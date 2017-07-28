@@ -15,6 +15,11 @@ import {
   IStyleState,
   ISettingState
 } from '../../stores/';
+import { isIphone } from '../../utils';
+import {
+  IMessageBodyMenuStyle,
+  IPluginMessageTextInteractionStyle,
+} from '../../stores/style';
 
 export interface IProps {
   pluginState: IPluginState;
@@ -27,14 +32,37 @@ export interface IProps {
   sendMessages: () => void;
   updateMenuIndex: (currentMenuIndex: number) => void;
   updateStyle: (style: Object) => void;
+  updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => void;
+  updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => void;
   assetPostAndSendMessage: (file: Blob) => void;
   markAsRead: (roomId: string) => void;
   updateRoom: (putRoom: IRoom) => void;
 }
 
 export class MessageBody extends React.Component<IProps, void> {
+  private initialInteractionStyle: IMessageBodyMenuStyle = {
+    paddingBottom: '5px',
+  };
+
+  componentDidMount() {
+    this.props.updateMessageModyMenuStyle(this.initialInteractionStyle);
+  }
+
+  onTextareaFocus() {
+    if (isIphone()) {
+      this.props.updateMessageModyMenuStyle({paddingBottom: '45px'});
+    }
+  }
+
+  onTextareaBlur() {
+    if (isIphone()) {
+      this.props.updateMessageModyMenuStyle(this.initialInteractionStyle);
+    }
+  }
+
   render(): JSX.Element  {
-    const { messageState, settingState, pluginState, roomState, userState, styleState, createMessage, sendMessages, updateStyle, updateMenuIndex, updateRoom, assetPostAndSendMessage} = this.props;
+    const { messageState, settingState, pluginState, roomState, userState, styleState, createMessage, sendMessages, updateStyle, updatePluginMessageTextInteractionStyle, updateMenuIndex, updateRoom, assetPostAndSendMessage} = this.props;
+
     return (
       <div className="message-body-root">
         {(() => {
@@ -69,7 +97,7 @@ export class MessageBody extends React.Component<IProps, void> {
           }
           return messageItems;
         })()}
-        <div className="message-body-menu">
+        <div className="message-body-menu" style={styleState.messageBodyMenuStyle}>
           <MessageMenu
             pluginState={pluginState}
             userState={userState}
@@ -85,9 +113,12 @@ export class MessageBody extends React.Component<IProps, void> {
             settingState={settingState}
             userState={userState}
             roomState={roomState}
+            onTextareaFocus={this.onTextareaFocus.bind(this)}
+            onTextareaBlur={this.onTextareaBlur.bind(this)}
             createMessage={createMessage}
             sendMessages={sendMessages}
             updateStyle={updateStyle}
+            updatePluginMessageTextInteractionStyle={updatePluginMessageTextInteractionStyle}
             updateMenuIndex={updateMenuIndex}
             assetPostAndSendMessage={assetPostAndSendMessage}
             availableMessageTypes={roomState.room!.availableMessageTypes}

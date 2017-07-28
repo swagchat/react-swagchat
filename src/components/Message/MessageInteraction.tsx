@@ -7,6 +7,7 @@ import {
   IUserState,
   IRoomState
 } from '../../stores/';
+import { IPluginMessageTextInteractionStyle } from '../../stores/style';
 
 export interface IMessageInteractionProps {
   pluginState: IPluginState;
@@ -16,9 +17,12 @@ export interface IMessageInteractionProps {
   userState: IUserState;
   roomState: IRoomState;
   availableMessageTypes: string[] | null;
+  onTextareaFocus: () => void;
+  onTextareaBlur: () => void;
   createMessage: (messageType: string, payload: Object) => void;
   sendMessages: () => void;
   updateStyle: (style: Object) => void;
+  updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => void;
   updateMenuIndex: (currentMenuIndex: number) => void;
   assetPostAndSendMessage: (file: Blob) => void;
   updateRoom: (putRoom: IRoom) => void;
@@ -33,15 +37,19 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
           let interaction = new Array;
           interaction.push(React.createElement(
             this.props.pluginState.customMessages[0].interaction, {
+              key: 'message-interaction' + this.props.pluginState.customMessages[0].interaction.name,
               ownInteractionIndex: this.props.currentMenuIndex,
               currentMenuIndex: this.props.currentMenuIndex,
               styleState: this.props.styleState,
               settingState: this.props.settingState,
               userState: this.props.userState,
               roomState: this.props.roomState,
+              onTextareaFocus: this.props.onTextareaFocus,
+              onTextareaBlur: this.props.onTextareaBlur,
               createMessage: this.props.createMessage,
               sendMessages: this.props.sendMessages,
               updateStyle: this.props.updateStyle,
+              updatePluginMessageTextInteractionStyle: this.props.updatePluginMessageTextInteractionStyle,
               updateMenuIndex: this.props.updateMenuIndex,
               assetPostAndSendMessage: this.props.assetPostAndSendMessage,
               updateRoom: this.props.updateRoom,
@@ -57,15 +65,19 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
                     if (pluginInteraction.name !== 'TextInteraction') {
                     interaction.push(React.createElement(
                       pluginInteraction, {
+                        key: 'message-interaction-' + j,
                         ownInteractionIndex: this.props.currentMenuIndex,
                         currentMenuIndex: this.props.currentMenuIndex,
                         styleState: this.props.styleState,
                         settingState: this.props.settingState,
                         userState: this.props.userState,
                         roomState: this.props.roomState,
+                        onTextareaFocus: this.props.onTextareaFocus,
+                        onTextareaBlur: this.props.onTextareaBlur,
                         createMessage: this.props.createMessage,
                         sendMessages: this.props.sendMessages,
                         updateStyle: this.props.updateStyle,
+                        updatePluginMessageTextInteractionStyle: this.props.updatePluginMessageTextInteractionStyle,
                         updateMenuIndex: this.props.updateMenuIndex,
                         assetPostAndSendMessage: this.props.assetPostAndSendMessage,
                         updateRoom: this.props.updateRoom,
@@ -80,15 +92,19 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
             if (pluginInteraction.name !== 'TextInteraction') {
               interaction.push(React.createElement(
                 pluginInteraction, {
+                  key: 'message-interaction-' + pluginInteraction.name,
                   ownInteractionIndex: this.props.currentMenuIndex,
                   currentMenuIndex: this.props.currentMenuIndex,
                   styleState: this.props.styleState,
                   settingState: this.props.settingState,
                   userState: this.props.userState,
                   roomState: this.props.roomState,
+                  onTextareaFocus: this.props.onTextareaFocus,
+                  onTextareaBlur: this.props.onTextareaBlur,
                   createMessage: this.props.createMessage,
                   sendMessages: this.props.sendMessages,
                   updateStyle: this.props.updateStyle,
+                  updatePluginMessageTextInteractionStyle: this.props.updatePluginMessageTextInteractionStyle,
                   updateMenuIndex: this.props.updateMenuIndex,
                   assetPostAndSendMessage: this.props.assetPostAndSendMessage,
                   updateRoom: this.props.updateRoom,
