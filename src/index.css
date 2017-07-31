@@ -4,21 +4,21 @@
 @import './plugins/**/**/*.css';
 
 body {
-  font-family: 'Slabo 13px', 'Rounded Mplus 1c', serif;
+  font-family: "San Francisco", Sans-Serif;
 }
 .nodata-wrap {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 500px;
+  margin-top: 150px;
 }
 .nodata-text {
-  opacity: 0.4;
+  opacity: 0.1;
 }
 .nodata-image {
   width: 80%;
-  opacity: 0.3;
-  position: fixed;
+  opacity: 0.05;
 }
 :placeholder-shown,
 ::-webkit-input-placeholder {

@@ -1,5 +1,6 @@
 .modal-view-content-wrap {
   width: 90%;
+  max-width:  400px;
 }
 .modal-view-root {
   display: flex;

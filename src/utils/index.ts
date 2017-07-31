@@ -79,3 +79,21 @@ export function getAuthInfoFromStorage(): IAuthInfo {
 
   return scObj;
 }
+
+export const isIphone = (): Boolean => {
+  const ua = 'iPhone';
+  return window.navigator.userAgent.indexOf(ua) > 0;
+};
+
+export const countString = (str: string): number => {
+  let r = 0;
+  for (let i = 0; i < str.length; ++i) {
+    let c = str.charCodeAt(i);
+    if (c >= 0x0 && c <= 0x7f) {
+      r += 1;
+    } else {
+      r += 2;
+    }
+  }
+  return r;
+};

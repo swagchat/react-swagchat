@@ -9,6 +9,7 @@ import {
   ISettingState,
   IUserState,
   IRoomState,
+  IPluginMessageTextInteractionStyle,
 } from '../../stores/';
 
 export interface IPluginMessageItemProps {
@@ -24,9 +25,12 @@ ownInteractionIndex: number;
   settingState: ISettingState;
   userState: IUserState;
   roomState: IRoomState;
+  onTextareaFocus: () => void;
+  onTextareaBlur: () => void;
   createMessage: (messageType: string, payload: Object) => void;
   sendMessages: () => void;
   updateStyle: (style: Object) => void;
+  updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => void;
   updateMenuIndex: (currentMenuIndex: number) => void;
   assetPostAndSendMessage: (file: Blob) => void;
   updateRoom: (putRoom: IRoom) => void;
