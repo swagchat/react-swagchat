@@ -14,6 +14,7 @@ export interface IPluginMessageInteractionProps {
     settingState: ISettingState;
     userState: IUserState;
     roomState: IRoomState;
+    position: string;
     onTextareaFocus: () => void;
     onTextareaBlur: () => void;
     createMessage: (messageType: string, payload: Object) => void;
@@ -37,6 +38,7 @@ export interface IPluginMessage {
     item: React.ComponentClass<IPluginMessageItemProps>;
     interaction: React.ComponentClass<IPluginMessageInteractionProps>;
     menu: React.ComponentClass<IPluginMessageMenuProps>;
+    position: string;
 }
 export { PluginMessageImage } from './Image';
 export { PluginMessageText } from './Text';

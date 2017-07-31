@@ -9,5 +9,8 @@ export declare class PluginMessageImage implements IPluginMessage {
     item: React.ComponentClass<IPluginMessageItemProps>;
     interaction: React.ComponentClass<IPluginMessageInteractionProps>;
     menu: React.ComponentClass<IPluginMessageMenuProps>;
+    position: string;
+    constructor();
+    constructor(position: string);
 }
 export { ImageItem, ImageInteraction, ImageMenu };
