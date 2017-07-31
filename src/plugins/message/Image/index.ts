@@ -14,6 +14,15 @@ export class PluginMessageImage implements IPluginMessage {
   item: React.ComponentClass<IPluginMessageItemProps> = ImageItem;
   interaction: React.ComponentClass<IPluginMessageInteractionProps> = ImageInteraction;
   menu: React.ComponentClass<IPluginMessageMenuProps> = ImageMenu;
+  position: string = 'BOTTOM';
+
+  constructor()
+  constructor(position: string)
+  constructor(position?: string) {
+    if (position) {
+      this.position = position;
+    }
+  }
 }
 
 export { ImageItem, ImageInteraction, ImageMenu };

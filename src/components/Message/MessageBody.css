@@ -1,5 +1,5 @@
 .message-body-root {
-  margin: 60px 0;
+  margin: 48px 0;
   min-width: 320px;
 }
 .message-body-menu {
@@ -10,4 +10,11 @@
   background-color: #fff;
   bottom: 0;
   padding: 5px 0;
+}
+.message-body-menu-top {
+  margin-bottom: 10px;
+  position: fixed;
+  z-index: 1101;
+  top: 48px;
+  width: 100%;
 }

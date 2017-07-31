@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IPluginMessageInteractionProps } from '../';
 import { Button, Close } from '../../../';
+
 interface IPluginMessageImageInteractionStyle {
   pluginMessageImageInteractionStyle: {
     display: string,
@@ -15,7 +16,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
   private initialInteractionStyle: IPluginMessageImageInteractionStyle = {
     pluginMessageImageInteractionStyle: {
       display: 'none',
-    }
+    },
   };
 
   componentDidMount() {
@@ -65,7 +66,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
 
     return (
       <div className="image-interaction-root" style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
-        <div className="image-interaction-confirm-wrap" style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
+        <div className={this.props.position === 'TOP' ? 'image-interaction-confirm-wrap-top' : 'image-interaction-confirm-wrap-bottom'} style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
           <Button
             icon={<Close style={{color: 'white'}} />}
             onClick={this.onConfirmClose.bind(this)}
