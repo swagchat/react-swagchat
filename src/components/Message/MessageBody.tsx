@@ -3,9 +3,11 @@ import { IRoom } from 'swagchat-sdk';
 import { dateFormateMMDD } from '../../utils';
 import {
   MessageDateSeparator,
-  MessageInteraction,
+  MessageInteractionBottom,
+  MessageInteractionTop,
   MessageItem,
-  MessageMenu,
+  MessageMenuBottom,
+  MessageMenuTop,
 } from '../../';
 import {
   IPluginState,
@@ -65,6 +67,35 @@ export class MessageBody extends React.Component<IProps, void> {
 
     return (
       <div className="message-body-root">
+        <div className="message-body-menu-top" style={styleState.messageBodyMenuStyle}>
+          <MessageMenuTop
+            pluginState={pluginState}
+            userState={userState}
+            roomState={roomState}
+            currentMenuIndex={pluginState.currentMenuIndex}
+            updateMenuIndex={updateMenuIndex}
+            availableMessageTypes={roomState.room!.availableMessageTypes}
+          />
+          <MessageInteractionTop
+            pluginState={pluginState}
+            currentMenuIndex={pluginState.currentMenuIndex}
+            styleState={styleState}
+            settingState={settingState}
+            userState={userState}
+            roomState={roomState}
+            onTextareaFocus={this.onTextareaFocus.bind(this)}
+            onTextareaBlur={this.onTextareaBlur.bind(this)}
+            createMessage={createMessage}
+            sendMessages={sendMessages}
+            updateStyle={updateStyle}
+            updatePluginMessageTextInteractionStyle={updatePluginMessageTextInteractionStyle}
+            updateMenuIndex={updateMenuIndex}
+            assetPostAndSendMessage={assetPostAndSendMessage}
+            availableMessageTypes={roomState.room!.availableMessageTypes}
+            updateRoom={updateRoom}
+          />
+        </div>
+
         {(() => {
           if (!(messageState.messages && Object.keys(messageState.messages).length > 0)) {
             return (
@@ -98,7 +129,7 @@ export class MessageBody extends React.Component<IProps, void> {
           return messageItems;
         })()}
         <div className="message-body-menu" style={styleState.messageBodyMenuStyle}>
-          <MessageMenu
+          <MessageMenuBottom
             pluginState={pluginState}
             userState={userState}
             roomState={roomState}
@@ -106,7 +137,7 @@ export class MessageBody extends React.Component<IProps, void> {
             updateMenuIndex={updateMenuIndex}
             availableMessageTypes={roomState.room!.availableMessageTypes}
           />
-          <MessageInteraction
+          <MessageInteractionBottom
             pluginState={pluginState}
             currentMenuIndex={pluginState.currentMenuIndex}
             styleState={styleState}

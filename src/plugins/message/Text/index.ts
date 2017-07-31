@@ -19,6 +19,15 @@ export class PluginMessageText implements IPluginMessage {
     }
   };
   menu: React.ComponentClass<IPluginMessageMenuProps> = TextMenu;
+  position: string = 'BOTTOM';
+
+  constructor()
+  constructor(position: string)
+  constructor(position?: string) {
+    if (position) {
+      this.position = position;
+    }
+  }
 }
 
 export { TextItem, TextInteraction, TextMenu };

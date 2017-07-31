@@ -5,7 +5,7 @@ import {
   IRoomState
 } from '../../stores/';
 
-export interface IProps {
+export interface IMessageMenuBottomProps {
   pluginState: IPluginState;
   userState: IUserState;
   roomState: IRoomState;
@@ -14,7 +14,7 @@ export interface IProps {
   availableMessageTypes: string[] | null;
 }
 
-export class MessageMenu extends React.Component<IProps, void> {
+export class MessageMenuBottom extends React.Component<IMessageMenuBottomProps, void> {
   render(): JSX.Element  {
     return (
       <div className="message-menu-root">
@@ -26,7 +26,7 @@ export class MessageMenu extends React.Component<IProps, void> {
               availableMessageType = this.props.availableMessageTypes[i];
               for (let j = 0; j < this.props.pluginState.customMessages.length; j++) {
                 let plugin = this.props.pluginState.customMessages[j];
-                  if (plugin.name === availableMessageType && plugin.name !== 'TextMenu') {
+                  if (plugin.name === availableMessageType && plugin.name !== 'TextMenu' && plugin.position === 'BOTTOM') {
                     menus.push(React.createElement(
                       this.props.pluginState.customMessages[this.props.currentMenuIndex].menu, {
                         key: 'plugin-message-interaction-' + i,
@@ -42,10 +42,10 @@ export class MessageMenu extends React.Component<IProps, void> {
             }
           } else {
             for (let i = 0; i < this.props.pluginState.messages.length; i++) {
-              const pluginMenu = this.props.pluginState.messages[i].menu;
-              if (pluginMenu.name !== 'TextMenu') {
+              const plugin = this.props.pluginState.messages[i];
+              if (plugin.menu.name !== 'TextMenu' && plugin.position === 'BOTTOM') {
                 menus.push(React.createElement(
-                  pluginMenu, {
+                  plugin.menu, {
                     key: 'plugin-message-interaction-' + i,
                     userState: this.props.userState,
                     roomState: this.props.roomState,

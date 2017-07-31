@@ -10,7 +10,7 @@
   margin-left: 70px;
   margin-bottom: 0;
   color: #212121;
-  font-weight: 100,
+  font-weight: 100;
 }
 .text-item-message-left {
   width: auto;
@@ -22,7 +22,7 @@
   border-radius: 15px;
   clear: both;
   float: left;
-  font-weight: 100,
+  word-wrap: break-word;
 }
 .text-item-message-right {
   width: auto;
@@ -37,7 +37,7 @@
   border-radius: 15px;
   clear: both;
   float: right;
-  font-weight: 100,
+  word-wrap: break-word;
 }
 .text-item-time-left {
   font-size: 0.6em;
