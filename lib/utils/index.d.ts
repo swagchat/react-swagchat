@@ -11,3 +11,5 @@ export interface IAuthInfo {
     userAccessToken: string;
 }
 export declare function getAuthInfoFromStorage(): IAuthInfo;
+export declare const isIphone: () => Boolean;
+export declare const countString: (str: string) => number;

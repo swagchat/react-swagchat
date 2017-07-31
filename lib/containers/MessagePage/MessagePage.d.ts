@@ -3,11 +3,12 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { IRoom } from 'swagchat-sdk';
 import { IClientState, IPluginState, IUserState, IRoomState, IMessageState, IStyleState, ISettingState } from '../../stores';
+import { IMessageBodyMenuStyle, IPluginMessageTextInteractionStyle } from '../../stores/style';
 import { IMarkAsReadRequestAction } from '../../actions/user';
 import { IRoomUpdateRequestAction } from '../../actions/room';
 import { ICombinedAssetPostAndSendMessageRequestAction } from '../../actions/combined';
 import { IPluginMessageUpdateMenuIndexAction } from '../../actions/plugin';
-import { IUpdateStyleAction } from '../../actions/style';
+import { IUpdateStyleAction, IUpdateMessageBodyMenuStyleAction, IUpdatePluginMessageTextInteractionStyleAction } from '../../actions/style';
 import { IMessagesFetchRequestAction, ISendMessagesAction, ICreateMessageAction } from '../../actions/message';
 export interface IProps extends RouteComponentProps<any> {
     pluginState: IPluginState;
@@ -22,6 +23,8 @@ export interface IProps extends RouteComponentProps<any> {
     sendMessages: () => ISendMessagesAction;
     updateMenuIndex: (currentMenuIndex: number) => IPluginMessageUpdateMenuIndexAction;
     updateStyle: (style: Object) => IUpdateStyleAction;
+    updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => IUpdateMessageBodyMenuStyleAction;
+    updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => IUpdatePluginMessageTextInteractionStyleAction;
     assetPostAndSendMessage: (file: Blob) => ICombinedAssetPostAndSendMessageRequestAction;
     markAsRead: (roomId: string) => IMarkAsReadRequestAction;
     updateRoom: (putRoom: IRoom) => IRoomUpdateRequestAction;

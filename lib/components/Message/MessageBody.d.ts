@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { IRoom } from 'swagchat-sdk';
 import { IPluginState, IUserState, IRoomState, IMessageState, IStyleState, ISettingState } from '../../stores/';
+import { IMessageBodyMenuStyle, IPluginMessageTextInteractionStyle } from '../../stores/style';
 export interface IProps {
     pluginState: IPluginState;
     userState: IUserState;
@@ -13,10 +14,16 @@ export interface IProps {
     sendMessages: () => void;
     updateMenuIndex: (currentMenuIndex: number) => void;
     updateStyle: (style: Object) => void;
+    updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => void;
+    updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => void;
     assetPostAndSendMessage: (file: Blob) => void;
     markAsRead: (roomId: string) => void;
     updateRoom: (putRoom: IRoom) => void;
 }
 export declare class MessageBody extends React.Component<IProps, void> {
+    private initialInteractionStyle;
+    componentDidMount(): void;
+    onTextareaFocus(): void;
+    onTextareaBlur(): void;
     render(): JSX.Element;
 }

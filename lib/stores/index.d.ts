@@ -4,7 +4,7 @@ export { IMessageState } from './message';
 export { IPluginState } from './plugin';
 export { IRoomState } from './room';
 export { ISettingState } from './setting';
-export { IStyleState } from './style';
+export { IStyleState, IMessageBodyMenuStyle, IPluginMessageTextInteractionStyle } from './style';
 export { IUserState } from './user';
 import { Store } from 'redux';
 import { SagaMiddleware } from 'redux-saga';
