@@ -7,7 +7,7 @@ import { userFetchRequestSuccessActionCreator, userFetchRequestFailureActionCrea
 import { setClientActionCreator } from '../actions/client';
 import { roomFetchRequestActionCreator } from '../actions/room';
 import { clearMessagesActionCreator } from '../actions/message';
-import { userAuthRequestActionCreator, contactsFetchRequestActionCreator } from '../actions/user';
+import { userFetchRequestActionCreator, contactsFetchRequestActionCreator } from '../actions/user';
 
 function* locationChange() {
   const state: State = yield select();
@@ -22,12 +22,10 @@ function* locationChange() {
   let roomSettingPathRegExp = state.setting.roomSettingRoutePath ? pathname.match(new RegExp('^' + state.setting.roomSettingRoutePath)) : null;
   let selectContactPathRegExp = state.setting.selectContactRoutePath ? pathname.match(new RegExp('^' + state.setting.selectContactRoutePath)) : null;
 
-  if (roomListPathRegExp) {
-    yield put(clearMessagesActionCreator());
-    yield put(userAuthRequestActionCreator());
-  }
-  if (messagePathRegExp || roomSettingPathRegExp) {
-    const res: IFetchUserResponse = yield call(() => {
+  let user = state.user.user;
+  let userRes: IFetchUserResponse;
+  if (!user) {
+    userRes = yield call(() => {
       return User.auth({
         apiKey: state.user.apiKey,
         apiEndpoint: state.user.apiEndpoint,
@@ -36,9 +34,21 @@ function* locationChange() {
         accessToken: state.user.accessToken,
       });
     });
-    if (res.user) {
-      yield put(setClientActionCreator(res.user._client));
-      yield put(userFetchRequestSuccessActionCreator(res.user));
+    if (userRes.user) {
+      user = userRes.user;
+      yield put(setClientActionCreator(user._client));
+    } else {
+      yield put(userFetchRequestFailureActionCreator(userRes.error!));
+      return;
+    }
+  }
+
+  if (roomListPathRegExp) {
+    yield put(clearMessagesActionCreator());
+    yield put(userFetchRequestActionCreator(user.userId));
+  } else if (messagePathRegExp || roomSettingPathRegExp) {
+    if (user) {
+      yield put(userFetchRequestSuccessActionCreator(user));
 
       let roomId;
       if (messagePathRegExp) {
@@ -53,11 +63,8 @@ function* locationChange() {
           yield put(roomFetchRequestActionCreator(roomId[1]));
         }
       }
-    } else {
-      yield put(userFetchRequestFailureActionCreator(res.error!));
     }
-  }
-  if (selectContactPathRegExp) {
+  } else if (selectContactPathRegExp) {
     yield put(contactsFetchRequestActionCreator());
   }
 }

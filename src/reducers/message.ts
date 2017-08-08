@@ -98,7 +98,7 @@ export function message(state: IMessageState = getInitialState(), action: Messag
     case MESSAGES_SEND_REQUEST_SUCCESS:
       const messagesSendAction = <IMessagesSendRequestSuccessAction>action;
       let tmpAddMessages: {[key: string]: IMessage} = {};
-      messagesSendAction.messages.forEach(message => {
+      messagesSendAction.messages.map((message: IMessage) => {
         tmpAddMessages[message.messageId!] = message;
       });
       let addMessages;
