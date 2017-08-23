@@ -29,18 +29,6 @@ export {
   ContainerSelectContactPage
 } from './containers/';
 export {
-  TemplateGeneral,
-  renderTemplateGeneral,
-  RouteMessagePage,
-  renderMessagePage,
-  RouteRoomListPage,
-  renderRoomList,
-  RouteRoomSettingPage,
-  renderRoomSetting,
-  RouteSelectContactPage,
-  renderSelectContact,
-} from './templates/';
-export {
   Avatar,
   Badge,
   ModalView,
@@ -88,8 +76,8 @@ export interface IIconProps {
 
 export const logColor = '#3F51B5';
 
-import { renderTemplateGeneral, renderRoomList, renderMessagePage, renderRoomSetting } from './templates/';
-(window as any).renderTemplateGeneral = renderTemplateGeneral;
+import { renderTemplateMessenger, renderRoomList, renderMessagePage, renderRoomSetting } from './templates/';
+(window as any).renderTemplateGeneral = renderTemplateMessenger;
 (window as any).renderRoomList = renderRoomList;
 (window as any).renderMessagePage = renderMessagePage;
 (window as any).renderRoomSetting = renderRoomSetting;

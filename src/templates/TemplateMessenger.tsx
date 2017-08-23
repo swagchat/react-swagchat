@@ -40,7 +40,7 @@ import {
   PluginMessageImage
 } from '../plugins/message';
 
-export class TemplateGeneral extends React.Component<any, void> {
+export class TemplateMessenger extends React.Component<any, void> {
   constructor(props: any, context: IContext) {
     super(props, context);
 
@@ -74,10 +74,21 @@ export class TemplateGeneral extends React.Component<any, void> {
     store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
     store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
 
+    let rtmEndpoint: string;
+    let rtmHost = props.route ? props.route.rtmHost : props.rtmHost;
+    if (rtmHost === '') {
+      rtmHost = location.host;
+    }
+    const rtmPath = props.route ? props.route.rtmPath : props.rtmPath;
+    if (props.route ? props.route.isRtmSecure : props.isRtmSecure) {
+      rtmEndpoint = 'wss://' + rtmHost + rtmPath;
+    } else {
+      rtmEndpoint = 'ws://' + rtmHost + rtmPath;
+    }
     store.dispatch(setUserAuthParamsActionCreator(
       props.route ? props.route.apiKey : props.apiKey,
       props.route ? props.route.apiEndpoint : props.apiEndpoint,
-      props.route ? props.route.realtimeEndpoint : props.realtimeEndpoint,
+      rtmEndpoint,
       props.route ? props.route.userId : props.userId,
       props.route ? props.route.userAccessToken : props.userAccessToken,
     ));
@@ -99,9 +110,9 @@ export class TemplateGeneral extends React.Component<any, void> {
   }
 }
 
-export const renderTemplateGeneral = (params: any) => {
+export const renderTemplateMessenger = (params: any) => {
   ReactDom.render(
-    <TemplateGeneral
+    <TemplateMessenger
       roomListTitle={params.roomListTitle ? params.roomListTitle : 'Room List'}
       noRoomListText={params.noRoomListText ? params.noRoomListText : 'No rooms.'}
       noRoomListImage={params.noRoomListImage ? params.noRoomListImage : ''}
@@ -116,7 +127,9 @@ export const renderTemplateGeneral = (params: any) => {
       noContactListImage={params.noContactListImage ? params.noContactListImage : ''}
       apiKey={params.apiKey ? params.apiKey : ''}
       apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
-      realtimeEndpoint={params.realtimeEndpoint ? params.realtimeEndpoint : ''}
+      rtmHost={params.rtmHost ? params.rtmHost : ''}
+      rtmPath={params.rtmPath ? params.rtmPath : ''}
+      isRtmSecure={params.isRtmSecure ? params.isRtmSecure : false}
       userId={params.userId ? params.userId : ''}
       userAccessToken={params.userAccessToken ? params.userAccessToken : ''}
       roomListRoutePath={params.roomListRoutePath ? params.roomListRoutePath : '/'}
