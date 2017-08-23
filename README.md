@@ -1,7 +1,7 @@
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![npm version](https://badge.fury.io/js/swagchat-sdk.svg)](https://badge.fury.io/js/react-swagchat)
 
-# SwagChat UIKit for React
+# swagchat UIKit for React
 
 SwagChat is an open source chat components for your webapps.
 
@@ -11,8 +11,8 @@ This is UIKit for React.
 
 ## Components
 
-* [RESTful API Server (Go)](http://github.com/fairway-corp/swagchat-api)
-* [Realtime Messaging (Go)](http://github.com/fairway-corp/swagchat-realtime)
+* [Chat API Server (Go)](http://github.com/fairway-corp/swagchat-chat-api)
+* [RTM API (Real Time Messaging) (Go)](http://github.com/fairway-corp/swagchat-rtm-api)
 * [Client SDK (TypeScript & JavaScript)](https://github.com/fairway-corp/swagchat-sdk)
 * **UIKit (Typescript - React) ---> This repository**
 
@@ -55,7 +55,9 @@ Using the `renderTemplateGeneral` function you can create the general chat UI (i
   <script>
     renderTemplateGeneral({
       apiEndpoint: 'http://localhost:9000/v0',
-      realtimeEndpoint: 'ws://localhost:9100/v0',
+      rtmProtocol: 'ws',
+      rtmHost: 'localhost:9100',
+      rtmPath: '/v0',
       userId: 'USER_ID',
     });
   </script>
