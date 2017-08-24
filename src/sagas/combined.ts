@@ -84,9 +84,6 @@ function* fetchRoomAndMessages(action: IRoomFetchRequestAction) {
       yield put(messagesFetchRequestFailureActionCreator(fetchMessageRes.error!));
     }
     subscribeMessage(fetchRoomRes);
-    state.client.client!.onClosed = () => {
-      subscribeMessage(fetchRoomRes);
-    };
   } else {
     yield put(roomFetchRequestFailureActionCreator(fetchRoomRes.error!));
   }
