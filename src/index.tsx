@@ -77,7 +77,7 @@ export interface IIconProps {
 export const logColor = '#3F51B5';
 
 import { renderTemplateMessenger, renderRoomList, renderMessagePage, renderRoomSetting } from './templates/';
-(window as any).renderTemplateGeneral = renderTemplateMessenger;
+(window as any).renderTemplateMessenger = renderTemplateMessenger;
 (window as any).renderRoomList = renderRoomList;
 (window as any).renderMessagePage = renderMessagePage;
 (window as any).renderRoomSetting = renderRoomSetting;
