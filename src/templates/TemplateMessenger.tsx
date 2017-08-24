@@ -81,7 +81,7 @@ export class TemplateMessenger extends React.Component<any, void> {
       rtmHost = location.host;
     }
     const rtmPath = props.route ? props.route.rtmPath : props.rtmPath;
-    rtmEndpoint = rtmProtocol + '://' + rtmHost + rtmPath;
+    rtmEndpoint = rtmProtocol + '://' + rtmHost + '/' + rtmPath;
 
     store.dispatch(setUserAuthParamsActionCreator(
       props.route ? props.route.apiKey : props.apiKey,
