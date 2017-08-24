@@ -3,7 +3,7 @@
 
 # swagchat UIKit for React
 
-SwagChat is an open source chat components for your webapps.
+swagchat is an open source chat components for your webapps.
 
 This is UIKit for React.
 
