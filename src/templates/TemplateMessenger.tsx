@@ -77,11 +77,12 @@ export class TemplateMessenger extends React.Component<any, void> {
     let rtmEndpoint = '';
     const rtmProtocol = props.route ? props.route.rtmProtocol : props.rtmProtocol;
     let rtmHost = props.route ? props.route.rtmHost : props.rtmHost;
-    if (rtmHost === '') {
-      rtmHost = location.host;
-    }
     const rtmPath = props.route ? props.route.rtmPath : props.rtmPath;
+
     if (!(rtmProtocol === '' && rtmHost === '' && rtmPath === '')) {
+      if (rtmHost === '') {
+        rtmHost = location.host;
+      }
       rtmEndpoint = rtmProtocol + '://' + rtmHost + '/' + rtmPath;
     }
 
