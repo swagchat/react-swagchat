@@ -83,11 +83,13 @@ function* fetchRoomAndMessages(action: IRoomFetchRequestAction) {
     } else {
       yield put(messagesFetchRequestFailureActionCreator(fetchMessageRes.error!));
     }
-    fetchRoomRes.room!.subscribeMessage((message: IMessage) => {
-      console.info('%c[ReactSwagChat]Receive message(push)', 'color:' + logColor);
-      store.dispatch(updateMessagesActionCreator([message]));
-      Scroll.animateScroll.scrollToBottom({duration: 300});
-    });
+    state.client.client!.onConnected = () => {
+      fetchRoomRes.room!.subscribeMessage((message: IMessage) => {
+        console.info('%c[ReactSwagChat]Receive message(push)', 'color:' + logColor);
+        store.dispatch(updateMessagesActionCreator([message]));
+        Scroll.animateScroll.scrollToBottom({duration: 300});
+      });
+    };
   } else {
     yield put(roomFetchRequestFailureActionCreator(fetchRoomRes.error!));
   }
