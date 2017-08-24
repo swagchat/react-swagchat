@@ -74,14 +74,16 @@ export class TemplateMessenger extends React.Component<any, void> {
     store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
     store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
 
-    let rtmEndpoint: string;
+    let rtmEndpoint = '';
     const rtmProtocol = props.route ? props.route.rtmProtocol : props.rtmProtocol;
     let rtmHost = props.route ? props.route.rtmHost : props.rtmHost;
     if (rtmHost === '') {
       rtmHost = location.host;
     }
     const rtmPath = props.route ? props.route.rtmPath : props.rtmPath;
-    rtmEndpoint = rtmProtocol + '://' + rtmHost + '/' + rtmPath;
+    if (!(rtmProtocol === '' && rtmHost === '' && rtmPath === '')) {
+      rtmEndpoint = rtmProtocol + '://' + rtmHost + '/' + rtmPath;
+    }
 
     store.dispatch(setUserAuthParamsActionCreator(
       props.route ? props.route.apiKey : props.apiKey,
@@ -125,7 +127,7 @@ export const renderTemplateMessenger = (params: any) => {
       noContactListImage={params.noContactListImage ? params.noContactListImage : ''}
       apiKey={params.apiKey ? params.apiKey : ''}
       apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
-      rtmProtocol={params.rtmProtocol ? params.rtmProtocol : 'ws'}
+      rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
       rtmHost={params.rtmHost ? params.rtmHost : ''}
       rtmPath={params.rtmPath ? params.rtmPath : ''}
       userId={params.userId ? params.userId : ''}
