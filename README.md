@@ -11,7 +11,7 @@ This is UIKit for React.
 
 ## Components
 
-* [Chat API Server (Go)](http://github.com/fairway-corp/swagchat-chat-api)
+* [Chat API (Go)](http://github.com/fairway-corp/swagchat-chat-api)
 * [RTM API (Real Time Messaging) (Go)](http://github.com/fairway-corp/swagchat-rtm-api)
 * [Client SDK (TypeScript & JavaScript)](https://github.com/fairway-corp/swagchat-sdk)
 * **UIKit (Typescript - React) ---> This repository**
