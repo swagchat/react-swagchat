@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { IOnClickProps, Avatar } from '../../';
+import { IOnClickProps } from '../../';
+import { Avatar } from '../../components';
 
 export interface ISimpleListItemProps extends IOnClickProps {
   name: string;

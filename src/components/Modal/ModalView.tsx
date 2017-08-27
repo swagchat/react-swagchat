@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IStyleState } from '../../stores/';
-import { Button, Close, Done } from '../../';
+import { Button, Close, Done } from '../../components';
 
 interface IModalStyle {
   modalStyle: {

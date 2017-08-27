@@ -8,14 +8,14 @@ import * as Scroll from 'react-scroll';
 import { throttle } from 'lodash';
 import { IRoom, RoomType } from 'swagchat-sdk';
 import { opponentUser } from '../../utils';
+import { logColor } from '../../';
 import {
   MessageBody,
   TopBar,
   Button,
   Back,
   Avatar,
-  logColor,
-} from '../../';
+} from '../../components';
 import {
   State,
   store,

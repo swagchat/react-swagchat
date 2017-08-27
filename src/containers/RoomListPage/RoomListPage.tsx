@@ -11,7 +11,7 @@ import {
   RoomList,
   CheckCircleOutline,
   Button,
-} from '../../';
+} from '../../components';
 import { IPluginRoomListItem } from '../../plugins/roomListItem';
 
 export interface IRoomListPageProps extends RouteComponentProps<any> {

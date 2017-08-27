@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { dateFormateHHMM } from '../../../utils';
 import { IPluginMessageItemProps } from '../';
-import { Avatar } from '../../../';
+import { Avatar } from '../../../components';
 
 export interface ITextPayload {
   text: string;

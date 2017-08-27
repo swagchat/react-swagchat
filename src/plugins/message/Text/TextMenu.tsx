@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {IPluginMessageMenuProps } from '../';
-import { Keyboard } from '../../../';
+import { Keyboard } from '../../../components';
 
 export class TextMenu extends React.Component<IPluginMessageMenuProps, void> {
   render(): JSX.Element {

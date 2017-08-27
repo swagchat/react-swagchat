@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IRoomForUser, RoomType } from 'swagchat-sdk';
 import { dateHumanize } from '../../../utils';
-import { Avatar, Badge } from '../../../';
+import { Avatar, Badge } from '../../../components';
 import { IPluginRoomListItemProps } from '../';
 import { opponentUser } from '../../../utils';
 

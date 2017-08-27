@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IPluginMessageInteractionProps } from '../';
-import { Button, Close } from '../../../';
+import { Button, Close } from '../../../components';
 
 interface IPluginMessageImageInteractionStyle {
   pluginMessageImageInteractionStyle: {

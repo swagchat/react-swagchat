@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { IRoomForUser } from 'swagchat-sdk';
 import { RoomItem } from './RoomItem';
-import { SubTitleBar, IOnClickProps } from '../../';
+import { SubTitleBar } from '../../components';
+import { IOnClickProps } from '../../';
 import { IPluginRoomListItem } from '../../plugins/roomListItem';
 
 export interface IRoomListProps extends IOnClickProps {

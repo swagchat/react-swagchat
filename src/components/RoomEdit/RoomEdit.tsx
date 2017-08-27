@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {
-  PhotoEdit,
-} from '../../';
+import { PhotoEdit } from '../../components';
 
 export interface IRoomEditProps {
   roomName: string;

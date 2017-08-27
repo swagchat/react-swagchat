@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { IOnClickProps } from '../../';
 import {
-  IOnClickProps,
   Photo,
   Button,
-} from '../../';
+} from '../../components';
+
 const classNames = require('classnames');
 
 export interface IPhotoEditProps extends IOnClickProps {

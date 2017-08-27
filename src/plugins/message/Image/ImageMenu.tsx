@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IPluginMessageMenuProps } from '../';
-import { Camera } from '../../../';
+import { Camera } from '../../../components';
 
 export class ImageMenu extends React.Component<IPluginMessageMenuProps, void> {
   render(): JSX.Element {

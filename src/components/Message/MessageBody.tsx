@@ -8,7 +8,7 @@ import {
   MessageItem,
   MessageMenuBottom,
   MessageMenuTop,
-} from '../../';
+} from '../../components';
 import {
   IPluginState,
   IUserState,

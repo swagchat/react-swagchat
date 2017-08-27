@@ -15,7 +15,7 @@ import {
   ModalView,
   ModalDialog,
   IconListItem,
-} from '../../';
+} from '../../components';
 import { RoomEdit } from '../../components';
 import { opponentUser } from '../../utils';
 

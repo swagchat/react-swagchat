@@ -12,7 +12,7 @@ import {
   SubTitleBar,
   Back,
   Button,
-} from '../../';
+} from '../../components';
 import {
   State,
   IUserState,

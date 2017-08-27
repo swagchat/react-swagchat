@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IPluginMessageInteractionProps } from '../';
-import { Button, Send } from '../../../';
+import { Button, Send } from '../../../components';
 import { IPluginMessageTextInteractionStyle } from '../../../stores/style';
 import { countString } from '../../../utils';
 

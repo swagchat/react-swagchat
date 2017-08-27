@@ -29,7 +29,7 @@ import {
   Done,
   ModalView,
   RoomEdit,
-} from '../../';
+} from '../../components';
 import { IUserState } from '../../stores/user';
 import { IRoomState } from '../../stores/room';
 import { IStyleState } from '../../stores/style';

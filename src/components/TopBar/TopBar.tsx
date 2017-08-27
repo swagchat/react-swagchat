@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar } from '../../';
+import { Avatar } from '../../components';
 
 export interface IProps {
   title: string;
