@@ -3,7 +3,7 @@ import * as ReactDom from 'react-dom';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import { setUserAuthParamsActionCreator } from '../actions/user';
+import { setUserAuthParamsActionCreator } from 'swagchat-sdk/src/actions/user';
 import {
   setSelectContactTitleActionCreator,
   setNoContactListTextActionCreator,
@@ -11,9 +11,9 @@ import {
   setNoAvatarImagesActionCreator,
   setSelectContactRoutePathActionCreator,
   setRoomListRoutePathActionCreator,
-} from '../actions/setting';
+} from 'swagchat-sdk/src/actions/setting';
 import { IContext } from '../';
-import { store, routerHistory } from '../stores';
+import { store, routerHistory } from 'swagchat-sdk/src/stores';
 import {
   ContainerSelectContactPage,
 } from '../containers/';

@@ -26,27 +26,27 @@ import {
   IMessageState,
   IStyleState,
   ISettingState
-} from '../../stores';
+} from 'swagchat-sdk/src/stores';
 import {
   IMessageBodyMenuStyle,
   IPluginMessageTextInteractionStyle,
-} from '../../stores/style';
+} from 'swagchat-sdk/src/stores/style';
 import {
   IMarkAsReadRequestAction,
   markAsReadRequestActionCreator,
-} from  '../../actions/user';
+} from  'swagchat-sdk/src/actions/user';
 import {
   IRoomUpdateRequestAction,
   roomUpdateRequestActionCreator,
-} from '../../actions/room';
+} from 'swagchat-sdk/src/actions/room';
 import {
   ICombinedAssetPostAndSendMessageRequestAction,
   combinedAssetPostAndSendMessageRequestActionCreator,
-} from '../../actions/combined';
+} from 'swagchat-sdk/src/actions/combined';
 import {
   pluginMessageUpdateMenuIndexActionCreator,
   IPluginMessageUpdateMenuIndexAction,
-} from '../../actions/plugin';
+} from 'swagchat-sdk/src/actions/plugin';
 import {
   IUpdateStyleAction,
   IUpdateMessageBodyMenuStyleAction,
@@ -54,7 +54,7 @@ import {
   updateStyleActionCreator,
   updateMessageBodyMenuStyleActionCreator,
   updatePluginMessageTextInteractionStyleActionCreator,
-} from '../../actions/style';
+} from 'swagchat-sdk/src/actions/style';
 import {
   IMessagesFetchRequestAction,
   ISendMessagesAction,
@@ -62,7 +62,7 @@ import {
   messagesFetchRequestActionCreator,
   createMessageActionCreator,
   sendMessagesActionCreator,
-} from '../../actions/message';
+} from 'swagchat-sdk/src/actions/message';
 
 export interface IProps extends RouteComponentProps<any> {
   pluginState: IPluginState;

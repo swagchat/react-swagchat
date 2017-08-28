@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPluginMessageMenuProps } from '../';
+import { IPluginMessageMenuProps } from 'swagchat-sdk/src/interface';
 import { Camera } from '../../../components';
 
 export class ImageMenu extends React.Component<IPluginMessageMenuProps, {}> {

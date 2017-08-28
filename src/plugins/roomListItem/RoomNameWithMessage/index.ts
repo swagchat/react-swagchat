@@ -1,7 +1,7 @@
 import {
   IPluginRoomListItem,
   IPluginRoomListItemProps,
-} from '../';
+} from 'swagchat-sdk/src/interface';
 import { RoomNameWithMessage } from './RoomNameWithMessage';
 
 export class PluginRoomListItemRoomNameWithMessage implements IPluginRoomListItem {

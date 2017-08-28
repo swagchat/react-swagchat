@@ -14,10 +14,10 @@ import {
   setRoomListRoutePathActionCreator,
   setMessageRoutePathActionCreator,
   setSelectContactRoutePathActionCreator,
-} from '../actions/setting';
-import { setUserAuthParamsActionCreator } from '../actions/user';
+} from 'swagchat-sdk/src/actions/setting';
+import { setUserAuthParamsActionCreator } from 'swagchat-sdk/src/actions/user';
 import { IContext } from '../';
-import { store, routerHistory } from '../stores';
+import { store, routerHistory } from 'swagchat-sdk/src/stores';
 import { ContainerRoomListPage } from '../containers/';
 import { getAuthInfoFromStorage } from '../utils';
 

@@ -16,12 +16,12 @@ import {
   IMessageState,
   IStyleState,
   ISettingState
-} from '../../stores/';
+} from 'swagchat-sdk/src/stores/';
 import { isIphone } from '../../utils';
 import {
   IMessageBodyMenuStyle,
   IPluginMessageTextInteractionStyle,
-} from '../../stores/style';
+} from 'swagchat-sdk/src/stores/style';
 
 export interface IProps {
   pluginState: IPluginState;

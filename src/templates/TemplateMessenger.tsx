@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import {
   setPluginMessageActionCreator,
   setCustomPluginMessageActionCreator,
-} from '../actions/plugin';
+  setPluginRoomListItemActionCreator,
+} from 'swagchat-sdk/src/actions/plugin';
 import {
   setRoomListTitleActionCreator,
   setRoomListTabbarActionCreator,
@@ -25,10 +26,10 @@ import {
   setMessageRoutePathActionCreator,
   setRoomSettingRoutePathActionCreator,
   setSelectContactRoutePathActionCreator,
-} from '../actions/setting';
-import { setUserAuthParamsActionCreator } from '../actions/user';
+} from 'swagchat-sdk/src/actions/setting';
+import { setUserAuthParamsActionCreator } from 'swagchat-sdk/src/actions/user';
 import { IContext } from '../';
-import { store, routerHistory } from '../stores';
+import { store, routerHistory } from 'swagchat-sdk/src/stores';
 import {
   ContainerRoomListPage,
   ContainerMessagePage,
@@ -39,6 +40,10 @@ import {
   PluginMessageText,
   PluginMessageImage
 } from '../plugins/message';
+import {
+  PluginRoomListItemRoomAndUserNameWithMessage,
+  PluginRoomListItemRoomNameWithMessage,
+} from '../plugins/roomListItem';
 
 export class TemplateMessenger extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {
@@ -55,6 +60,12 @@ export class TemplateMessenger extends React.Component<any, {}> {
       new PluginMessageImage(),
     ];
     store.dispatch(setCustomPluginMessageActionCreator(scCustomMessagePlugins));
+
+    const scRoomListItemPlugins = this.props.route && this.props.route.scRoomListItemPlugins ? this.props.route.scRoomListItemPlugins : {
+      1: new PluginRoomListItemRoomNameWithMessage(),
+      2: new PluginRoomListItemRoomAndUserNameWithMessage(),
+    };
+    store.dispatch(setPluginRoomListItemActionCreator(scRoomListItemPlugins));
 
     store.dispatch(setRoomListTitleActionCreator(props.route ? props.route.roomListTitle : props.roomListTitle));
     store.dispatch(setRoomListTabbarActionCreator(props.route ? props.route.tabbar : props.tabbar));

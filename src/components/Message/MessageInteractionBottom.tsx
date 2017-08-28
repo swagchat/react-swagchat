@@ -6,8 +6,8 @@ import {
   ISettingState,
   IUserState,
   IRoomState
-} from '../../stores/';
-import { IPluginMessageTextInteractionStyle } from '../../stores/style';
+} from 'swagchat-sdk/src/stores/';
+import { IPluginMessageTextInteractionStyle } from 'swagchat-sdk/src/stores/style';
 
 export interface IMessageInteractionProps {
   pluginState: IPluginState;

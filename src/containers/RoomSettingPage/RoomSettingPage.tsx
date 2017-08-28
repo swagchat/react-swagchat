@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { IUser, RoomType } from 'swagchat-sdk';
-import { contactsFetchRequestActionCreator, IContactsFetchRequestAction } from '../../actions/user';
+import { contactsFetchRequestActionCreator, IContactsFetchRequestAction } from 'swagchat-sdk/src/actions/user';
 import {
   TopBar,
   RoomSettingList,
@@ -19,21 +19,21 @@ import {
   IRoomState,
   IStyleState,
   ISettingState,
-} from '../../stores/';
+} from 'swagchat-sdk/src/stores/';
 import {
   IUpdateStyleAction,
   updateStyleActionCreator,
-} from '../../actions/style';
+} from 'swagchat-sdk/src/actions/style';
 import {
   IUserBlockFetchRequestAction,
   IUserUnBlockFetchRequestAction,
   userBlockFetchRequestActionCreator,
   userUnBlockFetchRequestActionCreator
-} from '../../actions/user';
+} from 'swagchat-sdk/src/actions/user';
 import {
   combinedAssetPostAndRoomUpdateRequestActionCreator,
   ICombinedAssetPostAndRoomUpdateRequestAction,
-} from '../../actions/combined';
+} from 'swagchat-sdk/src/actions/combined';
 import {
   roomUserRemoveFetchRequestActionCreator,
   roomUpdateNameActionCreator,
@@ -41,7 +41,7 @@ import {
   IRoomUserRemoveFetchRequestAction,
   IRoomUpdateNameAction,
   IRoomUpdatePictureAction,
-} from '../../actions/room';
+} from 'swagchat-sdk/src/actions/room';
 import { opponentUser } from '../../utils';
 
 export interface IRoomSettingPageProps extends RouteComponentProps<any> {

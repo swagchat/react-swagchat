@@ -3,12 +3,13 @@ import { IRoomForUser } from 'swagchat-sdk';
 import { RoomItem } from './RoomItem';
 import { SubTitleBar } from '../../components';
 import { IOnClickProps } from '../../';
-import { IPluginRoomListItem } from '../../plugins/roomListItem';
+import { IPluginRoomListItem } from 'swagchat-sdk/src/interface';
 
 export interface IRoomListProps extends IOnClickProps {
   myUserId: string;
   userRooms: IRoomForUser[];
   roomListItems: {[key: number]: IPluginRoomListItem};
+  customRoomListItems: {[key: number]: IPluginRoomListItem};
   title?: string;
   hasTopBar?: boolean;
   hasTabBar?: boolean;
@@ -29,7 +30,7 @@ export class RoomList extends React.Component<IRoomListProps, {}> {
   }
 
   render(): JSX.Element {
-    const {myUserId, roomListItems, title, hasTopBar, hasTabBar, noRoomListText, noRoomListImage, userRooms, noAvatarImages} = this.props;
+    const {myUserId, roomListItems, customRoomListItems, title, hasTopBar, hasTabBar, noRoomListText, noRoomListImage, userRooms, noAvatarImages} = this.props;
     let style = Object.assign(
       {},
       hasTopBar ? {marginTop: '47px'} : {},
@@ -46,6 +47,7 @@ export class RoomList extends React.Component<IRoomListProps, {}> {
                 <RoomItem
                   key={i}
                   roomListItems={roomListItems}
+                  customRoomListItems={customRoomListItems}
                   myUserId={myUserId}
                   userRoom={userRooms[i]}
                   noAvatarImages={noAvatarImages}

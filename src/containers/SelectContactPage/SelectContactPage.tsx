@@ -11,16 +11,16 @@ import {
   IContactsFetchRequestAction,
   IUpdateSelectContactsAction,
   IClearSelectContactsAction,
-} from '../../actions/user';
+} from 'swagchat-sdk/src/actions/user';
 import {
   IRoomUpdatePictureAction,
   roomUpdatePictureActionCreator,
-} from '../../actions/room';
+} from 'swagchat-sdk/src/actions/room';
 import {
   IUpdateStyleAction,
   updateStyleActionCreator,
-} from '../../actions/style';
-import { State, store } from '../../stores';
+} from 'swagchat-sdk/src/actions/style';
+import { State, store } from 'swagchat-sdk/src/stores';
 import {
   TopBar,
   ContactList,
@@ -30,20 +30,20 @@ import {
   ModalView,
   RoomEdit,
 } from '../../components';
-import { IUserState } from '../../stores/user';
-import { IRoomState } from '../../stores/room';
-import { IStyleState } from '../../stores/style';
-import { ISettingState } from '../../stores/setting';
+import { IUserState } from 'swagchat-sdk/src/stores/user';
+import { IRoomState } from 'swagchat-sdk/src/stores/room';
+import { IStyleState } from 'swagchat-sdk/src/stores/style';
+import { ISettingState } from 'swagchat-sdk/src/stores/setting';
 import {
   combinedCreateRoomAndMessagesFetchRequestActionCreator,
   combinedAssetPostAndRoomCreateAndMessageFetchRequestActionCreator,
   ICombinedCreateRoomAndMessagesFetchRequestAction,
   ICombinedAssetPostAndRoomCreatAndMessageFetchRequestAction,
-} from '../../actions/combined';
+} from 'swagchat-sdk/src/actions/combined';
 import {
   roomUpdateNameActionCreator,
   IRoomUpdateNameAction,
-} from '../../actions/room';
+} from 'swagchat-sdk/src/actions/room';
 
 export interface ISelectContactPageProps extends RouteComponentProps<any> {
   title: string;

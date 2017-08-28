@@ -3,7 +3,7 @@ import {
   IPluginState,
   IUserState,
   IRoomState
-} from '../../stores/';
+} from 'swagchat-sdk/src/stores/';
 
 export interface IMessageMenuBottomProps {
   pluginState: IPluginState;

@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { IRoomForUser } from 'swagchat-sdk';
-import { IPluginRoomListItem } from '../../plugins/roomListItem';
+import { IPluginRoomListItem } from 'swagchat-sdk/src/interface';
 
 export interface IRoomItemProps {
   myUserId: string;
   roomListItems: {[key: number]: IPluginRoomListItem};
+  customRoomListItems?: {[key: number]: IPluginRoomListItem};
   userRoom: IRoomForUser;
   noAvatarImages: string[];
   onClick?: Function;
-  customRoomListItems?: {[key: number]: IPluginRoomListItem};
 }
 
 export class RoomItem extends React.Component<IRoomItemProps, {}> {
   render(): JSX.Element {
     const {myUserId, roomListItems, userRoom, onClick, customRoomListItems, noAvatarImages} = this.props;
+
     return (
       <div>
         {(() => {

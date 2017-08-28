@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {
   IRoom,
   IUserForRoom,
@@ -10,7 +9,7 @@ import {
   IUserState,
   IRoomState,
   IPluginMessageTextInteractionStyle,
-} from '../../stores/';
+} from 'swagchat-sdk/src/stores/';
 
 export interface IPluginMessageItemProps {
   message: IMessage;
@@ -35,23 +34,6 @@ ownInteractionIndex: number;
   updateMenuIndex: (currentMenuIndex: number) => void;
   assetPostAndSendMessage: (file: Blob) => void;
   updateRoom: (putRoom: IRoom) => void;
-}
-
-export interface IPluginMessageMenuProps {
-  userState: IUserState;
-  roomState: IRoomState;
-  ownMenuIndex: number;
-  currentMenuIndex: number;
-  updateMenuIndex: (currentMenuIndex: number) => void;
-}
-
-export interface IPluginMessage {
-  name: string;
-  messageListMarginBottom: number;
-  item: React.ComponentClass<IPluginMessageItemProps>;
-  interaction: React.ComponentClass<IPluginMessageInteractionProps>;
-  menu: React.ComponentClass<IPluginMessageMenuProps>;
-  position: string;
 }
 
 export { PluginMessageImage } from './Image';

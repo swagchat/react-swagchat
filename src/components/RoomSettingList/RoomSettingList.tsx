@@ -5,7 +5,7 @@ import {
   IRoomState,
   IStyleState,
   ISettingState,
-} from '../../stores/';
+} from 'swagchat-sdk/src/stores/';
 import {
   Button,
   Block,

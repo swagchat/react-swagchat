@@ -5,14 +5,14 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { IRoomForUser } from 'swagchat-sdk';
 import { push } from 'react-router-redux';
-import { State, store } from '../../stores';
+import { State, store } from 'swagchat-sdk/src/stores';
 import {
   TopBar,
   RoomList,
   CheckCircleOutline,
   Button,
 } from '../../components';
-import { IPluginRoomListItem } from '../../plugins/roomListItem';
+import { IPluginRoomListItem } from 'swagchat-sdk/src/interface';
 
 export interface IRoomListPageProps extends RouteComponentProps<any> {
   apiKey: string;
@@ -24,6 +24,7 @@ export interface IRoomListPageProps extends RouteComponentProps<any> {
   userId: string;
   userRooms: IRoomForUser[];
   roomListItems: {[key: number]: IPluginRoomListItem};
+  customRoomListItems: {[key: number]: IPluginRoomListItem};
   noRoomListText: string;
   noRoomListImage: string;
   noAvatarImages: string[];
@@ -48,7 +49,7 @@ class RoomListPage extends React.Component<IRoomListPageProps, any> {
   }
 
   render(): JSX.Element  {
-    const {roomListTitle, userId, userRooms, roomListItems, roomListTabbar, noRoomListText, noRoomListImage, noAvatarImages} = this.props;
+    const {roomListTitle, userId, userRooms, roomListItems, customRoomListItems, roomListTabbar, noRoomListText, noRoomListImage, noAvatarImages} = this.props;
     return (
       <div>
         <TopBar
@@ -59,6 +60,7 @@ class RoomListPage extends React.Component<IRoomListPageProps, any> {
           myUserId={userId}
           userRooms={userRooms}
           roomListItems={roomListItems}
+          customRoomListItems={customRoomListItems}
           hasTopBar={true}
           hasTabBar={roomListTabbar ? true : false}
           noRoomListText={noRoomListText}
@@ -84,6 +86,7 @@ const mapStateToProps = (state: State) => {
       userId: state.user.user!.userId,
       userRooms: state.user.userRooms,
       roomListItems: state.plugin.roomListItems,
+      customRoomListItems: state.plugin.customRoomListItems,
       noRoomListText: state.setting.noRoomListText,
       noRoomListImage: state.setting.noRoomListImage,
       noAvatarImages: state.setting.noAvatarImages,

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IRoomForUser } from 'swagchat-sdk';
 import { dateHumanize } from '../../../utils';
 import { Avatar, Badge } from '../../../components';
-import { IPluginRoomListItemProps } from '../';
+import { IPluginRoomListItemProps } from 'swagchat-sdk/src/interface';
 import { opponentUser } from '../../../utils';
 
 export class RoomAndUserNameWithMessage extends React.Component<IPluginRoomListItemProps, {}> {
