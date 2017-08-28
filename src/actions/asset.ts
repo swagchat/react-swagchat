@@ -10,8 +10,11 @@ export type AssetActionTypes = typeof ASSET_POST_REQUEST
   | typeof ASSET_POST_REQUEST_FAILURE
 ;
 
-export interface IAssetPostRequestAction extends Action {
+export interface IAssetBaseAction extends Action {
   type: AssetActionTypes;
+}
+
+export interface IAssetPostRequestAction extends IAssetBaseAction {
   file: Blob;
 }
 export const assetPostRequestActionCreator = (file: Blob): IAssetPostRequestAction => ({
@@ -19,8 +22,7 @@ export const assetPostRequestActionCreator = (file: Blob): IAssetPostRequestActi
   file: file,
 });
 
-export interface IAssetPostRequestSuccessAction extends Action {
-  type: AssetActionTypes;
+export interface IAssetPostRequestSuccessAction extends IAssetBaseAction {
   asset: IAsset;
 }
 export const assetPostRequestSuccessActionCreator = (asset: IAsset): IAssetPostRequestSuccessAction => ({
@@ -28,8 +30,7 @@ export const assetPostRequestSuccessActionCreator = (asset: IAsset): IAssetPostR
   asset: asset,
 });
 
-export interface IAssetPostRequestFailureAction extends Action {
-  type: AssetActionTypes;
+export interface IAssetPostRequestFailureAction extends IAssetBaseAction {
   problemDetail: IProblemDetail;
 }
 export const assetPostRequestFailureActionCreator = (problemDetail: IProblemDetail): IAssetPostRequestFailureAction => ({
@@ -37,7 +38,8 @@ export const assetPostRequestFailureActionCreator = (problemDetail: IProblemDeta
   problemDetail: problemDetail,
 });
 
-export type AssetActions = IAssetPostRequestAction
+export type AssetActions = IAssetBaseAction
+  | IAssetPostRequestAction
   | IAssetPostRequestSuccessAction
   | IAssetPostRequestFailureAction
 ;

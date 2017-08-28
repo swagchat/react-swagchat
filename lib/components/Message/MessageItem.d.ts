@@ -8,6 +8,6 @@ export interface IMessageItemProps {
     user: IUserForRoom;
     myUserId: string;
 }
-export declare class MessageItem extends React.Component<IMessageItemProps, void> {
+export declare class MessageItem extends React.Component<IMessageItemProps, {}> {
     render(): JSX.Element;
 }

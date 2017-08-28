@@ -19,7 +19,7 @@ export interface IRoomSettingListProps {
     assetPostAndRoomUpdate: () => void;
     onItemTap?: Function;
 }
-export declare class RoomSettingList extends React.Component<IRoomSettingListProps, void> {
+export declare class RoomSettingList extends React.Component<IRoomSettingListProps, {}> {
     static defaultProps: Partial<IRoomSettingListProps>;
     onBlockItemTap: () => void;
     onRoomEditOkClick: () => void;

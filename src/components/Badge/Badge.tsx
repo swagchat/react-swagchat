@@ -6,7 +6,7 @@ export interface IBackButtonProps {
   className?: string;
 }
 
-export class Badge extends React.Component<IBackButtonProps, void> {
+export class Badge extends React.Component<IBackButtonProps, {}> {
   render(): JSX.Element  {
     return (
       <span

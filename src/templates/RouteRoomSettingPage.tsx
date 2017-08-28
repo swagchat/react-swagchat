@@ -17,7 +17,7 @@ import {
 } from '../containers/';
 import { getAuthInfoFromStorage } from '../utils';
 
-export class RouteRoomSettingPage extends React.Component<any, void> {
+export class RouteRoomSettingPage extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {
     super(props, context);
 

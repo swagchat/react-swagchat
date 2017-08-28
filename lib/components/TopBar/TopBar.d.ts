@@ -6,6 +6,6 @@ export interface IProps {
     leftButton?: React.ReactNode;
     rightButton?: React.ReactNode;
 }
-export declare class TopBar extends React.Component<IProps, void> {
+export declare class TopBar extends React.Component<IProps, {}> {
     render(): JSX.Element;
 }

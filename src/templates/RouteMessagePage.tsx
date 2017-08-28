@@ -25,7 +25,7 @@ import {
 } from '../plugins/message';
 import { getAuthInfoFromStorage } from '../utils';
 
-export class RouteMessagePage extends React.Component<any, void> {
+export class RouteMessagePage extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {
     super(props, context);
 

@@ -13,7 +13,7 @@ export interface IModalProps {
     styleState: IStyleState;
     updateStyle: (style: Object) => void;
 }
-export declare class ModalDialog extends React.Component<IModalProps, void> {
+export declare class ModalDialog extends React.Component<IModalProps, {}> {
     private initialInteractionStyle;
     componentDidMount(): void;
     onItemTap(): void;

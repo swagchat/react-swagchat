@@ -16,10 +16,10 @@ export interface IPhotoEditProps extends IOnClickProps {
   onUpdatePhoto: (updatePictureUrl: Blob) => void;
 }
 
-export class PhotoEdit extends React.Component<IPhotoEditProps, void> {
+export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
   private selectImage: any;
   private confirmImageDOM: any;
-  private inputFileDom: HTMLInputElement;
+  private inputFileDom: HTMLInputElement | null;
 
   onFileUploadChange = (e: any) => {
     this.selectImage = e.target.files[0];
@@ -40,7 +40,7 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, void> {
 
   onPhoto = (e: any) => {
     e.preventDefault();
-    this.inputFileDom.click();
+    this.inputFileDom!.click();
   }
 
   render(): JSX.Element  {

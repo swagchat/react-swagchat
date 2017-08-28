@@ -21,6 +21,6 @@ export interface IMessageInteractionProps {
     assetPostAndSendMessage: (file: Blob) => void;
     updateRoom: (putRoom: IRoom) => void;
 }
-export declare class MessageInteractionBottom extends React.Component<IMessageInteractionProps, void> {
+export declare class MessageInteractionBottom extends React.Component<IMessageInteractionProps, {}> {
     render(): JSX.Element;
 }

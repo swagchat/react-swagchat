@@ -4,6 +4,6 @@ import { IPluginMessageItemProps } from '../';
 export interface ITextPayload {
     text: string;
 }
-export declare class TextItem extends React.Component<IPluginMessageItemProps, void> {
+export declare class TextItem extends React.Component<IPluginMessageItemProps, {}> {
     render(): JSX.Element;
 }

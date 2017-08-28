@@ -9,7 +9,7 @@ export interface IPhotoEditProps extends IOnClickProps {
     margin?: number;
     onUpdatePhoto: (updatePictureUrl: Blob) => void;
 }
-export declare class PhotoEdit extends React.Component<IPhotoEditProps, void> {
+export declare class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
     private selectImage;
     private confirmImageDOM;
     private inputFileDom;

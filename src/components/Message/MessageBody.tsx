@@ -41,7 +41,7 @@ export interface IProps {
   updateRoom: (putRoom: IRoom) => void;
 }
 
-export class MessageBody extends React.Component<IProps, void> {
+export class MessageBody extends React.Component<IProps, {}> {
   private initialInteractionStyle: IMessageBodyMenuStyle = {
     paddingBottom: '5px',
   };

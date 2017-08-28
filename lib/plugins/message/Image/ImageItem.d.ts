@@ -6,6 +6,6 @@ export interface IImagePayload {
     sourceUrl: string;
     thumbnailUrl: string;
 }
-export declare class ImageItem extends React.Component<IPluginMessageItemProps, void> {
+export declare class ImageItem extends React.Component<IPluginMessageItemProps, {}> {
     render(): JSX.Element;
 }

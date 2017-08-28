@@ -7,7 +7,7 @@ export interface ITextPayload {
   text: string;
 }
 
-export class TextItem extends React.Component<IPluginMessageItemProps, void> {
+export class TextItem extends React.Component<IPluginMessageItemProps, {}> {
   render(): JSX.Element {
     const { message, myUserId, user} = this.props;
     const payload = message.payload as ITextPayload;

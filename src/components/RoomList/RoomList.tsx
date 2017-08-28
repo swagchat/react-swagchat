@@ -17,7 +17,7 @@ export interface IRoomListProps extends IOnClickProps {
   noAvatarImages: string[];
 }
 
-export class RoomList extends React.Component<IRoomListProps, void> {
+export class RoomList extends React.Component<IRoomListProps, {}> {
   public static defaultProps: Partial<IRoomListProps> = {
     hasTopBar: false,
   };

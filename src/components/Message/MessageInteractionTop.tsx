@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IMessageInteractionProps } from './MessageInteractionBottom';
 
-export class MessageInteractionTop extends React.Component<IMessageInteractionProps, void> {
+export class MessageInteractionTop extends React.Component<IMessageInteractionProps, {}> {
   render(): JSX.Element {
     const {
       userState,

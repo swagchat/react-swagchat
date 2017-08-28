@@ -19,7 +19,7 @@ import {
 } from '../containers/';
 import { getAuthInfoFromStorage } from '../utils';
 
-export class RouteSelectContactPage extends React.Component<any, void> {
+export class RouteSelectContactPage extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {
     super(props, context);
 

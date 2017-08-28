@@ -4,7 +4,7 @@ export interface IRoomSeparatorProps {
     title: string;
     isDisplayBorder?: boolean;
 }
-export declare class SubTitleBar extends React.Component<IRoomSeparatorProps, void> {
+export declare class SubTitleBar extends React.Component<IRoomSeparatorProps, {}> {
     static defaultProps: Partial<IRoomSeparatorProps>;
     render(): JSX.Element;
 }

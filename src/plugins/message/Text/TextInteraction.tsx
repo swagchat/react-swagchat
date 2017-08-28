@@ -4,12 +4,12 @@ import { Button, Send } from '../../../components';
 import { IPluginMessageTextInteractionStyle } from '../../../stores/style';
 import { countString } from '../../../utils';
 
-export class TextInteraction extends React.Component<IPluginMessageInteractionProps, void> {
+export class TextInteraction extends React.Component<IPluginMessageInteractionProps, {}> {
   private sendIconStyle: Object;
   private fontSize: number = 18;
   private padding: number = 10;
   private textValue: string = '';
-  private textareaDom: HTMLTextAreaElement;
+  private textareaDom: HTMLTextAreaElement | null;
   private newLineCount: number = 0;
   private previousLastLetter: string = '';
   private onKeyDownName: string = '';
@@ -26,7 +26,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
 
   componentDidMount() {
     this.props.updatePluginMessageTextInteractionStyle(this.initialInteractionStyle);
-    this.maxCharCount =  (this.textareaDom.clientWidth - 20) / (this.fontSize * 0.57);
+    this.maxCharCount =  (this.textareaDom!.clientWidth - 20) / (this.fontSize * 0.57);
   }
 
   private onChange(e: any) {
@@ -104,7 +104,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
     this.props.createMessage('text', {text: this.textValue});
     this.props.sendMessages();
     this.props.updatePluginMessageTextInteractionStyle(this.initialInteractionStyle);
-    this.textareaDom.value = '';
+    this.textareaDom!.value = '';
     this.textValue = '';
   }
 

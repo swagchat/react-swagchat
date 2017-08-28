@@ -16,7 +16,7 @@ export interface IRoomListProps extends IOnClickProps {
     noRoomListImage?: string;
     noAvatarImages: string[];
 }
-export declare class RoomList extends React.Component<IRoomListProps, void> {
+export declare class RoomList extends React.Component<IRoomListProps, {}> {
     static defaultProps: Partial<IRoomListProps>;
     onClick(room: any): void;
     render(): JSX.Element;

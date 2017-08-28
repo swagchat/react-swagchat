@@ -1,5 +1,4 @@
 import { Action } from 'redux';
-
 import { IPluginMessage } from '../plugins/message';
 import { IPluginRoomListItem } from '../plugins/roomListItem';
 
@@ -16,8 +15,11 @@ export type PluginActionTypes = typeof SET_PLUGIN_MESSAGE
   | typeof SET_CUSTOM_PLUGIN_ROOM_LIST_ITEM
 ;
 
-export interface ISetPluginMessageAction extends Action {
+export interface IPluginBaseAction extends Action {
   type: PluginActionTypes;
+}
+
+export interface ISetPluginMessageAction extends IPluginBaseAction {
   messages: IPluginMessage[];
 }
 export const setPluginMessageActionCreator = (messages: IPluginMessage[]): ISetPluginMessageAction => ({
@@ -25,8 +27,7 @@ export const setPluginMessageActionCreator = (messages: IPluginMessage[]): ISetP
   messages: messages,
 });
 
-export interface ISetCustomPluginMessageAction extends Action {
-  type: PluginActionTypes;
+export interface ISetCustomPluginMessageAction extends IPluginBaseAction {
   customMessages: IPluginMessage[];
 }
 export const setCustomPluginMessageActionCreator = (customMessages: IPluginMessage[]): ISetCustomPluginMessageAction => ({
@@ -34,8 +35,7 @@ export const setCustomPluginMessageActionCreator = (customMessages: IPluginMessa
   customMessages: customMessages,
 });
 
-export interface IPluginMessageUpdateMenuIndexAction extends Action {
-  type: PluginActionTypes;
+export interface IPluginMessageUpdateMenuIndexAction extends IPluginBaseAction {
   currentMenuIndex: number;
 }
 export const pluginMessageUpdateMenuIndexActionCreator = (currentMenuIndex: number): IPluginMessageUpdateMenuIndexAction => ({
@@ -43,8 +43,7 @@ export const pluginMessageUpdateMenuIndexActionCreator = (currentMenuIndex: numb
   currentMenuIndex: currentMenuIndex,
 });
 
-export interface ISetPluginRoomListItemAction extends Action {
-  type: PluginActionTypes;
+export interface ISetPluginRoomListItemAction extends IPluginBaseAction {
   roomListItems: {[key: number]: IPluginRoomListItem};
 }
 export const setPluginRoomListItemActionCreator = (roomListItems: IPluginRoomListItem[]): ISetPluginRoomListItemAction => ({
@@ -52,8 +51,7 @@ export const setPluginRoomListItemActionCreator = (roomListItems: IPluginRoomLis
   roomListItems: roomListItems,
 });
 
-export interface ISetCustomPluginRoomListItemAction extends Action {
-  type: PluginActionTypes;
+export interface ISetCustomPluginRoomListItemAction extends IPluginBaseAction {
   customRoomListItems: {[key: number]: IPluginRoomListItem};
 }
 export const setCustomPluginRoomListItemActionCreator = (customRoomListItems: IPluginRoomListItem[]): ISetCustomPluginRoomListItemAction => ({
@@ -61,7 +59,8 @@ export const setCustomPluginRoomListItemActionCreator = (customRoomListItems: IP
   customRoomListItems: customRoomListItems,
 });
 
-export type PluginMessageActions = ISetPluginMessageAction
+export type PluginMessageActions = IPluginBaseAction
+  | ISetPluginMessageAction
   | ISetCustomPluginMessageAction
   | IPluginMessageUpdateMenuIndexAction
   | ISetPluginRoomListItemAction

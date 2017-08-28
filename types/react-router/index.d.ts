@@ -37,13 +37,13 @@ export interface MemoryRouterProps {
   keyLength?: number;
 }
 
-export class MemoryRouter extends React.Component<MemoryRouterProps, void> { }
+export class MemoryRouter extends React.Component<MemoryRouterProps, {}> { }
 
 export interface PromptProps {
   message: string | ((location: H.Location) => void);
   when?: boolean;
 }
-export class Prompt extends React.Component<PromptProps, void> { }
+export class Prompt extends React.Component<PromptProps, {}> { }
 
 export interface RedirectProps {
   to: H.LocationDescriptor;
@@ -53,7 +53,7 @@ export interface RedirectProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Redirect extends React.Component<RedirectProps, void> { }
+export class Redirect extends React.Component<RedirectProps, {}> { }
 
 export interface RouteComponentProps<P> {
   match: match<P>;

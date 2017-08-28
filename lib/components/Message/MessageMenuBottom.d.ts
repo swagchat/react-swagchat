@@ -9,6 +9,6 @@ export interface IMessageMenuBottomProps {
     updateMenuIndex: (currentMenuINdex: number) => void;
     availableMessageTypes: string[] | null;
 }
-export declare class MessageMenuBottom extends React.Component<IMessageMenuBottomProps, void> {
+export declare class MessageMenuBottom extends React.Component<IMessageMenuBottomProps, {}> {
     render(): JSX.Element;
 }

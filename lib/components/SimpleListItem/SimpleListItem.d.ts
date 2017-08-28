@@ -7,7 +7,7 @@ export interface ISimpleListItemProps extends IOnClickProps {
     width?: number;
     height?: number;
 }
-export declare class SimpleListItem extends React.Component<ISimpleListItemProps, void> {
+export declare class SimpleListItem extends React.Component<ISimpleListItemProps, {}> {
     static defaultProps: Partial<ISimpleListItemProps>;
     render(): JSX.Element;
 }

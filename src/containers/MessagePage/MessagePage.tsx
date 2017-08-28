@@ -84,7 +84,7 @@ export interface IProps extends RouteComponentProps<any> {
   updateRoom: (putRoom: IRoom) => IRoomUpdateRequestAction;
 }
 
-export class MessagePage extends React.Component<IProps, void> {
+export class MessagePage extends React.Component<IProps, {}> {
   private isReceiveMessagesFinished = false;
   private onScroll: EventListener;
 

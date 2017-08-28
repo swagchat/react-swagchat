@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IMessageMenuBottomProps } from './MessageMenuBottom';
 
-export class MessageMenuTop extends React.Component<IMessageMenuBottomProps, void> {
+export class MessageMenuTop extends React.Component<IMessageMenuBottomProps, {}> {
   render(): JSX.Element  {
     return (
       <div className="message-menu-top-root">

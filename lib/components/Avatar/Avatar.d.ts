@@ -8,6 +8,6 @@ export interface IAvatarProps extends IOnClickProps {
     height?: number;
     margin?: number;
 }
-export declare class Avatar extends React.Component<IAvatarProps, void> {
+export declare class Avatar extends React.Component<IAvatarProps, {}> {
     render(): JSX.Element;
 }

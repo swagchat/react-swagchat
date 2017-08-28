@@ -10,7 +10,7 @@ export interface IMessageItemProps {
   myUserId: string;
 }
 
-export class MessageItem extends React.Component<IMessageItemProps, void> {
+export class MessageItem extends React.Component<IMessageItemProps, {}> {
   render(): JSX.Element {
     return (
       <div>

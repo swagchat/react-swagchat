@@ -5,7 +5,7 @@ export interface IRoomSeparatorProps {
   isDisplayBorder?: boolean;
 }
 
-export class SubTitleBar extends React.Component<IRoomSeparatorProps, void> {
+export class SubTitleBar extends React.Component<IRoomSeparatorProps, {}> {
   public static defaultProps: Partial<IRoomSeparatorProps> = {
     isDisplayBorder: true,
   };

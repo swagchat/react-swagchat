@@ -8,7 +8,7 @@ export interface IProps {
   rightButton?: React.ReactNode;
 }
 
-export class TopBar extends React.Component<IProps, void> {
+export class TopBar extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const {title, pictureUrl, leftButton, rightButton} = this.props;
     return (

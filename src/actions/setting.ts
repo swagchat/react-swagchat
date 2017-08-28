@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Action } from 'redux';
 
 export const SET_SETTING = 'SET_SETTING';
@@ -40,8 +39,11 @@ export type SettingActionTypes = typeof SET_SETTING
   | typeof SET_SELECT_CONTACT_ROUTE_PATH
 ;
 
-export interface ISetSettingAction extends Action {
+export interface ISettingBaseAction extends Action {
   type: SettingActionTypes;
+}
+
+export interface ISetSettingAction extends ISettingBaseAction {
   setting: Object;
 }
 export const setSettingActionCreator = (setting: Object): ISetSettingAction => ({
@@ -49,8 +51,7 @@ export const setSettingActionCreator = (setting: Object): ISetSettingAction => (
   setting: setting,
 });
 
-export interface ISetRoomListTitleAction extends Action {
-  type: SettingActionTypes;
+export interface ISetRoomListTitleAction extends ISettingBaseAction {
   roomListTitle: string;
 }
 export const setRoomListTitleActionCreator = (roomListTitle: string): ISetRoomListTitleAction => ({
@@ -58,8 +59,7 @@ export const setRoomListTitleActionCreator = (roomListTitle: string): ISetRoomLi
   roomListTitle: roomListTitle,
 });
 
-export interface ISetRoomListTabbarAction extends Action {
-  type: SettingActionTypes;
+export interface ISetRoomListTabbarAction extends ISettingBaseAction {
   roomListTabbar: React.ComponentClass<any> | null;
 }
 export const setRoomListTabbarActionCreator = (roomListTabbar: React.ComponentClass<any>): ISetRoomListTabbarAction => ({
@@ -67,8 +67,7 @@ export const setRoomListTabbarActionCreator = (roomListTabbar: React.ComponentCl
   roomListTabbar: roomListTabbar,
 });
 
-export interface ISetNoRoomListTextAction extends Action {
-  type: SettingActionTypes;
+export interface ISetNoRoomListTextAction extends ISettingBaseAction {
   noRoomListText: string;
 }
 export const setNoRoomListTextActionCreator = (noRoomListText: string): ISetNoRoomListTextAction => ({
@@ -76,8 +75,7 @@ export const setNoRoomListTextActionCreator = (noRoomListText: string): ISetNoRo
   noRoomListText: noRoomListText,
 });
 
-export interface ISetNoRoomListImageAction extends Action {
-  type: SettingActionTypes;
+export interface ISetNoRoomListImageAction extends ISettingBaseAction {
   noRoomListImage: string;
 }
 export const setNoRoomListImageActionCreator = (noRoomListImage: string): ISetNoRoomListImageAction => ({
@@ -85,8 +83,7 @@ export const setNoRoomListImageActionCreator = (noRoomListImage: string): ISetNo
   noRoomListImage: noRoomListImage,
 });
 
-export interface ISetNoMessageTextAction extends Action {
-  type: SettingActionTypes;
+export interface ISetNoMessageTextAction extends ISettingBaseAction {
   noMessageText: string;
 }
 export const setNoMessageTextActionCreator = (noMessageText: string): ISetNoMessageTextAction => ({
@@ -94,8 +91,7 @@ export const setNoMessageTextActionCreator = (noMessageText: string): ISetNoMess
   noMessageText: noMessageText,
 });
 
-export interface ISetNoMessageImageAction extends Action {
-  type: SettingActionTypes;
+export interface ISetNoMessageImageAction extends ISettingBaseAction {
   noMessageImage: string;
 }
 export const setNoMessageImageActionCreator = (noMessageImage: string): ISetNoMessageImageAction => ({
@@ -103,8 +99,7 @@ export const setNoMessageImageActionCreator = (noMessageImage: string): ISetNoMe
   noMessageImage: noMessageImage,
 });
 
-export interface ISetInputMessagePlaceholderTextAction extends Action {
-  type: SettingActionTypes;
+export interface ISetInputMessagePlaceholderTextAction extends ISettingBaseAction {
   inputMessagePlaceholderText: string;
 }
 export const setInputMessagePlaceholderTextActionCreator = (inputMessagePlaceholderText: string): ISetInputMessagePlaceholderTextAction => ({
@@ -112,8 +107,7 @@ export const setInputMessagePlaceholderTextActionCreator = (inputMessagePlacehol
   inputMessagePlaceholderText: inputMessagePlaceholderText,
 });
 
-export interface ISetRoomSettingTitleAction extends Action {
-  type: SettingActionTypes;
+export interface ISetRoomSettingTitleAction extends ISettingBaseAction {
   roomSettingTitle: string;
 }
 export const setRoomSettingTitleActionCreator = (roomSettingTitle: string): ISetRoomSettingTitleAction => ({
@@ -121,8 +115,7 @@ export const setRoomSettingTitleActionCreator = (roomSettingTitle: string): ISet
   roomSettingTitle: roomSettingTitle,
 });
 
-export interface ISetRoomMembersTitleAction extends Action {
-  type: SettingActionTypes;
+export interface ISetRoomMembersTitleAction extends ISettingBaseAction {
   roomMembersTitle: string;
 }
 export const setRoomMembersTitleActionCreator = (roomMembersTitle: string): ISetRoomMembersTitleAction => ({
@@ -130,8 +123,7 @@ export const setRoomMembersTitleActionCreator = (roomMembersTitle: string): ISet
   roomMembersTitle: roomMembersTitle,
 });
 
-export interface ISetSelectContactTitleAction extends Action {
-  type: SettingActionTypes;
+export interface ISetSelectContactTitleAction extends ISettingBaseAction {
   selectContactTitle: string;
 }
 export const setSelectContactTitleActionCreator = (selectContactTitle: string): ISetSelectContactTitleAction => ({
@@ -139,8 +131,7 @@ export const setSelectContactTitleActionCreator = (selectContactTitle: string): 
   selectContactTitle: selectContactTitle,
 });
 
-export interface ISetNoContactListTextAction extends Action {
-  type: SettingActionTypes;
+export interface ISetNoContactListTextAction extends ISettingBaseAction {
   noContactListText: string;
 }
 export const setNoContactListTextActionCreator = (noContactListText: string): ISetNoContactListTextAction => ({
@@ -148,8 +139,7 @@ export const setNoContactListTextActionCreator = (noContactListText: string): IS
   noContactListText: noContactListText,
 });
 
-export interface ISetNoContactListImageAction extends Action {
-  type: SettingActionTypes;
+export interface ISetNoContactListImageAction extends ISettingBaseAction {
   noContactListImage: string;
 }
 export const setNoContactListImageActionCreator = (noContactListImage: string): ISetNoContactListImageAction => ({
@@ -157,8 +147,7 @@ export const setNoContactListImageActionCreator = (noContactListImage: string): 
   noContactListImage: noContactListImage,
 });
 
-export interface ISetNoAvatarImagesAction extends Action {
-  type: SettingActionTypes;
+export interface ISetNoAvatarImagesAction extends ISettingBaseAction {
   noAvatarImages: string[];
 }
 export const setNoAvatarImagesActionCreator = (noAvatarImages: string[]): ISetNoAvatarImagesAction => ({
@@ -166,8 +155,7 @@ export const setNoAvatarImagesActionCreator = (noAvatarImages: string[]): ISetNo
   noAvatarImages: noAvatarImages,
 });
 
-export interface ISetRoomListRoutePathAction extends Action {
-  type: SettingActionTypes;
+export interface ISetRoomListRoutePathAction extends ISettingBaseAction {
   roomListRoutePath: string;
 }
 export const setRoomListRoutePathActionCreator = (roomListRoutePath: string): ISetRoomListRoutePathAction => ({
@@ -175,8 +163,7 @@ export const setRoomListRoutePathActionCreator = (roomListRoutePath: string): IS
   roomListRoutePath: roomListRoutePath,
 });
 
-export interface ISetMessageRoutePathAction extends Action {
-  type: SettingActionTypes;
+export interface ISetMessageRoutePathAction extends ISettingBaseAction {
   messageRoutePath: string;
 }
 export const setMessageRoutePathActionCreator = (messageRoutePath: string): ISetMessageRoutePathAction => ({
@@ -184,8 +171,7 @@ export const setMessageRoutePathActionCreator = (messageRoutePath: string): ISet
   messageRoutePath: messageRoutePath,
 });
 
-export interface ISetRoomSettingRoutePathAction extends Action {
-  type: SettingActionTypes;
+export interface ISetRoomSettingRoutePathAction extends ISettingBaseAction {
   roomSettingRoutePath: string;
 }
 export const setRoomSettingRoutePathActionCreator = (roomSettingRoutePath: string): ISetRoomSettingRoutePathAction => ({
@@ -193,8 +179,7 @@ export const setRoomSettingRoutePathActionCreator = (roomSettingRoutePath: strin
   roomSettingRoutePath: roomSettingRoutePath,
 });
 
-export interface ISetSelectContactRoutePathAction extends Action {
-  type: SettingActionTypes;
+export interface ISetSelectContactRoutePathAction extends ISettingBaseAction {
   selectContactRoutePath: string;
 }
 export const setSelectContactRoutePathActionCreator = (selectContactRoutePath: string): ISetSelectContactRoutePathAction => ({
@@ -202,7 +187,8 @@ export const setSelectContactRoutePathActionCreator = (selectContactRoutePath: s
   selectContactRoutePath: selectContactRoutePath,
 });
 
-export type SettingActions = ISetSettingAction
+export type SettingActions = ISettingBaseAction
+  | ISetSettingAction
   | ISetRoomListTitleAction
   | ISetRoomListTabbarAction
   | ISetNoRoomListTextAction
@@ -220,4 +206,4 @@ export type SettingActions = ISetSettingAction
   | ISetMessageRoutePathAction
   | ISetRoomSettingRoutePathAction
   | ISetSelectContactRoutePathAction
-;
+  ;

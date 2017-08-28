@@ -14,6 +14,6 @@ export interface IRoomItemProps {
         [key: number]: IPluginRoomListItem;
     };
 }
-export declare class RoomItem extends React.Component<IRoomItemProps, void> {
+export declare class RoomItem extends React.Component<IRoomItemProps, {}> {
     render(): JSX.Element;
 }

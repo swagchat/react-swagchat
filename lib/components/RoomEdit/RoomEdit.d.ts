@@ -6,7 +6,7 @@ export interface IRoomEditProps {
     roomUpdateName: (updateName: string) => void;
     roomUpdatePicture: (updatePicture: Blob) => void;
 }
-export declare class RoomEdit extends React.Component<IRoomEditProps, void> {
+export declare class RoomEdit extends React.Component<IRoomEditProps, {}> {
     private inputTextDom;
     componentDidMount(): void;
     onInputTextChange: (e: any) => void;

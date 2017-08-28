@@ -8,11 +8,11 @@ export interface IRoomEditProps {
   roomUpdatePicture: (updatePicture: Blob) => void;
 }
 
-export class RoomEdit extends React.Component<IRoomEditProps, void> {
-  private inputTextDom: HTMLInputElement;
+export class RoomEdit extends React.Component<IRoomEditProps, {}> {
+  private inputTextDom: HTMLInputElement | null;
 
   componentDidMount() {
-    this.inputTextDom.value = this.props.roomName;
+    this.inputTextDom!.value = this.props.roomName;
   }
 
   onInputTextChange = (e: any) => {

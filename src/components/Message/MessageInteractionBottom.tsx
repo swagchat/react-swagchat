@@ -28,7 +28,7 @@ export interface IMessageInteractionProps {
   updateRoom: (putRoom: IRoom) => void;
 }
 
-export class MessageInteractionBottom extends React.Component<IMessageInteractionProps, void> {
+export class MessageInteractionBottom extends React.Component<IMessageInteractionProps, {}> {
   render(): JSX.Element {
     const {
       userState,

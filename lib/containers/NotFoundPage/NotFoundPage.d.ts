@@ -3,7 +3,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 export interface IProps extends RouteComponentProps<any> {
 }
-export declare class NotFoundPage extends React.Component<IProps, void> {
+export declare class NotFoundPage extends React.Component<IProps, {}> {
     render(): JSX.Element;
 }
 export declare const ContainerNotFoundPage: React.ComponentClass<IProps>;

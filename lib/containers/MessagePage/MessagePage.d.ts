@@ -29,7 +29,7 @@ export interface IProps extends RouteComponentProps<any> {
     markAsRead: (roomId: string) => IMarkAsReadRequestAction;
     updateRoom: (putRoom: IRoom) => IRoomUpdateRequestAction;
 }
-export declare class MessagePage extends React.Component<IProps, void> {
+export declare class MessagePage extends React.Component<IProps, {}> {
     private isReceiveMessagesFinished;
     private onScroll;
     private updateMessages;

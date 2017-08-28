@@ -19,7 +19,7 @@ export interface IModalProps {
   onOkClick: () => void;
 }
 
-export class ModalView extends React.Component<IModalProps, void> {
+export class ModalView extends React.Component<IModalProps, {}> {
   private initialInteractionStyle: IModalStyle = {
     modalStyle: {
       [this.props.modalKey]: {

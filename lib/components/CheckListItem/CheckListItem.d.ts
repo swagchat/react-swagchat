@@ -9,7 +9,7 @@ export interface ICheckListItemProps extends IOnClickProps {
     height?: number;
     isChecked: boolean;
 }
-export declare class CheckListItem extends React.Component<ICheckListItemProps, void> {
+export declare class CheckListItem extends React.Component<ICheckListItemProps, {}> {
     onClick(user: IUser): void;
     render(): JSX.Element;
 }

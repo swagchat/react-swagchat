@@ -11,7 +11,7 @@ export interface IRoomItemProps {
   customRoomListItems?: {[key: number]: IPluginRoomListItem};
 }
 
-export class RoomItem extends React.Component<IRoomItemProps, void> {
+export class RoomItem extends React.Component<IRoomItemProps, {}> {
   render(): JSX.Element {
     const {myUserId, roomListItems, userRoom, onClick, customRoomListItems, noAvatarImages} = this.props;
     return (

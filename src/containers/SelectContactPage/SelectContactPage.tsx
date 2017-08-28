@@ -65,7 +65,7 @@ export interface ISelectContactPageProps extends RouteComponentProps<any> {
   assetPostAndRoomCreateAndMessageFetchRequest: () => ICombinedAssetPostAndRoomCreatAndMessageFetchRequestAction;
 }
 
-class SelectContactPage extends React.Component<ISelectContactPageProps, void> {
+class SelectContactPage extends React.Component<ISelectContactPageProps, {}> {
   componentWillUnmount() {
     this.props.clearSelectContacts();
   }

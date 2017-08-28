@@ -8,10 +8,10 @@ interface IPluginMessageImageInteractionStyle {
   };
 }
 
-export class ImageInteraction extends React.Component<IPluginMessageInteractionProps, void> {
+export class ImageInteraction extends React.Component<IPluginMessageInteractionProps, {}> {
   private selectImage: any;
-  private confirmImageDOM: HTMLImageElement;
-  private inputFileDom: HTMLInputElement;
+  private confirmImageDOM: HTMLImageElement | null;
+  private inputFileDom: HTMLInputElement | null;
 
   private initialInteractionStyle: IPluginMessageImageInteractionStyle = {
     pluginMessageImageInteractionStyle: {
@@ -36,7 +36,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
     const self = this;
     reader.onload = (function() {
       return function(e: any) {
-        self.confirmImageDOM.src = e.target.result;
+        self.confirmImageDOM!.src = e.target.result;
         self.props.updateStyle({
           pluginMessageImageInteractionStyle: {
             display: 'block',
@@ -53,7 +53,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
   }
 
   onFileUploadRequest() {
-    this.confirmImageDOM.src = '';
+    this.confirmImageDOM!.src = '';
     this.props.updateStyle(this.initialInteractionStyle);
     this.props.updateMenuIndex(0);
     this.props.assetPostAndSendMessage(this.selectImage);

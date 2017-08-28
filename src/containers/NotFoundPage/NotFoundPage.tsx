@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 export interface IProps extends RouteComponentProps<any> {
 }
-export class NotFoundPage extends React.Component<IProps, void> {
+export class NotFoundPage extends React.Component<IProps, {}> {
   render() {
     return (
       <div className="not-found-page-root">

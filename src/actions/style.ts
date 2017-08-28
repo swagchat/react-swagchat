@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { store } from '../stores';
 import {
   IMessageBodyMenuStyle,
   IPluginMessageTextInteractionStyle,
@@ -13,7 +14,11 @@ export type StyleActionTypes = typeof UPDATE_STYLE
   | typeof UPDATE_PLUGIN_MESSAGE_TEXT_INTERACTION_STYLE
 ;
 
-export interface IUpdateStyleAction extends Action {
+export interface IStyleBaseAction extends Action {
+  type: StyleActionTypes;
+}
+
+export interface IUpdateStyleAction extends IStyleBaseAction {
   type: StyleActionTypes;
   style: Object;
 }
@@ -22,7 +27,7 @@ export const updateStyleActionCreator = (style: Object): IUpdateStyleAction => (
   style: style,
 });
 
-export interface IUpdateMessageBodyMenuStyleAction extends Action {
+export interface IUpdateMessageBodyMenuStyleAction extends IStyleBaseAction {
   type: StyleActionTypes;
   messageBodyMenuStyle: IMessageBodyMenuStyle;
 }
@@ -31,7 +36,7 @@ export const updateMessageBodyMenuStyleActionCreator = (messageBodyMenuStyle: IM
   messageBodyMenuStyle: messageBodyMenuStyle,
 });
 
-export interface IUpdatePluginMessageTextInteractionStyleAction extends Action {
+export interface IUpdatePluginMessageTextInteractionStyleAction extends IStyleBaseAction {
   type: StyleActionTypes;
   pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle;
 }
@@ -40,7 +45,11 @@ export const updatePluginMessageTextInteractionStyleActionCreator = (pluginMessa
   pluginMessageTextInteractionStyle: pluginMessageTextInteractionStyle,
 });
 
-export type StyleActions = IUpdateStyleAction
+export type StyleActions = IStyleBaseAction
+  | IUpdateStyleAction
   | IUpdateMessageBodyMenuStyleAction
   | IUpdatePluginMessageTextInteractionStyleAction
 ;
+
+
+export const dispatchUpdateStyle = (style: Object) => store.dispatch(updateStyleActionCreator(style));

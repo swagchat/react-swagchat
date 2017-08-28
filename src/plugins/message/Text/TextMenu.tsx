@@ -2,7 +2,7 @@ import * as React from 'react';
 import {IPluginMessageMenuProps } from '../';
 import { Keyboard } from '../../../components';
 
-export class TextMenu extends React.Component<IPluginMessageMenuProps, void> {
+export class TextMenu extends React.Component<IPluginMessageMenuProps, {}> {
   render(): JSX.Element {
     const on = {
       color: '#0084ff'

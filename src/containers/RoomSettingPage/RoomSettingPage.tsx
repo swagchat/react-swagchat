@@ -60,7 +60,7 @@ export interface IRoomSettingPageProps extends RouteComponentProps<any> {
   assetPostAndRoomUpdate: () => ICombinedAssetPostAndRoomUpdateRequestAction;
 }
 
-class RoomSettingPage extends React.Component<IRoomSettingPageProps, void> {
+class RoomSettingPage extends React.Component<IRoomSettingPageProps, {}> {
   onItemTap(user: IUser) {
     console.log(user);
   }

@@ -11,7 +11,7 @@ export interface ICheckListItemProps extends IOnClickProps {
   isChecked: boolean;
 }
 
-export class CheckListItem extends React.Component<ICheckListItemProps, void> {
+export class CheckListItem extends React.Component<ICheckListItemProps, {}> {
   onClick(user: IUser) {
     if (this.props.onClick) {
       this.props.onClick(user);

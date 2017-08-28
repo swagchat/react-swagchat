@@ -21,7 +21,7 @@ import { store, routerHistory } from '../stores';
 import { ContainerRoomListPage } from '../containers/';
 import { getAuthInfoFromStorage } from '../utils';
 
-export class RouteRoomListPage extends React.Component<any, void> {
+export class RouteRoomListPage extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {
     super(props, context);
 

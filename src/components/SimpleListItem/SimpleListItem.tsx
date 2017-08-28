@@ -9,7 +9,7 @@ export interface ISimpleListItemProps extends IOnClickProps {
   height?: number;
 }
 
-export class SimpleListItem extends React.Component<ISimpleListItemProps, void> {
+export class SimpleListItem extends React.Component<ISimpleListItemProps, {}> {
   public static defaultProps: Partial<ISimpleListItemProps> = {
     width: 60,
     height: 60,

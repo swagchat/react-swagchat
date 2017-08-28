@@ -10,7 +10,7 @@ export interface IImagePayload {
   thumbnailUrl: string;
 }
 
-export class ImageItem extends React.Component<IPluginMessageItemProps, void> {
+export class ImageItem extends React.Component<IPluginMessageItemProps, {}> {
   render(): JSX.Element  {
     const { message, myUserId, user} = this.props;
     const payload = message.payload as IImagePayload;

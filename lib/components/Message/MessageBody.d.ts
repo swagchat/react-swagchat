@@ -20,7 +20,7 @@ export interface IProps {
     markAsRead: (roomId: string) => void;
     updateRoom: (putRoom: IRoom) => void;
 }
-export declare class MessageBody extends React.Component<IProps, void> {
+export declare class MessageBody extends React.Component<IProps, {}> {
     private initialInteractionStyle;
     componentDidMount(): void;
     onTextareaFocus(): void;

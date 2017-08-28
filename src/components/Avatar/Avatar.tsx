@@ -10,7 +10,7 @@ export interface IAvatarProps extends IOnClickProps {
   margin?: number;
 }
 
-export class Avatar extends React.Component<IAvatarProps, void> {
+export class Avatar extends React.Component<IAvatarProps, {}> {
   render(): JSX.Element  {
     let style: {
       width?: string;

@@ -1,23 +1,12 @@
-// Type definitions for react-router-redux 5.0
-// Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
-// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
+// Type definitions for react-router-redux 4.0
+// Project: https://github.com/rackt/react-router-redux
+// Definitions by: Isman Usoh <http://github.com/isman-usoh>, Noah Shipley <https://github.com/noah79>, Dimitri Rosenberg <https://github.com/rosendi>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.1
 
-import {
-    Store,
-    Dispatch,
-    Action,
-    Middleware
-} from 'redux';
-import {
-    History,
-    Location,
-    Path,
-    LocationState,
-    LocationDescriptor
-} from 'history';
 import * as React from 'react';
+import { Action, Middleware, Store } from "redux";
+import { History, Location, LocationDescriptor } from "history";
 
 export interface ConnectedRouterProps<State> {
     store?: Store<State>;
@@ -25,29 +14,8 @@ export interface ConnectedRouterProps<State> {
 }
 export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>, any> {}
 
-export const LOCATION_CHANGE: string;
-
-export interface RouterState {
-    location: Location | null;
-}
-
-export function routerReducer(state?: RouterState, action?: RouterAction): RouterState;
-
 export const CALL_HISTORY_METHOD: string;
-
-export function push(location: LocationDescriptor, state?: LocationState): RouterAction;
-export function replace(location: LocationDescriptor, state?: LocationState): RouterAction;
-export function go(n: number): RouterAction;
-export function goBack(): RouterAction;
-export function goForward(): RouterAction;
-
-export const routerActions: {
-    push: typeof push
-    replace: typeof replace
-    go: typeof go
-    goBack: typeof goBack
-    goForward: typeof goForward
-};
+export const LOCATION_CHANGE: string;
 
 export interface LocationActionPayload {
     method: string;
@@ -55,24 +23,45 @@ export interface LocationActionPayload {
 }
 
 export interface RouterAction extends Action {
-    type: typeof CALL_HISTORY_METHOD;
-    payload: LocationActionPayload;
+    payload?: LocationActionPayload;
 }
 
-export interface LocationChangeAction extends Action {
-    type: typeof LOCATION_CHANGE;
-    payload: Location & {
-        props?: {
-            match: {
-                path: string;
-                url: string;
-                params: any;
-                isExact: boolean;
-            },
-            location: Location;
-            history: History;
-        }
-    };
+type LocationAction = (nextLocation: LocationDescriptor) => RouterAction;
+type GoAction = (n: number) => RouterAction;
+type NavigateAction = () => RouterAction;
+
+export const push: LocationAction;
+export const replace: LocationAction;
+export const go: GoAction;
+export const goBack: NavigateAction;
+export const goForward: NavigateAction;
+
+interface RouteActions {
+    push: typeof push;
+    replace: typeof replace;
+    go: typeof go;
+    goForward: typeof goForward;
+    goBack: typeof goBack;
 }
 
+export const routerActions: RouteActions;
+
+export interface RouterState {
+    location: Location | null;
+    locationBeforeTransitions: Location;
+}
+
+export type DefaultSelectLocationState = (state: any) => RouterState;
+
+export interface SyncHistoryWithStoreOptions {
+    selectLocationState?: DefaultSelectLocationState;
+    adjustUrlOnReplay?: boolean;
+}
+
+export interface HistoryUnsubscribe {
+    unsubscribe(): undefined;
+}
+
+export function routerReducer(state?: RouterState, action?: Action): RouterState;
+export function syncHistoryWithStore(history: History, store: Store<any>, options?: SyncHistoryWithStoreOptions): History & HistoryUnsubscribe;
 export function routerMiddleware(history: History): Middleware;

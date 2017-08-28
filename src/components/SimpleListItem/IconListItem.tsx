@@ -7,7 +7,7 @@ export interface IIconListItemProps extends IOnClickProps {
   rightIcon?: React.ReactNode;
 }
 
-export class IconListItem extends React.Component<IIconListItemProps, void> {
+export class IconListItem extends React.Component<IIconListItemProps, {}> {
   render(): JSX.Element  {
     return (
       <div className="icon-list-item-root" onClick={this.props.onClick ? this.props.onClick.bind(this) : null}>

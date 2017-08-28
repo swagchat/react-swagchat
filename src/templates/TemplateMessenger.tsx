@@ -40,7 +40,7 @@ import {
   PluginMessageImage
 } from '../plugins/message';
 
-export class TemplateMessenger extends React.Component<any, void> {
+export class TemplateMessenger extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {
     super(props, context);
 

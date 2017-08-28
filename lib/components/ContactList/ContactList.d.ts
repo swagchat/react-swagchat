@@ -11,7 +11,7 @@ export interface IContactListProps extends IOnClickProps {
     noContactListText?: string;
     noContactListImage?: string;
 }
-export declare class ContactList extends React.Component<IContactListProps, void> {
+export declare class ContactList extends React.Component<IContactListProps, {}> {
     static defaultProps: Partial<IContactListProps>;
     onClick(user: IUser): void;
     render(): JSX.Element;

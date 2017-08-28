@@ -14,7 +14,7 @@ export interface IMessageMenuBottomProps {
   availableMessageTypes: string[] | null;
 }
 
-export class MessageMenuBottom extends React.Component<IMessageMenuBottomProps, void> {
+export class MessageMenuBottom extends React.Component<IMessageMenuBottomProps, {}> {
   render(): JSX.Element  {
     return (
       <div className="message-menu-root">

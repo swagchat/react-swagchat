@@ -5,7 +5,7 @@ import { Avatar, Badge } from '../../../components';
 import { IPluginRoomListItemProps } from '../';
 import { opponentUser } from '../../../utils';
 
-export class RoomNameWithMessage extends React.Component<IPluginRoomListItemProps, void> {
+export class RoomNameWithMessage extends React.Component<IPluginRoomListItemProps, {}> {
   onClick(room: IRoomForUser) {
     if (this.props.onClick) {
       this.props.onClick(room);

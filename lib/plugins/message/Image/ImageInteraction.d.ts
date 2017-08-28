@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import * as React from 'react';
 import { IPluginMessageInteractionProps } from '../';
-export declare class ImageInteraction extends React.Component<IPluginMessageInteractionProps, void> {
+export declare class ImageInteraction extends React.Component<IPluginMessageInteractionProps, {}> {
     private selectImage;
     private confirmImageDOM;
     private inputFileDom;

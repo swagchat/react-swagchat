@@ -38,7 +38,7 @@ export interface IRoomSettingListProps {
   onItemTap?: Function;
 }
 
-export class RoomSettingList extends React.Component<IRoomSettingListProps, void> {
+export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> {
   public static defaultProps: Partial<IRoomSettingListProps> = {
     title: '',
     desableMarginTop: true,

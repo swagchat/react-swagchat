@@ -6,6 +6,6 @@ export interface IIconListItemProps extends IOnClickProps {
     leftIcon?: React.ReactNode;
     rightIcon?: React.ReactNode;
 }
-export declare class IconListItem extends React.Component<IIconListItemProps, void> {
+export declare class IconListItem extends React.Component<IIconListItemProps, {}> {
     render(): JSX.Element;
 }
