@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge renders correctly 1`] = `
+<span
+  className="badge"
+>
+  10
+</span>
+`;
+
+exports[`Badge renders correctly 2`] = `
+<span
+  className="badge test-class"
+>
+  10.5
+</span>
+`;

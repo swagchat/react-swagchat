@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar renders correctly 1`] = `
+<img
+  className="avatar"
+  onClick={undefined}
+  src="http://swagchat.io/logo.png"
+  style={Object {}}
+/>
+`;
+
+exports[`Avatar renders correctly 2`] = `
+<img
+  className="avatar test-class"
+  onClick={undefined}
+  src="http://swagchat.io/logo.png"
+  style={Object {}}
+/>
+`;
