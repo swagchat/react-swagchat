@@ -3,6 +3,8 @@ import {
   countString,
   IPluginMessageInteractionProps,
   IPluginMessageTextInteractionStyle,
+  createMessageActionDispatch,
+  sendMessagesActionDispatch,
 } from 'swagchat-sdk';
 import { Button, Send } from '../../../components';
 
@@ -103,8 +105,8 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
     if (emptyCheckString === '') {
       return;
     }
-    this.props.createMessage('text', {text: this.textValue});
-    this.props.sendMessages();
+    createMessageActionDispatch('text', {text: this.textValue});
+    sendMessagesActionDispatch();
     this.props.updatePluginMessageTextInteractionStyle(this.initialInteractionStyle);
     this.textareaDom!.value = '';
     this.textValue = '';

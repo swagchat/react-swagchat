@@ -10,7 +10,6 @@ export interface IMessageMenuBottomProps {
   userState: IUserState;
   roomState: IRoomState;
   currentMenuIndex: number;
-  updateMenuIndex: (currentMenuINdex: number) => void;
   availableMessageTypes: string[] | null;
 }
 
@@ -34,7 +33,6 @@ export class MessageMenuBottom extends React.Component<IMessageMenuBottomProps, 
                         roomState: this.props.roomState,
                         ownMenuIndex: i,
                         currentMenuIndex: this.props.currentMenuIndex,
-                        updateMenuIndex: this.props.updateMenuIndex,
                       }
                     ));
                   }
@@ -51,7 +49,6 @@ export class MessageMenuBottom extends React.Component<IMessageMenuBottomProps, 
                     roomState: this.props.roomState,
                     ownMenuIndex: i,
                     currentMenuIndex: this.props.currentMenuIndex,
-                    updateMenuIndex: this.props.updateMenuIndex,
                   }
                 ));
               }

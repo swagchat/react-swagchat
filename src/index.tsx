@@ -1,9 +1,5 @@
 import {
   renderTemplateMessenger,
-  renderRoomList,
-  renderMessagePage,
-  renderRoomSetting,
-  RouteRoomListPage,
 } from './templates/';
 import {
   Avatar,
@@ -47,31 +43,39 @@ import {
   SubTitleBar,
 } from './components';
 import {
-  ContainerMessagePage,
+  RoomListPage,
+  ContainerRoomList,
+  RoomSettingPage,
+  ContainerRoomSetting,
+  SelectContactPage,
+  ContainerSelectContact,
+  MessagePage,
+  ContainerMessage,
   ContainerNotFoundPage,
-  ContainerRoomListPage,
-  ContainerRoomSettingPage,
-  ContainerSelectContactPage,
 } from './containers';
-export * from './components';
 import {
   PluginRoomListItemRoomAndUserNameWithMessage,
   PluginRoomListItemRoomNameWithMessage,
 } from './plugins/roomListItem';
 
+
+export * from './components';
+export * from './templates';
+
+
 // For browser
 (window as any).Sc = {};
 (window as any).Sc.renderTemplateMessenger = renderTemplateMessenger;
-(window as any).Sc.renderRoomList = renderRoomList;
-(window as any).Sc.renderMessagePage = renderMessagePage;
-(window as any).Sc.renderRoomSetting = renderRoomSetting;
-(window as any).Sc.RouteRoomListPage = RouteRoomListPage;
+(window as any).Sc.RoomListPage = RoomListPage;
+(window as any).Sc.RoomSettingPage = RoomSettingPage;
+(window as any).Sc.SelectContactPage = SelectContactPage;
+(window as any).Sc.MessagePage = MessagePage;
 
-(window as any).Sc.ContainerMessagePage = ContainerMessagePage;
+(window as any).Sc.ContainerRoomList = ContainerRoomList;
+(window as any).Sc.ContainerRoomSetting = ContainerRoomSetting;
+(window as any).Sc.ContainerMessagePage = ContainerMessage;
 (window as any).Sc.ContainerNotFoundPage = ContainerNotFoundPage;
-(window as any).Sc.ContainerRoomListPage = ContainerRoomListPage;
-(window as any).Sc.ContainerRoomSettingPage = ContainerRoomSettingPage;
-(window as any).Sc.ContainerSelectContactPage = ContainerSelectContactPage;
+(window as any).Sc.ContainerSelectContactPage = ContainerSelectContact;
 
 (window as any).Sc.Avatar = Avatar;
 (window as any).Sc.Badge = Badge;

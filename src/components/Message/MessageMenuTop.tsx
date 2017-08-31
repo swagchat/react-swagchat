@@ -22,7 +22,6 @@ export class MessageMenuTop extends React.Component<IMessageMenuBottomProps, {}>
                       roomState: this.props.roomState,
                       ownMenuIndex: i,
                       currentMenuIndex: this.props.currentMenuIndex,
-                      updateMenuIndex: this.props.updateMenuIndex,
                     }
                   ));
                 }
@@ -39,7 +38,6 @@ export class MessageMenuTop extends React.Component<IMessageMenuBottomProps, {}>
                     roomState: this.props.roomState,
                     ownMenuIndex: i,
                     currentMenuIndex: this.props.currentMenuIndex,
-                    updateMenuIndex: this.props.updateMenuIndex,
                   }
                 ));
               }

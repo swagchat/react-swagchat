@@ -1,11 +1,15 @@
 import * as React from 'react';
 import {
+  IRoom,
   RoomType,
-  IUserState,
-  IRoomState,
-  IStyleState,
-  ISettingState,
   opponentUser,
+  updateStyleActionDispatch,
+  userBlockFetchActionDispatch,
+  userUnBlockFetchActionDispatch,
+  roomUserRemoveFetch,
+  roomUpdateName,
+  roomUpdatePicture,
+  assetPostAndRoomUpdateActionDispatch,
 } from 'swagchat-sdk';
 import {
   Button,
@@ -21,20 +25,13 @@ import {
 
 export interface IRoomSettingListProps {
   title?: string;
+  userId: string;
+  userBlocks: string[];
+  room: IRoom;
+  noAvatarImages: string[];
   desableMarginTop?: boolean;
   displayNoDataImage?: string;
   displayNoDataText?: string;
-  userState: IUserState;
-  roomState: IRoomState;
-  styleState: IStyleState;
-  settingState: ISettingState;
-  updateStyle: (style: Object) => void;
-  userBlockFetch: (blockUserIds: string[]) => void;
-  userUnBlockFetch: (blockUserIds: string[]) => void;
-  roomUserRemoveFetch: (userIds: string[]) => void;
-  roomUpdateName: (updateName: string) => void;
-  roomUpdatePicture: (updatePicture: Blob) => void;
-  assetPostAndRoomUpdate: () => void;
   onItemTap?: Function;
 }
 
@@ -47,12 +44,12 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
   };
 
   onBlockItemTap = () => {
-    const users = opponentUser(this.props.roomState.room!.users!, this.props.userState.user!.userId);
+    const users = opponentUser(this.props.room!.users!, this.props.userId);
     if (users && users.length > 0) {
-      if (this.props.userState.blocks && this.props.userState.blocks.indexOf(users[0].userId) >= 0) {
-        this.props.userUnBlockFetch([users[0].userId]);
+      if (this.props.userBlocks && this.props.userBlocks.indexOf(users[0].userId) >= 0) {
+        userUnBlockFetchActionDispatch([users[0].userId]);
       } else {
-        this.props.userBlockFetch([users[0].userId]);
+        userBlockFetchActionDispatch([users[0].userId]);
       }
     }
     this.modalViewTap('block', false);
@@ -60,15 +57,15 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
 
   onRoomEditOkClick = () => {
     this.modalViewTap('roomEdit', false);
-    this.props.assetPostAndRoomUpdate();
+    assetPostAndRoomUpdateActionDispatch();
   }
 
   onLeftItemTap = () => {
-    this.props.roomUserRemoveFetch([this.props.userState.user!.userId]);
+    roomUserRemoveFetch([this.props.userId]);
   }
 
   modalViewTap = (modalKey: string, isDisplay: boolean) => {
-    this.props.updateStyle({
+    updateStyleActionDispatch({
       modalStyle: {
         [modalKey]: {
           isDisplay: isDisplay,
@@ -79,24 +76,21 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
 
   render(): JSX.Element {
     const {
-      userState,
-      roomState,
-      styleState,
-      settingState,
-      updateStyle,
-      roomUpdateName,
-      roomUpdatePicture,
+      userId,
+      userBlocks,
+      room,
+      noAvatarImages,
     } = this.props;
     return (
       <div>
         <div className="room-setting-list-root">
           {(() => {
-            if (roomState.room!.type === RoomType.ONE_ON_ONE) {
-              const users = opponentUser(roomState.room!.users!, userState.user!.userId);
+            if (room!.type === RoomType.ONE_ON_ONE) {
+              const users = opponentUser(room!.users!, userId);
               let title = 'ブロックする';
               let modalDescription = 'ブロックしますか？';
               if (users && users.length > 0 && users[0].isCanBlock) {
-                if (userState.blocks && userState.blocks.indexOf(users[0].userId) >= 0) {
+                if (userBlocks && userBlocks.indexOf(users[0].userId) >= 0) {
                   title = 'ブロックを解除する';
                   modalDescription = 'ブロックを解除しますか？';
                 }
@@ -115,15 +109,13 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                       modalKey="block"
                       description={modalDescription}
                       actions={blockActions}
-                      styleState={styleState}
-                      updateStyle={updateStyle}
                     />
                   </div>
                 );
               }
               return null;
             } else {
-              if (roomState.room!.isCanLeft) {
+              if (room!.isCanLeft) {
                 let leftActions: IModalAction[] = [
                   {name: 'はい', type: 'positive', onItemTap: this.onLeftItemTap.bind(this)},
                   {name: 'いいえ', type: 'negative', onItemTap: this.modalViewTap.bind(this, 'left', false)},
@@ -139,15 +131,13 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                       title="グループ情報編集"
                       component={
                         <RoomEdit
-                          roomName={roomState.room!.name}
-                          roomPictureUrl={roomState.room!.pictureUrl ? roomState.room!.pictureUrl : settingState.noAvatarImages[0]}
+                          roomName={room!.name!}
+                          roomPictureUrl={room!.pictureUrl ? room!.pictureUrl! : noAvatarImages[0]}
                           roomUpdateName={roomUpdateName}
                           roomUpdatePicture={roomUpdatePicture}
                         />
                       }
                       modalKey="roomEdit"
-                      styleState={styleState}
-                      updateStyle={updateStyle}
                       onOkClick={this.onRoomEditOkClick.bind(this)}
                     />
                     <IconListItem
@@ -159,8 +149,6 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                       modalKey="left"
                       description="退出しますか？"
                       actions={leftActions}
-                      styleState={styleState}
-                      updateStyle={updateStyle}
                     />
                   </div>
                 );

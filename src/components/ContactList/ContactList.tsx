@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IUser, IOnClickProps } from 'swagchat-sdk';
+import { IUser, IOnClickProps, updateSelectContactsActionDispatch } from 'swagchat-sdk';
 import { CheckListItem } from '../../components';
 
 export interface IContactListProps extends IOnClickProps {
@@ -16,9 +16,7 @@ export class ContactList extends React.Component<IContactListProps, {}> {
   };
 
   onClick(user: IUser) {
-    if (this.props.onClick) {
-      this.props.onClick(user);
-    }
+    updateSelectContactsActionDispatch(user);
   }
 
   render(): JSX.Element {

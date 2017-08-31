@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IStyleState } from 'swagchat-sdk';
+import { updateStyleActionDispatch, store } from 'swagchat-sdk';
 
 export interface IModalAction {
   name: string;
@@ -7,24 +7,14 @@ export interface IModalAction {
   onItemTap: any;
 }
 
-interface IModalStyle {
-  modalStyle: {
-    [key: string]: {
-      isDisplay: boolean,
-    }
-  };
-}
-
 export interface IModalProps {
   description: string;
   actions: IModalAction[];
   modalKey: string;
-  styleState: IStyleState;
-  updateStyle: (style: Object) => void;
 }
 
 export class ModalDialog extends React.Component<IModalProps, {}> {
-  private initialInteractionStyle: IModalStyle = {
+  private initialInteractionStyle: Object = {
     modalStyle: {
       [this.props.modalKey]: {
         isDisplay: false,
@@ -33,11 +23,11 @@ export class ModalDialog extends React.Component<IModalProps, {}> {
   };
 
   componentDidMount() {
-    this.props.updateStyle(this.initialInteractionStyle);
+    updateStyleActionDispatch(this.initialInteractionStyle);
   }
 
   onItemTap() {
-    this.props.updateStyle({
+    updateStyleActionDispatch({
       modalStyle: {
         [this.props.modalKey]: {
           isDisplay: true,
@@ -47,7 +37,7 @@ export class ModalDialog extends React.Component<IModalProps, {}> {
   }
 
   onCloseTap() {
-    this.props.updateStyle({
+    updateStyleActionDispatch({
       modalStyle: {
         [this.props.modalKey]: {
           isDisplay: false,
@@ -61,11 +51,9 @@ export class ModalDialog extends React.Component<IModalProps, {}> {
   }
 
   render(): JSX.Element {
-    const { description, actions, styleState, modalKey} = this.props;
-    const style: Object = styleState;
-    const modalStyle = (style as IModalStyle).modalStyle;
-
-    if (!modalStyle) {
+    const { description, actions, modalKey} = this.props;
+    const modalStyle = store.getState().style.modalStyle;
+    if (!store.getState().style.modalStyle) {
       return <div />;
     }
     return (

@@ -28,12 +28,12 @@ import {
   store,
   routerHistory,
 } from 'swagchat-sdk';
-import { IContext } from '../templates';
 import {
-  ContainerRoomListPage,
-  ContainerMessagePage,
-  ContainerRoomSettingPage,
-  ContainerSelectContactPage,
+  ContainerRoomList,
+  ContainerMessage,
+  ContainerRoomSetting,
+  ContainerSelectContact,
+  IContext,
 } from '../containers/';
 import {
   PluginMessageText,
@@ -110,10 +110,10 @@ export class TemplateMessenger extends React.Component<any, {}> {
       <Provider store={store}>
         <ConnectedRouter history={routerHistory}>
           <Switch>
-            <Route exact path={store.getState().setting.roomListRoutePath} component={ContainerRoomListPage} />
-            <Route path={store.getState().setting.messageRoutePath + '/:messageId'} component={ContainerMessagePage} />
-            <Route path={store.getState().setting.roomSettingRoutePath + '/:roomId'} component={ContainerRoomSettingPage} />
-            <Route path={store.getState().setting.selectContactRoutePath} component={ContainerSelectContactPage} />
+            <Route exact path={store.getState().setting.roomListRoutePath} component={ContainerRoomList} />
+            <Route path={store.getState().setting.messageRoutePath + '/:messageId'} component={ContainerMessage} />
+            <Route path={store.getState().setting.roomSettingRoutePath + '/:roomId'} component={ContainerRoomSetting} />
+            <Route path={store.getState().setting.selectContactRoutePath} component={ContainerSelectContact} />
           </Switch>
         </ConnectedRouter>
       </Provider>

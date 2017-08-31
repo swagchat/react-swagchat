@@ -1,109 +1,121 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { withRouter } from 'react-router-dom';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { IRoomForUser, State, store, IPluginRoomListItem } from 'swagchat-sdk';
-import { push } from 'react-router-redux';
+import * as ReactDom from 'react-dom';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import { Provider } from 'react-redux';
 import {
-  TopBar,
-  RoomList,
-  CheckCircleOutline,
-  Button,
-} from '../../components';
+  setPluginRoomListItemActionCreator,
+  setRoomListTitleActionCreator,
+  setRoomListTabbarActionCreator,
+  setNoRoomListTextActionCreator,
+  setNoRoomListImageActionCreator,
+  setRoomSettingTitleActionCreator,
+  setRoomMembersTitleActionCreator,
+  setNoAvatarImagesActionCreator,
+  setRoomListRoutePathActionCreator,
+  setMessageRoutePathActionCreator,
+  setSelectContactRoutePathActionCreator,
+  setUserAuthParamsActionCreator,
+  store,
+  routerHistory,
+  getAuthInfoFromStorage,
+} from 'swagchat-sdk';
+import { ContainerRoomList, IContext } from '../';
+import {
+  PluginRoomListItemRoomAndUserNameWithMessage,
+  PluginRoomListItemRoomNameWithMessage,
+} from '../../plugins/roomListItem';
 
-export interface IRoomListPageProps extends RouteComponentProps<any> {
-  apiKey: string;
-  apiEndpoint: string;
-  userAccessToken: string;
+export class RoomListPage extends React.Component<any, {}> {
+  constructor(props: any, context: IContext) {
+    super(props, context);
 
-  roomListTitle: string;
-
-  userId: string;
-  userRooms: IRoomForUser[];
-  roomListItems: {[key: number]: IPluginRoomListItem};
-  customRoomListItems: {[key: number]: IPluginRoomListItem};
-  noRoomListText: string;
-  noRoomListImage: string;
-  noAvatarImages: string[];
-  roomListRoutePath: string;
-  messageRoutePath: string;
-  selectContactRoutePath: string;
-
-  roomListTabbar: React.ComponentClass<any> | null;
-}
-
-class RoomListPage extends React.Component<IRoomListPageProps, any> {
-  onItemTap(room: IRoomForUser) {
-    if (this.props.history) {
-      store.dispatch(push(this.props.messageRoutePath + '/' + room.roomId));
+    let apiKey;
+    let userId;
+    let userAccessToken;
+    if (props.route && props.route.userId) {
+      apiKey = props.route.apiKey;
+      userId = props.route.userId;
+      userAccessToken = props.route.userAccessToken;
+    } else if (props.userId) {
+      apiKey = props.apiKey;
+      userId = props.userId;
+      userAccessToken = props.userAccessToken;
+    } else {
+      const scObj = getAuthInfoFromStorage();
+      apiKey = scObj.apiKey;
+      userId = scObj.userId;
+      userAccessToken = scObj.userAccessToken;
     }
+
+    const scRoomListItemPlugins = this.props.route && this.props.route.scRoomListItemPlugins ? this.props.route.scRoomListItemPlugins : {
+      1: new PluginRoomListItemRoomNameWithMessage(),
+      2: new PluginRoomListItemRoomAndUserNameWithMessage(),
+    };
+    store.dispatch(setPluginRoomListItemActionCreator(scRoomListItemPlugins));
+
+    store.dispatch(setRoomListTitleActionCreator(props.route ? props.route.roomListTitle : props.roomListTitle));
+    store.dispatch(setRoomListTabbarActionCreator(props.route ? props.route.tabbar : props.tabbar));
+    store.dispatch(setNoRoomListTextActionCreator(props.route ? props.route.noRoomListText : props.noRoomListText));
+    store.dispatch(setNoRoomListImageActionCreator(props.route ? props.route.noRoomListImage : props.noRoomListImage));
+    store.dispatch(setRoomSettingTitleActionCreator(props.route ? props.route.roomSettingTitle : props.roomSettingTitle));
+    store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
+    store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
+    store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
+    store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
+    store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
+
+    let rtmEndpoint = '';
+    const rtmProtocol = props.route ? props.route.rtmProtocol : props.rtmProtocol;
+    let rtmHost = props.route ? props.route.rtmHost : props.rtmHost;
+    const rtmPath = props.route ? props.route.rtmPath : props.rtmPath;
+
+    if (!(rtmProtocol === '' && rtmHost === '' && rtmPath === '')) {
+      if (rtmHost === '') {
+        rtmHost = location.host;
+      }
+      rtmEndpoint = rtmProtocol + '://' + rtmHost + rtmPath;
+    }
+
+    store.dispatch(setUserAuthParamsActionCreator(
+      apiKey,
+      props.route ? props.route.apiEndpoint : props.apiEndpoint,
+      rtmEndpoint,
+      userId,
+      userAccessToken,
+    ));
   }
 
-  onCreateRoomButton() {
-    if (this.props.history) {
-      store.dispatch(push(this.props.selectContactRoutePath));
-    }
-  }
-
-  render(): JSX.Element  {
-    const {roomListTitle, userId, userRooms, roomListItems, customRoomListItems, roomListTabbar, noRoomListText, noRoomListImage, noAvatarImages} = this.props;
+  render(): JSX.Element {
     return (
-      <div>
-        <TopBar
-          title={roomListTitle}
-          rightButton={<Button icon={<CheckCircleOutline />} onClick={this.onCreateRoomButton.bind(this)} />}
-        />
-        <RoomList
-          myUserId={userId}
-          userRooms={userRooms}
-          roomListItems={roomListItems}
-          customRoomListItems={customRoomListItems}
-          hasTopBar={true}
-          hasTabBar={roomListTabbar ? true : false}
-          noRoomListText={noRoomListText}
-          noRoomListImage={noRoomListImage}
-          noAvatarImages={noAvatarImages}
-          onClick={this.onItemTap.bind(this)}
-        />
-        {roomListTabbar ? roomListTabbar : null}
-      </div>
+      <Provider store={store}>
+        <ConnectedRouter history={routerHistory}>
+          <Route path={store.getState().setting.roomListRoutePath} component={ContainerRoomList} />
+        </ConnectedRouter>
+      </Provider>
     );
   }
 }
 
-const mapStateToProps = (state: State) => {
-  if (state.client.client && state.user.user) {
-    return {
-      apiKey: state.client.client!.apiKey,
-      apiEndpoint: state.client.client!.apiEndpoint,
-      userAccessToken: state.user.user!.accessToken,
-
-      roomListTitle: state.setting.roomListTitle,
-
-      userId: state.user.user!.userId,
-      userRooms: state.user.userRooms,
-      roomListItems: state.plugin.roomListItems,
-      customRoomListItems: state.plugin.customRoomListItems,
-      noRoomListText: state.setting.noRoomListText,
-      noRoomListImage: state.setting.noRoomListImage,
-      noAvatarImages: state.setting.noAvatarImages,
-      roomListRoutePath: state.setting.roomListRoutePath,
-      messageRoutePath: state.setting.messageRoutePath,
-      selectContactRoutePath: state.setting.selectContactRoutePath,
-
-      roomListTabbar: state.setting.roomListTabbar,
-    };
-  }
-  return {};
+export const renderRoomList = (params: any) => {
+  ReactDom.render(
+    <RoomListPage
+      apiKey={params.apiKey}
+      userId={params.userId}
+      userAccessToken={params.userAccessToken}
+      apiEndpoint={params.apiEndpoint}
+      rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
+      rtmHost={params.rtmHost ? params.rtmHost : ''}
+      rtmPath={params.rtmPath ? params.rtmPath : ''}
+      roomListRoutePath={params.roomListRoutePath}
+      messageRoutePath={params.messageRoutePath}
+      selectContactRoutePath={params.selectContactRoutePath}
+      roomListTitle={params.roomListTitle}
+      noRoomListText={params.noRoomListText}
+      noRoomListImage={params.noRoomListImage}
+      roomSettingTitle={params.roomSettingTitle}
+      roomMembersTitle={params.roomMembersTitle}
+      noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
+    />, document.getElementById(params.renderDomId ? params.renderDomId : 'swagchat')
+  );
 };
-
-const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IRoomListPageProps) => {
-  dispatch; ownProps; // TODO
-  return {};
-};
-
-export const ContainerRoomListPage = withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RoomListPage));

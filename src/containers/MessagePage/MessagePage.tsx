@@ -1,224 +1,119 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { withRouter } from 'react-router-dom';
-import { push } from 'react-router-redux';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import * as Scroll from 'react-scroll';
-import { throttle } from 'lodash';
+import * as ReactDom from 'react-dom';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import { Provider } from 'react-redux';
 import {
-  IRoom,
-  RoomType,
-  State,
+  setUserAuthParamsActionCreator,
+  setPluginMessageActionCreator,
+  setCustomPluginMessageActionCreator,
+  setNoMessageTextActionCreator,
+  setNoMessageImageActionCreator,
+  setInputMessagePlaceholderTextActionCreator,
+  setNoAvatarImagesActionCreator,
+  setMessageRoutePathActionCreator,
+  setRoomSettingRoutePathActionCreator,
   store,
-  IClientState,
-  IPluginState,
-  IUserState,
-  IRoomState,
-  IMessageState,
-  IStyleState,
-  ISettingState,
-  IMessageBodyMenuStyle,
-  IPluginMessageTextInteractionStyle,
-  IMarkAsReadRequestAction,
-  markAsReadRequestActionCreator,
-  IRoomUpdateRequestAction,
-  roomUpdateRequestActionCreator,
-  ICombinedAssetPostAndSendMessageRequestAction,
-  combinedAssetPostAndSendMessageRequestActionCreator,
-  pluginMessageUpdateMenuIndexActionCreator,
-  IPluginMessageUpdateMenuIndexAction,
-  IUpdateStyleAction,
-  IUpdateMessageBodyMenuStyleAction,
-  IUpdatePluginMessageTextInteractionStyleAction,
-  updateStyleActionCreator,
-  updateMessageBodyMenuStyleActionCreator,
-  updatePluginMessageTextInteractionStyleActionCreator,
-  IMessagesFetchRequestAction,
-  ISendMessagesAction,
-  ICreateMessageAction,
-  messagesFetchRequestActionCreator,
-  createMessageActionCreator,
-  sendMessagesActionCreator,
-  logColor,
-  opponentUser,
+  routerHistory,
+  getAuthInfoFromStorage,
 } from 'swagchat-sdk';
+import { ContainerMessage, IContext } from '../';
 import {
-  MessageBody,
-  TopBar,
-  Button,
-  Back,
-  Avatar,
-} from '../../components';
+  PluginMessageText,
+  PluginMessageImage
+} from '../../plugins/message';
 
-export interface IProps extends RouteComponentProps<any> {
-  pluginState: IPluginState;
-  clientState: IClientState;
-  userState: IUserState;
-  roomState: IRoomState;
-  messageState: IMessageState;
-  styleState: IStyleState;
-  settingState: ISettingState;
-  messagesFetchRequest: () => IMessagesFetchRequestAction;
-  createMessage: (messageType: string, payload: Object) => ICreateMessageAction;
-  sendMessages: () => ISendMessagesAction;
-  updateMenuIndex: (currentMenuIndex: number) => IPluginMessageUpdateMenuIndexAction;
-  updateStyle: (style: Object) => IUpdateStyleAction;
-  updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => IUpdateMessageBodyMenuStyleAction;
-  updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => IUpdatePluginMessageTextInteractionStyleAction;
-  assetPostAndSendMessage: (file: Blob) => ICombinedAssetPostAndSendMessageRequestAction;
-  markAsRead: (roomId: string) => IMarkAsReadRequestAction;
-  updateRoom: (putRoom: IRoom) => IRoomUpdateRequestAction;
-}
+export class MessagePage extends React.Component<any, {}> {
+  constructor(props: any, context: IContext) {
+    super(props, context);
 
-export class MessagePage extends React.Component<IProps, {}> {
-  private isReceiveMessagesFinished = false;
-  private onScroll: EventListener;
-
-  private updateMessages = () => {
-    if (!this.props.roomState.room) {
-      return;
+    let apiKey;
+    let userId;
+    let userAccessToken;
+    if (props.route && props.route.userId) {
+      apiKey = props.route.apiKey;
+      userId = props.route.userId;
+      userAccessToken = props.route.userAccessToken;
+    } else if (props.userId) {
+      apiKey = props.apiKey;
+      userId = props.userId;
+      userAccessToken = props.userAccessToken;
+    } else {
+      const scObj = getAuthInfoFromStorage();
+      apiKey = scObj.apiKey;
+      userId = scObj.userId;
+      userAccessToken = scObj.userAccessToken;
     }
-    this.props.messagesFetchRequest();
-    if (this.props.messageState.messages) {
-      console.info('%c[ReactSwagChat]Loaded message count [' + Object.keys(this.props.messageState.messages).length + ']', 'color:' + logColor);
-      if (this.props.messageState.messagesAllCount <= Object.keys(this.props.messageState.messages).length) {
-        this.isReceiveMessagesFinished = true;
+
+    const scMessagePlugins = this.props.route && this.props.route.scMessagePlugins ? this.props.route.scMessagePlugins : [
+      new PluginMessageText(),
+      new PluginMessageImage(),
+    ];
+    store.dispatch(setPluginMessageActionCreator(scMessagePlugins));
+
+    const scCustomMessagePlugins = this.props.route && this.props.route.scMessagePlugins ? this.props.route.scMessagePlugins : [
+      new PluginMessageText(),
+      new PluginMessageImage(),
+      new PluginMessageImage(),
+    ];
+    store.dispatch(setCustomPluginMessageActionCreator(scCustomMessagePlugins));
+
+    store.dispatch(setNoMessageTextActionCreator(props.route ? props.route.noMessageText : props.noMessageText));
+    store.dispatch(setNoMessageImageActionCreator(props.route ? props.route.noMessageImage : props.noMessageImage));
+    store.dispatch(setInputMessagePlaceholderTextActionCreator(props.route ? props.route.inputMessagePlaceholderText : props.inputMessagePlaceholderText));
+    store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
+    store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
+    store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
+
+    let rtmEndpoint = '';
+    const rtmProtocol = props.route ? props.route.rtmProtocol : props.rtmProtocol;
+    let rtmHost = props.route ? props.route.rtmHost : props.rtmHost;
+    const rtmPath = props.route ? props.route.rtmPath : props.rtmPath;
+
+    if (!(rtmProtocol === '' && rtmHost === '' && rtmPath === '')) {
+      if (rtmHost === '') {
+        rtmHost = location.host;
       }
+      rtmEndpoint = rtmProtocol + '://' + rtmHost + rtmPath;
     }
+
+    store.dispatch(setUserAuthParamsActionCreator(
+      apiKey,
+      props.route ? props.route.apiEndpoint : props.apiEndpoint,
+      rtmEndpoint,
+      userId,
+      userAccessToken,
+    ));
   }
 
-  private handleScroll = () => {
-    if (this.isReceiveMessagesFinished) {
-      console.info('%c[ReactSwagChat]Remove scroll EventListener', 'color:' + logColor);
-      window.removeEventListener('scroll', this.onScroll);
-      return;
-    }
-
-    if (document.body.scrollTop < 100) {
-      this.updateMessages();
-    }
-  }
-
-  componentDidMount() {
-    this.onScroll = throttle(this.handleScroll, 100);
-    console.info('%c[ReactSwagChat]Add scroll EventListener', 'color:' + logColor);
-    window.addEventListener('scroll', this.onScroll);
-    this.props.updateMenuIndex(0);
-    Scroll.animateScroll.scrollToBottom({duration: 0});
-  }
-
-  componentWillUnmount() {
-    console.info('%c[ReactSwagChat]Remove scroll EventListener', 'color:' + logColor);
-    window.removeEventListener('scroll', this.onScroll);
-    this.props.updateMenuIndex(0);
-    this.props.roomState.room!.unsubscribeMessage();
-  }
-
-  onRoomSetting() {
-    if (this.props.history) {
-      store.dispatch(push(this.props.settingState.roomSettingRoutePath + '/' + this.props.roomState.room!.roomId));
-    }
-  }
-
-  render(): JSX.Element  {
-    const {
-      roomState,
-      settingState,
-      userState,
-      pluginState,
-      history,
-      messageState,
-      styleState,
-      createMessage,
-      sendMessages,
-      updateMenuIndex,
-      updateStyle,
-      updateMessageModyMenuStyle,
-      updatePluginMessageTextInteractionStyle,
-      assetPostAndSendMessage,
-      markAsRead,
-      updateRoom,
-    } = this.props;
-    if (!(roomState && roomState.room)) {
-      return <div />;
-    }
-    let name = roomState.room!.name ? roomState.room!.name : '';
-    let pictureUrl = roomState.room!.pictureUrl ? roomState.room!.pictureUrl : '';
-    if (roomState.room!.type === RoomType.ONE_ON_ONE) {
-      const users = opponentUser(roomState.room!.users!, userState.user!.userId);
-      if (users && users.length > 0) {
-        name = users[0].name;
-        pictureUrl = users[0].pictureUrl;
-      }
-    }
+  render(): JSX.Element {
     return (
-      <div>
-        <TopBar
-          title={name}
-          leftButton={<Button icon={<Back />} onClick={history.goBack} />}
-          rightButton={<Avatar
-            onClick={this.onRoomSetting.bind(this)}
-            src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}
-            width={30}
-            height={30}
-            margin={9}
-          />}
-        />
-        <MessageBody
-          pluginState={pluginState}
-          userState={userState}
-          roomState={roomState}
-          messageState={messageState}
-          styleState={styleState}
-          createMessage={createMessage}
-          sendMessages={sendMessages}
-          updateMenuIndex={updateMenuIndex}
-          updateStyle={updateStyle}
-          updateMessageModyMenuStyle={updateMessageModyMenuStyle}
-          updatePluginMessageTextInteractionStyle={updatePluginMessageTextInteractionStyle}
-          settingState={settingState}
-          assetPostAndSendMessage={assetPostAndSendMessage}
-          markAsRead={markAsRead}
-          updateRoom={updateRoom}
-        />
-      </div>
+      <Provider store={store}>
+        <ConnectedRouter history={routerHistory}>
+          <Route path={store.getState().setting.messageRoutePath + '/:roomId'} component={ContainerMessage} />
+        </ConnectedRouter>
+      </Provider>
     );
   }
 }
 
-const mapStateToProps = (state: State) => {
-  if (state.client.client && state.user.user) {
-    return {
-      pluginState: state.plugin,
-      clientState: state.client,
-      userState: state.user,
-      roomState: state.room,
-      messageState: state.message,
-      styleState: state.style,
-      settingState: state.setting,
-    };
-  }
-  return {};
-};
+export const renderMessagePage = (params: any) => {
+  ReactDom.render(
+    <MessagePage
+      apiKey={params.apiKey}
+      userId={params.userId}
+      userAccessToken={params.userAccessToken}
+      apiEndpoint={params.apiEndpoint}
+      rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
+      rtmHost={params.rtmHost ? params.rtmHost : ''}
+      rtmPath={params.rtmPath ? params.rtmPath : ''}
+      messageRoutePath={params.messageRoutePath}
+      roomSettingRoutePath={params.roomSettingRoutePath}
 
-const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IProps) => {
-  ownProps; // TODO
-  return {
-    messagesFetchRequest: () => dispatch(messagesFetchRequestActionCreator()),
-    createMessage: (messageType: string, payload: Object) => dispatch(createMessageActionCreator(messageType, payload)),
-    sendMessages: () => dispatch(sendMessagesActionCreator()),
-    updateMenuIndex: (currentMenuIndex: number) => dispatch(pluginMessageUpdateMenuIndexActionCreator(currentMenuIndex)),
-    updateStyle: (style: Object) => dispatch(updateStyleActionCreator(style)),
-    updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => dispatch(updateMessageBodyMenuStyleActionCreator(messageBodyMenuStyle)),
-    updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => dispatch(updatePluginMessageTextInteractionStyleActionCreator(pluginMessageTextInteractionStyle)),
-    assetPostAndSendMessage: (file: Blob) => dispatch(combinedAssetPostAndSendMessageRequestActionCreator(file)),
-    markAsRead: (roomId: string) => dispatch(markAsReadRequestActionCreator(roomId)),
-    updateRoom: (putRoom: IRoom) => dispatch(roomUpdateRequestActionCreator(putRoom)),
-  };
+      noMessageText={params.noMessageText}
+      noMessageImage={params.noMessageImage}
+      inputMessagePlaceholderText={params.inputMessagePlaceholderText}
+      noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
+   />, document.getElementById(params.renderDomId ? params.renderDomId : 'swagchat')
+  );
 };
-
-export const ContainerMessagePage = withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MessagePage));

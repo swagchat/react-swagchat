@@ -1,163 +1,67 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { push } from 'react-router-redux';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import { Provider } from 'react-redux';
 import {
-  IUser,
-  IRoom,
-  State,
+  setUserAuthParamsActionCreator,
+  setSelectContactTitleActionCreator,
+  setNoContactListTextActionCreator,
+  setNoContactListImageActionCreator,
+  setNoAvatarImagesActionCreator,
+  setSelectContactRoutePathActionCreator,
+  setRoomListRoutePathActionCreator,
   store,
-  IUserState,
-  IRoomState,
-  IStyleState,
-  ISettingState,
-  contactsFetchRequestActionCreator,
-  updateSelectContactsActionCreator,
-  clearSelectContactsActionCreator,
-  IContactsFetchRequestAction,
-  IUpdateSelectContactsAction,
-  IClearSelectContactsAction,
-  IRoomUpdatePictureAction,
-  roomUpdatePictureActionCreator,
-  IUpdateStyleAction,
-  updateStyleActionCreator,
-  combinedCreateRoomAndMessagesFetchRequestActionCreator,
-  combinedAssetPostAndRoomCreateAndMessageFetchRequestActionCreator,
-  ICombinedCreateRoomAndMessagesFetchRequestAction,
-  ICombinedAssetPostAndRoomCreatAndMessageFetchRequestAction,
-  roomUpdateNameActionCreator,
-  IRoomUpdateNameAction,
-  } from 'swagchat-sdk';
+  routerHistory,
+  getAuthInfoFromStorage,
+} from 'swagchat-sdk';
+import { ContainerSelectContact, IContext } from '../';
 
-import {
-  TopBar,
-  ContactList,
-  Button,
-  Close,
-  Done,
-  ModalView,
-  RoomEdit,
-} from '../../components';
+export class SelectContactPage extends React.Component<any, {}> {
+  constructor(props: any, context: IContext) {
+    super(props, context);
 
-export interface ISelectContactPageProps extends RouteComponentProps<any> {
-  title: string;
-  userState: IUserState;
-  roomState: IRoomState;
-  styleState: IStyleState;
-  settingState: ISettingState;
-  selectContactTitle: string;
-  noContactListText: string;
-  noContactListImage: string;
-  roomListRoutePath: string;
-  contactsFetchRequest: () => IContactsFetchRequestAction;
-  updateSelectContacts: (contact: IUser) => IUpdateSelectContactsAction;
-  clearSelectContacts: () => IClearSelectContactsAction;
-  combinedCreateRoomAndMessagesFetchRequest: (room: IRoom) => ICombinedCreateRoomAndMessagesFetchRequestAction;
-  updateStyle: (style: Object) => IUpdateStyleAction;
-  roomUpdateName: (updateName: string) => IRoomUpdateNameAction;
-  roomUpdatePicture: (updatePicture: Blob) => IRoomUpdatePictureAction;
-  assetPostAndRoomCreateAndMessageFetchRequest: () => ICombinedAssetPostAndRoomCreatAndMessageFetchRequestAction;
-}
-
-class SelectContactPage extends React.Component<ISelectContactPageProps, {}> {
-  componentWillUnmount() {
-    this.props.clearSelectContacts();
-  }
-
-  onContactTap(user: IUser) {
-    this.props.updateSelectContacts(user);
-  }
-
-  onCloseButton() {
-    if (this.props.history) {
-      store.dispatch(push(this.props.roomListRoutePath));
+    let apiKey;
+    let userId;
+    let userAccessToken;
+    if (props.route && props.route.userId) {
+      apiKey = props.route.apiKey;
+      userId = props.route.userId;
+      userAccessToken = props.route.userAccessToken;
+    } else if (props.userId) {
+      apiKey = props.apiKey;
+      userId = props.userId;
+      userAccessToken = props.userAccessToken;
+    } else {
+      const scObj = getAuthInfoFromStorage();
+      apiKey = scObj.apiKey;
+      userId = scObj.userId;
+      userAccessToken = scObj.userAccessToken;
     }
-  }
 
-  onOkButton() {
-    console.log('onOkButton');
-    const room: IRoom = {
-      userId: this.props.userState.userId,
-      type: 0, // Update in saga
-      name: '',
-    };
-    this.props.combinedCreateRoomAndMessagesFetchRequest(room);
-  }
+    store.dispatch(setSelectContactTitleActionCreator(props.route ? props.route.selectContactTitle : props.selectContactTitle));
+    store.dispatch(setNoContactListTextActionCreator(props.route ? props.route.noContactListText : props.noContactListText));
+    store.dispatch(setNoContactListImageActionCreator(props.route ? props.route.noContactListImage : props.noContactListImage));
+    store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
+    store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
+    store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
 
-  onRoomCreateOkClick = () => {
-    this.props.assetPostAndRoomCreateAndMessageFetchRequest();
+    store.dispatch(setUserAuthParamsActionCreator(
+      apiKey,
+      props.route ? props.route.apiEndpoint : props.apiEndpoint,
+      props.route ? props.route.realtimeEndpoint : props.realtimeEndpoint,
+      userId,
+      userAccessToken,
+    ));
   }
 
   render(): JSX.Element {
-    const { selectContactTitle, userState, roomState, styleState, noContactListText, noContactListImage, updateStyle, roomUpdateName, roomUpdatePicture } = this.props;
     return (
-      <div>
-        <TopBar
-          title={selectContactTitle}
-          leftButton={<Button icon={<Close />} onClick={this.onCloseButton.bind(this)} />}
-          rightButton={<Button icon={<Done />} onClick={this.onOkButton.bind(this)} />}
-        />
-        <ContactList
-          hasTopBar={true}
-          contacts={userState.contacts}
-          selectedContacts={userState.selectContacts}
-          noContactListText={noContactListText}
-          noContactListImage={noContactListImage}
-          onClick={this.onContactTap.bind(this)}
-        />
-        <ModalView
-          title="グループ情報登録"
-          component={
-            <RoomEdit
-              roomName={roomState.updateName}
-              roomPictureUrl={roomState.updatePictureUrl}
-              roomUpdateName={roomUpdateName}
-              roomUpdatePicture={roomUpdatePicture}
-            />
-          }
-          modalKey="roomCreate"
-          styleState={styleState}
-          updateStyle={updateStyle}
-          onOkClick={this.onRoomCreateOkClick.bind(this)}
-        />
-      </div>
+      <Provider store={store}>
+        <ConnectedRouter history={routerHistory}>
+          <Route path={store.getState().setting.selectContactRoutePath + '/:roomId'} component={ContainerSelectContact} />
+        </ConnectedRouter>
+      </Provider>
     );
   }
 }
 
-const mapStateToProps = (state: State) => {
-  if (state.client.client && state.user.user) {
-    return {
-      userState: state.user,
-      roomState: state.room,
-      styleState: state.style,
-      settingState: state.setting,
-      selectContactTitle: state.setting.selectContactTitle,
-      noContactListText: state.setting.noContactListText,
-      noContactListImage: state.setting.noContactListImage,
-      roomListRoutePath: state.setting.roomListRoutePath,
-    };
-  }
-  return {};
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: ISelectContactPageProps) => {
-  ownProps; // TODO
-  dispatch; // TODO
-  return {
-    contactsFetchRequest: () => dispatch(contactsFetchRequestActionCreator()),
-    updateSelectContacts: (contact: IUser) => dispatch(updateSelectContactsActionCreator(contact)),
-    clearSelectContacts: () => dispatch(clearSelectContactsActionCreator()),
-    combinedCreateRoomAndMessagesFetchRequest: (room: IRoom) => dispatch(combinedCreateRoomAndMessagesFetchRequestActionCreator(room)),
-    updateStyle: (style: Object) => dispatch(updateStyleActionCreator(style)),
-    roomUpdateName: (updateName: string) => dispatch(roomUpdateNameActionCreator(updateName)),
-    roomUpdatePicture: (updatePicture: Blob) => dispatch(roomUpdatePictureActionCreator(updatePicture)),
-    assetPostAndRoomCreateAndMessageFetchRequest: () => dispatch(combinedAssetPostAndRoomCreateAndMessageFetchRequestActionCreator()),
-  };
-};
-
-export const ContainerSelectContactPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectContactPage);

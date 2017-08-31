@@ -28,10 +28,6 @@ export interface IProps {
   messageState: IMessageState;
   styleState: IStyleState;
   settingState: ISettingState;
-  createMessage: (messageType: string, payload: Object) => void;
-  sendMessages: () => void;
-  updateMenuIndex: (currentMenuIndex: number) => void;
-  updateStyle: (style: Object) => void;
   updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => void;
   updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => void;
   assetPostAndSendMessage: (file: Blob) => void;
@@ -61,7 +57,7 @@ export class MessageBody extends React.Component<IProps, {}> {
   }
 
   render(): JSX.Element  {
-    const { messageState, settingState, pluginState, roomState, userState, styleState, createMessage, sendMessages, updateStyle, updatePluginMessageTextInteractionStyle, updateMenuIndex, updateRoom, assetPostAndSendMessage} = this.props;
+    const { messageState, settingState, pluginState, roomState, userState, styleState, updatePluginMessageTextInteractionStyle, updateRoom, assetPostAndSendMessage} = this.props;
 
     return (
       <div className="message-body-root">
@@ -71,8 +67,7 @@ export class MessageBody extends React.Component<IProps, {}> {
             userState={userState}
             roomState={roomState}
             currentMenuIndex={pluginState.currentMenuIndex}
-            updateMenuIndex={updateMenuIndex}
-            availableMessageTypes={roomState.room!.availableMessageTypes}
+            availableMessageTypes={roomState.room!.availableMessageTypes!}
           />
           <MessageInteractionTop
             pluginState={pluginState}
@@ -83,13 +78,9 @@ export class MessageBody extends React.Component<IProps, {}> {
             roomState={roomState}
             onTextareaFocus={this.onTextareaFocus.bind(this)}
             onTextareaBlur={this.onTextareaBlur.bind(this)}
-            createMessage={createMessage}
-            sendMessages={sendMessages}
-            updateStyle={updateStyle}
             updatePluginMessageTextInteractionStyle={updatePluginMessageTextInteractionStyle}
-            updateMenuIndex={updateMenuIndex}
             assetPostAndSendMessage={assetPostAndSendMessage}
-            availableMessageTypes={roomState.room!.availableMessageTypes}
+            availableMessageTypes={roomState.room!.availableMessageTypes!}
             updateRoom={updateRoom}
           />
         </div>
@@ -132,8 +123,7 @@ export class MessageBody extends React.Component<IProps, {}> {
             userState={userState}
             roomState={roomState}
             currentMenuIndex={pluginState.currentMenuIndex}
-            updateMenuIndex={updateMenuIndex}
-            availableMessageTypes={roomState.room!.availableMessageTypes}
+            availableMessageTypes={roomState.room!.availableMessageTypes!}
           />
           <MessageInteractionBottom
             pluginState={pluginState}
@@ -144,13 +134,9 @@ export class MessageBody extends React.Component<IProps, {}> {
             roomState={roomState}
             onTextareaFocus={this.onTextareaFocus.bind(this)}
             onTextareaBlur={this.onTextareaBlur.bind(this)}
-            createMessage={createMessage}
-            sendMessages={sendMessages}
-            updateStyle={updateStyle}
             updatePluginMessageTextInteractionStyle={updatePluginMessageTextInteractionStyle}
-            updateMenuIndex={updateMenuIndex}
             assetPostAndSendMessage={assetPostAndSendMessage}
-            availableMessageTypes={roomState.room!.availableMessageTypes}
+            availableMessageTypes={roomState.room!.availableMessageTypes!}
             updateRoom={updateRoom}
           />
         </div>

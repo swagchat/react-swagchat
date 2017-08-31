@@ -19,11 +19,7 @@ export interface IMessageInteractionProps {
   availableMessageTypes: string[] | null;
   onTextareaFocus: () => void;
   onTextareaBlur: () => void;
-  createMessage: (messageType: string, payload: Object) => void;
-  sendMessages: () => void;
-  updateStyle: (style: Object) => void;
   updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => void;
-  updateMenuIndex: (currentMenuIndex: number) => void;
   assetPostAndSendMessage: (file: Blob) => void;
   updateRoom: (putRoom: IRoom) => void;
 }
@@ -39,10 +35,6 @@ export class MessageInteractionBottom extends React.Component<IMessageInteractio
       currentMenuIndex,
       onTextareaBlur,
       onTextareaFocus,
-      createMessage,
-      sendMessages,
-      updateMenuIndex,
-      updateStyle,
       updatePluginMessageTextInteractionStyle,
       updateRoom,
       assetPostAndSendMessage,
@@ -81,11 +73,7 @@ export class MessageInteractionBottom extends React.Component<IMessageInteractio
               position: 'BOTTOM',
               onTextareaFocus: onTextareaFocus,
               onTextareaBlur: onTextareaBlur,
-              createMessage: createMessage,
-              sendMessages: sendMessages,
-              updateStyle: updateStyle,
               updatePluginMessageTextInteractionStyle: updatePluginMessageTextInteractionStyle,
-              updateMenuIndex: updateMenuIndex,
               assetPostAndSendMessage: assetPostAndSendMessage,
               updateRoom: updateRoom,
             }
@@ -110,11 +98,7 @@ export class MessageInteractionBottom extends React.Component<IMessageInteractio
                         position: 'BOTTOM',
                         onTextareaFocus: onTextareaFocus,
                         onTextareaBlur: onTextareaBlur,
-                        createMessage: createMessage,
-                        sendMessages: sendMessages,
-                        updateStyle: updateStyle,
                         updatePluginMessageTextInteractionStyle: updatePluginMessageTextInteractionStyle,
-                        updateMenuIndex: updateMenuIndex,
                         assetPostAndSendMessage: assetPostAndSendMessage,
                         updateRoom: updateRoom,
                       }
@@ -138,11 +122,7 @@ export class MessageInteractionBottom extends React.Component<IMessageInteractio
                   position: 'BOTTOM',
                   onTextareaFocus: onTextareaFocus,
                   onTextareaBlur: onTextareaBlur,
-                  createMessage: createMessage,
-                  sendMessages: sendMessages,
-                  updateStyle: updateStyle,
                   updatePluginMessageTextInteractionStyle: updatePluginMessageTextInteractionStyle,
-                  updateMenuIndex: updateMenuIndex,
                   assetPostAndSendMessage: assetPostAndSendMessage,
                   updateRoom: updateRoom,
                 }
