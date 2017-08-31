@@ -12,9 +12,6 @@ export class MessageInteractionTop extends React.Component<IMessageInteractionPr
       currentMenuIndex,
       onTextareaBlur,
       onTextareaFocus,
-      updatePluginMessageTextInteractionStyle,
-      updateRoom,
-      assetPostAndSendMessage,
       availableMessageTypes,
     } = this.props;
     return (
@@ -42,9 +39,6 @@ export class MessageInteractionTop extends React.Component<IMessageInteractionPr
                         position: 'TOP',
                         onTextareaFocus: onTextareaFocus,
                         onTextareaBlur: onTextareaBlur,
-                        updatePluginMessageTextInteractionStyle: updatePluginMessageTextInteractionStyle,
-                        assetPostAndSendMessage: assetPostAndSendMessage,
-                        updateRoom: updateRoom,
                       }
                     ));
                   }
@@ -66,9 +60,6 @@ export class MessageInteractionTop extends React.Component<IMessageInteractionPr
                   position: 'TOP',
                   onTextareaFocus: onTextareaFocus,
                   onTextareaBlur: onTextareaBlur,
-                  updatePluginMessageTextInteractionStyle: updatePluginMessageTextInteractionStyle,
-                  assetPostAndSendMessage: assetPostAndSendMessage,
-                  updateRoom: updateRoom,
                 }
               ));
             }

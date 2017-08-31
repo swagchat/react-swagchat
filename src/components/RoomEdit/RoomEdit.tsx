@@ -1,11 +1,13 @@
 import * as React from 'react';
+import {
+  roomUpdateNameActionDispatch,
+  roomUpdatePictureActionDispatch,
+} from 'swagchat-sdk';
 import { PhotoEdit } from '../../components';
 
 export interface IRoomEditProps {
   roomName: string;
   roomPictureUrl: string;
-  roomUpdateName: (updateName: string) => void;
-  roomUpdatePicture: (updatePicture: Blob) => void;
 }
 
 export class RoomEdit extends React.Component<IRoomEditProps, {}> {
@@ -16,7 +18,7 @@ export class RoomEdit extends React.Component<IRoomEditProps, {}> {
   }
 
   onInputTextChange = (e: any) => {
-    this.props.roomUpdateName(e.target.value);
+    roomUpdateNameActionDispatch(e.target.value);
   }
 
   render(): JSX.Element {
@@ -26,7 +28,7 @@ export class RoomEdit extends React.Component<IRoomEditProps, {}> {
           src={this.props.roomPictureUrl}
           width={120}
           height={120}
-          onUpdatePhoto={this.props.roomUpdatePicture}
+          onUpdatePhoto={roomUpdatePictureActionDispatch}
         />
         <input
           className="room-edit-input-text"

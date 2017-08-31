@@ -5,6 +5,7 @@ import {
   IPluginMessageTextInteractionStyle,
   createMessageActionDispatch,
   sendMessagesActionDispatch,
+  updatePluginMessageTextInteractionStyle,
 } from 'swagchat-sdk';
 import { Button, Send } from '../../../components';
 
@@ -29,7 +30,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
   };
 
   componentDidMount() {
-    this.props.updatePluginMessageTextInteractionStyle(this.initialInteractionStyle);
+    updatePluginMessageTextInteractionStyle(this.initialInteractionStyle);
     this.maxCharCount =  (this.textareaDom!.clientWidth - 20) / (this.fontSize * 0.57);
   }
 
@@ -62,7 +63,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
       const newPluginMessageTextInteractionStyle = {
         textAreaStyle: newTextAreaStyle,
       };
-      this.props.updatePluginMessageTextInteractionStyle(newPluginMessageTextInteractionStyle);
+      updatePluginMessageTextInteractionStyle(newPluginMessageTextInteractionStyle);
     }
     if (this.newLineCount === 1) {
       const newTextAreaStyle = Object.assign(
@@ -76,7 +77,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
       const newPluginMessageTextInteractionStyle = {
         textAreaStyle: newTextAreaStyle,
       };
-      this.props.updatePluginMessageTextInteractionStyle(newPluginMessageTextInteractionStyle);
+      updatePluginMessageTextInteractionStyle(newPluginMessageTextInteractionStyle);
     }
 
     // For iPhone creepy keyboard movement
@@ -107,7 +108,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
     }
     createMessageActionDispatch('text', {text: this.textValue});
     sendMessagesActionDispatch();
-    this.props.updatePluginMessageTextInteractionStyle(this.initialInteractionStyle);
+    updatePluginMessageTextInteractionStyle(this.initialInteractionStyle);
     this.textareaDom!.value = '';
     this.textValue = '';
   }

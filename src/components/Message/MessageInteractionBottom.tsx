@@ -5,8 +5,6 @@ import {
   ISettingState,
   IUserState,
   IRoomState,
-  IRoom,
-  IPluginMessageTextInteractionStyle
 } from 'swagchat-sdk';
 
 export interface IMessageInteractionProps {
@@ -19,9 +17,6 @@ export interface IMessageInteractionProps {
   availableMessageTypes: string[] | null;
   onTextareaFocus: () => void;
   onTextareaBlur: () => void;
-  updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => void;
-  assetPostAndSendMessage: (file: Blob) => void;
-  updateRoom: (putRoom: IRoom) => void;
 }
 
 export class MessageInteractionBottom extends React.Component<IMessageInteractionProps, {}> {
@@ -35,9 +30,6 @@ export class MessageInteractionBottom extends React.Component<IMessageInteractio
       currentMenuIndex,
       onTextareaBlur,
       onTextareaFocus,
-      updatePluginMessageTextInteractionStyle,
-      updateRoom,
-      assetPostAndSendMessage,
       availableMessageTypes,
     } = this.props;
     let bottomPluginCount = 0;
@@ -73,9 +65,6 @@ export class MessageInteractionBottom extends React.Component<IMessageInteractio
               position: 'BOTTOM',
               onTextareaFocus: onTextareaFocus,
               onTextareaBlur: onTextareaBlur,
-              updatePluginMessageTextInteractionStyle: updatePluginMessageTextInteractionStyle,
-              assetPostAndSendMessage: assetPostAndSendMessage,
-              updateRoom: updateRoom,
             }
           ));
           if (availableMessageTypes && availableMessageTypes.length > 0) {
@@ -98,9 +87,6 @@ export class MessageInteractionBottom extends React.Component<IMessageInteractio
                         position: 'BOTTOM',
                         onTextareaFocus: onTextareaFocus,
                         onTextareaBlur: onTextareaBlur,
-                        updatePluginMessageTextInteractionStyle: updatePluginMessageTextInteractionStyle,
-                        assetPostAndSendMessage: assetPostAndSendMessage,
-                        updateRoom: updateRoom,
                       }
                     ));
                   }
@@ -122,9 +108,6 @@ export class MessageInteractionBottom extends React.Component<IMessageInteractio
                   position: 'BOTTOM',
                   onTextareaFocus: onTextareaFocus,
                   onTextareaBlur: onTextareaBlur,
-                  updatePluginMessageTextInteractionStyle: updatePluginMessageTextInteractionStyle,
-                  assetPostAndSendMessage: assetPostAndSendMessage,
-                  updateRoom: updateRoom,
                 }
               ));
             }

@@ -4,12 +4,10 @@ import {
   RoomType,
   opponentUser,
   updateStyleActionDispatch,
-  userBlockFetchActionDispatch,
-  userUnBlockFetchActionDispatch,
-  roomUserRemoveFetch,
-  roomUpdateName,
-  roomUpdatePicture,
-  assetPostAndRoomUpdateActionDispatch,
+  userBlockFetchRequestActionDispatch,
+  userUnBlockFetchRequestActionDispatch,
+  roomUserRemoveFetchRequestActionDispatch,
+  combinedAssetPostAndRoomUpdateRequestActionDispatch,
 } from 'swagchat-sdk';
 import {
   Button,
@@ -47,9 +45,9 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
     const users = opponentUser(this.props.room!.users!, this.props.userId);
     if (users && users.length > 0) {
       if (this.props.userBlocks && this.props.userBlocks.indexOf(users[0].userId) >= 0) {
-        userUnBlockFetchActionDispatch([users[0].userId]);
+        userUnBlockFetchRequestActionDispatch([users[0].userId]);
       } else {
-        userBlockFetchActionDispatch([users[0].userId]);
+        userBlockFetchRequestActionDispatch([users[0].userId]);
       }
     }
     this.modalViewTap('block', false);
@@ -57,11 +55,11 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
 
   onRoomEditOkClick = () => {
     this.modalViewTap('roomEdit', false);
-    assetPostAndRoomUpdateActionDispatch();
+    combinedAssetPostAndRoomUpdateRequestActionDispatch();
   }
 
   onLeftItemTap = () => {
-    roomUserRemoveFetch([this.props.userId]);
+    roomUserRemoveFetchRequestActionDispatch([this.props.userId]);
   }
 
   modalViewTap = (modalKey: string, isDisplay: boolean) => {
@@ -133,8 +131,6 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                         <RoomEdit
                           roomName={room!.name!}
                           roomPictureUrl={room!.pictureUrl ? room!.pictureUrl! : noAvatarImages[0]}
-                          roomUpdateName={roomUpdateName}
-                          roomUpdatePicture={roomUpdatePicture}
                         />
                       }
                       modalKey="roomEdit"

@@ -2,7 +2,8 @@ import * as React from 'react';
 import {
   IPluginMessageInteractionProps,
   updateStyleActionDispatch,
-  updateMenuIndexActionDispatch,
+  pluginMessageUpdateMenuIndexActionDispatch,
+  combinedAssetPostAndSendMessageRequestActionDispatch,
 } from 'swagchat-sdk';
 import { Button, Close } from '../../../components';
 
@@ -53,14 +54,14 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
 
   onConfirmClose() {
     updateStyleActionDispatch(this.initialInteractionStyle);
-    updateMenuIndexActionDispatch(0);
+    pluginMessageUpdateMenuIndexActionDispatch(0);
   }
 
   onFileUploadRequest() {
     this.confirmImageDOM!.src = '';
     updateStyleActionDispatch(this.initialInteractionStyle);
-    updateMenuIndexActionDispatch(0);
-    this.props.assetPostAndSendMessage(this.selectImage);
+    pluginMessageUpdateMenuIndexActionDispatch(0);
+    combinedAssetPostAndSendMessageRequestActionDispatch(this.selectImage);
     this.selectImage = null;
   }
 

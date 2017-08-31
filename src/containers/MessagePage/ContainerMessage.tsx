@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import * as Scroll from 'react-scroll';
 import { throttle } from 'lodash';
 import {
-  IRoom,
   RoomType,
   State,
   store,
@@ -18,19 +17,7 @@ import {
   IMessageState,
   IStyleState,
   ISettingState,
-  IMessageBodyMenuStyle,
-  IPluginMessageTextInteractionStyle,
-  IMarkAsReadRequestAction,
-  markAsReadRequestActionCreator,
-  IRoomUpdateRequestAction,
-  roomUpdateRequestActionCreator,
-  ICombinedAssetPostAndSendMessageRequestAction,
-  combinedAssetPostAndSendMessageRequestActionCreator,
-  updateMenuIndexActionDispatch,
-  IUpdateMessageBodyMenuStyleAction,
-  IUpdatePluginMessageTextInteractionStyleAction,
-  updateMessageBodyMenuStyleActionCreator,
-  updatePluginMessageTextInteractionStyleActionCreator,
+  pluginMessageUpdateMenuIndexActionDispatch,
   messagesFetchRequestActionDispatch,
   logColor,
   opponentUser,
@@ -52,11 +39,6 @@ export interface IReduxMessageProps extends RouteComponentProps<any> {
   messageState: IMessageState;
   styleState: IStyleState;
   settingState: ISettingState;
-  updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => IUpdateMessageBodyMenuStyleAction;
-  updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => IUpdatePluginMessageTextInteractionStyleAction;
-  assetPostAndSendMessage: (file: Blob) => ICombinedAssetPostAndSendMessageRequestAction;
-  markAsRead: (roomId: string) => IMarkAsReadRequestAction;
-  updateRoom: (putRoom: IRoom) => IRoomUpdateRequestAction;
 }
 
 export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
@@ -92,14 +74,14 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
     this.onScroll = throttle(this.handleScroll, 100);
     console.info('%c[ReactSwagChat]Add scroll EventListener', 'color:' + logColor);
     window.addEventListener('scroll', this.onScroll);
-    updateMenuIndexActionDispatch(0);
+    pluginMessageUpdateMenuIndexActionDispatch(0);
     Scroll.animateScroll.scrollToBottom({duration: 0});
   }
 
   componentWillUnmount() {
     console.info('%c[ReactSwagChat]Remove scroll EventListener', 'color:' + logColor);
     window.removeEventListener('scroll', this.onScroll);
-    updateMenuIndexActionDispatch(0);
+    pluginMessageUpdateMenuIndexActionDispatch(0);
     unsubscribeMessage(this.props.roomState.room!.roomId!);
   }
 
@@ -118,11 +100,6 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
       history,
       messageState,
       styleState,
-      updateMessageModyMenuStyle,
-      updatePluginMessageTextInteractionStyle,
-      assetPostAndSendMessage,
-      markAsRead,
-      updateRoom,
     } = this.props;
     if (!(roomState && roomState.room)) {
       return <div />;
@@ -155,12 +132,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           roomState={roomState}
           messageState={messageState}
           styleState={styleState}
-          updateMessageModyMenuStyle={updateMessageModyMenuStyle}
-          updatePluginMessageTextInteractionStyle={updatePluginMessageTextInteractionStyle}
           settingState={settingState}
-          assetPostAndSendMessage={assetPostAndSendMessage}
-          markAsRead={markAsRead}
-          updateRoom={updateRoom}
         />
       </div>
     );
@@ -184,13 +156,8 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IReduxMessageProps) => {
   ownProps; // TODO
-  return {
-    updateMessageModyMenuStyle: (messageBodyMenuStyle: IMessageBodyMenuStyle) => dispatch(updateMessageBodyMenuStyleActionCreator(messageBodyMenuStyle)),
-    updatePluginMessageTextInteractionStyle: (pluginMessageTextInteractionStyle: IPluginMessageTextInteractionStyle) => dispatch(updatePluginMessageTextInteractionStyleActionCreator(pluginMessageTextInteractionStyle)),
-    assetPostAndSendMessage: (file: Blob) => dispatch(combinedAssetPostAndSendMessageRequestActionCreator(file)),
-    markAsRead: (roomId: string) => dispatch(markAsReadRequestActionCreator(roomId)),
-    updateRoom: (putRoom: IRoom) => dispatch(roomUpdateRequestActionCreator(putRoom)),
-  };
+  dispatch; // TODO
+  return {};
 };
 
 export const ContainerMessage = withRouter(connect(
