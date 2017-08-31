@@ -7,8 +7,6 @@ import {
   setPluginMessageActionCreator,
   setCustomPluginMessageActionCreator,
   setPluginRoomListItemActionCreator,
-} from 'swagchat-sdk/src/actions/plugin';
-import {
   setRoomListTitleActionCreator,
   setRoomListTabbarActionCreator,
   setNoRoomListTextActionCreator,
@@ -26,10 +24,11 @@ import {
   setMessageRoutePathActionCreator,
   setRoomSettingRoutePathActionCreator,
   setSelectContactRoutePathActionCreator,
-} from 'swagchat-sdk/src/actions/setting';
-import { setUserAuthParamsActionCreator } from 'swagchat-sdk/src/actions/user';
-import { IContext } from '../';
-import { store, routerHistory } from 'swagchat-sdk/src/stores';
+  setUserAuthParamsActionCreator,
+  store,
+  routerHistory,
+} from 'swagchat-sdk';
+import { IContext } from '../templates';
 import {
   ContainerRoomListPage,
   ContainerMessagePage,
@@ -94,7 +93,7 @@ export class TemplateMessenger extends React.Component<any, {}> {
       if (rtmHost === '') {
         rtmHost = location.host;
       }
-      rtmEndpoint = rtmProtocol + '://' + rtmHost + '/' + rtmPath;
+      rtmEndpoint = rtmProtocol + '://' + rtmHost + rtmPath;
     }
 
     store.dispatch(setUserAuthParamsActionCreator(
@@ -125,6 +124,17 @@ export class TemplateMessenger extends React.Component<any, {}> {
 export const renderTemplateMessenger = (params: any) => {
   ReactDom.render(
     <TemplateMessenger
+      apiKey={params.apiKey ? params.apiKey : ''}
+      userId={params.userId ? params.userId : ''}
+      userAccessToken={params.userAccessToken ? params.userAccessToken : ''}
+      apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
+      rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
+      rtmHost={params.rtmHost ? params.rtmHost : ''}
+      rtmPath={params.rtmPath ? params.rtmPath : ''}
+      roomListRoutePath={params.roomListRoutePath ? params.roomListRoutePath : '/'}
+      messageRoutePath={params.messageRoutePath ? params.messageRoutePath : '/messages'}
+      roomSettingRoutePath={params.roomSettingRoutePath ? params.roomSettingRoutePath : '/roomSetting'}
+      selectContactRoutePath={params.selectContactRoutePath ? params.selectContactRoutePath : '/selectContact'}
       roomListTitle={params.roomListTitle ? params.roomListTitle : 'Room List'}
       noRoomListText={params.noRoomListText ? params.noRoomListText : 'No rooms.'}
       noRoomListImage={params.noRoomListImage ? params.noRoomListImage : ''}
@@ -137,17 +147,6 @@ export const renderTemplateMessenger = (params: any) => {
       selectContactTitle={params.selectContactTitle ? params.selectContactTitle : 'Select Contacts'}
       noContactListText={params.noContactListText ? params.noContactListText : 'No Contacts'}
       noContactListImage={params.noContactListImage ? params.noContactListImage : ''}
-      apiKey={params.apiKey ? params.apiKey : ''}
-      apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
-      rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
-      rtmHost={params.rtmHost ? params.rtmHost : ''}
-      rtmPath={params.rtmPath ? params.rtmPath : ''}
-      userId={params.userId ? params.userId : ''}
-      userAccessToken={params.userAccessToken ? params.userAccessToken : ''}
-      roomListRoutePath={params.roomListRoutePath ? params.roomListRoutePath : '/'}
-      messageRoutePath={params.messageRoutePath ? params.messageRoutePath : '/messages'}
-      roomSettingRoutePath={params.roomSettingRoutePath ? params.roomSettingRoutePath : '/roomSetting'}
-      selectContactRoutePath={params.selectContactRoutePath ? params.selectContactRoutePath : '/selectContact'}
     />, document.getElementById(params.renderDomId ? params.renderDomId : 'swagchat')
   );
 };

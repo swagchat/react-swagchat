@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { IPluginMessageInteractionProps } from '../';
+import {
+  countString,
+  IPluginMessageInteractionProps,
+  IPluginMessageTextInteractionStyle,
+} from 'swagchat-sdk';
 import { Button, Send } from '../../../components';
-import { IPluginMessageTextInteractionStyle } from 'swagchat-sdk/src/stores/style';
-import { countString } from '../../../utils';
 
 export class TextInteraction extends React.Component<IPluginMessageInteractionProps, {}> {
   private sendIconStyle: Object;

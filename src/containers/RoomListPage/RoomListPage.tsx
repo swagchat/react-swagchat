@@ -3,16 +3,14 @@ import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { IRoomForUser } from 'swagchat-sdk';
+import { IRoomForUser, State, store, IPluginRoomListItem } from 'swagchat-sdk';
 import { push } from 'react-router-redux';
-import { State, store } from 'swagchat-sdk/src/stores';
 import {
   TopBar,
   RoomList,
   CheckCircleOutline,
   Button,
 } from '../../components';
-import { IPluginRoomListItem } from 'swagchat-sdk/src/interface';
 
 export interface IRoomListPageProps extends RouteComponentProps<any> {
   apiKey: string;

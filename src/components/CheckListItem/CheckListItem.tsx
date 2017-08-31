@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IUser } from 'swagchat-sdk';
-import { IOnClickProps } from '../../';
+import { IOnClickProps } from 'swagchat-sdk';
 import { Avatar, Button, RadioButtonChecked, RadioButtonUnChecked } from '../../components';
 
 export interface ICheckListItemProps extends IOnClickProps {

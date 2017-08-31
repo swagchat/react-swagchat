@@ -3,21 +3,20 @@ import * as ReactDom from 'react-dom';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import { setUserAuthParamsActionCreator } from 'swagchat-sdk/src/actions/user';
 import {
+  setUserAuthParamsActionCreator,
   setSelectContactTitleActionCreator,
   setNoContactListTextActionCreator,
   setNoContactListImageActionCreator,
   setNoAvatarImagesActionCreator,
   setSelectContactRoutePathActionCreator,
   setRoomListRoutePathActionCreator,
-} from 'swagchat-sdk/src/actions/setting';
-import { IContext } from '../';
-import { store, routerHistory } from 'swagchat-sdk/src/stores';
-import {
-  ContainerSelectContactPage,
-} from '../containers/';
-import { getAuthInfoFromStorage } from '../utils';
+  store,
+  routerHistory,
+  getAuthInfoFromStorage,
+} from 'swagchat-sdk';
+import { IContext } from '../templates';
+import { ContainerSelectContactPage } from '../containers/';
 
 export class RouteSelectContactPage extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {

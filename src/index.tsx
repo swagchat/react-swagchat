@@ -1,26 +1,10 @@
-export {
-  PluginMessageText,
-  PluginMessageImage
-} from './plugins/message';
-export interface IContext {
-  router: Router;
-  client: Client;
-  uiSettings: IUISettings;
-}
-export interface IOnClickProps {
-  onClick?: (param?: any) => void;
-}
-export interface IIconProps {
-  className?: string;
-  style?: Object;
-}
-export const logColor = '#3F51B5';
-
 import {
-  HashRouter as Router,
-} from 'react-router-dom';
-import { Client, IUISettings } from 'swagchat-sdk';
-import { renderTemplateMessenger, renderRoomList, renderMessagePage, renderRoomSetting } from './templates/';
+  renderTemplateMessenger,
+  renderRoomList,
+  renderMessagePage,
+  renderRoomSetting,
+  RouteRoomListPage,
+} from './templates/';
 import {
   Avatar,
   Badge,
@@ -62,6 +46,18 @@ import {
   TopBar,
   SubTitleBar,
 } from './components';
+import {
+  ContainerMessagePage,
+  ContainerNotFoundPage,
+  ContainerRoomListPage,
+  ContainerRoomSettingPage,
+  ContainerSelectContactPage,
+} from './containers';
+export * from './components';
+import {
+  PluginRoomListItemRoomAndUserNameWithMessage,
+  PluginRoomListItemRoomNameWithMessage,
+} from './plugins/roomListItem';
 
 // For browser
 (window as any).Sc = {};
@@ -69,6 +65,14 @@ import {
 (window as any).Sc.renderRoomList = renderRoomList;
 (window as any).Sc.renderMessagePage = renderMessagePage;
 (window as any).Sc.renderRoomSetting = renderRoomSetting;
+(window as any).Sc.RouteRoomListPage = RouteRoomListPage;
+
+(window as any).Sc.ContainerMessagePage = ContainerMessagePage;
+(window as any).Sc.ContainerNotFoundPage = ContainerNotFoundPage;
+(window as any).Sc.ContainerRoomListPage = ContainerRoomListPage;
+(window as any).Sc.ContainerRoomSettingPage = ContainerRoomSettingPage;
+(window as any).Sc.ContainerSelectContactPage = ContainerSelectContactPage;
+
 (window as any).Sc.Avatar = Avatar;
 (window as any).Sc.Badge = Badge;
 (window as any).Sc.Button = Button;
@@ -108,3 +112,6 @@ import {
 (window as any).Sc.SimpleListItem = SimpleListItem;
 (window as any).Sc.TopBar = TopBar;
 (window as any).Sc.SubTitleBar = SubTitleBar;
+
+(window as any).Sc.PluginRoomListItemRoomAndUserNameWithMessage = PluginRoomListItemRoomAndUserNameWithMessage;
+(window as any).Sc.PluginRoomListItemRoomNameWithMessage = PluginRoomListItemRoomNameWithMessage;

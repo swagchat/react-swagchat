@@ -3,8 +3,32 @@ import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { IUser, RoomType } from 'swagchat-sdk';
-import { contactsFetchRequestActionCreator, IContactsFetchRequestAction } from 'swagchat-sdk/src/actions/user';
+import {
+  IUser,
+  RoomType,
+  State,
+  IUserState,
+  IRoomState,
+  IStyleState,
+  ISettingState,
+  contactsFetchRequestActionCreator,
+  IContactsFetchRequestAction,
+  IUpdateStyleAction,
+  updateStyleActionCreator,
+  IUserBlockFetchRequestAction,
+  IUserUnBlockFetchRequestAction,
+  userBlockFetchRequestActionCreator,
+  userUnBlockFetchRequestActionCreator,
+  combinedAssetPostAndRoomUpdateRequestActionCreator,
+  ICombinedAssetPostAndRoomUpdateRequestAction,
+  roomUserRemoveFetchRequestActionCreator,
+  roomUpdateNameActionCreator,
+  roomUpdatePictureActionCreator,
+  IRoomUserRemoveFetchRequestAction,
+  IRoomUpdateNameAction,
+  IRoomUpdatePictureAction,
+  opponentUser,
+} from 'swagchat-sdk';
 import {
   TopBar,
   RoomSettingList,
@@ -13,36 +37,6 @@ import {
   Back,
   Button,
 } from '../../components';
-import {
-  State,
-  IUserState,
-  IRoomState,
-  IStyleState,
-  ISettingState,
-} from 'swagchat-sdk/src/stores/';
-import {
-  IUpdateStyleAction,
-  updateStyleActionCreator,
-} from 'swagchat-sdk/src/actions/style';
-import {
-  IUserBlockFetchRequestAction,
-  IUserUnBlockFetchRequestAction,
-  userBlockFetchRequestActionCreator,
-  userUnBlockFetchRequestActionCreator
-} from 'swagchat-sdk/src/actions/user';
-import {
-  combinedAssetPostAndRoomUpdateRequestActionCreator,
-  ICombinedAssetPostAndRoomUpdateRequestAction,
-} from 'swagchat-sdk/src/actions/combined';
-import {
-  roomUserRemoveFetchRequestActionCreator,
-  roomUpdateNameActionCreator,
-  roomUpdatePictureActionCreator,
-  IRoomUserRemoveFetchRequestAction,
-  IRoomUpdateNameAction,
-  IRoomUpdatePictureAction,
-} from 'swagchat-sdk/src/actions/room';
-import { opponentUser } from '../../utils';
 
 export interface IRoomSettingPageProps extends RouteComponentProps<any> {
   title: string;

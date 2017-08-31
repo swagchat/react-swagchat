@@ -3,27 +3,27 @@ import * as ReactDom from 'react-dom';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import { setUserAuthParamsActionCreator } from 'swagchat-sdk/src/actions/user';
 import {
+  setUserAuthParamsActionCreator,
   setPluginMessageActionCreator,
   setCustomPluginMessageActionCreator,
-} from 'swagchat-sdk/src/actions/plugin';
-import {
   setNoMessageTextActionCreator,
   setNoMessageImageActionCreator,
   setInputMessagePlaceholderTextActionCreator,
   setNoAvatarImagesActionCreator,
   setMessageRoutePathActionCreator,
   setRoomSettingRoutePathActionCreator,
-} from 'swagchat-sdk/src/actions/setting';
-import { IContext } from '../';
-import { store, routerHistory } from 'swagchat-sdk/src/stores';
+  store,
+  routerHistory,
+  getAuthInfoFromStorage,
+} from 'swagchat-sdk';
+import { IContext } from '../templates';
 import { ContainerMessagePage } from '../containers/';
 import {
   PluginMessageText,
   PluginMessageImage
 } from '../plugins/message';
-import { getAuthInfoFromStorage } from '../utils';
+
 
 export class RouteMessagePage extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {
@@ -67,10 +67,22 @@ export class RouteMessagePage extends React.Component<any, {}> {
     store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
     store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
 
+    let rtmEndpoint = '';
+    const rtmProtocol = props.route ? props.route.rtmProtocol : props.rtmProtocol;
+    let rtmHost = props.route ? props.route.rtmHost : props.rtmHost;
+    const rtmPath = props.route ? props.route.rtmPath : props.rtmPath;
+
+    if (!(rtmProtocol === '' && rtmHost === '' && rtmPath === '')) {
+      if (rtmHost === '') {
+        rtmHost = location.host;
+      }
+      rtmEndpoint = rtmProtocol + '://' + rtmHost + rtmPath;
+    }
+
     store.dispatch(setUserAuthParamsActionCreator(
       apiKey,
       props.route ? props.route.apiEndpoint : props.apiEndpoint,
-      props.route ? props.route.realtimeEndpoint : props.realtimeEndpoint,
+      rtmEndpoint,
       userId,
       userAccessToken,
     ));
@@ -90,18 +102,20 @@ export class RouteMessagePage extends React.Component<any, {}> {
 export const renderMessagePage = (params: any) => {
   ReactDom.render(
     <RouteMessagePage
+      apiKey={params.apiKey}
+      userId={params.userId}
+      userAccessToken={params.userAccessToken}
+      apiEndpoint={params.apiEndpoint}
+      rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
+      rtmHost={params.rtmHost ? params.rtmHost : ''}
+      rtmPath={params.rtmPath ? params.rtmPath : ''}
+      messageRoutePath={params.messageRoutePath}
+      roomSettingRoutePath={params.roomSettingRoutePath}
+
       noMessageText={params.noMessageText}
       noMessageImage={params.noMessageImage}
       inputMessagePlaceholderText={params.inputMessagePlaceholderText}
-      renderDomId={params.renderDomId}
-      apiKey={params.apiKey}
-      apiEndpoint={params.apiEndpoint}
-      realtimeEndpoint={params.realtimeEndpoint}
-      userId={params.userId}
-      userAccessToken={params.userAccessToken}
       noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
-      messageRoutePath={params.messageRoutePath}
-      roomSettingRoutePath={params.roomSettingRoutePath}
-    />, document.getElementById(params.renderDomId)
+   />, document.getElementById(params.renderDomId ? params.renderDomId : 'swagchat')
   );
 };

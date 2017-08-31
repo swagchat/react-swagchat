@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IStyleState } from 'swagchat-sdk/src/stores/';
+import { IStyleState } from 'swagchat-sdk';
 
 export interface IModalAction {
   name: string;

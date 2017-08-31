@@ -3,24 +3,33 @@ import { RouteComponentProps } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { IUser, IRoom } from 'swagchat-sdk';
 import {
+  IUser,
+  IRoom,
+  State,
+  store,
+  IUserState,
+  IRoomState,
+  IStyleState,
+  ISettingState,
   contactsFetchRequestActionCreator,
   updateSelectContactsActionCreator,
   clearSelectContactsActionCreator,
   IContactsFetchRequestAction,
   IUpdateSelectContactsAction,
   IClearSelectContactsAction,
-} from 'swagchat-sdk/src/actions/user';
-import {
   IRoomUpdatePictureAction,
   roomUpdatePictureActionCreator,
-} from 'swagchat-sdk/src/actions/room';
-import {
   IUpdateStyleAction,
   updateStyleActionCreator,
-} from 'swagchat-sdk/src/actions/style';
-import { State, store } from 'swagchat-sdk/src/stores';
+  combinedCreateRoomAndMessagesFetchRequestActionCreator,
+  combinedAssetPostAndRoomCreateAndMessageFetchRequestActionCreator,
+  ICombinedCreateRoomAndMessagesFetchRequestAction,
+  ICombinedAssetPostAndRoomCreatAndMessageFetchRequestAction,
+  roomUpdateNameActionCreator,
+  IRoomUpdateNameAction,
+  } from 'swagchat-sdk';
+
 import {
   TopBar,
   ContactList,
@@ -30,20 +39,6 @@ import {
   ModalView,
   RoomEdit,
 } from '../../components';
-import { IUserState } from 'swagchat-sdk/src/stores/user';
-import { IRoomState } from 'swagchat-sdk/src/stores/room';
-import { IStyleState } from 'swagchat-sdk/src/stores/style';
-import { ISettingState } from 'swagchat-sdk/src/stores/setting';
-import {
-  combinedCreateRoomAndMessagesFetchRequestActionCreator,
-  combinedAssetPostAndRoomCreateAndMessageFetchRequestActionCreator,
-  ICombinedCreateRoomAndMessagesFetchRequestAction,
-  ICombinedAssetPostAndRoomCreatAndMessageFetchRequestAction,
-} from 'swagchat-sdk/src/actions/combined';
-import {
-  roomUpdateNameActionCreator,
-  IRoomUpdateNameAction,
-} from 'swagchat-sdk/src/actions/room';
 
 export interface ISelectContactPageProps extends RouteComponentProps<any> {
   title: string;

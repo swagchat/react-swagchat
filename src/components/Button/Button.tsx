@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IOnClickProps } from '../../';
+import { IOnClickProps } from 'swagchat-sdk';
 
 export interface IButtonProps extends IOnClickProps {
   icon?: React.ReactNode;

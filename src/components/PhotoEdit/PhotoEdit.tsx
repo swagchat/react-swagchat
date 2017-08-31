@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IOnClickProps } from '../../';
+import { IOnClickProps } from 'swagchat-sdk';
 import {
   Photo,
   Button,

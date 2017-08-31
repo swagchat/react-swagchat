@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { IUserForRoom, IMessage } from 'swagchat-sdk';
-import { IPluginMessage } from  'swagchat-sdk/src/interface';
-import { IPluginState } from 'swagchat-sdk/src/stores/';
+import { IUserForRoom, IMessage, IPluginState, IPluginMessage } from 'swagchat-sdk';
 
 export interface IMessageItemProps {
   pluginState: IPluginState;

@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { IRoomForUser } from 'swagchat-sdk';
-import { IPluginRoomListItem } from 'swagchat-sdk/src/interface';
+import { IRoomForUser, IPluginRoomListItem } from 'swagchat-sdk';
 
 export interface IRoomItemProps {
   myUserId: string;

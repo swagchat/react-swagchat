@@ -1,6 +1,17 @@
 import * as React from 'react';
-import { IRoom } from 'swagchat-sdk';
-import { dateFormateMMDD } from '../../utils';
+import {
+  IRoom,
+  IUserState,
+  IPluginState,
+  IRoomState,
+  IMessageState,
+  IStyleState,
+  ISettingState,
+  IMessageBodyMenuStyle,
+  IPluginMessageTextInteractionStyle,
+  dateFormateMMDD,
+  isIphone,
+} from 'swagchat-sdk';
 import {
   MessageDateSeparator,
   MessageInteractionBottom,
@@ -9,19 +20,6 @@ import {
   MessageMenuBottom,
   MessageMenuTop,
 } from '../../components';
-import {
-  IPluginState,
-  IUserState,
-  IRoomState,
-  IMessageState,
-  IStyleState,
-  ISettingState
-} from 'swagchat-sdk/src/stores/';
-import { isIphone } from '../../utils';
-import {
-  IMessageBodyMenuStyle,
-  IPluginMessageTextInteractionStyle,
-} from 'swagchat-sdk/src/stores/style';
 
 export interface IProps {
   pluginState: IPluginState;

@@ -3,19 +3,19 @@ import * as ReactDom from 'react-dom';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import { setUserAuthParamsActionCreator } from 'swagchat-sdk/src/actions/user';
 import {
+  setUserAuthParamsActionCreator,
   setRoomSettingTitleActionCreator,
   setRoomMembersTitleActionCreator,
   setNoAvatarImagesActionCreator,
   setRoomSettingRoutePathActionCreator,
-} from 'swagchat-sdk/src/actions/setting';
-import { IContext } from '../';
-import { store, routerHistory } from 'swagchat-sdk/src/stores';
-import {
-  ContainerRoomSettingPage,
-} from '../containers/';
-import { getAuthInfoFromStorage } from '../utils';
+  store,
+  routerHistory,
+  getAuthInfoFromStorage,
+} from 'swagchat-sdk';
+import { IContext } from '../templates';
+import { ContainerRoomSettingPage } from '../containers/';
+
 
 export class RouteRoomSettingPage extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {

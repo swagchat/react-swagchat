@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { IRoom } from 'swagchat-sdk';
 import {
   IPluginState,
   IStyleState,
   ISettingState,
   IUserState,
-  IRoomState
-} from 'swagchat-sdk/src/stores/';
-import { IPluginMessageTextInteractionStyle } from 'swagchat-sdk/src/stores/style';
+  IRoomState,
+  IRoom,
+  IPluginMessageTextInteractionStyle
+} from 'swagchat-sdk';
 
 export interface IMessageInteractionProps {
   pluginState: IPluginState;

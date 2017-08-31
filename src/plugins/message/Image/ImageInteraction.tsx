@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPluginMessageInteractionProps } from '../';
+import { IPluginMessageInteractionProps } from 'swagchat-sdk';
 import { Button, Close } from '../../../components';
 
 interface IPluginMessageImageInteractionStyle {

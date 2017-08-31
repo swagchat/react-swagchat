@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { RoomType } from 'swagchat-sdk';
 import {
+  RoomType,
   IUserState,
   IRoomState,
   IStyleState,
   ISettingState,
-} from 'swagchat-sdk/src/stores/';
+  opponentUser,
+} from 'swagchat-sdk';
 import {
   Button,
   Block,
@@ -15,9 +16,8 @@ import {
   ModalView,
   ModalDialog,
   IconListItem,
+  RoomEdit,
 } from '../../components';
-import { RoomEdit } from '../../components';
-import { opponentUser } from '../../utils';
 
 export interface IRoomSettingListProps {
   title?: string;

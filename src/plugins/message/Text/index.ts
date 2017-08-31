@@ -3,7 +3,7 @@ import {
   IPluginMessageItemProps,
   IPluginMessageInteractionProps,
   IPluginMessageMenuProps
-} from 'swagchat-sdk/src/interface';
+} from 'swagchat-sdk';
 import { TextItem } from './TextItem';
 import { TextInteraction } from './TextInteraction';
 import { TextMenu } from './TextMenu';

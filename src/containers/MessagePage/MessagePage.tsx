@@ -6,17 +6,9 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import * as Scroll from 'react-scroll';
 import { throttle } from 'lodash';
-import { IRoom, RoomType } from 'swagchat-sdk';
-import { opponentUser } from '../../utils';
-import { logColor } from '../../';
 import {
-  MessageBody,
-  TopBar,
-  Button,
-  Back,
-  Avatar,
-} from '../../components';
-import {
+  IRoom,
+  RoomType,
   State,
   store,
   IClientState,
@@ -25,44 +17,39 @@ import {
   IRoomState,
   IMessageState,
   IStyleState,
-  ISettingState
-} from 'swagchat-sdk/src/stores';
-import {
+  ISettingState,
   IMessageBodyMenuStyle,
   IPluginMessageTextInteractionStyle,
-} from 'swagchat-sdk/src/stores/style';
-import {
   IMarkAsReadRequestAction,
   markAsReadRequestActionCreator,
-} from  'swagchat-sdk/src/actions/user';
-import {
   IRoomUpdateRequestAction,
   roomUpdateRequestActionCreator,
-} from 'swagchat-sdk/src/actions/room';
-import {
   ICombinedAssetPostAndSendMessageRequestAction,
   combinedAssetPostAndSendMessageRequestActionCreator,
-} from 'swagchat-sdk/src/actions/combined';
-import {
   pluginMessageUpdateMenuIndexActionCreator,
   IPluginMessageUpdateMenuIndexAction,
-} from 'swagchat-sdk/src/actions/plugin';
-import {
   IUpdateStyleAction,
   IUpdateMessageBodyMenuStyleAction,
   IUpdatePluginMessageTextInteractionStyleAction,
   updateStyleActionCreator,
   updateMessageBodyMenuStyleActionCreator,
   updatePluginMessageTextInteractionStyleActionCreator,
-} from 'swagchat-sdk/src/actions/style';
-import {
   IMessagesFetchRequestAction,
   ISendMessagesAction,
   ICreateMessageAction,
   messagesFetchRequestActionCreator,
   createMessageActionCreator,
   sendMessagesActionCreator,
-} from 'swagchat-sdk/src/actions/message';
+  logColor,
+  opponentUser,
+} from 'swagchat-sdk';
+import {
+  MessageBody,
+  TopBar,
+  Button,
+  Back,
+  Avatar,
+} from '../../components';
 
 export interface IProps extends RouteComponentProps<any> {
   pluginState: IPluginState;

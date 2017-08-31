@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { dateFormateHHMM } from '../../../utils';
-import { IPluginMessageItemProps } from '../';
+import { dateFormateHHMM, IPluginMessageItemProps } from 'swagchat-sdk';
 import { Avatar } from '../../../components';
 
 export interface ITextPayload {
