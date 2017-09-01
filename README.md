@@ -1,11 +1,9 @@
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![npm version](https://badge.fury.io/js/swagchat-sdk.svg)](https://badge.fury.io/js/react-swagchat)
 
-# swagchat UIKit for React
+# Swagchat UIKit (React components)
 
-swagchat is an open source chat components for your webapps.
-
-This is UIKit for React.
+Swagchat is an open source chat components for your webapps.
 
 ![Architecture](https://client.fairway.ne.jp/swagchat/img/react-swagchat-sample-ui-20170630.png "Architecture")
 
@@ -14,7 +12,7 @@ This is UIKit for React.
 * [Chat API (Go)](http://github.com/fairway-corp/swagchat-chat-api)
 * [RTM API (Real Time Messaging) (Go)](http://github.com/fairway-corp/swagchat-rtm-api)
 * [Client SDK (TypeScript & JavaScript)](https://github.com/fairway-corp/swagchat-sdk)
-* **UIKit (Typescript - React) ---> This repository**
+* **UIKit (React Components) ---> This repository**
 
 ## Architecture
 
@@ -43,7 +41,7 @@ react-swagchat provides its own type definitions, so you don't need `@types/reac
 
 ### Browser
 
-Using the `renderTemplateGeneral` function you can create the general chat UI (including screen transition).
+Using the `renderTemplateMessenger` function you can create the general chat UI (including screen transition).
 
 ```
 <head>
@@ -53,7 +51,7 @@ Using the `renderTemplateGeneral` function you can create the general chat UI (i
   <div id="swagchat" />
   <script src="https://unpkg.com/react-swagchat/dist/react-swagchat.min.js"></script>
   <script>
-    renderTemplateGeneral({
+    renderTemplateMessenger({
       apiEndpoint: 'http://localhost:9000/v0',
       rtmProtocol: 'ws',
       rtmHost: 'localhost:9100',
