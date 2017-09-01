@@ -1,6 +1,6 @@
 {
   "name": "react-swagchat",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Open source chat components - swagchat UIKit for React",
   "keywords": [
     "swagchat",
@@ -18,7 +18,7 @@
     "build:dev": "./node_modules/.bin/webpack --env=dev --progress --profile --colors --watch",
     "build:prod": "./node_modules/.bin/webpack --env=prod --progress --profile --colors --watch",
     "test": "./node_modules/.bin/jest --coverage",
-    "prepare": "./node_modules/.bin/tsc && ./node_modules/.bin/webpack --env=prod && ./node_modules/.bin/webpack --env=dev"
+    "prepublish": "./node_modules/.bin/tsc && ./node_modules/.bin/webpack --env=prod && ./node_modules/.bin/webpack --env=dev"
   },
   "author": "Betchi <shinichi.minobe@gmail.com>",
   "contributors": [
