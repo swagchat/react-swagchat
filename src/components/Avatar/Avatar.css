@@ -1,7 +1,22 @@
-.avatar {
+.sc-avatar-circle {
   background-color: rgb(188, 188, 188);
   user-select: none;
   border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+}
+.sc-avatar-square {
+  background-color: rgb(188, 188, 188);
+  user-select: none;
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+}
+.sc-avatar-round {
+  background-color: rgb(188, 188, 188);
+  user-select: none;
+  border-radius: 20px;
   height: 40px;
   width: 40px;
   object-fit: cover;

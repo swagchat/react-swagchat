@@ -36,5 +36,13 @@ export { RoomSettingList, IRoomSettingListProps } from './RoomSettingList/RoomSe
 export { IconListItem } from './SimpleListItem/IconListItem';
 export { SimpleListItem } from './SimpleListItem/SimpleListItem';
 export { SubTitleBar } from './SubTitleBar/SubTitleBar';
+export { TextAvatar } from './TextAvatar/TextAvatar';
 export { TopBar } from './TopBar/TopBar';
 
+export interface IOnClickProps {
+  onClick?: (param?: any) => void;
+}
+export interface IIconProps {
+  className?: string;
+  style?: Object;
+}

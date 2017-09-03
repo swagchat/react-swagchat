@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IIconProps } from 'swagchat-sdk';
+import { IIconProps } from '../';
 
 export const Close = (props: IIconProps) => (
   <svg

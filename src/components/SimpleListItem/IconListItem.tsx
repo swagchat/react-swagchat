@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IOnClickProps } from 'swagchat-sdk';
+import { IOnClickProps } from '../';
 
 export interface IIconListItemProps extends IOnClickProps {
   title: string;

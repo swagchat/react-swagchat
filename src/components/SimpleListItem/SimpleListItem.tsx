@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { IOnClickProps } from 'swagchat-sdk';
-import { Avatar } from '../../components';
+import { Avatar, IOnClickProps } from '../';
 
 export interface ISimpleListItemProps extends IOnClickProps {
   name: string;
@@ -19,7 +18,7 @@ export class SimpleListItem extends React.Component<ISimpleListItemProps, {}> {
     return (
       <div className="simple-list-item-wrap" onClick={this.props.onClick}>
         <div className="simple-list-item-wrap-flex1" style={{width: this.props.width + 'px'}}>
-          <Avatar src={this.props.pictureUrl} width={this.props.width} height={this.props.height} />
+          <Avatar src={this.props.pictureUrl} width={this.props.width + 'px'} height={this.props.height + 'px'} />
         </div>
         <div className="simple-list-item-wrap-flex2" style={{height: this.props.height + 'px'}}>
           <span>{this.props.name}</span>

@@ -1,38 +1,61 @@
 import * as React from 'react';
-import { IOnClickProps } from 'swagchat-sdk';
+import { IOnClickProps } from '../';
 const classNames = require('classnames');
 
 export interface IAvatarProps extends IOnClickProps {
+  type?: 'circle' | 'square' | 'round';
   src: string;
+  width?: string;
+  height?: string;
+  margin?: string;
   className?: string;
-  width?: number;
-  height?: number;
-  margin?: number;
+  style?: Object;
 }
 
 export class Avatar extends React.Component<IAvatarProps, {}> {
+  public static defaultProps: Partial<IAvatarProps> = {
+    type: 'circle',
+    className: '',
+    style: {},
+    onClick: () => {},
+  };
+
   render(): JSX.Element  {
-    let style: {
+    const { type, src, width, height, margin, className, style, onClick } = this.props;
+
+    let avatarClassName = '';
+    switch (type) {
+      case 'circle':
+        avatarClassName = 'sc-avatar-circle';
+        break;
+      case 'square':
+        avatarClassName = 'sc-avatar-square';
+        break;
+      case 'round':
+        avatarClassName = 'sc-avatar-round';
+        break;
+    }
+
+    let avatarStyle: Object;
+    let tmpStyle: {
       width?: string;
       height?: string;
       margin?: string;
     } = {};
-    if (this.props.width) {
-      style.width = this.props.width + 'px';
-    }
-    if (this.props.height) {
-      style.height = this.props.height + 'px';
-    }
-    if (this.props.margin) {
-      style.margin = this.props.margin + 'px';
-    }
+    width ? tmpStyle.width = width : null;
+    height ? tmpStyle.height = height : null;
+    margin ? tmpStyle.margin = margin : null;
+    avatarStyle = Object.assign(
+      tmpStyle,
+      style,
+    );
 
     return (
       <img
-        src={this.props.src}
-        className={classNames('avatar', this.props.className)}
-        style={style}
-        onClick={this.props.onClick}
+        src={src}
+        className={classNames(avatarClassName, className)}
+        style={avatarStyle}
+        onClick={onClick}
       />
     );
   }

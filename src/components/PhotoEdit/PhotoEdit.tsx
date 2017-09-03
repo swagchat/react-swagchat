@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { IOnClickProps } from 'swagchat-sdk';
 import {
   Photo,
   Button,
-} from '../../components';
+  IOnClickProps,
+} from '../';
 
 const classNames = require('classnames');
 

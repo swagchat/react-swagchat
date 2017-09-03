@@ -121,9 +121,9 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           rightButton={<Avatar
             onClick={this.onRoomSetting.bind(this)}
             src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}
-            width={30}
-            height={30}
-            margin={9}
+            width="30px"
+            height="30px"
+            margin="9px"
           />}
         />
         <MessageBody

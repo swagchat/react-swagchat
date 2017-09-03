@@ -18,7 +18,7 @@ export class TopBar extends React.Component<IProps, {}> {
           if (pictureUrl) {
             return (
               <div className="topbar-avatar-title-wrap">
-                <div className="topbar-avatar"><Avatar src={pictureUrl} width={32} height={32} /></div>
+                <div className="topbar-avatar"><Avatar src={pictureUrl} width="32px" height="32px" /></div>
                 <h1 className="topbar-avatar-title">{title}</h1>
               </div>
             );

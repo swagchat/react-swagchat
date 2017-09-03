@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { IIconProps } from 'swagchat-sdk';
+import { IIconProps } from '../';
 
 export const Camera = (props: IIconProps) => (
   <svg
-    viewBox="0 0 24 24"
     className={props.className ? props.className : 'icon'}
     style={props.style ? props.style : {}}
   >
