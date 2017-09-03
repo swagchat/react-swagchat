@@ -1,0 +1,32 @@
+.sc-text-avatar-circle-root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(188, 188, 188);
+  user-select: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+.sc-text-avatar-square-root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(188, 188, 188);
+  user-select: none;
+  height: 40px;
+  width: 40px;
+}
+.sc-text-avatar-round-root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(188, 188, 188);
+  user-select: none;
+  border-radius: 20px;
+  height: 40px;
+  width: 40px;
+}
+.sc-text-avatar-element {
+  color: #0084ff;
+}

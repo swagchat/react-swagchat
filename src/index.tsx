@@ -39,8 +39,9 @@ import {
   RoomSettingList,
   IconListItem,
   SimpleListItem,
-  TopBar,
   SubTitleBar,
+  TextAvatar,
+  TopBar,
 } from './components';
 import {
   RoomListPage,
@@ -114,8 +115,9 @@ export * from './templates';
 (window as any).Sc.RoomSettingList = RoomSettingList;
 (window as any).Sc.IconListItem = IconListItem;
 (window as any).Sc.SimpleListItem = SimpleListItem;
-(window as any).Sc.TopBar = TopBar;
 (window as any).Sc.SubTitleBar = SubTitleBar;
+(window as any).Sc.TextAvatar = TextAvatar;
+(window as any).Sc.TopBar = TopBar;
 
 (window as any).Sc.PluginRoomListItemRoomAndUserNameWithMessage = PluginRoomListItemRoomAndUserNameWithMessage;
 (window as any).Sc.PluginRoomListItemRoomNameWithMessage = PluginRoomListItemRoomNameWithMessage;
