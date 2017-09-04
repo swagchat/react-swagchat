@@ -1,4 +1,4 @@
-.check-list-item-root {
+.sc-check-list-item-root {
   margin-left: 0px;
   position: relative;
   text-decoration: none;
@@ -8,31 +8,31 @@
   display: flex;
   justify-content: space-around;
 }
-
-.check-list-item-avatar {
+.sc-check-list-item-wrap {
+  min-width: 320px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fefefe;
+}
+.sc-check-list-item-avatar {
   position: absolute;
 }
-
-.check-list-item-subject {
+.sc-check-list-item-subject {
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 40px;
-  line-height: 40px;
 }
-
-.check-list-item-flex1 {
+.sc-check-list-item-flex1 {
   width: 48px;
   margin: 10px;
 }
-
-.check-list-item-flex2 {
+.sc-check-list-item-flex2 {
   width: 100%;
   margin: 10px;
 }
-
-.check-list-item-flex3 {
+.sc-check-list-item-flex3 {
   width: 50px;
   margin: 10px;
-  height: 40px;
-  line-height: 40px;
+  display: flex;
+  justify-content: center;
 }
