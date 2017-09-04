@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { IOnClickProps } from '../';
-const classNames = require('classnames');
 
 export interface IAvatarProps extends IOnClickProps {
   type?: 'circle' | 'square' | 'round';
@@ -49,6 +48,8 @@ export class Avatar extends React.Component<IAvatarProps, {}> {
       tmpStyle,
       style,
     );
+
+    const classNames = require('classnames');
 
     return (
       <img

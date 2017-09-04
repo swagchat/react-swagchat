@@ -10,10 +10,12 @@
 }
 .sc-check-list-item-wrap {
   min-width: 320px;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background-color: #fefefe;
+  user-select: none;
 }
 .sc-check-list-item-avatar {
   position: absolute;

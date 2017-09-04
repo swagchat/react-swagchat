@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Avatar, RadioButtonChecked, RadioButtonUnChecked, IOnClickProps } from '../';
+import { RadioButtonChecked, RadioButtonUnChecked, IOnClickProps } from '../';
 
 export interface ICheckListItemProps extends IOnClickProps {
-  name: string;
-  pictureUrl: string;
+  text: string;
+  icon?: React.ReactNode;
   isChecked?: boolean;
+  checkedIcon?: React.ReactNode;
+  unCheckedIcon?: React.ReactNode;
   width?: string;
   height?: string;
   className?: string;
@@ -15,6 +17,11 @@ export class CheckListItem extends React.Component<ICheckListItemProps, {}> {
   private _checkedDom: HTMLDivElement | null;
   private _unCheckedDom: HTMLDivElement | null;
 
+  private _rootStyle: {
+    width?: string;
+    height?: string;
+  };
+
   public static defaultProps: Partial<ICheckListItemProps> = {
     isChecked: false,
     className: '',
@@ -24,13 +31,10 @@ export class CheckListItem extends React.Component<ICheckListItemProps, {}> {
 
   constructor(props: ICheckListItemProps) {
     super(props);
-  }
 
-  componentDidMount() {
-    if (this._checkedDom && this._unCheckedDom) {
-      this._checkedDom.addEventListener('click', this.onClick.bind(this));
-      this._unCheckedDom.addEventListener('click', this.onClick.bind(this));
-    }
+    this._rootStyle = {};
+    this.props.width ? this._rootStyle.width = this.props.width : null;
+    this.props.height ? this._rootStyle.height = this.props.height : null;
   }
 
   onClick() {
@@ -46,15 +50,23 @@ export class CheckListItem extends React.Component<ICheckListItemProps, {}> {
   }
 
   render(): JSX.Element  {
-    const { name, pictureUrl, isChecked, width, height } = this.props;
+    const { text, icon, isChecked } = this.props;
 
     return (
-      <div className="sc-check-list-item-wrap" onClick={this.onClick.bind(this)}>
-        <div className="sc-check-list-item-flex1">
-          <Avatar src={pictureUrl} width={width} height={height} />
-        </div>
+      <div className="sc-check-list-item-wrap" onClick={this.onClick.bind(this)} style={this._rootStyle}>
+        {(() => {
+          if (icon) {
+            return (
+              <div className="sc-check-list-item-flex1">
+                {icon}
+              </div>
+            );
+          } else {
+            return <div />;
+          }
+        })()}
         <div className="sc-check-list-item-flex2">
-          <div className="sc-check-list-item-subject">{name}</div>
+          <div className="sc-check-list-item-subject">{text}</div>
         </div>
         <div className="sc-check-list-item-flex3">
           {(() => {
@@ -62,10 +74,10 @@ export class CheckListItem extends React.Component<ICheckListItemProps, {}> {
               return (
                 <div>
                   <div ref={(child) => this._checkedDom = child} style={{display: 'block'}}>
-                    <RadioButtonChecked />
+                    {this.props.checkedIcon ? this.props.checkedIcon : <RadioButtonChecked />}
                   </div>
                   <div ref={(child) => this._unCheckedDom = child} style={{display: 'none'}}>
-                    <RadioButtonUnChecked style={{fill: 'rgba(153, 153, 153, 0.2)'}} />
+                    {this.props.unCheckedIcon ? this.props.unCheckedIcon : <RadioButtonUnChecked style={{fill: 'rgba(153, 153, 153, 0.2)'}} />}
                   </div>
                 </div>
               );
@@ -73,10 +85,10 @@ export class CheckListItem extends React.Component<ICheckListItemProps, {}> {
               return (
                 <div>
                   <div ref={(child) => this._checkedDom = child} style={{display: 'none'}}>
-                    <RadioButtonChecked />
+                    {this.props.checkedIcon ? this.props.checkedIcon : <RadioButtonChecked />}
                   </div>
                   <div ref={(child) => this._unCheckedDom = child} style={{display: 'block'}}>
-                    <RadioButtonUnChecked style={{fill: 'rgba(153, 153, 153, 0.2)'}} />
+                      {this.props.unCheckedIcon ? this.props.unCheckedIcon : <RadioButtonUnChecked style={{fill: 'rgba(153, 153, 153, 0.2)'}} />}
                   </div>
                 </div>
               );

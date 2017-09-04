@@ -1,18 +1,24 @@
 import * as React from 'react';
-import { IUser, IOnClickProps, updateSelectContactsActionDispatch } from 'swagchat-sdk';
-import { CheckListItem } from '../../components';
+import { IUser, updateSelectContactsActionDispatch } from 'swagchat-sdk';
+import { Avatar, CheckListItem, IOnClickProps } from '../';
 
 export interface IContactListProps extends IOnClickProps {
   contacts: IUser[];
   selectedContacts: {[key: string]: IUser};
-  hasTopBar?: boolean;
   noContactListText?: string;
   noContactListImage?: string;
+  checkedIcon?: React.ReactNode;
+  unCheckedIcon?: React.ReactNode;
+  className?: string;
+  style?: Object;
 }
 
 export class ContactList extends React.Component<IContactListProps, {}> {
   public static defaultProps: Partial<IContactListProps> = {
-    hasTopBar: false,
+    contacts: [],
+    selectedContacts: {},
+    className: '',
+    style: {},
   };
 
   onClick(user: IUser) {
@@ -20,9 +26,13 @@ export class ContactList extends React.Component<IContactListProps, {}> {
   }
 
   render(): JSX.Element {
-    const {contacts, selectedContacts, hasTopBar, noContactListText, noContactListImage} = this.props;
+    const {contacts, selectedContacts, noContactListText, noContactListImage, checkedIcon, unCheckedIcon, className, style} = this.props;
+    const classNames = require('classnames');
     return (
-      <div className="page-container" style={hasTopBar ? {marginTop: '47px'} : {}}>
+      <div
+        className={classNames('sc-contact-list-root', className ? className : '')}
+        style={style ? style : {}}
+      >
         {(() => {
           if (contacts && contacts.length > 0) {
             let roomItems = new Array;
@@ -30,12 +40,12 @@ export class ContactList extends React.Component<IContactListProps, {}> {
               roomItems.push(
                 <CheckListItem
                   key={'contact-list-item-' + i}
-                  name={contacts[i].name}
-                  pictureUrl={contacts[i].pictureUrl}
-                  width={40}
-                  height={40}
-                  onClick={this.onClick.bind(this, contacts[i])}
+                  text={contacts[i].name}
+                  icon={<Avatar src={contacts[i].pictureUrl} />}
                   isChecked={(selectedContacts[contacts[i].userId]) ? true : false}
+                  onClick={() => this.onClick(contacts[i])}
+                  checkedIcon={checkedIcon}
+                  unCheckedIcon={unCheckedIcon}
                 />
               );
             }
