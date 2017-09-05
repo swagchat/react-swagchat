@@ -133,8 +133,7 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                           roomPictureUrl={room!.pictureUrl ? room!.pictureUrl! : noAvatarImages[0]}
                         />
                       }
-                      modalKey="roomEdit"
-                      onOkClick={this.onRoomEditOkClick.bind(this)}
+                      onModalClick={this.onRoomEditOkClick.bind(this)}
                     />
                     <IconListItem
                       title="退出する"

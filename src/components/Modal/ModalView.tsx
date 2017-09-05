@@ -1,73 +1,89 @@
 import * as React from 'react';
-import { updateStyleActionDispatch, store } from 'swagchat-sdk';
-import { Button, Close, Done } from '../../components';
+import { Button } from '../../components';
 
 export interface IModalProps {
+  type?: 'button-top' | 'button-bottom';
   title: string;
   component: React.ReactNode;
-  modalKey: string;
-  onOkClick: () => void;
+  className?: string;
+  style?: Object;
+  onModalClick: () => void;
 }
 
-export class ModalView extends React.Component<IModalProps, {}> {
-  private initialInteractionStyle: Object = {
-    modalStyle: {
-      [this.props.modalKey]: {
-        isDisplay: false,
-      }
-    }
+export interface IModalState {
+  isDisplayModal: boolean;
+}
+
+export class ModalView extends React.Component<IModalProps, IModalState> {
+  public static defaultProps: Partial<IModalProps> = {
+    type: 'button-top',
+    className: '',
+    style: {},
+    onModalClick: () => {},
   };
 
-  componentDidMount() {
-    updateStyleActionDispatch(this.initialInteractionStyle);
+  constructor(props: IModalProps) {
+    super(props);
+
+    this.state = {isDisplayModal: false};
   }
 
-  onItemTap() {
-    updateStyleActionDispatch({
-      modalStyle: {
-        [this.props.modalKey]: {
-          isDisplay: true,
-        }
-      }
-    });
+  onModalClick() {
+    this.setState({isDisplayModal: !this.state.isDisplayModal});
   }
 
-  onCloseTap() {
-    updateStyleActionDispatch({
-      modalStyle: {
-        [this.props.modalKey]: {
-          isDisplay: false,
-        }
-      }
-    });
-  }
-
-  onWrapTap(e: any) {
+  onWrapTap(e: Event) {
     e.stopPropagation();
   }
 
   render(): JSX.Element {
-    const { title, component, modalKey} = this.props;
-    const modalStyle = store.getState().style.modalStyle;
-    if (!modalStyle) {
+    if (!this.state.isDisplayModal) {
       return <div />;
     }
+
+    const { type, title, component, className, style } = this.props;
+    const classNames = require('classnames');
+
     return (
-      <div>
-        {modalStyle && modalStyle[modalKey] && modalStyle[modalKey].isDisplay ? (
-          <div className="modal-dialog-root" onClick={this.onCloseTap.bind(this)}>
-            <div className="modal-view-content-wrap" onClick={this.onWrapTap}>
-              <div className="modal-view-root">
-                <div className="modal-view-header">
-                  <Button icon={<Close className="modal-view-icon" />} onClick={this.onCloseTap.bind(this)} />
-                  <div className="modal-view-title">{title}</div>
-                  <Button icon={<Done className="modal-view-icon" />} onClick={this.props.onOkClick} />
+      <div
+        className={className ? classNames(className, 'modal-dialog-root') : 'modal-dialog-root'}
+        onClick={this.onModalClick.bind(this)}
+        style={style}
+      >
+        <div className="sc-modal-view-wrap" onClick={this.onWrapTap.bind(this)}>
+          {(() => {
+            if (type === 'button-top') {
+              return (
+                <div className="sc-modal-view-header">
+                  <Button icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} className="sc-modal-view-header-button" />
+                  <div className="sc-modal-view-title">{title}</div>
+                  <Button icon={<i className="material-icons">done</i>} fontColor="white" onClick={this.props.onModalClick} className="sc-modal-view-header-button" />
                 </div>
-                {component}
-              </div>
-            </div>
+              );
+            } else if (type === 'button-bottom') {
+              return (
+                <div className="sc-modal-view-header">
+                  <div className="sc-modal-view-header-button" />
+                  <div className="sc-modal-view-title">{title}</div>
+                  <Button icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} className="sc-modal-view-header-button" />
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })()}
+          <div className="sc-modal-view-body">
+            {component}
           </div>
-        ) : null}
+          {
+            type === 'button-bottom' ? (
+              <div className="sc-modal-view-footer">
+                <Button type="square-round" text="cancel" fontColor="#333333" hoverFontColor="#0084ff" borderColor="#0084ff" backgroundColor="white" onClick={this.onModalClick.bind(this)} />
+                <Button type="square-round" text="ok" fontColor="#333333" hoverFontColor="#0084ff" borderColor="#0084ff" backgroundColor="white" onClick={this.props.onModalClick} />
+              </div>
+            ) : null
+          }
+        </div>
       </div>
     );
   }

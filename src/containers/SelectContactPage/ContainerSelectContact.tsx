@@ -39,6 +39,8 @@ export interface IReduxSelectContactProps extends RouteComponentProps<any> {
 }
 
 class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
+  private _createRoomModalView: ModalView | null;
+
   componentWillUnmount() {
     clearSelectContactsActionDispatch();
   }
@@ -56,6 +58,7 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
       name: '',
     };
     combinedCreateRoomAndMessagesFetchRequestActionDispatch(room);
+    this._createRoomModalView ? this._createRoomModalView.onModalClick() : null;
   }
 
   onRoomCreateOkClick = () => {
@@ -72,13 +75,14 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
           rightButton={<Button icon={<Done />} onClick={this.onOkButton.bind(this)} />}
         />
         <ContactList
-          hasTopBar={true}
           contacts={userState.contacts}
           selectedContacts={userState.selectContacts}
           noContactListText={noContactListText}
           noContactListImage={noContactListImage}
+          style={{marginTop: '47px'}}
         />
         <ModalView
+          ref={(child) => this._createRoomModalView = child}
           title="グループ情報登録"
           component={
             <RoomEdit
@@ -86,8 +90,7 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
               roomPictureUrl={roomState.updatePictureUrl}
             />
           }
-          modalKey="roomCreate"
-          onOkClick={this.onRoomCreateOkClick.bind(this)}
+          onModalClick={this.onRoomCreateOkClick.bind(this)}
         />
       </div>
     );
