@@ -3,7 +3,7 @@ import { IOnClickProps } from '../';
 const classNames = require('classnames');
 
 export interface IButtonProps extends IOnClickProps {
-  type?: 'link' | 'square' | 'round';
+  type?: 'link' | 'square' | 'square-round' | 'round';
   text?: string;
   icon?: React.ReactNode;
   width?: string;
@@ -58,6 +58,11 @@ export class Button extends React.Component<IButtonProps, {}> {
       case 'square':
         this._buttonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-square');
         this._hoverButtonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-square-hover');
+        this._hoverButtonElementClassName = classNames('sc-button-element', 'sc-button-element-hover');
+        break;
+      case 'square-round':
+        this._buttonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-square-round');
+        this._hoverButtonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-square-round-hover');
         this._hoverButtonElementClassName = classNames('sc-button-element', 'sc-button-element-hover');
         break;
       case 'round':

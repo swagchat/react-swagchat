@@ -1,4 +1,6 @@
 .sc-button-root {
+  display: flex;
+  justify-content: center;
   border: 10px;
   box-sizing: border-box;
   font-family: Roboto, sans-serif;
@@ -25,6 +27,15 @@
 }
 .sc-button-wrap-type-square-hover {
   border: 1px solid #0084ff;
+  background-color: #0084ff;
+}
+.sc-button-wrap-type-square-round {
+  border: 1px solid #0084ff;
+  border-radius: 5px;
+}
+.sc-button-wrap-type-square-round-hover {
+  border: 1px solid #0084ff;
+  border-radius: 5px;
   background-color: #0084ff;
 }
 .sc-button-wrap-type-round {
