@@ -22,30 +22,29 @@
   display: flex;
   justify-content: center;
 }
-.sc-button-wrap-type-square {
-  border: 1px solid #0084ff;
-}
-.sc-button-wrap-type-square-hover {
+
+.sc-button-wrap.square:hover,
+.sc-button-wrap.square-round:hover,
+.sc-button-wrap.round:hover {
   border: 1px solid #0084ff;
   background-color: #0084ff;
 }
-.sc-button-wrap-type-square-round {
+.sc-button-wrap.square:hover > .sc-button-element,
+.sc-button-wrap.square-round:hover > .sc-button-element,
+.sc-button-wrap.round:hover > .sc-button-element {
+  color: white;
+}
+
+.sc-button-wrap.square {
+  border: 1px solid #0083FF;
+}
+.sc-button-wrap.square-round {
   border: 1px solid #0084ff;
   border-radius: 5px;
 }
-.sc-button-wrap-type-square-round-hover {
-  border: 1px solid #0084ff;
-  border-radius: 5px;
-  background-color: #0084ff;
-}
-.sc-button-wrap-type-round {
+.sc-button-wrap.round {
   border: 1px solid #0084ff;
   border-radius: 30px;
-}
-.sc-button-wrap-type-round-hover {
-  border: 1px solid #0084ff;
-  border-radius: 30px;
-  background-color: #0084ff;
 }
 
 .sc-button-element {
@@ -54,7 +53,4 @@
   font-size: 22px;
   margin: 0 5px;
   color: #0084ff;
-}
-.sc-button-element-hover {
-  color: white;
 }

@@ -27,14 +27,16 @@ export class Button extends React.Component<IButtonProps, {}> {
   private _buttonIconDom: HTMLDivElement | null;
 
   private _buttonWrapClassName: string;
-  private _hoverButtonWrapClassName: string;
 
   private _buttonElementClassName: string;
-  private _hoverButtonElementClassName: string;
 
   private _buttonRootStyle: {};
-  private _buttonElementStyle: {};
   private _buttonWrapStyle: {};
+  private _buttonElementStyle: {};
+
+  private _buttonWrapStyleText: string;
+  private _buttonTextStyleText: string;
+  private _buttonIconStyleText: string;
 
   public static defaultProps: Partial<IButtonProps> = {
     position: 'center',
@@ -52,23 +54,15 @@ export class Button extends React.Component<IButtonProps, {}> {
     switch (this.props.type) {
       case 'link':
         this._buttonWrapClassName = 'sc-button-wrap';
-        this._hoverButtonWrapClassName = 'sc-button-wrap';
-        this._hoverButtonElementClassName = 'sc-button-element';
         break;
       case 'square':
-        this._buttonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-square');
-        this._hoverButtonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-square-hover');
-        this._hoverButtonElementClassName = classNames('sc-button-element', 'sc-button-element-hover');
+        this._buttonWrapClassName = classNames('sc-button-wrap', 'square');
         break;
       case 'square-round':
-        this._buttonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-square-round');
-        this._hoverButtonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-square-round-hover');
-        this._hoverButtonElementClassName = classNames('sc-button-element', 'sc-button-element-hover');
+        this._buttonWrapClassName = classNames('sc-button-wrap', 'square-round');
         break;
       case 'round':
-        this._buttonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-round');
-        this._hoverButtonWrapClassName = classNames('sc-button-wrap', 'sc-button-wrap-type-round-hover');
-        this._hoverButtonElementClassName = classNames('sc-button-element', 'sc-button-element-hover');
+        this._buttonWrapClassName = classNames('sc-button-wrap', 'round');
         break;
     }
 
@@ -85,6 +79,7 @@ export class Button extends React.Component<IButtonProps, {}> {
     this._buttonRootStyle = buttonRootStyle;
 
     let buttonWrapStyle: {
+      width?: string;
       justifyContent?: string;
       backgroundColor?: string;
       borderColor?: string;
@@ -107,6 +102,7 @@ export class Button extends React.Component<IButtonProps, {}> {
         justifyContent = 'space-between';
     }
     buttonWrapStyle.justifyContent = justifyContent;
+    this.props.width ? buttonWrapStyle.width = this.props.width : null;
     this.props.backgroundColor ? buttonWrapStyle.backgroundColor = this.props.backgroundColor : null;
     this.props.borderColor ? buttonWrapStyle.borderColor = this.props.borderColor : null;
     this._buttonWrapStyle = buttonWrapStyle;
@@ -123,57 +119,60 @@ export class Button extends React.Component<IButtonProps, {}> {
   }
 
   componentDidMount() {
-    if (this._buttonWrapDom) {
+    if (this._buttonWrapDom && (this.props.hoverFontColor || this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
       this._buttonWrapDom.addEventListener('mouseover', this.onMouseOver.bind(this));
       this._buttonWrapDom.addEventListener('mouseleave', this.onMouseLeave.bind(this));
+      this._buttonWrapStyleText = this._buttonWrapDom.style.cssText;
+
+      if (this._buttonTextDom && this.props.hoverFontColor) {
+        this._buttonTextStyleText = this._buttonTextDom.style.cssText;
+      }
+
+      if (this._buttonIconDom && this.props.hoverFontColor) {
+        this._buttonIconStyleText = this._buttonIconDom.style.cssText;
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._buttonWrapDom && (this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
+      this._buttonWrapDom.removeEventListener('mouseover');
+      this._buttonWrapDom.removeEventListener('mouseleave');
     }
   }
 
   onMouseOver() {
-    if (this._buttonWrapDom) {
+    if (this._buttonWrapDom && (this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
       let buttonWrapStyle = this._buttonWrapDom.style;
       this.props.hoverBackgroundColor ? buttonWrapStyle.backgroundColor = this.props.hoverBackgroundColor : null;
       this.props.hoverBorderColor ? buttonWrapStyle.borderColor = this.props.hoverBorderColor : null;
       this._buttonWrapDom.setAttribute('style', buttonWrapStyle.cssText);
-      this._buttonWrapDom.className = this._hoverButtonWrapClassName;
     }
 
-    if (this._buttonTextDom) {
+    if (this._buttonTextDom && this.props.hoverFontColor) {
       let buttonElementStyle = this._buttonTextDom.style;
       this.props.hoverFontColor ? buttonElementStyle.color = this.props.hoverFontColor : null;
       this._buttonTextDom.setAttribute('style', buttonElementStyle.cssText);
-      this._buttonTextDom.className = this._hoverButtonElementClassName;
     }
 
-    if (this._buttonIconDom) {
+    if (this._buttonIconDom && this.props.hoverFontColor) {
       let buttonElementStyle = this._buttonIconDom.style;
       this.props.hoverFontColor ? buttonElementStyle.color = this.props.hoverFontColor : null;
       this._buttonIconDom.setAttribute('style', buttonElementStyle.cssText);
-      this._buttonIconDom.className = this._hoverButtonElementClassName;
     }
   }
 
   onMouseLeave() {
-    if (this._buttonWrapDom) {
-      let buttonWrapStyle = this._buttonWrapDom.style;
-      this.props.backgroundColor ? buttonWrapStyle.backgroundColor = this.props.backgroundColor : null;
-      this.props.borderColor ? buttonWrapStyle.borderColor = this.props.borderColor : null;
-      this._buttonWrapDom.setAttribute('style', buttonWrapStyle.cssText);
-      this._buttonWrapDom.className = this._buttonWrapClassName;
+    if (this._buttonWrapDom && (this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
+      this._buttonWrapDom.setAttribute('style', this._buttonWrapStyleText);
     }
 
-    if (this._buttonTextDom) {
-      let buttonElementStyle = this._buttonTextDom.style;
-      this.props.fontColor ? buttonElementStyle.color = this.props.fontColor : null;
-      this._buttonTextDom.setAttribute('style', buttonElementStyle.cssText);
-      this._buttonTextDom.className = this._buttonElementClassName;
+    if (this._buttonTextDom && this.props.hoverFontColor) {
+      this._buttonTextDom.setAttribute('style', this._buttonTextStyleText);
     }
 
-    if (this._buttonIconDom) {
-      let buttonElementStyle = this._buttonIconDom.style;
-      this.props.fontColor ? buttonElementStyle.color = this.props.fontColor : null;
-      this._buttonIconDom.setAttribute('style', buttonElementStyle.cssText);
-      this._buttonIconDom.className = this._buttonElementClassName;
+    if (this._buttonIconDom && this.props.hoverFontColor) {
+      this._buttonIconDom.setAttribute('style', this._buttonIconStyleText);
     }
   }
 
