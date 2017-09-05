@@ -1,10 +1,13 @@
-.text-item-avatar {
+.sc-text-item-root {
+  width: 100%;
+}
+.sc-text-item-avatar {
   border-radius: 50%;
   height: 40px;
   width: 40px;
   margin-left: 10px;
 }
-.text-item-name {
+.sc-text-item-name {
   font-size: 0.6em;
   margin-top: -40px;
   margin-left: 70px;
@@ -12,7 +15,7 @@
   color: #212121;
   font-weight: 100;
 }
-.text-item-message-left {
+.sc-text-item-message-left {
   width: auto;
   max-width: 60%;
   background: #f1f0f0;
@@ -24,7 +27,7 @@
   float: left;
   word-wrap: break-word;
 }
-.text-item-message-right {
+.sc-text-item-message-right {
   width: auto;
   max-width: 70%;
   color: #F5F5F5;
@@ -39,20 +42,20 @@
   float: right;
   word-wrap: break-word;
 }
-.text-item-time-left {
+.sc-text-item-time-left {
   font-size: 0.6em;
   color: #212121;
   margin-top: 5px;
   float: left;
 }
-.text-item-time-right {
+.sc-text-item-time-right {
   font-size: 0.6em;
   color: #212121;
   margin-top: 10px;
   margin-right: 10px;
   float: right;
 }
-.text-item-clear {
+.sc-text-item-clear {
   clear: both;
   margin-bottom: 30px;
 };

@@ -16,24 +16,24 @@ export class TextItem extends React.Component<IPluginMessageItemProps, {}> {
       displayText.push(<span key={'text-item-' + message.messageId + '-' + index}>{value}<br /></span>);
     });
 
-    if (user.userId === myUserId) {
-      return (
-        <div>
-          <div className="text-item-message-right">{displayText}</div>
-          <div className="text-item-time-right">{dateFormateHHMM(message.created!)}</div>
-          <div className="text-item-clear" />
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Avatar className="text-item-avatar" src={user.pictureUrl} />
-          <p className="text-item-name">{user.name}</p>
-          <div className="text-item-message-left">{payload.text}</div>
-          <div className="text-item-time-left">{dateFormateHHMM(message.created!)}</div>
-          <div className="text-item-clear" />
-        </div>
-      );
-    }
+    return (
+      <div className="sc-text-item-root">
+        {user.userId === myUserId ? (
+          <div>
+            <div className="sc-text-item-message-right">{displayText}</div>
+            <div className="sc-text-item-time-right">{dateFormateHHMM(message.created!)}</div>
+            <div className="sc-text-item-clear" />
+          </div>
+        ) : (
+          <div>
+            <Avatar className="sc-text-item-avatar" src={user.pictureUrl} />
+            <p className="sc-text-item-name">{user.name}</p>
+            <div className="sc-text-item-message-left">{payload.text}</div>
+            <div className="sc-text-item-time-left">{dateFormateHHMM(message.created!)}</div>
+            <div className="sc-text-item-clear" />
+          </div>
+        )}
+      </div>
+    );
   }
 }

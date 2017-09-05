@@ -24,13 +24,13 @@ body {
 ::-webkit-input-placeholder {
   color: #cccccc;
 }
-
 .layout-box-1 {
   padding: 10px 0;
   background-color: #fafafa;
 }
-
 .page-container {
   min-width: 320px;
 }
-
+.sc-image-input {
+  display: none;
+}

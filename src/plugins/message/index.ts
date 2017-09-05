@@ -1,2 +1,2 @@
 export { PluginMessageImage } from './Image';
-export { PluginMessageText } from './Text';
+export { PluginMessageText, TextItem, TextInteraction, TextMenu } from './Text';

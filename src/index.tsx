@@ -39,6 +39,9 @@ import {
   ContainerNotFoundPage,
 } from './containers';
 import {
+  TextItem,
+} from './plugins/message';
+import {
   PluginRoomListItemRoomAndUserNameWithMessage,
   PluginRoomListItemRoomNameWithMessage,
 } from './plugins/roomListItem';
@@ -87,3 +90,5 @@ export * from './templates';
 
 (window as any).Sc.PluginRoomListItemRoomAndUserNameWithMessage = PluginRoomListItemRoomAndUserNameWithMessage;
 (window as any).Sc.PluginRoomListItemRoomNameWithMessage = PluginRoomListItemRoomNameWithMessage;
+
+(window as any).Sc.TextItem = TextItem;
