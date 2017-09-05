@@ -1,28 +1,32 @@
 import * as React from 'react';
-import {
-  Button,
-  IOnClickProps,
-} from '../';
 
 const classNames = require('classnames');
 
-export interface IPhotoEditProps extends IOnClickProps {
+export interface IPhotoEditProps {
   src: string;
+  width?: string;
+  height?: string;
+  margin?: string;
   className?: string;
-  width?: number;
-  height?: number;
-  margin?: number;
+  style?: Object;
   onUpdatePhoto: (updatePictureUrl: Blob) => void;
 }
 
 export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
-  private selectImage: any;
-  private confirmImageDOM: any;
-  private inputFileDom: HTMLInputElement | null;
+  private _selectImageBlob: Blob;
+  private _confirmImageDom: HTMLImageElement | null;
+  private _inputFileDom: HTMLInputElement | null;
+
+  public static defaultProps: Partial<IPhotoEditProps> = {
+    width: '250px',
+    height: '250px',
+    className: '',
+    style: {},
+  };
 
   onFileUploadChange = (e: any) => {
-    this.selectImage = e.target.files[0];
-    if (!this.selectImage.type.match('image.*')) {
+    this._selectImageBlob = e.target.files[0];
+    if (!this._selectImageBlob.type.match('image.*')) {
       return;
     }
 
@@ -30,16 +34,16 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
     const self = this;
     reader.onload = (function() {
       return function(e: any) {
-        self.confirmImageDOM.src = e.target.result;
+        self._confirmImageDom ? self._confirmImageDom.src = e.target.result : null;
       };
-    }.bind(this))(this.selectImage);
-    reader.readAsDataURL(this.selectImage);
-    this.props.onUpdatePhoto(this.selectImage);
+    }.bind(this))(this._selectImageBlob);
+    reader.readAsDataURL(this._selectImageBlob);
+    this.props.onUpdatePhoto(this._selectImageBlob);
   }
 
-  onPhoto = (e: any) => {
+  onPhoto = (e: Event) => {
     e.preventDefault();
-    this.inputFileDom!.click();
+    this._inputFileDom!.click();
   }
 
   render(): JSX.Element  {
@@ -48,34 +52,29 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
       height?: string;
       margin?: string;
     } = {};
-    if (this.props.width) {
-      style.width = this.props.width + 'px';
-    }
-    if (this.props.height) {
-      style.height = this.props.height + 'px';
-    }
-    if (this.props.margin) {
-      style.margin = this.props.margin + 'px';
-    }
+    this.props.width ? style.width = this.props.width : null;
+    this.props.height ? style.height = this.props.height : null;
+    this.props.margin ? style.margin = this.props.margin : null;
 
     return (
-      <div>
+      <div
+        className={classNames('sc-photo-edit-root', this.props.className)}
+        style={style}
+      >
         <img
           src={this.props.src}
-          ref={(child) => this.confirmImageDOM = child}
-          className={classNames('avatar', this.props.className)}
-          style={style}
-          onClick={this.props.onClick}
+          ref={(child) => this._confirmImageDom = child}
+          className="sc-photo-edit-img sc-avatar-circle"
         />
-        <Button className="photo-edit-button" icon={<i className="material-icons photo-edit-icon">photo_camera</i>} onClick={this.onPhoto.bind(this)} />
+        <div className="sc-photo-edit-button" onClick={this.onPhoto.bind(this)}><i className="material-icons sc-photo-edit-icon">photo_camera</i></div>
         <input
           type="file"
-          ref={(child) => this.inputFileDom = child}
-          className="image-interaction-input"
+          ref={(child) => this._inputFileDom = child}
+          className="sc-image-input"
           accept="image/*"
           onChange={this.onFileUploadChange.bind(this)}
         />
       </div>
-);
+    );
   }
 }
