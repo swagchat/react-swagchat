@@ -14,8 +14,8 @@ import {
   MessageItem,
   MessageMenuBottom,
   MessageMenuTop,
-  ModalDialog,
-  ModalView,
+  Modal,
+  ModalAction,
   PhotoEdit,
   RoomEdit,
   RoomItem,
@@ -43,10 +43,8 @@ import {
   PluginRoomListItemRoomNameWithMessage,
 } from './plugins/roomListItem';
 
-
 export * from './components';
 export * from './templates';
-
 
 // For browser
 (window as any).Sc = {};
@@ -74,8 +72,8 @@ export * from './templates';
 (window as any).Sc.MessageItem = MessageItem;
 (window as any).Sc.MessageMenuBottom = MessageMenuBottom;
 (window as any).Sc.MessageMenuTop = MessageMenuTop;
-(window as any).Sc.ModalDialog = ModalDialog;
-(window as any).Sc.ModalView = ModalView;
+(window as any).Sc.Modal = Modal;
+(window as any).Sc.ModalAction = ModalAction;
 (window as any).Sc.PhotoEdit = PhotoEdit;
 (window as any).Sc.RoomEdit = RoomEdit;
 (window as any).Sc.RoomItem = RoomItem;

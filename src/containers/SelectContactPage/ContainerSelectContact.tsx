@@ -20,7 +20,7 @@ import {
   TopBar,
   ContactList,
   Button,
-  ModalView,
+  Modal,
   RoomEdit,
 } from '../../components';
 
@@ -37,7 +37,7 @@ export interface IReduxSelectContactProps extends RouteComponentProps<any> {
 }
 
 class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
-  private _createRoomModalView: ModalView | null;
+  private _createRoomModalView: Modal | null;
 
   componentWillUnmount() {
     clearSelectContactsActionDispatch();
@@ -79,7 +79,7 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
           noContactListImage={noContactListImage}
           style={{marginTop: '47px'}}
         />
-        <ModalView
+        <Modal
           ref={(child) => this._createRoomModalView = child}
           title="グループ情報登録"
           component={
@@ -88,7 +88,7 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
               roomPictureUrl={roomState.updatePictureUrl}
             />
           }
-          onModalClick={this.onRoomCreateOkClick.bind(this)}
+          onOkModalClick={this.onRoomCreateOkClick.bind(this)}
         />
       </div>
     );

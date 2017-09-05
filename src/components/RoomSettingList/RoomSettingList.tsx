@@ -3,7 +3,6 @@ import {
   IRoom,
   RoomType,
   opponentUser,
-  updateStyleActionDispatch,
   userBlockFetchRequestActionDispatch,
   userUnBlockFetchRequestActionDispatch,
   roomUserRemoveFetchRequestActionDispatch,
@@ -12,8 +11,8 @@ import {
 import {
   Button,
   IModalAction,
-  ModalView,
-  ModalDialog,
+  Modal,
+  ModalAction,
   IconListItem,
   RoomEdit,
 } from '../../components';
@@ -31,7 +30,9 @@ export interface IRoomSettingListProps {
 }
 
 export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> {
-  private _editRoomModalView: ModalView | null;
+  private _editRoomModalView: Modal | null;
+  private _confirmBlockModalView: ModalAction | null;
+  private _confirmLeftModalView: ModalAction | null;
 
   public static defaultProps: Partial<IRoomSettingListProps> = {
     title: '',
@@ -39,6 +40,10 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
     displayNoDataImage: '',
     displayNoDataText: '',
   };
+
+  onConfirmBlockModalView() {
+    this._confirmBlockModalView ? this._confirmBlockModalView.onModalClick() : null;
+  }
 
   onBlockItemTap = () => {
     const users = opponentUser(this.props.room!.users!, this.props.userId);
@@ -49,32 +54,27 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
         userBlockFetchRequestActionDispatch([users[0].userId]);
       }
     }
-    this.modalViewTap('block', false);
+    this._confirmBlockModalView ? this._confirmBlockModalView.onModalClick() : null;
   }
 
-  onRoomEditOkClick = () => {
-    this.modalViewTap('roomEdit', false);
-    combinedAssetPostAndRoomUpdateRequestActionDispatch();
-    this._editRoomModalView ? this._editRoomModalView.onModalClick() : null;
+  onConfirmLeftModalView() {
+    this._confirmLeftModalView ? this._confirmLeftModalView.onModalClick() : null;
   }
 
   onLeftItemTap = () => {
     roomUserRemoveFetchRequestActionDispatch([this.props.userId]);
+    this._confirmLeftModalView ? this._confirmLeftModalView.onModalClick() : null;
   }
 
   onEditRoomModalView() {
     this._editRoomModalView ? this._editRoomModalView.onModalClick() : null;
   }
 
-  modalViewTap = (modalKey: string, isDisplay: boolean) => {
-    updateStyleActionDispatch({
-      modalStyle: {
-        [modalKey]: {
-          isDisplay: isDisplay,
-        }
-      }
-    });
+  onRoomEditOkClick = () => {
+    combinedAssetPostAndRoomUpdateRequestActionDispatch();
+    this._editRoomModalView ? this._editRoomModalView.onModalClick() : null;
   }
+
 
   render(): JSX.Element {
     const {
@@ -97,19 +97,19 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                   modalDescription = 'ブロックを解除しますか？';
                 }
                 let blockActions: IModalAction[] = [
-                  {name: 'はい', type: 'positive', onItemTap: this.onBlockItemTap.bind(this)},
-                  {name: 'いいえ', type: 'negative', onItemTap: this.modalViewTap.bind(this, 'block', false)},
+                  {name: 'はい', onItemTap: this.onBlockItemTap.bind(this)},
+                  {name: 'いいえ', onItemTap: this.onConfirmBlockModalView.bind(this)},
                 ];
                 return (
                   <div className="room-setting-list-root">
                     <IconListItem
                       title={title}
                       leftIcon={<Button icon={<i className="material-icons">block</i>} />}
-                      onClick={this.modalViewTap.bind(this, 'block', true)}
+                      onClick={this.onConfirmBlockModalView.bind(this)}
                     />
-                    <ModalDialog
-                      modalKey="block"
-                      description={modalDescription}
+                    <ModalAction
+                      ref={(child) => this._confirmBlockModalView = child}
+                      component={modalDescription}
                       actions={blockActions}
                     />
                   </div>
@@ -119,8 +119,8 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
             } else {
               if (room!.isCanLeft) {
                 let leftActions: IModalAction[] = [
-                  {name: 'はい', type: 'positive', onItemTap: this.onLeftItemTap.bind(this)},
-                  {name: 'いいえ', type: 'negative', onItemTap: this.modalViewTap.bind(this, 'left', false)},
+                  {name: 'はい', onItemTap: this.onLeftItemTap.bind(this)},
+                  {name: 'いいえ', onItemTap: this.onConfirmLeftModalView.bind(this)},
                 ];
                 return (
                   <div>
@@ -129,8 +129,9 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                       leftIcon={<Button icon={<i className="material-icons">create</i>} />}
                       onClick={this.onEditRoomModalView.bind(this)}
                     />
-                    <ModalView
+                    <Modal
                       ref={(child) => this._editRoomModalView = child}
+                      type="button-top"
                       title="グループ情報編集"
                       component={
                         <RoomEdit
@@ -138,16 +139,16 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                           roomPictureUrl={room!.pictureUrl ? room!.pictureUrl! : noAvatarImages[0]}
                         />
                       }
-                      onModalClick={this.onRoomEditOkClick.bind(this)}
+                      onOkModalClick={this.onRoomEditOkClick.bind(this)}
                     />
                     <IconListItem
                       title="退出する"
                       leftIcon={<Button icon={<i className="material-icons">exit_to_app</i>} />}
-                      onClick={this.modalViewTap.bind(this, 'left', true)}
+                      onClick={this.onConfirmLeftModalView.bind(this)}
                     />
-                    <ModalDialog
-                      modalKey="left"
-                      description="退出しますか？"
+                    <ModalAction
+                      ref={(child) => this._confirmLeftModalView = child}
+                      component={<p>退出しますか？</p>}
                       actions={leftActions}
                     />
                   </div>

@@ -1,0 +1,104 @@
+.sc-modal-root {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: rgba(0,0,0,.2);
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sc-modal-wrap {
+  width: 90%;
+  max-width:  400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #5DADE2;
+  box-shadow: rgba(100, 100, 100, 0.5) 0px 5px 10px 0px;
+}
+
+.sc-modal-component {
+  margin: 10px 0 0 0;
+  width: 95%;
+  text-align: center;
+  color: white;
+  font-size: 1.3rem;  margin: 10px 0 0 0;
+  width: 95%;
+  text-align: center;
+  color: white;
+  font-size: 1.3rem;
+}
+.sc-modal-dialog-action {
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.sc-modal-dialog-content-action > li.positive {
+  background: linear-gradient(0deg,#3a88d6,#427fbd);
+}
+.sc-modal-dialog-content-action > li.negative {
+  background: linear-gradient(0deg,#ddd,#eee);
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.sc-modal-root .sc-button-wrap {
+  border-color: #7DBDE7;
+  background-color: #5DADE2;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.sc-modal-root .sc-button-wrap:hover {
+  background-color: #5599cc;
+}
+.sc-modal-root .sc-button-element {
+  color: white;
+  letter-spacing: 3px;
+}
+
+
+
+
+
+
+.sc-modal-view-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  --webkit-tap-highlight-color: transparent;
+}
+.sc-modal-view-header-button {
+  width: 50px;
+}
+
+.sc-modal-view-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  --webkit-tap-highlight-color: transparent;
+}
+
+.sc-modal-view-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 10px;
+  letter-spacing: 0;
+  font-size: 20px;
+  color: #fff;
+  height: 48px;
+  flex: 1 1 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
