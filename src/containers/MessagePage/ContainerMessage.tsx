@@ -27,7 +27,6 @@ import {
   MessageBody,
   TopBar,
   Button,
-  Back,
   Avatar,
 } from '../../components';
 
@@ -117,7 +116,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
       <div>
         <TopBar
           title={name}
-          leftButton={<Button icon={<Back />} onClick={history.goBack} />}
+          leftButton={<Button icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack} />}
           rightButton={<Avatar
             onClick={this.onRoomSetting.bind(this)}
             src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}

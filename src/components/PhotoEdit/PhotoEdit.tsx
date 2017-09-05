@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Photo,
   Button,
   IOnClickProps,
 } from '../';
@@ -68,7 +67,7 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
           style={style}
           onClick={this.props.onClick}
         />
-        <Button className="photo-edit-button" icon={<Photo className="photo-edit-icon"/>} onClick={this.onPhoto.bind(this)} />
+        <Button className="photo-edit-button" icon={<i className="material-icons photo-edit-icon">photo_camera</i>} onClick={this.onPhoto.bind(this)} />
         <input
           type="file"
           ref={(child) => this.inputFileDom = child}

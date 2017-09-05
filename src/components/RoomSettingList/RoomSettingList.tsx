@@ -11,9 +11,6 @@ import {
 } from 'swagchat-sdk';
 import {
   Button,
-  Block,
-  Exit,
-  Edit,
   IModalAction,
   ModalView,
   ModalDialog,
@@ -100,7 +97,7 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                   <div className="room-setting-list-root">
                     <IconListItem
                       title={title}
-                      leftIcon={<Button icon={<Block />} />}
+                      leftIcon={<Button icon={<i className="material-icons">block</i>} />}
                       onClick={this.modalViewTap.bind(this, 'block', true)}
                     />
                     <ModalDialog
@@ -122,7 +119,7 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                   <div>
                     <IconListItem
                       title="グループ情報編集"
-                      leftIcon={<Button icon={<Edit />} />}
+                      leftIcon={<Button icon={<i className="material-icons">create</i>} />}
                       onClick={this.modalViewTap.bind(this, 'roomEdit', true)}
                     />
                     <ModalView
@@ -137,7 +134,7 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                     />
                     <IconListItem
                       title="退出する"
-                      leftIcon={<Button icon={<Exit />} />}
+                      leftIcon={<Button icon={<i className="material-icons">exit_to_app</i>} />}
                       onClick={this.modalViewTap.bind(this, 'left', true)}
                     />
                     <ModalDialog

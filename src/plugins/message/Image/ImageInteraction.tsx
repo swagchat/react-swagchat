@@ -5,7 +5,7 @@ import {
   pluginMessageUpdateMenuIndexActionDispatch,
   combinedAssetPostAndSendMessageRequestActionDispatch,
 } from 'swagchat-sdk';
-import { Button, Close } from '../../../components';
+import { Button } from '../../../components';
 
 interface IPluginMessageImageInteractionStyle {
   pluginMessageImageInteractionStyle: {
@@ -73,7 +73,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
       <div className="image-interaction-root" style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
         <div className={this.props.position === 'TOP' ? 'image-interaction-confirm-wrap-top' : 'image-interaction-confirm-wrap-bottom'} style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
           <Button
-            icon={<Close style={{color: 'white'}} />}
+            icon={<i className="material-icons">close</i>}
             onClick={this.onConfirmClose.bind(this)}
             className="image-interaction-close-icon"
           />

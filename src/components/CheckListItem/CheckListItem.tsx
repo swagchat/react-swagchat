@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RadioButtonChecked, RadioButtonUnChecked, IOnClickProps } from '../';
+import { IOnClickProps } from '../';
 
 export interface ICheckListItemProps extends IOnClickProps {
   text: string;
@@ -74,10 +74,10 @@ export class CheckListItem extends React.Component<ICheckListItemProps, {}> {
               return (
                 <div>
                   <div ref={(child) => this._checkedDom = child} style={{display: 'block'}}>
-                    {this.props.checkedIcon ? this.props.checkedIcon : <RadioButtonChecked />}
+                    {this.props.checkedIcon ? this.props.checkedIcon : <i className="material-icons" style={{color: '#0084ff'}}>radio_button_checked</i>}
                   </div>
                   <div ref={(child) => this._unCheckedDom = child} style={{display: 'none'}}>
-                    {this.props.unCheckedIcon ? this.props.unCheckedIcon : <RadioButtonUnChecked style={{fill: 'rgba(153, 153, 153, 0.2)'}} />}
+                    {this.props.unCheckedIcon ? this.props.unCheckedIcon : <i className="material-icons" style={{color: 'rgba(153, 153, 153, 0.2)'}}>radio_button_unchecked</i>}
                   </div>
                 </div>
               );
@@ -85,10 +85,10 @@ export class CheckListItem extends React.Component<ICheckListItemProps, {}> {
               return (
                 <div>
                   <div ref={(child) => this._checkedDom = child} style={{display: 'none'}}>
-                    {this.props.checkedIcon ? this.props.checkedIcon : <RadioButtonChecked />}
+                    {this.props.checkedIcon ? this.props.checkedIcon : <i className="material-icons" style={{color: '#0084ff'}}>radio_button_checked</i>}
                   </div>
                   <div ref={(child) => this._unCheckedDom = child} style={{display: 'block'}}>
-                      {this.props.unCheckedIcon ? this.props.unCheckedIcon : <RadioButtonUnChecked style={{fill: 'rgba(153, 153, 153, 0.2)'}} />}
+                      {this.props.unCheckedIcon ? this.props.unCheckedIcon : <i className="material-icons" style={{color: 'rgba(153, 153, 153, 0.2)'}}>radio_button_unchecked</i>}
                   </div>
                 </div>
               );

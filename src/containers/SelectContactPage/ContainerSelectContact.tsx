@@ -20,8 +20,6 @@ import {
   TopBar,
   ContactList,
   Button,
-  Close,
-  Done,
   ModalView,
   RoomEdit,
 } from '../../components';
@@ -71,8 +69,8 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
       <div>
         <TopBar
           title={selectContactTitle}
-          leftButton={<Button icon={<Close />} onClick={this.onCloseButton.bind(this)} />}
-          rightButton={<Button icon={<Done />} onClick={this.onOkButton.bind(this)} />}
+          leftButton={<Button icon={<i className="material-icons">close</i>} onClick={this.onCloseButton.bind(this)} />}
+          rightButton={<Button icon={<i className="material-icons">done</i>} onClick={this.onOkButton.bind(this)} />}
         />
         <ContactList
           contacts={userState.contacts}

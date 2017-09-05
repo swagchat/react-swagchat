@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {IPluginMessageMenuProps, pluginMessageUpdateMenuIndexActionDispatch } from 'swagchat-sdk';
-import { Keyboard } from '../../../components';
 
 export class TextMenu extends React.Component<IPluginMessageMenuProps, {}> {
   render(): JSX.Element {
@@ -16,7 +15,7 @@ export class TextMenu extends React.Component<IPluginMessageMenuProps, {}> {
         className="text-menu-root"
         onClick={() => {pluginMessageUpdateMenuIndexActionDispatch(ownMenuIndex); }}
       >
-        <Keyboard className="text-menu-icon" style={ownMenuIndex === currentMenuIndex ? on : off} />
+        <i className="material-icons text-menu-icon" style={ownMenuIndex === currentMenuIndex ? on : off}>keyboard</i>
       </div>
     );
   }

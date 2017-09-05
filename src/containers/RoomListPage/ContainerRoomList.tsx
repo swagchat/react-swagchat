@@ -8,7 +8,6 @@ import { push } from 'react-router-redux';
 import {
   RoomList,
   TopBar,
-  CheckCircleOutline,
   Button,
 } from '../../components';
 
@@ -49,7 +48,7 @@ class ReduxRoomList extends React.Component<IReduxRoomListProps, any> {
       <div>
         <TopBar
           title={store.getState().setting.roomListTitle}
-          rightButton={<Button icon={<CheckCircleOutline />} onClick={this.onCreateRoomButton.bind(this)} />}
+          rightButton={<Button icon={<i className="material-icons">open_in_new</i>} onClick={this.onCreateRoomButton.bind(this)} />}
         />
         <RoomList
           myUserId={userId}

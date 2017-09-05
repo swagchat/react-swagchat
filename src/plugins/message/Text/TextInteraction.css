@@ -36,7 +36,9 @@
   margin: 0 0 0 10px;
 }
 .text-interaction-send-icon {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #0084ff;
   fill: currentcolor;
   user-select: none;

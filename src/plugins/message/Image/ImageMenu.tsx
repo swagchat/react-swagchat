@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { IPluginMessageMenuProps, pluginMessageUpdateMenuIndexActionDispatch } from 'swagchat-sdk';
-import { Camera } from '../../../components';
 
 export class ImageMenu extends React.Component<IPluginMessageMenuProps, {}> {
   render(): JSX.Element {
@@ -16,7 +15,7 @@ export class ImageMenu extends React.Component<IPluginMessageMenuProps, {}> {
         className="image-menu-root"
         onClick={() => {pluginMessageUpdateMenuIndexActionDispatch(ownMenuIndex); }}
       >
-        <Camera className="image-menu-icon" style={ownMenuIndex === currentMenuIndex ? on : off} />
+        <i className="material-icons" style={ownMenuIndex === currentMenuIndex ? on : off}>camera_alt</i>
       </div>
     );
   }

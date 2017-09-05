@@ -18,7 +18,6 @@ import {
   RoomSettingList,
   SimpleListItem,
   SubTitleBar,
-  Back,
   Button,
 } from '../../components';
 
@@ -58,7 +57,7 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
       <div className="room-setting-page-root">
         <TopBar
           title={settingState.roomSettingTitle}
-          leftButton={<Button icon={<Back />} onClick={history.goBack} />}
+          leftButton={<Button icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack} />}
         />
         <SimpleListItem name={name} pictureUrl={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]} width={80} height={80} />
         <RoomSettingList

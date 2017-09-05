@@ -7,7 +7,7 @@ import {
   sendMessagesActionDispatch,
   updatePluginMessageTextInteractionStyle,
 } from 'swagchat-sdk';
-import { Button, Send } from '../../../components';
+import { Button } from '../../../components';
 
 export class TextInteraction extends React.Component<IPluginMessageInteractionProps, {}> {
   private sendIconStyle: Object;
@@ -127,7 +127,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
         />
         <Button
           className="text-interaction-send-button"
-          icon={<Send className="text-interaction-send-icon" style={this.sendIconStyle} />}
+          icon={<i className="material-icons text-interaction-send-icon" style={this.sendIconStyle}>send</i>}
           onClick={this.onClick.bind(this)}
         />
       </div>
