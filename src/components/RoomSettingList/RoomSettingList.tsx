@@ -31,6 +31,8 @@ export interface IRoomSettingListProps {
 }
 
 export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> {
+  private _editRoomModalView: ModalView | null;
+
   public static defaultProps: Partial<IRoomSettingListProps> = {
     title: '',
     desableMarginTop: true,
@@ -53,10 +55,15 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
   onRoomEditOkClick = () => {
     this.modalViewTap('roomEdit', false);
     combinedAssetPostAndRoomUpdateRequestActionDispatch();
+    this._editRoomModalView ? this._editRoomModalView.onModalClick() : null;
   }
 
   onLeftItemTap = () => {
     roomUserRemoveFetchRequestActionDispatch([this.props.userId]);
+  }
+
+  onEditRoomModalView() {
+    this._editRoomModalView ? this._editRoomModalView.onModalClick() : null;
   }
 
   modalViewTap = (modalKey: string, isDisplay: boolean) => {
@@ -120,9 +127,10 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                     <IconListItem
                       title="グループ情報編集"
                       leftIcon={<Button icon={<i className="material-icons">create</i>} />}
-                      onClick={this.modalViewTap.bind(this, 'roomEdit', true)}
+                      onClick={this.onEditRoomModalView.bind(this)}
                     />
                     <ModalView
+                      ref={(child) => this._editRoomModalView = child}
                       title="グループ情報編集"
                       component={
                         <RoomEdit
