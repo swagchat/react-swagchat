@@ -33,32 +33,23 @@ export class ContactList extends React.Component<IContactListProps, {}> {
         className={classNames('sc-contact-list-root', className ? className : '')}
         style={style ? style : {}}
       >
-        {(() => {
-          if (contacts && contacts.length > 0) {
-            let roomItems = new Array;
-            for (let i = 0; i < contacts.length; i++) {
-              roomItems.push(
-                <CheckListItem
-                  key={'contact-list-item-' + i}
-                  text={contacts[i].name}
-                  icon={<Avatar src={contacts[i].pictureUrl} />}
-                  isChecked={(selectedContacts[contacts[i].userId]) ? true : false}
-                  onClick={() => this.onClick(contacts[i])}
-                  checkedIcon={checkedIcon}
-                  unCheckedIcon={unCheckedIcon}
-                />
-              );
-            }
-            return roomItems;
-          } else {
-            return (
-              <div className="nodata-wrap">
-                {noContactListImage !== '' ? <img className="nodata-image" src={noContactListImage} /> : ''}
-                <p className="nodata-text">{noContactListText !== '' ? noContactListText : ''}</p>
-              </div>
-            );
-          }
-        })()}
+        {contacts.map((contact, i) =>
+          <CheckListItem
+            key={'contact-list-item-' + i}
+            text={contact.name}
+            icon={<Avatar src={contact.pictureUrl} />}
+            isChecked={(selectedContacts[contact.userId]) ? true : false}
+            onClick={() => this.onClick(contact)}
+            checkedIcon={checkedIcon}
+            unCheckedIcon={unCheckedIcon}
+          />
+        )}
+        {!(contacts && contacts.length > 0) ?
+          <div className="nodata-wrap">
+            {noContactListImage !== '' ? <img className="nodata-image" src={noContactListImage} /> : ''}
+            <p className="nodata-text">{noContactListText !== '' ? noContactListText : ''}</p>
+          </div> : null
+        }
       </div>
     );
   }

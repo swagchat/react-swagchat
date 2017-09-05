@@ -1,5 +1,4 @@
 import * as React from 'react';
-const classNames = require('classnames');
 
 export interface IBackButtonProps {
   count: number;
@@ -15,6 +14,7 @@ export class Badge extends React.Component<IBackButtonProps, {}> {
 
   render(): JSX.Element  {
     const { className, style } = this.props;
+    const classNames = require('classnames');
     return (
       <span
         className={classNames('sc-badge', className)}
