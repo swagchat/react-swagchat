@@ -26,7 +26,7 @@ export class ImageItem extends React.Component<IPluginMessageItemProps, {}> {
       return (
         <div>
           <div>
-            <Avatar className="image-item-avatar" src={user.pictureUrl} />
+            <Avatar className="image-item-avatar" width="40px" height="40px" src={user.pictureUrl} />
             <p className="image-item-name">{user.name}</p>
             <img src={payload.sourceUrl} className="image-item-message-left" />
             <div className="image-item-time-left">{dateFormateHHMM(message.created!)}</div>

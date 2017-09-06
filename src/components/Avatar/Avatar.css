@@ -1,23 +1,19 @@
-.sc-avatar-circle {
+.sc-avatar-root {
   background-color: rgb(188, 188, 188);
   user-select: none;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+.sc-avatar-root.circle {
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  object-fit: cover;
 }
-.sc-avatar-square {
-  background-color: rgb(188, 188, 188);
-  user-select: none;
-  height: 40px;
-  width: 40px;
-  object-fit: cover;
+.sc-avatar-root.square {
+  border-radius: 0;
 }
-.sc-avatar-round {
-  background-color: rgb(188, 188, 188);
-  user-select: none;
-  border-radius: 20px;
-  height: 40px;
-  width: 40px;
-  object-fit: cover;
+.sc-avatar-root.square-round {
+  border-radius: 5px;
+}
+.sc-avatar-root.round {
+  border-radius: 30px;
 }

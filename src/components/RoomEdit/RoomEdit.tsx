@@ -26,8 +26,8 @@ export class RoomEdit extends React.Component<IRoomEditProps, {}> {
       <div className="room-edit-root">
         <PhotoEdit
           src={this.props.roomPictureUrl}
-          width={120}
-          height={120}
+          width="120px"
+          height="120px"
           onUpdatePhoto={roomUpdatePictureActionDispatch}
         />
         <input

@@ -32,6 +32,9 @@ export class RoomAndUserNameWithMessage extends React.Component<IPluginRoomListI
       <div className="room-and-user-name-with-message-root" onClick={this.onClick.bind(this, userRoom)}>
         <div className="room-and-user-name-with-message-flex1">
           <Avatar
+            type="square-round"
+            width="40px"
+            height="40px"
             src={userRoom.pictureUrl ? userRoom.pictureUrl : noAvatarImages[0]}
             className="room-and-user-name-with-message-avatar"
           />

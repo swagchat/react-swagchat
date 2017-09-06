@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-const classNames = require('classnames');
-
 export interface IPhotoEditProps {
+  type?: 'circle' | 'square' | 'square-round'| 'round';
   src: string;
   width?: string;
   height?: string;
@@ -18,8 +17,7 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
   private _inputFileDom: HTMLInputElement | null;
 
   public static defaultProps: Partial<IPhotoEditProps> = {
-    width: '250px',
-    height: '250px',
+    type: 'circle',
     className: '',
     style: {},
   };
@@ -47,24 +45,47 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
   }
 
   render(): JSX.Element  {
-    let style: {
+    const { type, src, width, height, margin, className, style } = this.props;
+
+    let tempRootStyle: {
       width?: string;
       height?: string;
       margin?: string;
     } = {};
-    this.props.width ? style.width = this.props.width : null;
-    this.props.height ? style.height = this.props.height : null;
-    this.props.margin ? style.margin = this.props.margin : null;
+    width ? tempRootStyle.width = width : null;
+    height ? tempRootStyle.height = height : null;
+    margin ? tempRootStyle.margin = margin : null;
+    const rootStyle = Object.assign(
+      tempRootStyle,
+      style,
+    );
+
+    const classNames = require('classnames');
+    let imgClassName = '';
+    switch (type) {
+      case 'circle':
+        imgClassName = classNames('sc-photo-edit-img', 'sc-avatar-root', 'circle');
+        break;
+      case 'square':
+        imgClassName = classNames('sc-photo-edit-img', 'sc-avatar-root', 'square');
+        break;
+      case 'square-round':
+        imgClassName = classNames('sc-photo-edit-img', 'sc-avatar-root', 'square-round');
+        break;
+      case 'round':
+        imgClassName = classNames('sc-photo-edit-img', 'sc-avatar-root', 'round');
+        break;
+    }
 
     return (
       <div
-        className={classNames('sc-photo-edit-root', this.props.className)}
-        style={style}
+        className={classNames('sc-photo-edit-root', className)}
+        style={rootStyle}
       >
         <img
-          src={this.props.src}
+          src={src}
           ref={(child) => this._confirmImageDom = child}
-          className="sc-photo-edit-img sc-avatar-circle"
+          className={imgClassName}
         />
         <div className="sc-photo-edit-button" onClick={this.onPhoto.bind(this)}><i className="material-icons sc-photo-edit-icon">photo_camera</i></div>
         <input
