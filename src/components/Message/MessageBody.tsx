@@ -16,8 +16,7 @@ import {
   MessageInteractionBottom,
   MessageInteractionTop,
   MessageItem,
-  MessageMenuBottom,
-  MessageMenuTop,
+  MessageMenu,
 } from '../../components';
 
 export interface IProps {
@@ -52,14 +51,15 @@ export class MessageBody extends React.Component<IProps, {}> {
 
   render(): JSX.Element  {
     const { messageState, settingState, pluginState, roomState, userState, styleState} = this.props;
-
     return (
       <div className="message-body-root">
         <div className="message-body-menu-top" style={styleState.messageBodyMenuStyle}>
-          <MessageMenuTop
-            pluginState={pluginState}
-            userState={userState}
-            roomState={roomState}
+          <MessageMenu
+            position="top"
+            pluginMessages={pluginState.messages}
+            customPluginMessages={pluginState.customMessages}
+            user={userState.user!}
+            room={roomState.room!}
             currentMenuIndex={pluginState.currentMenuIndex}
             availableMessageTypes={roomState.room!.availableMessageTypes!}
           />
@@ -99,7 +99,7 @@ export class MessageBody extends React.Component<IProps, {}> {
             messageItems.push(
               <MessageItem
                 key={'message-item-' + messageState.messages[messageId].messageId!}
-                pluginState={pluginState}
+                pluginMessages={pluginState.messages}
                 message={messageState.messages[messageId]}
                 user={roomState.roomUsers![messageState.messages[messageId].userId]}
                 myUserId={userState.user!.userId}
@@ -109,10 +109,12 @@ export class MessageBody extends React.Component<IProps, {}> {
           return messageItems;
         })()}
         <div className="message-body-menu" style={styleState.messageBodyMenuStyle}>
-          <MessageMenuBottom
-            pluginState={pluginState}
-            userState={userState}
-            roomState={roomState}
+          <MessageMenu
+            position="bottom"
+            pluginMessages={pluginState.messages}
+            customPluginMessages={pluginState.customMessages}
+            user={userState.user!}
+            room={roomState.room!}
             currentMenuIndex={pluginState.currentMenuIndex}
             availableMessageTypes={roomState.room!.availableMessageTypes!}
           />

@@ -1,9 +1,0 @@
-.message-menu-top-root {
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
