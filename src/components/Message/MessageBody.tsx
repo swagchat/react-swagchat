@@ -13,8 +13,7 @@ import {
 } from 'swagchat-sdk';
 import {
   MessageDateSeparator,
-  MessageInteractionBottom,
-  MessageInteractionTop,
+  MessageInteraction,
   MessageItem,
   MessageMenu,
 } from '../../components';
@@ -63,13 +62,16 @@ export class MessageBody extends React.Component<IProps, {}> {
             currentMenuIndex={pluginState.currentMenuIndex}
             availableMessageTypes={roomState.room!.availableMessageTypes!}
           />
-          <MessageInteractionTop
-            pluginState={pluginState}
+          <MessageInteraction
+            position="top"
+            isAlwaysDisplay={false}
+            pluginMessages={pluginState.messages}
+            customPluginMessages={pluginState.customMessages}
             currentMenuIndex={pluginState.currentMenuIndex}
             styleState={styleState}
             settingState={settingState}
-            userState={userState}
-            roomState={roomState}
+            user={userState.user!}
+            room={roomState.room!}
             onTextareaFocus={this.onTextareaFocus.bind(this)}
             onTextareaBlur={this.onTextareaBlur.bind(this)}
             availableMessageTypes={roomState.room!.availableMessageTypes!}
@@ -100,6 +102,7 @@ export class MessageBody extends React.Component<IProps, {}> {
               <MessageItem
                 key={'message-item-' + messageState.messages[messageId].messageId!}
                 pluginMessages={pluginState.messages}
+                customPluginMessages={pluginState.customMessages}
                 message={messageState.messages[messageId]}
                 user={roomState.roomUsers![messageState.messages[messageId].userId]}
                 myUserId={userState.user!.userId}
@@ -118,13 +121,16 @@ export class MessageBody extends React.Component<IProps, {}> {
             currentMenuIndex={pluginState.currentMenuIndex}
             availableMessageTypes={roomState.room!.availableMessageTypes!}
           />
-          <MessageInteractionBottom
-            pluginState={pluginState}
+          <MessageInteraction
+            position="bottom"
+            isAlwaysDisplay={false}
+            pluginMessages={pluginState.messages}
+            customPluginMessages={pluginState.customMessages}
             currentMenuIndex={pluginState.currentMenuIndex}
             styleState={styleState}
             settingState={settingState}
-            userState={userState}
-            roomState={roomState}
+            user={userState.user!}
+            room={roomState.room!}
             onTextareaFocus={this.onTextareaFocus.bind(this)}
             onTextareaBlur={this.onTextareaBlur.bind(this)}
             availableMessageTypes={roomState.room!.availableMessageTypes!}

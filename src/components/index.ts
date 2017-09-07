@@ -6,8 +6,7 @@ export { ContactList, IContactListProps } from './ContactList/ContactList';
 export { MessageBody } from './Message/MessageBody';
 export { MessageBody2 } from './Message/MessageBody2';
 export { MessageDateSeparator } from './Message/MessageDateSeparator';
-export { MessageInteractionBottom } from './Message/MessageInteractionBottom';
-export { MessageInteractionTop } from './Message/MessageInteractionTop';
+export { MessageInteraction } from './Message/internal/MessageInteraction';
 export { MessageItem } from './Message/internal/MessageItem';
 export { MessageMenu } from './Message/internal/MessageMenu';
 export { Modal } from './Modal/Modal';
@@ -25,8 +24,4 @@ export { TopBar } from './TopBar/TopBar';
 
 export interface IOnClickProps {
   onClick?: (param?: any) => void;
-}
-export interface IIconProps {
-  className?: string;
-  style?: Object;
 }

@@ -8,12 +8,8 @@ import {
   CheckListItem,
   ContactList,
   MessageBody,
+  MessageBody2,
   MessageDateSeparator,
-  MessageInteractionBottom,
-  MessageInteractionTop,
-  MessageItem,
-  MessageMenuBottom,
-  MessageMenuTop,
   Modal,
   ModalAction,
   PhotoEdit,
@@ -39,6 +35,8 @@ import {
   ContainerNotFoundPage,
 } from './containers';
 import {
+  PluginMessageText,
+  PluginMessageImage,
   TextItem,
 } from './plugins/message';
 import {
@@ -69,12 +67,8 @@ export * from './templates';
 (window as any).Sc.CheckListItem = CheckListItem;
 (window as any).Sc.ContactList = ContactList;
 (window as any).Sc.MessageBody = MessageBody;
+(window as any).Sc.MessageBody2 = MessageBody2;
 (window as any).Sc.MessageDateSeparator = MessageDateSeparator;
-(window as any).Sc.MessageInteractionBottom = MessageInteractionBottom;
-(window as any).Sc.MessageInteractionTop = MessageInteractionTop;
-(window as any).Sc.MessageItem = MessageItem;
-(window as any).Sc.MessageMenuBottom = MessageMenuBottom;
-(window as any).Sc.MessageMenuTop = MessageMenuTop;
 (window as any).Sc.Modal = Modal;
 (window as any).Sc.ModalAction = ModalAction;
 (window as any).Sc.PhotoEdit = PhotoEdit;
@@ -90,5 +84,6 @@ export * from './templates';
 
 (window as any).Sc.PluginRoomListItemRoomAndUserNameWithMessage = PluginRoomListItemRoomAndUserNameWithMessage;
 (window as any).Sc.PluginRoomListItemRoomNameWithMessage = PluginRoomListItemRoomNameWithMessage;
-
+(window as any).Sc.PluginMessageText = PluginMessageText;
+(window as any).Sc.PluginMessageImage = PluginMessageImage;
 (window as any).Sc.TextItem = TextItem;

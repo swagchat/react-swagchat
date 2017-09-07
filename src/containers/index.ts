@@ -16,6 +16,7 @@ export { ContainerSelectContact } from './SelectContactPage/ContainerSelectConta
 export { SelectContactPage } from './SelectContactPage/SelectContactPage';
 
 export { ContainerMessage } from './MessagePage/ContainerMessage';
+export { ContainerMessage2 } from './MessagePage/ContainerMessage2';
 export { MessagePage, renderMessagePage } from './MessagePage/MessagePage';
 
 export { ContainerNotFoundPage } from './/NotFoundPage/NotFoundPage';

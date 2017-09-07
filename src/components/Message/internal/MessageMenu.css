@@ -5,7 +5,7 @@
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
 }
 

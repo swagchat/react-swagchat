@@ -14,9 +14,9 @@ interface IPluginMessageImageInteractionStyle {
 }
 
 export class ImageInteraction extends React.Component<IPluginMessageInteractionProps, {}> {
-  private selectImage: any;
-  private confirmImageDOM: HTMLImageElement | null;
-  private inputFileDom: HTMLInputElement | null;
+  private _selectImage: any;
+  private _confirmImageDOM: HTMLImageElement | null;
+  private _inputFileDom: HTMLInputElement | null;
 
   private initialInteractionStyle: IPluginMessageImageInteractionStyle = {
     pluginMessageImageInteractionStyle: {
@@ -26,14 +26,15 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
 
   componentDidMount() {
     updateStyleActionDispatch(this.initialInteractionStyle);
-    if (this.inputFileDom) {
-      this.inputFileDom.click();
+    if (this._inputFileDom) {
+      this._inputFileDom.click();
     }
   }
 
   onFileUploadChange(e: any) {
-    this.selectImage = e.target.files[0];
-    if (!this.selectImage.type.match('image.*')) {
+    console.log('---------------------- onFileUploadChange');
+    this._selectImage = e.target.files[0];
+    if (!this._selectImage.type.match('image.*')) {
       return;
     }
 
@@ -41,15 +42,15 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
     const self = this;
     reader.onload = (function() {
       return function(e: any) {
-        self.confirmImageDOM!.src = e.target.result;
+        self._confirmImageDOM!.src = e.target.result;
         updateStyleActionDispatch({
           pluginMessageImageInteractionStyle: {
             display: 'block',
           }
         });
       };
-    }.bind(this))(this.selectImage);
-    reader.readAsDataURL(this.selectImage);
+    }.bind(this))(this._selectImage);
+    reader.readAsDataURL(this._selectImage);
   }
 
   onConfirmClose() {
@@ -58,11 +59,11 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
   }
 
   onFileUploadRequest() {
-    this.confirmImageDOM!.src = '';
+    this._confirmImageDOM!.src = '';
     updateStyleActionDispatch(this.initialInteractionStyle);
     pluginMessageUpdateMenuIndexActionDispatch(0);
-    combinedAssetPostAndSendMessageRequestActionDispatch(this.selectImage);
-    this.selectImage = null;
+    combinedAssetPostAndSendMessageRequestActionDispatch(this._selectImage);
+    this._selectImage = null;
   }
 
   render(): JSX.Element {
@@ -71,7 +72,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
 
     return (
       <div className="image-interaction-root" style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
-        <div className={this.props.position === 'TOP' ? 'image-interaction-confirm-wrap-top' : 'image-interaction-confirm-wrap-bottom'} style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
+        <div className={this.props.position === 'top' ? 'image-interaction-confirm-wrap-top' : 'image-interaction-confirm-wrap-bottom'} style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
           <Button
             icon={<i className="material-icons">close</i>}
             onClick={this.onConfirmClose.bind(this)}
@@ -79,7 +80,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
           />
           <img
             id="confirmImage"
-            ref={(child) => this.confirmImageDOM = child}
+            ref={(child) => this._confirmImageDOM = child}
             role="presentation"
             className="image-interaction-confirm-image"
             onClick={this.onFileUploadRequest.bind(this)}
@@ -87,8 +88,8 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
         </div>
         <input
           type="file"
-          ref={(child) => this.inputFileDom = child}
-          className="image-interaction-input"
+          ref={(child) => this._inputFileDom = child}
+          className="sc-image-input"
           accept="image/*"
           onChange={this.onFileUploadChange.bind(this)}
         />

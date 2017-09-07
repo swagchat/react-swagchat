@@ -7,6 +7,7 @@ import {
 import { ImageItem } from './ImageItem';
 import { ImageInteraction } from './ImageInteraction';
 import { ImageMenu } from './ImageMenu';
+import { IPluginMessageParams } from '../';
 
 export class PluginMessageImage implements IPluginMessage {
   name: string = 'image';
@@ -14,13 +15,14 @@ export class PluginMessageImage implements IPluginMessage {
   item: React.ComponentClass<IPluginMessageItemProps> = ImageItem;
   interaction: React.ComponentClass<IPluginMessageInteractionProps> = ImageInteraction;
   menu: React.ComponentClass<IPluginMessageMenuProps> = ImageMenu;
-  position: string = 'BOTTOM';
+  position: 'top' | 'bottom' = 'bottom';
+  isAlwaysDisplay: boolean = false;
 
-  constructor()
-  constructor(position: string)
-  constructor(position?: string) {
-    if (position) {
-      this.position = position;
+  constructor(params?: IPluginMessageParams)
+  constructor(params?: IPluginMessageParams) {
+    if (params) {
+      params.position ? this.position = params.position : null;
+      params.isAlwaysDisplay ? this.isAlwaysDisplay = params.isAlwaysDisplay : null;
     }
   }
 }

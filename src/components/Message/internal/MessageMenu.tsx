@@ -45,7 +45,7 @@ export class MessageMenu extends React.Component<IMessageMenuProps, {}> {
         if (customPluginMessage.name === availableMessageType && customPluginMessage.name !== 'text' && customPluginMessage.position === this.props.position) {
           menus.push(React.createElement(
             customPluginMessage.menu, {
-              key: 'plugin-message-menu-' + i,
+              key: 'plugin-custom-message-menu-' + i,
               user: this.props.user,
               room: this.props.room,
               ownMenuIndex: i,

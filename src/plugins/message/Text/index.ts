@@ -7,6 +7,7 @@ import {
 import { TextItem } from './TextItem';
 import { TextInteraction } from './TextInteraction';
 import { TextMenu } from './TextMenu';
+import { IPluginMessageParams } from '../';
 
 export class PluginMessageText implements IPluginMessage {
   name: string = 'text';
@@ -19,13 +20,14 @@ export class PluginMessageText implements IPluginMessage {
     }
   };
   menu: React.ComponentClass<IPluginMessageMenuProps> = TextMenu;
-  position: string = 'BOTTOM';
+  position: 'top' | 'bottom' = 'bottom';
+  isAlwaysDisplay: boolean = true;
 
-  constructor()
-  constructor(position: string)
-  constructor(position?: string) {
-    if (position) {
-      this.position = position;
+  constructor(params?: IPluginMessageParams)
+  constructor(params?: IPluginMessageParams) {
+    if (params) {
+      params.position ? this.position = params.position : null;
+      params.isAlwaysDisplay ? this.isAlwaysDisplay = params.isAlwaysDisplay : null;
     }
   }
 }
