@@ -5,11 +5,10 @@ import {
   IPluginMessageTextInteractionStyle,
   createMessageActionDispatch,
   sendMessagesActionDispatch,
-  updatePluginMessageTextInteractionStyle,
 } from 'swagchat-sdk';
 import { Button } from '../../../components';
 
-export class TextInteraction extends React.Component<IPluginMessageInteractionProps, {}> {
+export class TextInteraction extends React.Component<IPluginMessageInteractionProps, IPluginMessageTextInteractionStyle> {
   private sendIconStyle: Object;
   private fontSize: number = 18;
   private padding: number = 10;
@@ -29,8 +28,14 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
     },
   };
 
+  constructor(props: IPluginMessageInteractionProps) {
+    super(props);
+
+    this.state = this.initialInteractionStyle;
+  }
+
   componentDidMount() {
-    updatePluginMessageTextInteractionStyle(this.initialInteractionStyle);
+    this.setState(this.initialInteractionStyle);
     this.maxCharCount =  (this.textareaDom!.clientWidth - 20) / (this.fontSize * 0.57);
   }
 
@@ -54,7 +59,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
       this.newLineCount = newLineCount;
       const newTextAreaStyle = Object.assign(
         {},
-        this.props.styleState.pluginMessageTextInteractionStyle.textAreaStyle,
+        this.state.textAreaStyle,
         {
           height: this.fontSize * newLineCount + 'px',
           overflowY: 'auto',
@@ -63,12 +68,12 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
       const newPluginMessageTextInteractionStyle = {
         textAreaStyle: newTextAreaStyle,
       };
-      updatePluginMessageTextInteractionStyle(newPluginMessageTextInteractionStyle);
+      this.setState(newPluginMessageTextInteractionStyle);
     }
     if (this.newLineCount === 1) {
       const newTextAreaStyle = Object.assign(
         {},
-        this.props.styleState.pluginMessageTextInteractionStyle.textAreaStyle,
+        this.state.textAreaStyle,
         {
           height: this.fontSize * newLineCount + 'px',
           overflowY: 'hidden',
@@ -77,7 +82,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
       const newPluginMessageTextInteractionStyle = {
         textAreaStyle: newTextAreaStyle,
       };
-      updatePluginMessageTextInteractionStyle(newPluginMessageTextInteractionStyle);
+      this.setState(newPluginMessageTextInteractionStyle);
     }
 
     // For iPhone creepy keyboard movement
@@ -108,7 +113,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
     }
     createMessageActionDispatch('text', {text: this.textValue});
     sendMessagesActionDispatch();
-    updatePluginMessageTextInteractionStyle(this.initialInteractionStyle);
+    this.setState(this.initialInteractionStyle);
     this.textareaDom!.value = '';
     this.textValue = '';
   }
@@ -119,7 +124,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
         <textarea
           ref={(child) => this.textareaDom = child}
           className="text-interaction-textarea"
-          style={this.props.styleState.pluginMessageTextInteractionStyle.textAreaStyle}
+          style={this.state.textAreaStyle}
           onChange={this.onChange.bind(this)}
           placeholder={this.props.settingState.inputMessagePlaceholderText}
           onBlur={this.props.onTextareaBlur}

@@ -1,14 +1,12 @@
 import * as React from 'react';
 import {
   IPluginMessage,
-  IStyleState,
   ISettingState,
   IUser,
   IRoom,
 } from 'swagchat-sdk';
 
 export interface IMessageInteractionProps {
-  styleState: IStyleState;
   settingState: ISettingState;
   user: IUser;
   room: IRoom;
@@ -28,7 +26,7 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
   };
 
   renderMessageInteraction = () => {
-    const { styleState, settingState, pluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position, onTextareaBlur, onTextareaFocus } = this.props;
+    const { settingState, pluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position, onTextareaBlur, onTextareaFocus } = this.props;
     let interactions = new Array;
     pluginMessages.map((pluginMessage, i) => {
       if ((pluginMessage.position === position && pluginMessage.isAlwaysDisplay) ||
@@ -36,7 +34,6 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
           interactions.push(React.createElement(
             pluginMessage.interaction, {
               key: 'plugin-custom-message-interaction-' + i,
-              styleState: styleState,
               settingState: settingState,
               user: user,
               room: room,
@@ -53,7 +50,7 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
   }
 
   renderCustomMessageInteraction = () => {
-    const { styleState, settingState, customPluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position, onTextareaBlur, onTextareaFocus } = this.props;
+    const { settingState, customPluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position, onTextareaBlur, onTextareaFocus } = this.props;
     let interactions = new Array;
     customPluginMessages.map((pluginMessage, i) => {
       if ((pluginMessage.position === position && pluginMessage.isAlwaysDisplay) ||
@@ -61,7 +58,6 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
         interactions.push(React.createElement(
           pluginMessage.interaction, {
             key: 'plugin-custom-message-interaction-' + i,
-            styleState: styleState,
             settingState: settingState,
             user: user,
             room: room,

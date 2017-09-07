@@ -1,19 +1,18 @@
 import * as React from 'react';
 import {
   IPluginMessageInteractionProps,
-  updateStyleActionDispatch,
   pluginMessageUpdateMenuIndexActionDispatch,
   combinedAssetPostAndSendMessageRequestActionDispatch,
 } from 'swagchat-sdk';
 import { Button } from '../../../components';
 
-interface IPluginMessageImageInteractionStyle {
+export interface IPluginMessageImageInteractionStyle {
   pluginMessageImageInteractionStyle: {
     display: string,
   };
 }
 
-export class ImageInteraction extends React.Component<IPluginMessageInteractionProps, {}> {
+export class ImageInteraction extends React.Component<IPluginMessageInteractionProps, IPluginMessageImageInteractionStyle> {
   private _selectImage: any;
   private _confirmImageDOM: HTMLImageElement | null;
   private _inputFileDom: HTMLInputElement | null;
@@ -24,15 +23,20 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
     },
   };
 
+  constructor(props: IPluginMessageInteractionProps) {
+    super(props);
+
+    this.state = this.initialInteractionStyle;
+  }
+
   componentDidMount() {
-    updateStyleActionDispatch(this.initialInteractionStyle);
+    this.setState(this.initialInteractionStyle);
     if (this._inputFileDom) {
       this._inputFileDom.click();
     }
   }
 
   onFileUploadChange(e: any) {
-    console.log('---------------------- onFileUploadChange');
     this._selectImage = e.target.files[0];
     if (!this._selectImage.type.match('image.*')) {
       return;
@@ -43,7 +47,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
     reader.onload = (function() {
       return function(e: any) {
         self._confirmImageDOM!.src = e.target.result;
-        updateStyleActionDispatch({
+        self.setState({
           pluginMessageImageInteractionStyle: {
             display: 'block',
           }
@@ -54,29 +58,27 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
   }
 
   onConfirmClose() {
-    updateStyleActionDispatch(this.initialInteractionStyle);
+    this.setState(this.initialInteractionStyle);
     pluginMessageUpdateMenuIndexActionDispatch(0);
   }
 
   onFileUploadRequest() {
     this._confirmImageDOM!.src = '';
-    updateStyleActionDispatch(this.initialInteractionStyle);
+    this.setState(this.initialInteractionStyle);
     pluginMessageUpdateMenuIndexActionDispatch(0);
     combinedAssetPostAndSendMessageRequestActionDispatch(this._selectImage);
     this._selectImage = null;
   }
 
   render(): JSX.Element {
-    const style: Object = this.props.styleState;
-    const pluginMessageImageInteractionStyle = (style as IPluginMessageImageInteractionStyle).pluginMessageImageInteractionStyle;
-
     return (
-      <div className="image-interaction-root" style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
-        <div className={this.props.position === 'top' ? 'image-interaction-confirm-wrap-top' : 'image-interaction-confirm-wrap-bottom'} style={pluginMessageImageInteractionStyle ? pluginMessageImageInteractionStyle : {}} >
+      <div className="image-interaction-root" style={this.state.pluginMessageImageInteractionStyle}>
+        <div className={this.props.position === 'top' ? 'image-interaction-confirm-wrap-top' : 'image-interaction-confirm-wrap-bottom'} style={this.state.pluginMessageImageInteractionStyle} >
           <Button
             icon={<i className="material-icons">close</i>}
-            onClick={this.onConfirmClose.bind(this)}
+            fontColor="white"
             className="image-interaction-close-icon"
+            onClick={this.onConfirmClose.bind(this)}
           />
           <img
             id="confirmImage"

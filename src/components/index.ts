@@ -4,7 +4,6 @@ export { Button } from './Button/Button';
 export { CheckListItem } from './CheckListItem/CheckListItem';
 export { ContactList, IContactListProps } from './ContactList/ContactList';
 export { MessageBody } from './Message/MessageBody';
-export { MessageBody2 } from './Message/MessageBody2';
 export { MessageDateSeparator } from './Message/MessageDateSeparator';
 export { MessageInteraction } from './Message/internal/MessageInteraction';
 export { MessageItem } from './Message/internal/MessageItem';

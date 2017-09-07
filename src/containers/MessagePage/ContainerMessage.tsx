@@ -22,8 +22,13 @@ import {
   logColor,
   opponentUser,
   unsubscribeMessage,
+  isIphone,
+  updateMessageBodyMenuStyleActionDispatch,
+  IMessageBodyMenuStyle
 } from 'swagchat-sdk';
 import {
+  MessageMenu,
+  MessageInteraction,
   MessageBody,
   TopBar,
   Button,
@@ -43,6 +48,10 @@ export interface IReduxMessageProps extends RouteComponentProps<any> {
 export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
   private isReceiveMessagesFinished = false;
   private onScroll: EventListener;
+
+  private initialInteractionStyle: IMessageBodyMenuStyle = {
+    paddingBottom: '5px',
+  };
 
   private updateMessages = () => {
     if (!this.props.roomState.room) {
@@ -90,15 +99,28 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
     }
   }
 
+  onTextareaFocus() {
+    if (isIphone()) {
+      updateMessageBodyMenuStyleActionDispatch({paddingBottom: '45px'});
+    }
+  }
+
+  onTextareaBlur() {
+    if (isIphone()) {
+      updateMessageBodyMenuStyleActionDispatch(this.initialInteractionStyle);
+    }
+  }
+
   render(): JSX.Element  {
     const {
       roomState,
+      styleState,
       settingState,
       userState,
       pluginState,
       history,
       messageState,
-      styleState,
+
     } = this.props;
     if (!(roomState && roomState.room)) {
       return <div />;
@@ -125,14 +147,63 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
             margin="9px"
           />}
         />
+        <div className="message-body-menu-top" style={styleState.messageBodyMenuStyle}>
+          <MessageMenu
+            position="top"
+            pluginMessages={pluginState.messages}
+            customPluginMessages={pluginState.customMessages}
+            user={userState.user!}
+            room={roomState.room!}
+            currentMenuIndex={pluginState.currentMenuIndex}
+            availableMessageTypes={roomState.room!.availableMessageTypes!}
+          />
+          <MessageInteraction
+            position="top"
+            isAlwaysDisplay={false}
+            pluginMessages={pluginState.messages}
+            customPluginMessages={pluginState.customMessages}
+            currentMenuIndex={pluginState.currentMenuIndex}
+            settingState={settingState}
+            user={userState.user!}
+            room={roomState.room!}
+            onTextareaFocus={this.onTextareaFocus.bind(this)}
+            onTextareaBlur={this.onTextareaBlur.bind(this)}
+            availableMessageTypes={roomState.room!.availableMessageTypes!}
+          />
+        </div>
         <MessageBody
-          pluginState={pluginState}
-          userState={userState}
-          roomState={roomState}
-          messageState={messageState}
-          styleState={styleState}
-          settingState={settingState}
+          pluginMessages={pluginState.messages}
+          customPluginMessages={pluginState.customMessages}
+          myUserId={userState.user!.userId}
+          roomUsers={roomState.roomUsers}
+          messages={messageState.messages}
+          noMessageImage={settingState.noMessageImage}
+          noMessageText={settingState.noMessageText}
         />
+        <div className="message-body-menu" style={styleState.messageBodyMenuStyle}>
+          <MessageMenu
+            position="bottom"
+            pluginMessages={pluginState.messages}
+            customPluginMessages={pluginState.customMessages}
+            user={userState.user!}
+            room={roomState.room!}
+            currentMenuIndex={pluginState.currentMenuIndex}
+            availableMessageTypes={roomState.room!.availableMessageTypes!}
+          />
+          <MessageInteraction
+            position="bottom"
+            isAlwaysDisplay={false}
+            pluginMessages={pluginState.messages}
+            customPluginMessages={pluginState.customMessages}
+            currentMenuIndex={pluginState.currentMenuIndex}
+            settingState={settingState}
+            user={userState.user!}
+            room={roomState.room!}
+            onTextareaFocus={this.onTextareaFocus.bind(this)}
+            onTextareaBlur={this.onTextareaBlur.bind(this)}
+            availableMessageTypes={roomState.room!.availableMessageTypes!}
+          />
+        </div>
       </div>
     );
   }
