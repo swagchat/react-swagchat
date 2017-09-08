@@ -1,32 +1,25 @@
-.sc-text-avatar-circle-root {
+.sc-text-avatar-root {
+  background-color: #0084ff;
+  user-select: none;
+  height: 100px;
+  width: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(188, 188, 188);
-  user-select: none;
+}
+.sc-text-avatar-root.circle {
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
 }
-.sc-text-avatar-square-root {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(188, 188, 188);
-  user-select: none;
-  height: 40px;
-  width: 40px;
+.sc-text-avatar-root.square {
+  border-radius: 0;
 }
-.sc-text-avatar-round-root {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(188, 188, 188);
-  user-select: none;
-  border-radius: 20px;
-  height: 40px;
-  width: 40px;
+.sc-text-avatar-root.square-round {
+  border-radius: 5px;
+}
+.sc-text-avatar-root.round {
+  border-radius: 30px;
 }
 .sc-text-avatar-element {
-  color: #0084ff;
+  color: white;
+  text-align: center;
 }

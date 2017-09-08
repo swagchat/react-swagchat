@@ -2,20 +2,21 @@ import * as React from 'react';
 import { IOnClickProps } from '../';
 const classNames = require('classnames');
 
-export interface IAvatarProps extends IOnClickProps {
-  type?: 'circle' | 'square' | 'round';
+export interface ITextAvatarProps extends IOnClickProps {
+  type?: 'circle' | 'square' | 'square-round' | 'round';
   text: string;
+  fontSize?: string;
+  fontColor?: string;
+  backgroundColor?: string;
   width?: number;
   height?: number;
   margin?: number;
-  color?: string;
-  size?: string;
   className?: string;
   style?: Object;
 }
 
-export class TextAvatar extends React.Component<IAvatarProps, {}> {
-  public static defaultProps: Partial<IAvatarProps> = {
+export class TextAvatar extends React.Component<ITextAvatarProps, {}> {
+  public static defaultProps: Partial<ITextAvatarProps> = {
     type: 'circle',
     className: '',
     style: {},
@@ -23,19 +24,21 @@ export class TextAvatar extends React.Component<IAvatarProps, {}> {
   };
 
   render(): JSX.Element  {
-    const { type, text, width, height, margin, color, size, className, style, onClick } = this.props;
+    const { type, text, width, height, margin, fontColor, fontSize, backgroundColor, className, style, onClick } = this.props;
 
-    let avatarClassName = 'sc-text-avatar-circle-root';
+    let avatarClassName = '';
     switch (type) {
       case 'circle':
+        avatarClassName = classNames('sc-text-avatar-root', 'circle');
         break;
       case 'square':
-        avatarClassName = 'sc-text-avatar-square-root';
+        avatarClassName = classNames('sc-text-avatar-root', 'square');
+        break;
+      case 'square-round':
+        avatarClassName = classNames('sc-text-avatar-root', 'square-round');
         break;
       case 'round':
-        avatarClassName = 'sc-text-avatar-round-root';
-        break;
-      default:
+        avatarClassName = classNames('sc-text-avatar-root', 'round');
         break;
     }
 
@@ -44,7 +47,9 @@ export class TextAvatar extends React.Component<IAvatarProps, {}> {
       width?: string;
       height?: string;
       margin?: string;
+      backgroundColor?: string;
     } = {};
+    backgroundColor ? tmpTextAvatarRootStyle.backgroundColor = backgroundColor : null;
     width ? tmpTextAvatarRootStyle.width = width + 'px' : null;
     height ? tmpTextAvatarRootStyle.height = height + 'px' : null;
     margin ? tmpTextAvatarRootStyle.margin = margin + 'px' : null;
@@ -57,8 +62,8 @@ export class TextAvatar extends React.Component<IAvatarProps, {}> {
       color?: string;
       fontSize?: string;
     } = {};
-    color ? textAvatarElementStyle.color = color : null;
-    size ? textAvatarElementStyle.fontSize = size : null;
+    fontSize ? textAvatarElementStyle.fontSize = fontSize : null;
+    fontColor ? textAvatarElementStyle.color = fontColor : null;
 
     return (
       <div
