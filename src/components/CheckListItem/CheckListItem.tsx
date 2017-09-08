@@ -39,6 +39,7 @@ export class CheckListItem extends React.Component<ICheckListItemProps, ICheckSt
 
   onClick() {
     this.setState({isChecked: !this.state.isChecked});
+    this.props.onClick ? this.props.onClick() : null;
   }
 
   render(): JSX.Element  {
