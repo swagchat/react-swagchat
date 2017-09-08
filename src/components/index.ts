@@ -15,8 +15,6 @@ export { RoomEdit } from './RoomEdit/RoomEdit';
 export { RoomItem } from './RoomList/RoomItem';
 export { RoomList, IRoomListProps } from './RoomList/RoomList';
 export { RoomSettingList, IRoomSettingListProps } from './RoomSettingList/RoomSettingList';
-export { IconListItem } from './SimpleListItem/IconListItem';
-export { SimpleListItem } from './SimpleListItem/SimpleListItem';
 export { SubTitleBar } from './SubTitleBar/SubTitleBar';
 export { TextAvatar } from './TextAvatar/TextAvatar';
 export { TopBar } from './TopBar/TopBar';

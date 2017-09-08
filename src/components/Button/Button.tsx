@@ -39,7 +39,6 @@ export class Button extends React.Component<IButtonProps, {}> {
   private _buttonIconStyleText: string;
 
   public static defaultProps: Partial<IButtonProps> = {
-    position: 'center',
     iconPosition: 'left',
     type: 'link',
     className: '',
@@ -63,6 +62,9 @@ export class Button extends React.Component<IButtonProps, {}> {
         break;
       case 'round':
         this._buttonWrapClassName = classNames('sc-button-wrap', 'round');
+        break;
+      default:
+        this._buttonWrapClassName = 'sc-button-wrap';
         break;
     }
 
@@ -182,14 +184,14 @@ export class Button extends React.Component<IButtonProps, {}> {
     const tmpText = text ? (
       <div
         ref={(child) => this._buttonTextDom = child}
-        className={this._buttonElementClassName}
+        className={classNames(this._buttonElementClassName, 'text')}
         style={this._buttonElementStyle}
       >{text}</div>
      ) : null;
     const tmpIcon = icon ? (
       <div
         ref={(child) => this._buttonIconDom = child}
-        className={this._buttonElementClassName}
+        className={classNames(this._buttonElementClassName, 'icon')}
         style={this._buttonElementStyle}
       >{icon}</div>
     ) : null;

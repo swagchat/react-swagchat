@@ -16,7 +16,7 @@ import {
 import {
   TopBar,
   RoomSettingList,
-  SimpleListItem,
+  Avatar,
   SubTitleBar,
   Button,
 } from '../../components';
@@ -54,12 +54,19 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
       }
     }
     return (
-      <div className="room-setting-page-root">
+      <div className="sc-room-setting-page-root">
         <TopBar
           title={settingState.roomSettingTitle}
           leftButton={<Button icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack} />}
         />
-        <SimpleListItem name={name} pictureUrl={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]} width={80} height={80} />
+        <Button
+          position="left"
+          text={name}
+          icon={<Avatar src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]} style={{width: '80px', height: '80px'}} />}
+          fontColor="#333333"
+          width="100%"
+          style={{padding: '10px'}}
+        />
         <RoomSettingList
           desableMarginTop={false}
           userId={userState.user!.userId}
@@ -70,27 +77,24 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
           onItemTap={this.onItemTap.bind(this)}
         />
 
-        {(() => {
-          if (roomState.room!.type !== RoomType.ONE_ON_ONE && roomState.room!.isShowUsers && roomState.room!.type !== RoomType.NOTICE_ROOM) {
-            return (
-              <div className="layout-box-1">
-                <SubTitleBar title={settingState.roomMembersTitle} isDisplayBorder={false} />
-                {(() => {
-                  let users = new Array;
-                  for (let i = 0; i < roomState.room!.users!.length; i++) {
-                    let user = roomState.room!.users![i];
-                    if (user.isShowUsers) {
-                      users.push(<SimpleListItem key={'simple-list-item-' + i} name={user.name} pictureUrl={user.pictureUrl} />);
-                    }
-                  }
-                  return users;
-                })()}
-              </div>
-            );
-          } else {
-            return null;
-          }
-        })()}
+        {
+          (roomState.room!.type !== RoomType.ONE_ON_ONE && roomState.room!.isShowUsers && roomState.room!.type !== RoomType.NOTICE_ROOM) ? (
+            <div className="layout-box-1 sc-room-members-block">
+              <SubTitleBar title={settingState.roomMembersTitle} isDisplayBorder={false} />
+              {roomState.room!.users!.map((user, i) =>
+                <Button
+                  key={'simple-list-item-' + i}
+                  position="left"
+                  text={user.name}
+                  icon={<Avatar src={user.pictureUrl} style={{width: '40px', height: '40px'}} />}
+                  fontColor="#333333"
+                  width="100%"
+                  style={{margin: '10px'}}
+                />
+              )}
+            </div>
+          ) : null
+        }
       </div>
     );
   }

@@ -16,8 +16,6 @@ import {
   RoomItem,
   RoomList,
   RoomSettingList,
-  IconListItem,
-  SimpleListItem,
   SubTitleBar,
   TextAvatar,
   TopBar,
@@ -37,6 +35,7 @@ import {
   PluginMessageText,
   PluginMessageImage,
   TextItem,
+  ImageItem,
 } from './plugins/message';
 import {
   PluginRoomListItemRoomAndUserNameWithMessage,
@@ -74,8 +73,6 @@ export * from './templates';
 (window as any).Sc.RoomItem = RoomItem;
 (window as any).Sc.RoomList = RoomList;
 (window as any).Sc.RoomSettingList = RoomSettingList;
-(window as any).Sc.IconListItem = IconListItem;
-(window as any).Sc.SimpleListItem = SimpleListItem;
 (window as any).Sc.SubTitleBar = SubTitleBar;
 (window as any).Sc.TextAvatar = TextAvatar;
 (window as any).Sc.TopBar = TopBar;
@@ -85,3 +82,4 @@ export * from './templates';
 (window as any).Sc.PluginMessageText = PluginMessageText;
 (window as any).Sc.PluginMessageImage = PluginMessageImage;
 (window as any).Sc.TextItem = TextItem;
+(window as any).Sc.ImageItem = ImageItem;

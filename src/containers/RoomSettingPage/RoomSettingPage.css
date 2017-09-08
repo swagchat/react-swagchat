@@ -1,4 +1,4 @@
-.room-setting-page-root {
+.sc-room-setting-page-root {
   margin-top: 47px;
 }
 
@@ -20,4 +20,9 @@
   margin: 10px;
   height: 60px;
   line-height: 60px;
+}
+
+.sc-room-members-block .sc-button-element.text {
+  font-size: 1rem;
+  color: #333333;
 }

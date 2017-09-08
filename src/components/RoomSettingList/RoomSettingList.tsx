@@ -13,7 +13,6 @@ import {
   IModalAction,
   Modal,
   ModalAction,
-  IconListItem,
   RoomEdit,
 } from '../../components';
 
@@ -102,9 +101,9 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                 ];
                 return (
                   <div className="room-setting-list-root">
-                    <IconListItem
-                      title={title}
-                      leftIcon={<Button icon={<i className="material-icons">block</i>} />}
+                    <Button
+                      text={title}
+                      icon={<Button icon={<i className="material-icons">block</i>} />}
                       onClick={this.onConfirmBlockModalView.bind(this)}
                     />
                     <ModalAction
@@ -124,9 +123,9 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                 ];
                 return (
                   <div>
-                    <IconListItem
-                      title="グループ情報編集"
-                      leftIcon={<Button icon={<i className="material-icons">create</i>} />}
+                    <Button
+                      text="グループ情報編集"
+                      icon={<Button icon={<i className="material-icons">block</i>} />}
                       onClick={this.onEditRoomModalView.bind(this)}
                     />
                     <Modal
@@ -141,9 +140,9 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                       }
                       onOkModalClick={this.onRoomEditOkClick.bind(this)}
                     />
-                    <IconListItem
-                      title="退出する"
-                      leftIcon={<Button icon={<i className="material-icons">exit_to_app</i>} />}
+                    <Button
+                      text="退出する"
+                      icon={<Button icon={<i className="material-icons">exit_to_app</i>} />}
                       onClick={this.onConfirmLeftModalView.bind(this)}
                     />
                     <ModalAction

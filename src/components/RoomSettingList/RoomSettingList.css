@@ -2,3 +2,12 @@
   padding: 10px 0;
   background-color: #fafafa;
 }
+.room-setting-list-root > div > a .sc-button-wrap {
+  justify-content: flex-start;
+  width: 100%;
+  background-color: white;
+}
+.room-setting-list-root > div > a .sc-button-element.text {
+  color: #333333;
+  font-size: 1rem;
+}

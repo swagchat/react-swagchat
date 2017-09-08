@@ -11,7 +11,7 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin-top: 150px;
+  /* margin-top: 150px; */
 }
 .nodata-text {
   opacity: 0.1;
@@ -24,7 +24,7 @@ body {
 ::-webkit-input-placeholder {
   color: #cccccc;
 }
-.layout-box-1 {
+.sc-layout-box-1 {
   padding: 10px 0;
   background-color: #fafafa;
 }
