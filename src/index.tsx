@@ -8,7 +8,6 @@ import {
   CheckListItem,
   ContactList,
   MessageBody,
-  MessageDateSeparator,
   Modal,
   ModalAction,
   PhotoEdit,
@@ -65,7 +64,6 @@ export * from './templates';
 (window as any).Sc.CheckListItem = CheckListItem;
 (window as any).Sc.ContactList = ContactList;
 (window as any).Sc.MessageBody = MessageBody;
-(window as any).Sc.MessageDateSeparator = MessageDateSeparator;
 (window as any).Sc.Modal = Modal;
 (window as any).Sc.ModalAction = ModalAction;
 (window as any).Sc.PhotoEdit = PhotoEdit;

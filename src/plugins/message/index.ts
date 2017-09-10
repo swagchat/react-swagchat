@@ -1,5 +1,5 @@
-export { PluginMessageImage } from './Image';
-export { PluginMessageText, TextItem, TextInteraction, TextMenu } from './Text';
+export { PluginMessageImage, ImageItem } from './Image';
+export { PluginMessageText, TextItem } from './Text';
 
 export interface IPluginMessageParams {
   position?: 'top' | 'bottom';
