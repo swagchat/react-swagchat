@@ -1,0 +1,36 @@
+@value colors: "../../../styles/theme/default/color.css";
+@value color-primary, color-dark from colors;
+
+.root.bottom {
+  background-color: #fff;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.root.top {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 3rem;
+  background-color: rgba(200,200,200,0.5);
+}
+.root.top .image-menu-root {
+  height: 2rem;
+}
+.root.top i {
+  font-size: 2rem;
+}
+.on {
+  color: color-primary;
+}
+.off {
+  color: color-dark;
+}

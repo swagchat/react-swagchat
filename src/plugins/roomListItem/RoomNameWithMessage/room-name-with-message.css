@@ -1,0 +1,67 @@
+.root {
+  margin-left: 0px;
+  position: relative;
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  justify-content: space-around;
+}
+
+.avatar {
+  position: absolute;
+}
+
+.subject {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description {
+  font-size: 14px;
+  color: #999;
+  line-height: 18px;
+  height: 36px;
+  margin: 4px 0px 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.datetime {
+  float: right;
+  font-size: 0.6rem;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  margin-top: 0px;
+}
+
+.link {
+  text-decoration: none;
+  color: #333;
+}
+
+.badge {
+  top: 30px;
+  right: 10px;
+}
+
+.flex1 {
+  width: 40px;
+  margin: 10px;
+}
+
+.flex2 {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.flex3 {
+  width: 50px;
+  margin: 10px;
+}

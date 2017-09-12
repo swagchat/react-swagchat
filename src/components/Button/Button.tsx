@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { IOnClickProps } from '../';
+import { IOnClickProps, IShapeProps } from '../';
+import * as styles from './button.css';
 const classNames = require('classnames');
 
-export interface IButtonProps extends IOnClickProps {
-  type?: 'link' | 'square' | 'square-round' | 'round';
+export interface IButtonProps extends IShapeProps, IOnClickProps {
+  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' |  'light' | 'dark' | 'link-primary' | 'link-white' | 'link-black';
   text?: string;
   icon?: React.ReactNode;
   width?: string;
@@ -22,25 +23,23 @@ export interface IButtonProps extends IOnClickProps {
 }
 
 export class Button extends React.Component<IButtonProps, {}> {
+  private _rootDom: HTMLAnchorElement | null;
   private _buttonWrapDom: HTMLDivElement | null;
   private _buttonTextDom: HTMLDivElement | null;
   private _buttonIconDom: HTMLDivElement | null;
-
-  private _buttonWrapClassName: string;
-
-  private _buttonElementClassName: string;
 
   private _buttonRootStyle: {};
   private _buttonWrapStyle: {};
   private _buttonElementStyle: {};
 
-  private _buttonWrapStyleText: string;
+  private _buttonRootStyleText: string;
   private _buttonTextStyleText: string;
   private _buttonIconStyleText: string;
 
   public static defaultProps: Partial<IButtonProps> = {
+    shape: 'squareRound',
+    color: 'primary',
     iconPosition: 'left',
-    type: 'link',
     className: '',
     style: {},
     onClick: () => {},
@@ -48,25 +47,6 @@ export class Button extends React.Component<IButtonProps, {}> {
 
   constructor(props: IButtonProps) {
     super(props);
-
-    this._buttonElementClassName = 'sc-button-element';
-    switch (this.props.type) {
-      case 'link':
-        this._buttonWrapClassName = 'sc-button-wrap';
-        break;
-      case 'square':
-        this._buttonWrapClassName = classNames('sc-button-wrap', 'square');
-        break;
-      case 'square-round':
-        this._buttonWrapClassName = classNames('sc-button-wrap', 'square-round');
-        break;
-      case 'round':
-        this._buttonWrapClassName = classNames('sc-button-wrap', 'round');
-        break;
-      default:
-        this._buttonWrapClassName = 'sc-button-wrap';
-        break;
-    }
 
     let buttonRootDefaultStyle: {
       width?: string;
@@ -121,10 +101,10 @@ export class Button extends React.Component<IButtonProps, {}> {
   }
 
   componentDidMount() {
-    if (this._buttonWrapDom && (this.props.hoverFontColor || this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
-      this._buttonWrapDom.addEventListener('mouseover', this.onMouseOver.bind(this));
-      this._buttonWrapDom.addEventListener('mouseleave', this.onMouseLeave.bind(this));
-      this._buttonWrapStyleText = this._buttonWrapDom.style.cssText;
+    if (this._rootDom && (this.props.hoverFontColor || this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
+      this._rootDom.addEventListener('mouseover', this.onMouseOver.bind(this));
+      this._rootDom.addEventListener('mouseleave', this.onMouseLeave.bind(this));
+      this._buttonRootStyleText = this._rootDom.style.cssText;
 
       if (this._buttonTextDom && this.props.hoverFontColor) {
         this._buttonTextStyleText = this._buttonTextDom.style.cssText;
@@ -137,18 +117,18 @@ export class Button extends React.Component<IButtonProps, {}> {
   }
 
   componentWillUnmount() {
-    if (this._buttonWrapDom && (this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
-      this._buttonWrapDom.removeEventListener('mouseover');
-      this._buttonWrapDom.removeEventListener('mouseleave');
+    if (this._rootDom && (this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
+      this._rootDom.removeEventListener('mouseover');
+      this._rootDom.removeEventListener('mouseleave');
     }
   }
 
   onMouseOver() {
-    if (this._buttonWrapDom && (this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
-      let buttonWrapStyle = this._buttonWrapDom.style;
+    if (this._rootDom && (this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
+      let buttonWrapStyle = this._rootDom.style;
       this.props.hoverBackgroundColor ? buttonWrapStyle.backgroundColor = this.props.hoverBackgroundColor : null;
       this.props.hoverBorderColor ? buttonWrapStyle.borderColor = this.props.hoverBorderColor : null;
-      this._buttonWrapDom.setAttribute('style', buttonWrapStyle.cssText);
+      this._rootDom.setAttribute('style', buttonWrapStyle.cssText);
     }
 
     if (this._buttonTextDom && this.props.hoverFontColor) {
@@ -165,8 +145,8 @@ export class Button extends React.Component<IButtonProps, {}> {
   }
 
   onMouseLeave() {
-    if (this._buttonWrapDom && (this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
-      this._buttonWrapDom.setAttribute('style', this._buttonWrapStyleText);
+    if (this._rootDom && (this.props.hoverBackgroundColor || this.props.hoverBorderColor)) {
+      this._rootDom.setAttribute('style', this._buttonRootStyleText);
     }
 
     if (this._buttonTextDom && this.props.hoverFontColor) {
@@ -179,19 +159,33 @@ export class Button extends React.Component<IButtonProps, {}> {
   }
 
   render(): JSX.Element {
-    const { text, icon, iconPosition, className, onClick } = this.props;
+    const { shape, color, text, icon, iconPosition, className, onClick } = this.props;
+
+    let shapeClassName = '';
+    if (['circle', 'square', 'squareRound', 'round'].indexOf(shape!) >= 0 ) {
+      shapeClassName = styles[shape!];
+    } else {
+      shapeClassName = styles.circle;
+    }
+
+    let colorClassName = '';
+    if (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'disable', 'light', 'dark', 'link-primary', 'link-black', 'link-white'].indexOf(color!) >= 0 ) {
+      colorClassName = styles[color!];
+    } else {
+      colorClassName = styles.primary;
+    }
 
     const tmpText = text ? (
       <div
         ref={(child) => this._buttonTextDom = child}
-        className={classNames(this._buttonElementClassName, 'text')}
+        className={classNames(styles.element, colorClassName, 'text')}
         style={this._buttonElementStyle}
       >{text}</div>
      ) : null;
     const tmpIcon = icon ? (
       <div
         ref={(child) => this._buttonIconDom = child}
-        className={classNames(this._buttonElementClassName, 'icon')}
+        className={classNames(styles.element, colorClassName, 'icon')}
         style={this._buttonElementStyle}
       >{icon}</div>
     ) : null;
@@ -200,7 +194,7 @@ export class Button extends React.Component<IButtonProps, {}> {
       buttonContents = (
         <div
           ref={(child) => this._buttonWrapDom = child}
-          className={this._buttonWrapClassName}
+          className={styles.wrap}
           style={this._buttonWrapStyle}
         >
           {tmpIcon}
@@ -211,7 +205,7 @@ export class Button extends React.Component<IButtonProps, {}> {
       buttonContents = (
         <div
           ref={(child) => this._buttonWrapDom = child}
-          className={this._buttonWrapClassName}
+          className={styles.wrap}
           style={this._buttonWrapStyle}
         >
           {tmpText}
@@ -222,7 +216,8 @@ export class Button extends React.Component<IButtonProps, {}> {
 
     return (
       <a
-        className={classNames('sc-button-root', className)}
+        ref={(child) => this._rootDom = child}
+        className={classNames(styles.root, shapeClassName, colorClassName, className)}
         style={this._buttonRootStyle}
         onClick={onClick}
       >

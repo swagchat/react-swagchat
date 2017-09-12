@@ -4,7 +4,7 @@ export { Button } from './Button/Button';
 export { CheckListItem } from './CheckListItem/CheckListItem';
 export { ContactList, IContactListProps } from './ContactList/ContactList';
 export { MessageBody } from './Message/MessageBody';
-export { MessageDateSeparator } from './Message/MessageDateSeparator';
+export { MessageDateSeparator } from './Message/internal/MessageDateSeparator';
 export { MessageInteraction } from './Message/internal/MessageInteraction';
 export { MessageItem } from './Message/internal/MessageItem';
 export { MessageMenu } from './Message/internal/MessageMenu';
@@ -21,4 +21,44 @@ export { TopBar } from './TopBar/TopBar';
 
 export interface IOnClickProps {
   onClick?: (param?: any) => void;
+}
+
+export const SHAPE_CIRCLE = 'circle';
+export const SHAPE_SQUARE = 'square';
+export const SHAPE_SQUARE_ROUND = 'squareRound';
+export const SHAPE_ROUND = 'round';
+
+export const COLOR_PRIMARY = 'primary';
+export const COLOR_SECONDALY = 'secondary';
+export const COLOR_SUCCESS = 'success';
+export const COLOR_DANGER = 'danger';
+export const COLOR_WARNING = 'warning';
+export const COLOR_INFO = 'info';
+export const COLOR_LIGHT = 'light';
+export const COLOR_DARK = 'dark';
+export const COLOR_LINK = 'link';
+
+export type ShapeTypes = typeof SHAPE_CIRCLE
+  | typeof SHAPE_SQUARE
+  | typeof SHAPE_SQUARE_ROUND
+  | typeof SHAPE_ROUND
+;
+
+export type ColorTypes = typeof COLOR_PRIMARY
+  | typeof COLOR_SECONDALY
+  | typeof COLOR_SUCCESS
+  | typeof COLOR_DANGER
+  | typeof COLOR_WARNING
+  | typeof COLOR_INFO
+  | typeof COLOR_LIGHT
+  | typeof COLOR_DARK
+  | typeof COLOR_LINK
+;
+
+export interface IShapeProps {
+  shape?: ShapeTypes;
+}
+
+export interface IColorProps {
+  color?: ColorTypes;
 }

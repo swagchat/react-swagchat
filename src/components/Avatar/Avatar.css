@@ -1,19 +1,21 @@
-.sc-avatar-root {
-  background-color: rgb(188, 188, 188);
+@value shapes: "../../styles/theme/default/shape.css";
+@value shape-circle, shape-square, shape-square-round, shape-round from shapes;
+
+.root {
   user-select: none;
   height: 100px;
   width: 100px;
   object-fit: cover;
 }
-.sc-avatar-root.circle {
-  border-radius: 50%;
+.root.circle {
+  border-radius: shape-circle;
 }
-.sc-avatar-root.square {
-  border-radius: 0;
+.root.square {
+  border-radius: shape-square;
 }
-.sc-avatar-root.square-round {
-  border-radius: 5px;
+.root.square-round {
+  border-radius: shape-square-round;
 }
-.sc-avatar-root.round {
-  border-radius: 30px;
+.root.round {
+  border-radius: shape-round;
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button } from '../';
+import * as styles from './modal.css';
 
 export interface IModalAction {
   name: string;
@@ -52,20 +53,20 @@ export class ModalAction extends React.Component<IModalActionProps, IModalState>
         onClick={this.onModalClick.bind(this)}
         style={style}
       >
-        <div className="sc-modal-wrap" onClick={this.onWrapTap}>
+        <div className={styles.wrap} onClick={this.onWrapTap}>
           {title ? (
-            <div className="sc-modal-view-header">
-              <div className="sc-modal-view-header-button" />
-              <div className="sc-modal-view-title">{title}</div>
-              <Button icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} className="sc-modal-view-header-button" />
+            <div className={styles.viewHeader}>
+              <div className={styles.viewHeaderButton} />
+              <div className={styles.viewTitle}>{title}</div>
+              <Button icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} className={styles.viewHeaderButton} />
             </div>
           ) : null}
-          <p className="sc-modal-component">{component}</p>
-          <ul className="sc-modal-dialog-action">
+          <p className={styles.component}>{component}</p>
+          <ul className={styles.dialogAction}>
             {actions ? actions.map((action, i) =>
               <Button
                 key={'sc-modal-dialog-action-item-' + i}
-                type="square-round"
+                shape="squareRound"
                 text={action.name}
                 width="95%"
                 onClick={action.onItemTap}

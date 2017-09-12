@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as styles from './sub-title-bar.css';
 
 export interface IRoomSeparatorProps {
   title: string;
@@ -13,7 +14,7 @@ export class SubTitleBar extends React.Component<IRoomSeparatorProps, {}> {
   render(): JSX.Element {
     return (
       <div
-        className="sub-title-bar-root"
+        className={styles.root}
         style={!this.props.isDisplayBorder ? {border: 'none'} : {}}
       >
         {this.props.title}

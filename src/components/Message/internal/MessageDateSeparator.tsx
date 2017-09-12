@@ -1,4 +1,6 @@
 import * as React from 'react';
+import * as styles from './message-date-separator.css';
+const classNames = require('classnames');
 
 export interface IMessageDateSeparatorProps {
   date: string;
@@ -14,17 +16,16 @@ export class MessageDateSeparator extends React.Component<IMessageDateSeparatorP
 
   render(): JSX.Element  {
     const { date, className, style} = this.props;
-    const classNames = require('classnames');
     return (
       <div
-        className={classNames('sc-message-date-separator-root', className)}
+        className={classNames(styles.root, className)}
         style={style}
       >
         <div>
-          <div className="sc-message-date-separator-separate">
-            <div className="sc-message-date-separator-date">{date}</div>
+          <div className={styles.separate}>
+            <div className={styles.date}>{date}</div>
           </div>
-          <div className="sc-message-date-separator-clear" />
+          <div className={styles.clear} />
         </div>
       </div>
     );

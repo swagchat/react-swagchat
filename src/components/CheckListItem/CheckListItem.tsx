@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { IOnClickProps } from '../';
+import * as styles from './check-list-item.css';
+const classNames = require('classnames');
 
 export interface ICheckListItemProps extends IOnClickProps {
   text: string;
@@ -60,16 +62,16 @@ export class CheckListItem extends React.Component<ICheckListItemProps, ICheckSt
     fontColor ? descriptionStyle.color = fontColor : null;
 
     return (
-      <div className="sc-check-list-item-wrap" onClick={this.onClick.bind(this)} style={rootStyle}>
-        {icon ? <div className="sc-check-list-item-flex1">{icon}</div> : null}
-        <div className="sc-check-list-item-flex2">
-          <div className="sc-check-list-item-subject" style={descriptionStyle}>{text}</div>
+      <div className={styles.root} onClick={this.onClick.bind(this)} style={rootStyle}>
+        {icon ? <div className={styles.flex1}>{icon}</div> : null}
+        <div className={styles.flex2}>
+          <div className={styles.subject} style={descriptionStyle}>{text}</div>
         </div>
-        <div className="sc-check-list-item-flex3">
+        <div className={styles.flex3}>
           {this.state.isChecked ? (
-            this.props.checkedIcon ? this.props.checkedIcon : <i className="material-icons checked">radio_button_checked</i>
+            this.props.checkedIcon ? this.props.checkedIcon : <i className={classNames('material-icons', styles.checked)}>radio_button_checked</i>
           ) : (
-            this.props.unCheckedIcon ? this.props.unCheckedIcon : <i className="material-icons unchecked">radio_button_unchecked</i>
+            this.props.unCheckedIcon ? this.props.unCheckedIcon : <i className={classNames('material-icons', styles.unchecked)}>radio_button_unchecked</i>
           )}
         </div>
       </div>

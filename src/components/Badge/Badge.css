@@ -1,16 +1,58 @@
-.sc-badge {
+@value shapes: "../../styles/theme/default/shape.css";
+@value shape-circle from shapes;
+@value colors: "../../styles/theme/default/color.css";
+@value color-white, color-grey-alpha, color-primary, color-primary-hover, color-secondary, color-secondary-hover, color-success, color-success-hover, color-danger, color-danger-hover, color-warning, color-warning-hover, color-info, color-info-hover, color-disable, color-disable-hover, color-light, color-light-hover, color-dark, color-dark-hover from colors;
+
+.root {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-content: center;
   align-items: center;
-  position: absolute;
+  /* position: absolute; */
   font-weight: 500;
   font-size: 12px;
   min-width: 18px;
   height: 24px;
   padding: 0 3px;
-  border-radius: 50%;
-  background-color: rgb(244, 67, 54);
-  color: rgb(255, 255, 255);
+  border-radius: shape-circle;
+}
+.root.primary {
+  background-color: color-primary;
+  color: color-white;
+}
+.root.secondary {
+  background-color: color-secondary;
+  color: color-white;
+}
+.root.success {
+  background-color: color-success;
+  color: color-white;
+}
+.root.danger {
+  background-color: color-danger;
+  color: color-white;
+}
+.root.warning {
+  background-color: color-warning;
+  color: color-white;
+}
+.root.info {
+  background-color: color-info;
+  color: color-white;
+}
+.root.disable {
+  background-color: color-disable;
+  color: color-white;
+}
+.root.dark {
+  background-color: color-dark;
+  color: color-white;
+}
+.root.light {
+  background-color: color-light;
+  color: color-dark;
+}
+.root.link {
+  background-color: transparent;
 }

@@ -1,0 +1,16 @@
+.menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  z-index: 1101;
+}
+.menu.top {
+  margin-bottom: 10px;
+  top: 48px;
+}
+.menu.bottom {
+  bottom: 0;
+  background-color: #fff;
+}

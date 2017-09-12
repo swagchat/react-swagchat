@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IRoomForUser, IPluginRoomListItem } from 'swagchat-sdk';
 import { RoomItem } from './RoomItem';
 import { SubTitleBar, IOnClickProps } from '../';
+import * as indexStyles from '../../index.css';
 
 export interface IRoomListProps extends IOnClickProps {
   myUserId: string;
@@ -35,7 +36,7 @@ export class RoomList extends React.Component<IRoomListProps, {}> {
       hasTabBar ? {marginBottom: '57px'} : {},
     );
     return (
-      <div className="page-container" style={style}>
+      <div className={indexStyles.pageContainer} style={style}>
         { title ? <SubTitleBar title={title!} /> : null}
         {(() => {
           if (userRooms && userRooms.length > 0) {
@@ -56,9 +57,9 @@ export class RoomList extends React.Component<IRoomListProps, {}> {
             return roomItems;
           } else {
             return (
-              <div className="nodata-wrap">
-                {noRoomListImage !== '' ? <img className="nodata-image" src={noRoomListImage} /> : ''}
-                <p className="nodata-text">{noRoomListText !== '' ? noRoomListText : ''}</p>
+              <div className={indexStyles.nodataWrap}>
+                {noRoomListImage !== '' ? <img className={indexStyles.nodataImage} src={noRoomListImage} /> : ''}
+                <p className={indexStyles.nodataText}>{noRoomListText !== '' ? noRoomListText : ''}</p>
               </div>
             );
           }

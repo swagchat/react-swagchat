@@ -4,6 +4,7 @@ import {
   roomUpdatePictureActionDispatch,
 } from 'swagchat-sdk';
 import { PhotoEdit } from '../../components';
+import * as styles from './room-edit.css';
 
 export interface IRoomEditProps {
   roomName: string;
@@ -23,7 +24,7 @@ export class RoomEdit extends React.Component<IRoomEditProps, {}> {
 
   render(): JSX.Element {
     return (
-      <div className="room-edit-root">
+      <div className={styles.root}>
         <PhotoEdit
           src={this.props.roomPictureUrl}
           width="120px"
@@ -31,7 +32,7 @@ export class RoomEdit extends React.Component<IRoomEditProps, {}> {
           onUpdatePhoto={roomUpdatePictureActionDispatch}
         />
         <input
-          className="room-edit-input-text"
+          className={styles.inputText}
           ref={(child) => this.inputTextDom = child}
           type="text"
           placeholder="グループ名を入力"

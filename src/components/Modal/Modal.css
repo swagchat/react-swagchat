@@ -1,4 +1,4 @@
-.sc-modal-root {
+.root {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
 }
-.sc-modal-wrap {
+.wrap {
   width: 90%;
   max-width:  400px;
   display: flex;
@@ -21,7 +21,7 @@
   box-shadow: rgba(100, 100, 100, 0.5) 0px 5px 10px 0px;
 }
 
-.sc-modal-component {
+.component {
   margin: 10px 0 0 0;
   width: 95%;
   text-align: center;
@@ -32,7 +32,7 @@
   color: white;
   font-size: 1.3rem;
 }
-.sc-modal-dialog-action {
+.dialog-action {
   width: 100%;
   margin-bottom: 5px;
   padding: 0;
@@ -41,49 +41,47 @@
   flex-flow: column nowrap;
 }
 
-.sc-modal-dialog-content-action > li.positive {
+.dialog-content-action > li.positive {
   background: linear-gradient(0deg,#3a88d6,#427fbd);
 }
-.sc-modal-dialog-content-action > li.negative {
+.dialog-content-action > li.negative {
   background: linear-gradient(0deg,#ddd,#eee);
   color: #333;
   border: 1px solid #ddd;
 }
 
-.sc-modal-root .sc-button-wrap {
+.root .sc-button-wrap {
   border-color: #7DBDE7;
   background-color: #5DADE2;
   margin-bottom: 10px;
   border-radius: 5px;
 }
-.sc-modal-root .sc-button-wrap:hover {
+.root .sc-button-wrap:hover {
   background-color: #5599cc;
 }
-.sc-modal-root .sc-button-element {
+.root .sc-button-element {
   color: white;
   letter-spacing: 3px;
 }
 
-.sc-modal-view-header {
+.view-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  --webkit-tap-highlight-color: transparent;
 }
-.sc-modal-view-header-button {
+.view-header-button {
   width: 50px;
 }
 
-.sc-modal-view-footer {
+.view-footer {
   width: 100%;
   display: flex;
   justify-content: space-around;
   margin: 10px;
-  --webkit-tap-highlight-color: transparent;
 }
 
-.sc-modal-view-title {
+.view-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -25,7 +25,17 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use:[
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                sourceMap: false,
+                minimize: true,
+                camelCase: 'dashes',
+                localIdentName: 'sc-[name]-[local]',
+                importLoaders: 1
+              }
+            },
             'postcss-loader'
           ]
         })
@@ -34,13 +44,6 @@ module.exports = {
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: [
-          require('autoprefixer')({
-            browsers: ['last 2 versions']
-          })
-        ]
-      },
       minimize: true,
       debug: false
     }),

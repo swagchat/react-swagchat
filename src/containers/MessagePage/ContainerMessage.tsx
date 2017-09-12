@@ -34,6 +34,8 @@ import {
   Button,
   Avatar,
 } from '../../components';
+import * as styles from './message-page.css';
+const classNames = require('classnames');
 
 export interface IReduxMessageProps extends RouteComponentProps<any> {
   pluginState: IPluginState;
@@ -147,7 +149,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
             margin="9px"
           />}
         />
-        <div className="message-body-menu-top" style={styleState.messageBodyMenuStyle}>
+        <div className={classNames(styles.menu, styles.top)} style={styleState.messageBodyMenuStyle}>
           <MessageMenu
             position="top"
             pluginMessages={pluginState.messages}
@@ -180,7 +182,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           noMessageImage={settingState.noMessageImage}
           noMessageText={settingState.noMessageText}
         />
-        <div className="message-body-menu" style={styleState.messageBodyMenuStyle}>
+        <div className={classNames(styles.menu, styles.bottom)} style={styleState.messageBodyMenuStyle}>
           <MessageMenu
             position="bottom"
             pluginMessages={pluginState.messages}

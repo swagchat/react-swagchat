@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { dateFormateHHMM, IPluginMessageItemProps } from 'swagchat-sdk';
 import { Avatar } from '../../../components';
+import * as styles from './text-item.css';
 
 export interface ITextPayload {
   text: string;
@@ -17,20 +18,20 @@ export class TextItem extends React.Component<IPluginMessageItemProps, {}> {
     });
 
     return (
-      <div className="sc-text-item-root">
+      <div className={styles.root}>
         {user.userId === myUserId ? (
           <div>
-            <div className="sc-text-item-message-right">{displayText}</div>
-            <div className="sc-text-item-time-right">{dateFormateHHMM(message.created!)}</div>
-            <div className="sc-text-item-clear" />
+            <div className={styles.messageRight}>{displayText}</div>
+            <div className={styles.timeRight}>{dateFormateHHMM(message.created!)}</div>
+            <div className={styles.clear} />
           </div>
         ) : (
           <div>
-            <Avatar className="sc-text-item-avatar" width="40px" height="40px" src={user.pictureUrl} />
-            <p className="sc-text-item-name">{user.name}</p>
-            <div className="sc-text-item-message-left">{payload.text}</div>
-            <div className="sc-text-item-time-left">{dateFormateHHMM(message.created!)}</div>
-            <div className="sc-text-item-clear" />
+            <Avatar className={styles.avatar} width="40px" height="40px" src={user.pictureUrl} />
+            <p className={styles.name}>{user.name}</p>
+            <div className={styles.messageLeft}>{payload.text}</div>
+            <div className={styles.timeLeft}>{dateFormateHHMM(message.created!)}</div>
+            <div className={styles.clear} />
           </div>
         )}
       </div>

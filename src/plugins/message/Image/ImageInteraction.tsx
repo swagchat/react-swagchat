@@ -4,7 +4,10 @@ import {
   pluginMessageUpdateMenuIndexActionDispatch,
   combinedAssetPostAndSendMessageRequestActionDispatch,
 } from 'swagchat-sdk';
+const classNames = require('classnames');
 import { Button } from '../../../components';
+import * as indexStyles from '../../../index.css';
+import * as styles from './image-interaction.css';
 
 export interface IPluginMessageImageInteractionStyle {
   pluginMessageImageInteractionStyle: {
@@ -72,26 +75,26 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
 
   render(): JSX.Element {
     return (
-      <div className="image-interaction-root" style={this.state.pluginMessageImageInteractionStyle}>
-        <div className={this.props.position === 'top' ? 'image-interaction-confirm-wrap-top' : 'image-interaction-confirm-wrap-bottom'} style={this.state.pluginMessageImageInteractionStyle} >
+      <div style={this.state.pluginMessageImageInteractionStyle}>
+        <div className={this.props.position === 'top' ?  classNames(styles.confirmWrap, styles.top) : classNames(styles.confirmWrap, styles.bottom)} style={this.state.pluginMessageImageInteractionStyle} >
           <Button
             icon={<i className="material-icons">close</i>}
             fontColor="white"
-            className="image-interaction-close-icon"
+            className={styles.closeIcon}
             onClick={this.onConfirmClose.bind(this)}
           />
           <img
             id="confirmImage"
             ref={(child) => this._confirmImageDOM = child}
             role="presentation"
-            className="image-interaction-confirm-image"
+            className={styles.confirmImage}
             onClick={this.onFileUploadRequest.bind(this)}
           />
         </div>
         <input
           type="file"
           ref={(child) => this._inputFileDom = child}
-          className="sc-image-input"
+          className={indexStyles.imageInput}
           accept="image/*"
           onChange={this.onFileUploadChange.bind(this)}
         />

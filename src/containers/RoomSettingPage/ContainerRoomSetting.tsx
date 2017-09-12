@@ -20,6 +20,9 @@ import {
   SubTitleBar,
   Button,
 } from '../../components';
+import * as indexStyles from '../../index.css';
+import * as styles from './room-setting-page.css';
+const classNames = require('classnames');
 
 export interface IReduxRoomSettingProps extends RouteComponentProps<any> {
   title: string;
@@ -54,13 +57,15 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
       }
     }
     return (
-      <div className="sc-room-setting-page-root">
+      <div className={styles.root}>
         <TopBar
           title={settingState.roomSettingTitle}
-          leftButton={<Button icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack} />}
+          leftButton={<Button color="link-primary" icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack} />}
         />
         <Button
           position="left"
+          color="link-primary"
+          shape="square"
           text={name}
           icon={<Avatar src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]} style={{width: '80px', height: '80px'}} />}
           fontColor="#333333"
@@ -79,17 +84,19 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
 
         {
           (roomState.room!.type !== RoomType.ONE_ON_ONE && roomState.room!.isShowUsers && roomState.room!.type !== RoomType.NOTICE_ROOM) ? (
-            <div className="layout-box-1 sc-room-members-block">
+            <div className={classNames(indexStyles.layoutBox1, styles.membersBlock)}>
               <SubTitleBar title={settingState.roomMembersTitle} isDisplayBorder={false} />
               {roomState.room!.users!.map((user, i) =>
                 <Button
                   key={'simple-list-item-' + i}
                   position="left"
+                  shape="square"
+                  color="link-black"
                   text={user.name}
                   icon={<Avatar src={user.pictureUrl} style={{width: '40px', height: '40px'}} />}
                   fontColor="#333333"
                   width="100%"
-                  style={{margin: '10px'}}
+                  style={{padding: '10px'}}
                 />
               )}
             </div>

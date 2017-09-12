@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { IOnClickProps } from '../';
+import { IOnClickProps, IShapeProps } from '../';
+import * as styles from './avatar.css';
+const classNames = require('classnames');
 
-export interface IAvatarProps extends IOnClickProps {
-  type?: 'circle' | 'square' | 'square-round' | 'round';
+export interface IAvatarProps extends IOnClickProps, IShapeProps {
   src: string;
   width?: string;
   height?: string;
@@ -13,31 +14,14 @@ export interface IAvatarProps extends IOnClickProps {
 
 export class Avatar extends React.Component<IAvatarProps, {}> {
   public static defaultProps: Partial<IAvatarProps> = {
-    type: 'circle',
+    shape: 'circle',
     className: '',
     style: {},
     onClick: () => {},
   };
 
   render(): JSX.Element  {
-    const { type, src, width, height, margin, className, style, onClick } = this.props;
-    const classNames = require('classnames');
-
-    let avatarClassName = '';
-    switch (type) {
-      case 'circle':
-        avatarClassName = classNames('sc-avatar-root', 'circle');
-        break;
-      case 'square':
-        avatarClassName = classNames('sc-avatar-root', 'square');
-        break;
-      case 'square-round':
-        avatarClassName = classNames('sc-avatar-root', 'square-round');
-        break;
-      case 'round':
-        avatarClassName = classNames('sc-avatar-root', 'round');
-        break;
-    }
+    const { shape, src, width, height, margin, className, style, onClick } = this.props;
 
     let avatarStyle: Object;
     let tmpStyle: {
@@ -53,10 +37,17 @@ export class Avatar extends React.Component<IAvatarProps, {}> {
       style,
     );
 
+    let shapeClassName = '';
+    if (['circle', 'square', 'squareRound', 'round'].indexOf(shape!) >= 0 ) {
+      shapeClassName = styles[shape!];
+    } else {
+      shapeClassName = styles.circle;
+    }
+
     return (
       <img
         src={src}
-        className={classNames(avatarClassName, className)}
+        className={classNames(styles.root, shapeClassName, className)}
         style={avatarStyle}
         onClick={onClick}
       />

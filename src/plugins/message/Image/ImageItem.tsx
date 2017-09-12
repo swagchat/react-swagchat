@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { dateFormateHHMM, IPluginMessageItemProps } from 'swagchat-sdk';
 import { Avatar } from '../../../components';
+import * as styles from './image-item.css';
 
 export interface IImagePayload {
   mime: string;
@@ -16,9 +17,9 @@ export class ImageItem extends React.Component<IPluginMessageItemProps, {}> {
       return (
         <div>
           <div>
-            <img src={payload.sourceUrl} className="image-item-message-right" />
-            <div className="image-item-time-right">{dateFormateHHMM(message.created!)}</div>
-            <div className="image-item-clear" />
+            <img src={payload.sourceUrl} className={styles.messageRight} />
+            <div className={styles.timeRight}>{dateFormateHHMM(message.created!)}</div>
+            <div className={styles.clear} />
           </div>
         </div>
       );
@@ -26,11 +27,11 @@ export class ImageItem extends React.Component<IPluginMessageItemProps, {}> {
       return (
         <div>
           <div>
-            <Avatar className="image-item-avatar" width="40px" height="40px" src={user.pictureUrl} />
-            <p className="image-item-name">{user.name}</p>
-            <img src={payload.sourceUrl} className="image-item-message-left" />
-            <div className="image-item-time-left">{dateFormateHHMM(message.created!)}</div>
-            <div className="image-item-clear" />
+            <Avatar className={styles.avatar} width="40px" height="40px" src={user.pictureUrl} />
+            <p className={styles.name}>{user.name}</p>
+            <img src={payload.sourceUrl} className={styles.messageLeft} />
+            <div className={styles.timeLeft}>{dateFormateHHMM(message.created!)}</div>
+            <div className={styles.clear} />
           </div>
         </div>
       );

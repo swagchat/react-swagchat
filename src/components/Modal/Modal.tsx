@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Button } from '../../components';
+import * as styles from './modal.css';
+const classNames = require('classnames');
 
 export interface IModalProps {
   type?: 'button-top' | 'button-bottom';
@@ -46,7 +48,6 @@ export class Modal extends React.Component<IModalProps, IModalState> {
     }
 
     const { type, title, component, positiveButtonName, negativeButtonName, className, style } = this.props;
-    const classNames = require('classnames');
 
     return (
       <div
@@ -54,36 +55,36 @@ export class Modal extends React.Component<IModalProps, IModalState> {
         onClick={this.onModalClick.bind(this)}
         style={style}
       >
-        <div className="sc-modal-wrap" onClick={this.onWrapTap.bind(this)}>
+        <div className={styles.wrap} onClick={this.onWrapTap.bind(this)}>
           {(() => {
             if (title && type === 'button-top') {
               return (
-                <div className="sc-modal-view-header">
-                  <Button icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} className="sc-modal-view-header-button" />
-                  <div className="sc-modal-view-title">{title}</div>
-                  <Button icon={<i className="material-icons">done</i>} fontColor="white" onClick={this.props.onOkModalClick} className="sc-modal-view-header-button" />
+                <div className={styles.viewHeader}>
+                  <Button icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} className={styles.viewHeaderButton} />
+                  <div className={styles.viewTitle}>{title}</div>
+                  <Button icon={<i className="material-icons">done</i>} fontColor="white" onClick={this.props.onOkModalClick} className={styles.viewHeaderButton} />
                 </div>
               );
             } else if (title && type === 'button-bottom') {
               return (
-                <div className="sc-modal-view-header">
-                  <div className="sc-modal-view-header-button" />
-                  <div className="sc-modal-view-title">{title}</div>
-                  <Button icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} className="sc-modal-view-header-button" />
+                <div className={styles.viewHeader}>
+                  <div className={styles.viewHeaderButton} />
+                  <div className={styles.viewTitle}>{title}</div>
+                  <Button icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} className={styles.viewHeaderButton} />
                 </div>
               );
             } else {
               return null;
             }
           })()}
-          <div className="sc-modal-component">
+          <div className={styles.component}>
             {component}
           </div>
           {
             type === 'button-bottom' ? (
-              <div className="sc-modal-view-footer">
-                <Button type="square-round" text={negativeButtonName} width="80%" onClick={this.onModalClick.bind(this)} />
-                <Button type="square-round" text={positiveButtonName} width="80%" onClick={this.props.onOkModalClick} />
+              <div className={styles.viewFooter}>
+                <Button shape="squareRound" text={negativeButtonName} width="80%" onClick={this.onModalClick.bind(this)} />
+                <Button shape="squareRound" text={positiveButtonName} width="80%" onClick={this.props.onOkModalClick} />
               </div>
             ) : null
           }

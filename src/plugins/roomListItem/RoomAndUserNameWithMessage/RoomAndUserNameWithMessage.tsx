@@ -6,6 +6,7 @@ import {
   opponentUser,
 } from 'swagchat-sdk';
 import { Avatar, Badge } from '../../../components';
+import * as styles from './room-and-user-name-with-message.css';
 
 export class RoomAndUserNameWithMessage extends React.Component<IPluginRoomListItemProps, {}> {
   onClick(room: IRoomForUser) {
@@ -29,24 +30,24 @@ export class RoomAndUserNameWithMessage extends React.Component<IPluginRoomListI
       }
     }
     return (
-      <div className="room-and-user-name-with-message-root" onClick={this.onClick.bind(this, userRoom)}>
-        <div className="room-and-user-name-with-message-flex1">
+      <div className={styles.root} onClick={this.onClick.bind(this, userRoom)}>
+        <div className={styles.flex1}>
           <Avatar
-            type="square-round"
+            shape="squareRound"
             width="40px"
             height="40px"
             src={userRoom.pictureUrl ? userRoom.pictureUrl : noAvatarImages[0]}
-            className="room-and-user-name-with-message-avatar"
+            className={styles.avatar}
           />
         </div>
-        <div className="room-and-user-name-with-message-flex2">
-          <div className="room-and-user-name-with-message-subject">{userRoom.name}</div>
-          <div className="room-and-user-name-with-message-username">{userNames}</div>
-          <div className="room-and-user-name-with-message-description">{userRoom.lastMessage}</div>
+        <div className={styles.flex2}>
+          <div className={styles.subject}>{userRoom.name}</div>
+          <div className={styles.username}>{userNames}</div>
+          <div className={styles.description}>{userRoom.lastMessage}</div>
         </div>
-        <div className="room-and-user-name-with-message-flex3">
-          <p className="room-and-user-name-with-message-datetime">{userRoom.lastMessageUpdated ? dateHumanize(userRoom.lastMessageUpdated) : ''}</p>
-          {userRoom.ruUnreadCount > 0 ? <Badge className="room-and-user-name-with-message-badge" count={userRoom.ruUnreadCount} /> : null}
+        <div className={styles.flex3}>
+          <p className={styles.datetime}>{userRoom.lastMessageUpdated ? dateHumanize(userRoom.lastMessageUpdated) : ''}</p>
+          {userRoom.ruUnreadCount > 0 ? <Badge className={styles.badge} count={userRoom.ruUnreadCount} /> : null}
         </div>
       </div>
     );

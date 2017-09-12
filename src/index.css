@@ -1,10 +1,5 @@
-@import './pages/**/*.css';
-@import './components/**/*.css';
-@import './containers/**/*.css';
-@import './plugins/**/**/*.css';
-
 body {
-  font-family: "San Francisco", Sans-Serif;
+  font-family: 'Roboto', sans-serif;
 }
 .nodata-wrap {
   display: flex;
@@ -24,13 +19,13 @@ body {
 ::-webkit-input-placeholder {
   color: #cccccc;
 }
-.sc-layout-box-1 {
+.layout-box-1 {
   padding: 10px 0;
   background-color: #fafafa;
 }
 .page-container {
   min-width: 320px;
 }
-.sc-image-input {
+.image-input {
   display: none;
 }

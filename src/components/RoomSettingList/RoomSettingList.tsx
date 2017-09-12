@@ -125,7 +125,11 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                   <div>
                     <Button
                       text="グループ情報編集"
-                      icon={<Button icon={<i className="material-icons">block</i>} />}
+                      color="link-primary"
+                      position="left"
+                      shape="square"
+                      width="100%"
+                      icon={<i className="material-icons">block</i>}
                       onClick={this.onEditRoomModalView.bind(this)}
                     />
                     <Modal
@@ -142,7 +146,11 @@ export class RoomSettingList extends React.Component<IRoomSettingListProps, {}> 
                     />
                     <Button
                       text="退出する"
-                      icon={<Button icon={<i className="material-icons">exit_to_app</i>} />}
+                      color="link-primary"
+                      position="left"
+                      shape="square"
+                      width="100%"
+                      icon={<i className="material-icons">exit_to_app</i>}
                       onClick={this.onConfirmLeftModalView.bind(this)}
                     />
                     <ModalAction

@@ -5,6 +5,8 @@ import {
   IMessage,
   dateFormateMMDD,
 } from 'swagchat-sdk';
+import * as indexStyles from '../../index.css';
+import * as styles from './message-body.css';
 import {
   MessageDateSeparator,
   MessageItem,
@@ -30,15 +32,15 @@ export class MessageBody extends React.Component<IMessageBodyProps, {}> {
 
     if (!(messages && Object.keys(messages).length > 0)) {
       return (
-        <div className="nodata-wrap">
-          {noMessageImage !== '' ? <img className="nodata-image" src={noMessageImage} /> : ''}
-          <p className="nodata-text">{noMessageText !== '' ? noMessageText : ''}</p>
+        <div className={indexStyles.nodataWrap}>
+          {noMessageImage !== '' ? <img className={indexStyles.nodataImage} src={noMessageImage} /> : ''}
+          <p className={indexStyles.nodataText}>{noMessageText !== '' ? noMessageText : ''}</p>
         </div>
       );
     }
 
     return (
-      <div className="message-body-root">
+      <div className={styles.root}>
         {(() => {
           let messageItems = new Array;
           let workMMDD = '';

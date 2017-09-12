@@ -1,0 +1,13 @@
+.root {
+  padding: 10px 0;
+  background-color: #fafafa;
+}
+.root > div > a .wrap {
+  justify-content: flex-start;
+  width: 100%;
+  background-color: white;
+}
+.root > div > a .element.text {
+  color: #333333;
+  font-size: 1rem;
+}

@@ -4,6 +4,7 @@ import {
   IUser,
   IRoom,
 } from 'swagchat-sdk';
+import * as styles from './message-menu.css';
 
 export interface IMessageMenuProps {
   position?: 'top' | 'bottom';
@@ -70,7 +71,7 @@ export class MessageMenu extends React.Component<IMessageMenuProps, {}> {
 
     const classNames = require('classnames');
     return (
-      <div className={menus.length > 0 ? classNames('sc-message-menu-root', position) : ''}>
+      <div className={menus.length > 0 ? classNames(styles.root, position) : ''}>
         {menus}
       </div>
     );

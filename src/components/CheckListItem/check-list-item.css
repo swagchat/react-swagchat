@@ -1,0 +1,39 @@
+@value colors: "../../styles/theme/default/color.css";
+@value color-primary, color-grey-alpha from colors;
+
+.root {
+  min-width: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fefefe;
+  user-select: none;
+}
+.avatar {
+  position: absolute;
+}
+.subject {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.flex1 {
+  margin: 10px;
+}
+.flex2 {
+  width: 100%;
+  margin: 10px;
+}
+.flex3 {
+  width: 50px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.flex3 .checked {
+  color: color-primary;
+}
+.flex3 .unchecked {
+  color: color-grey-alpha;
+}

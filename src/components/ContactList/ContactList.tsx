@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { IUser, updateSelectContactsActionDispatch } from 'swagchat-sdk';
 import { Avatar, CheckListItem, IOnClickProps } from '../';
+import * as indexStyles from '../../index.css';
+import * as styles from './contact-list.css';
 
 export interface IContactListProps extends IOnClickProps {
   contacts: IUser[];
@@ -30,7 +32,7 @@ export class ContactList extends React.Component<IContactListProps, {}> {
     const classNames = require('classnames');
     return (
       <div
-        className={classNames('sc-contact-list-root', className ? className : '')}
+        className={classNames(styles.root, className ? className : '')}
         style={style ? style : {}}
       >
         {contacts ? contacts.map((contact, i) =>
@@ -45,9 +47,9 @@ export class ContactList extends React.Component<IContactListProps, {}> {
           />
         ) : null}
         {!(contacts && contacts.length > 0) ?
-          <div className="nodata-wrap">
-            {noContactListImage !== '' ? <img className="nodata-image" src={noContactListImage} /> : ''}
-            <p className="nodata-text">{noContactListText !== '' ? noContactListText : ''}</p>
+          <div className={indexStyles.nodataWrap}>
+            {noContactListImage !== '' ? <img className={indexStyles.nodataImage} src={noContactListImage} /> : ''}
+            <p className={indexStyles.nodataText}>{noContactListText !== '' ? noContactListText : ''}</p>
           </div> : null
         }
       </div>

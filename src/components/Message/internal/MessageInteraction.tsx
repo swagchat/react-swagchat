@@ -5,6 +5,8 @@ import {
   IUser,
   IRoom,
 } from 'swagchat-sdk';
+import * as styles from './message-interaction.css';
+const classNames = require('classnames');
 
 export interface IMessageInteractionProps {
   settingState: ISettingState;
@@ -85,9 +87,8 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
       interactions = this.renderMessageInteraction();
     }
 
-    const classNames = require('classnames');
     return (
-      <div className={interactions.length > 0 ? classNames('message-interaction-root', position) : ''}>
+      <div className={interactions.length > 0 ? classNames(styles.root, position) : ''}>
         {interactions}
       </div>
     );

@@ -1,4 +1,7 @@
 import * as React from 'react';
+import * as indexStyles from '../../index.css';
+import * as styles from './photo-edit.css';
+import * as avatarStyles from '../Avatar/avatar.css';
 
 export interface IPhotoEditProps {
   type?: 'circle' | 'square' | 'square-round'| 'round';
@@ -64,22 +67,22 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
     let imgClassName = '';
     switch (type) {
       case 'circle':
-        imgClassName = classNames('sc-photo-edit-img', 'sc-avatar-root', 'circle');
+        imgClassName = classNames(styles.img, avatarStyles.root, avatarStyles.circle);
         break;
       case 'square':
-        imgClassName = classNames('sc-photo-edit-img', 'sc-avatar-root', 'square');
+        imgClassName = classNames(styles.img, avatarStyles.root, avatarStyles.square);
         break;
       case 'square-round':
-        imgClassName = classNames('sc-photo-edit-img', 'sc-avatar-root', 'square-round');
+        imgClassName = classNames(styles.img, avatarStyles.root, avatarStyles.squareRound);
         break;
       case 'round':
-        imgClassName = classNames('sc-photo-edit-img', 'sc-avatar-root', 'round');
+        imgClassName = classNames(styles.img, avatarStyles.root, avatarStyles.round);
         break;
     }
 
     return (
       <div
-        className={classNames('sc-photo-edit-root', className)}
+        className={classNames(styles.root, className)}
         style={rootStyle}
       >
         <img
@@ -87,11 +90,11 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
           ref={(child) => this._confirmImageDom = child}
           className={imgClassName}
         />
-        <div className="sc-photo-edit-button" onClick={this.onPhoto.bind(this)}><i className="material-icons sc-photo-edit-icon">photo_camera</i></div>
+        <div className={styles.button} onClick={this.onPhoto.bind(this)}><i className={classNames('material-icons', styles.icon)}>photo_camera</i></div>
         <input
           type="file"
           ref={(child) => this._inputFileDom = child}
-          className="sc-image-input"
+          className={indexStyles.imageInput}
           accept="image/*"
           onChange={this.onFileUploadChange.bind(this)}
         />

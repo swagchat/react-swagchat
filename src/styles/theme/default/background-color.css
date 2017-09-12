@@ -1,0 +1,69 @@
+.primary {
+  background-color: var(--color-blue-500);
+}
+.primary:hover {
+  background-color: var(--color-blue-700);
+}
+
+.secondary {
+  background-color: var(--color-pink-500);
+}
+.secondary:hover {
+  background-color: var(--color-pink-700);
+}
+
+.success {
+  background-color: var(--color-indigo-500);
+}
+.success:hover {
+  background-color: var(--color-indigo-700);
+}
+
+.danger {
+  background-color: var(--color-red-500);
+}
+.danger:hover {
+  background-color: var(--color-red-700);
+}
+
+.warning {
+  background-color: var(--color-orange-500);
+}
+.warning:hover {
+  background-color: var(--color-orange-700);
+}
+
+.info {
+  background-color: var(--color-cyan-500);
+}
+.info:hover {
+  background-color: var(--color-chan-700);
+}
+
+.disable {
+  background-color: var(--color-grey-500);
+}
+.disable:hover {
+  background-color: var(--color-grey-700);
+}
+
+.light {
+  background-color: var(--color-grey-100);
+}
+.light:hover {
+  background-color: var(--color-grey-50);
+}
+
+.dark {
+  background-color: var(--color-grey-800);
+}
+.dark:hover {
+  background-color: var(--color-black);
+}
+
+.link {
+  background-color: transparent;
+}
+.link:hover {
+  background-color: var(--color-grey-100);
+}
