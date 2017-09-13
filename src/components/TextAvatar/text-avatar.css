@@ -1,0 +1,35 @@
+@value shapes: "../../styles/theme/default/shape.css";
+@value shape-circle, shape-square, shape-square-round, shape-round from shapes;
+@value sizes: "../../styles/theme/default/size.css";
+@value size-avatar-root, size-avatar-text from sizes;
+@value colors: "../../styles/theme/default/color.css";
+@value color-text-avatar-bg, color-text-avatar-text from colors;
+
+.root {
+  background-color: color-text-avatar-bg;
+  user-select: none;
+  height: size-avatar-root;
+  width: size-avatar-root;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.root.circle {
+  border-radius: shape-circle;
+}
+.root.square {
+  border-radius: shape-square;
+}
+.root.square-round {
+  border-radius: shape-square-round;
+}
+.root.round {
+  border-radius: shape-round;
+}
+.element {
+  color: color-text-avatar-text;
+  text-align: center;
+  font-size: size-avatar-text;
+  letter-spacing: 5px;
+  padding-left: 5px;
+}

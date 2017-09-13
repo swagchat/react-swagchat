@@ -1,0 +1,10 @@
+@value size: "../../styles/theme/default/size.css";
+@value size-top-bar-height, size-tab-bar-height from size;
+
+.top-bar {
+  margin-top: size-top-bar-height;
+}
+
+.tab-bar {
+  margin-bottom: size-tab-bar-height;
+}

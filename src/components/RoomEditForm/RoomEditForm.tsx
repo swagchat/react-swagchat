@@ -11,7 +11,7 @@ export interface IRoomEditProps {
   roomPictureUrl: string;
 }
 
-export class RoomEdit extends React.Component<IRoomEditProps, {}> {
+export class RoomEditForm extends React.Component<IRoomEditProps, {}> {
   private inputTextDom: HTMLInputElement | null;
 
   componentDidMount() {
@@ -26,9 +26,8 @@ export class RoomEdit extends React.Component<IRoomEditProps, {}> {
     return (
       <div className={styles.root}>
         <PhotoEdit
+          className={styles.photoEdit}
           src={this.props.roomPictureUrl}
-          width="120px"
-          height="120px"
           onUpdatePhoto={roomUpdatePictureActionDispatch}
         />
         <input

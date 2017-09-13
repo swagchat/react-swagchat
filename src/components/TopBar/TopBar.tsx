@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Avatar } from '../../components';
+import { Avatar, IRootStyleProps } from '../../components';
 import * as styles from './top-bar.css';
+const classNames = require('classnames');
 
-export interface IProps {
+export interface IProps extends IRootStyleProps {
   title: string;
   pictureUrl?: string;
   leftButton?: React.ReactNode;
@@ -11,23 +12,17 @@ export interface IProps {
 
 export class TopBar extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const {title, pictureUrl, leftButton, rightButton} = this.props;
+    const {className, style, title, pictureUrl, leftButton, rightButton} = this.props;
     return (
-      <div className={styles.root}>
-        {leftButton ? leftButton : null}
-        {(() => {
-          if (pictureUrl) {
-            return (
-              <div className={styles.avatarTitleWrap}>
-                <div className={styles.avatar}><Avatar src={pictureUrl} width="32px" height="32px" /></div>
-                <h1 className={styles.avatarTitle}>{title}</h1>
-              </div>
-            );
-          } else {
-            return <h1 className={styles.title}>{title}</h1>;
-          }
-        })()}
-        {rightButton ? rightButton : null}
+      <div className={classNames(className, styles.root)} style={style}>
+        {leftButton ? <div className={styles.leftButton}>{leftButton}</div> : null}
+        <div className={styles.avatarTitleWrap}>
+          {pictureUrl ? (
+            <div className={styles.avatar}><Avatar src={pictureUrl} /></div>
+          ) : null}
+          <h1 className={styles.title}>{title}</h1>
+        </div>
+        {rightButton ? <div className={styles.rightButton}>{rightButton}</div> : null}
       </div>
     );
   }

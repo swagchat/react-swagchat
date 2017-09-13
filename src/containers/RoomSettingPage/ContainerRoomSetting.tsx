@@ -15,7 +15,7 @@ import {
 } from 'swagchat-sdk';
 import {
   TopBar,
-  RoomSettingList,
+  RoomSettingButtons,
   Avatar,
   SubTitleBar,
   Button,
@@ -30,6 +30,7 @@ export interface IReduxRoomSettingProps extends RouteComponentProps<any> {
   roomState: IRoomState;
   styleState: IStyleState;
   settingState: ISettingState;
+  roomListTabbar?: React.ComponentClass<any>;
 }
 
 class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
@@ -43,6 +44,7 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
       roomState,
       userState,
       history,
+      roomListTabbar,
     } = this.props;
     if (!(roomState && roomState.room)) {
       return <div />;
@@ -56,23 +58,30 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
         name = users[0].name;
       }
     }
+
+    const rootClassName = classNames(styles.topBar, roomListTabbar ? styles.tabBar : '');
+
     return (
-      <div className={styles.root}>
+      <div className={rootClassName}>
         <TopBar
           title={settingState.roomSettingTitle}
-          leftButton={<Button color="link-primary" icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack} />}
+          leftButton={
+            <Button
+              color="linkPrimary"
+              icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack}
+            />
+          }
         />
         <Button
           position="left"
-          color="link-primary"
+          color="linkBlack"
           shape="square"
+          className={styles.roomButton}
           text={name}
           icon={<Avatar src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]} style={{width: '80px', height: '80px'}} />}
-          fontColor="#333333"
           width="100%"
-          style={{padding: '10px'}}
         />
-        <RoomSettingList
+        <RoomSettingButtons
           desableMarginTop={false}
           userId={userState.user!.userId}
           userBlocks={userState.user!.blocks}
@@ -81,27 +90,24 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
           displayNoDataText="No contacts."
           onItemTap={this.onItemTap.bind(this)}
         />
-
-        {
-          (roomState.room!.type !== RoomType.ONE_ON_ONE && roomState.room!.isShowUsers && roomState.room!.type !== RoomType.NOTICE_ROOM) ? (
-            <div className={classNames(indexStyles.layoutBox1, styles.membersBlock)}>
-              <SubTitleBar title={settingState.roomMembersTitle} isDisplayBorder={false} />
-              {roomState.room!.users!.map((user, i) =>
-                <Button
-                  key={'simple-list-item-' + i}
-                  position="left"
-                  shape="square"
-                  color="link-black"
-                  text={user.name}
-                  icon={<Avatar src={user.pictureUrl} style={{width: '40px', height: '40px'}} />}
-                  fontColor="#333333"
-                  width="100%"
-                  style={{padding: '10px'}}
-                />
-              )}
-            </div>
-          ) : null
-        }
+        {(roomState.room!.type !== RoomType.ONE_ON_ONE && roomState.room!.isShowUsers && roomState.room!.type !== RoomType.NOTICE_ROOM) ? (
+          <div className={indexStyles.layoutBox1}>
+            <SubTitleBar title={settingState.roomMembersTitle} isDisplayBorder={false} />
+            {roomState.room!.users!.map((user, i) =>
+              <Button
+                key={'member-list-item-' + i}
+                className={styles.membersBlockButton}
+                position="left"
+                shape="square"
+                color="linkBlack"
+                text={user.name}
+                icon={<Avatar src={user.pictureUrl} style={{width: '40px', height: '40px'}} />}
+                width="100%"
+                style={{padding: '10px'}}
+              />
+            )}
+          </div>
+        ) : null}
       </div>
     );
   }

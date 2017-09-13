@@ -2,3 +2,6 @@
 @value shape-square: 0;
 @value shape-square-round: 5px;
 @value shape-round: 30px;
+
+@value shape-room-edit-input-text: 5px;
+@value shape-message-input-text: 20px;

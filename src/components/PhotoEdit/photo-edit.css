@@ -1,15 +1,36 @@
+@value sizes: "../../styles/theme/default/size.css";
+@value size-photo-edit-root, size-photo-edit-button, size-photo-edit-icon from sizes;
+@value colors: "../../styles/theme/default/color.css";
+@value color-white, color-primary, color-grey from colors;
+@value shapes: "../../styles/theme/default/shape.css";
+@value shape-circle, shape-square, shape-square-round, shape-round from shapes;
+
 .root {
-  width: 100px;
-  height: 100px;
+  width: size-photo-edit-root;
+  height: size-photo-edit-root;
 }
+
 .img {
   width: 100%;
   height: 100%;
 }
+.img.circle {
+  border-radius: shape-circle;
+}
+.img.square {
+  border-radius: shape-square;
+}
+.img.square-round {
+  border-radius: shape-square-round;
+}
+.img.round {
+  border-radius: shape-round;
+}
+
 .button {
   float: right;
-  width: 42px;
-  height: 42px;
+  width: size-photo-edit-button;
+  height: size-photo-edit-button;
   fill: rgba(0,0,0,0.3);
   position: relative;
   bottom: 35px;
@@ -17,15 +38,14 @@
   cursor: pointer;
 }
 .icon {
-  width: 20px;
-  height: 20px;
-  color: #0084ff;
-  border: 1px solid #eee;
+  width: size-photo-edit-icon;
+  height: size-photo-edit-icon;
+  color: color-primary;
+  border: 1px solid color-grey;
   border-radius: 50%;
   padding: 10px;
-  background-color: #fff;
+  background-color: color-white;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
 }

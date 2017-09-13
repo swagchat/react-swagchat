@@ -9,6 +9,7 @@ export class ImageMenu extends React.Component<IPluginMessageMenuProps, {}> {
     const {ownMenuIndex, currentMenuIndex} = this.props;
     return (
       <Button
+        color="linkPrimary"
         icon={<i className={classNames('material-icons', ownMenuIndex === currentMenuIndex ? messageMenustyles.on : messageMenustyles.off)}>camera_alt</i>}
         onClick={() => {pluginMessageUpdateMenuIndexActionDispatch(ownMenuIndex); }}
       />

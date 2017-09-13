@@ -1,7 +1,13 @@
+@value sizes: "../../styles/theme/default/size.css";
+@value size-sub-title-bar-height, size-sub-title-bar-text, size-weight-sub-title-bar-text from sizes;
+@value colors: "../../styles/theme/default/color.css";
+@value color-sub-title-bar-border, color-sub-title-bar-text from colors;
+
 .root {
-  height: 32px;
-  border-top: 1px solid #eee;
+  height: size-sub-title-bar-height;
+  border-top: 1px solid color-sub-title-bar-border;
   padding: 10px 0 0 10px;
-  font-size: 20px;
-  color: #666;
+  font-size: size-sub-title-bar-text;
+  font-weight: size-weight-sub-title-bar-text;
+  color: color-sub-title-bar-text;
 }

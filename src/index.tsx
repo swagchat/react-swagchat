@@ -5,16 +5,14 @@ import {
   Avatar,
   Badge,
   Button,
-  CheckListItem,
   ContactList,
   MessageBody,
   Modal,
   ModalAction,
   PhotoEdit,
-  RoomEdit,
-  RoomItem,
+  RoomEditForm,
   RoomList,
-  RoomSettingList,
+  RoomSettingButtons,
   SubTitleBar,
   TextAvatar,
   TopBar,
@@ -61,16 +59,14 @@ export * from './templates';
 (window as any).Sc.Avatar = Avatar;
 (window as any).Sc.Badge = Badge;
 (window as any).Sc.Button = Button;
-(window as any).Sc.CheckListItem = CheckListItem;
 (window as any).Sc.ContactList = ContactList;
 (window as any).Sc.MessageBody = MessageBody;
 (window as any).Sc.Modal = Modal;
 (window as any).Sc.ModalAction = ModalAction;
 (window as any).Sc.PhotoEdit = PhotoEdit;
-(window as any).Sc.RoomEdit = RoomEdit;
-(window as any).Sc.RoomItem = RoomItem;
+(window as any).Sc.RoomEditForm = RoomEditForm;
 (window as any).Sc.RoomList = RoomList;
-(window as any).Sc.RoomSettingList = RoomSettingList;
+(window as any).Sc.RoomSettingButtons = RoomSettingButtons;
 (window as any).Sc.SubTitleBar = SubTitleBar;
 (window as any).Sc.TextAvatar = TextAvatar;
 (window as any).Sc.TopBar = TopBar;

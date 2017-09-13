@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IOnClickProps } from '../';
+import { IOnClickProps } from '../../../';
 import * as styles from './check-list-item.css';
 const classNames = require('classnames');
 

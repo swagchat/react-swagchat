@@ -56,9 +56,8 @@ export class ModalAction extends React.Component<IModalActionProps, IModalState>
         <div className={styles.wrap} onClick={this.onWrapTap}>
           {title ? (
             <div className={styles.viewHeader}>
-              <div className={styles.viewHeaderButton} />
               <div className={styles.viewTitle}>{title}</div>
-              <Button icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} className={styles.viewHeaderButton} />
+              <Button color="linkWhite" icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} />
             </div>
           ) : null}
           <p className={styles.component}>{component}</p>
@@ -66,6 +65,7 @@ export class ModalAction extends React.Component<IModalActionProps, IModalState>
             {actions ? actions.map((action, i) =>
               <Button
                 key={'sc-modal-dialog-action-item-' + i}
+                className={styles.dialogActionButton}
                 shape="squareRound"
                 text={action.name}
                 width="95%"

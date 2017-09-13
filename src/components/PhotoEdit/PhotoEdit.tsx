@@ -1,16 +1,14 @@
 import * as React from 'react';
+import { IShapeProps, IRootStyleProps } from '../';
 import * as indexStyles from '../../index.css';
 import * as styles from './photo-edit.css';
-import * as avatarStyles from '../Avatar/avatar.css';
+const classNames = require('classnames');
 
-export interface IPhotoEditProps {
-  type?: 'circle' | 'square' | 'square-round'| 'round';
+export interface IPhotoEditProps extends IShapeProps, IRootStyleProps {
   src: string;
   width?: string;
   height?: string;
   margin?: string;
-  className?: string;
-  style?: Object;
   onUpdatePhoto: (updatePictureUrl: Blob) => void;
 }
 
@@ -20,7 +18,7 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
   private _inputFileDom: HTMLInputElement | null;
 
   public static defaultProps: Partial<IPhotoEditProps> = {
-    type: 'circle',
+    shape: 'circle',
     className: '',
     style: {},
   };
@@ -48,7 +46,7 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
   }
 
   render(): JSX.Element  {
-    const { type, src, width, height, margin, className, style } = this.props;
+    const { shape, src, width, height, margin, className, style } = this.props;
 
     let tempRootStyle: {
       width?: string;
@@ -63,21 +61,11 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
       style,
     );
 
-    const classNames = require('classnames');
-    let imgClassName = '';
-    switch (type) {
-      case 'circle':
-        imgClassName = classNames(styles.img, avatarStyles.root, avatarStyles.circle);
-        break;
-      case 'square':
-        imgClassName = classNames(styles.img, avatarStyles.root, avatarStyles.square);
-        break;
-      case 'square-round':
-        imgClassName = classNames(styles.img, avatarStyles.root, avatarStyles.squareRound);
-        break;
-      case 'round':
-        imgClassName = classNames(styles.img, avatarStyles.root, avatarStyles.round);
-        break;
+    let shapeClassName = '';
+    if (['circle', 'square', 'squareRound', 'round'].indexOf(shape!) >= 0 ) {
+      shapeClassName = styles[shape!];
+    } else {
+      shapeClassName = styles.circle;
     }
 
     return (
@@ -88,7 +76,7 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
         <img
           src={src}
           ref={(child) => this._confirmImageDom = child}
-          className={imgClassName}
+          className={classNames(styles.img, shapeClassName)}
         />
         <div className={styles.button} onClick={this.onPhoto.bind(this)}><i className={classNames('material-icons', styles.icon)}>photo_camera</i></div>
         <input

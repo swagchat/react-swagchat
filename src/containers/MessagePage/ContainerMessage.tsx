@@ -45,6 +45,7 @@ export interface IReduxMessageProps extends RouteComponentProps<any> {
   messageState: IMessageState;
   styleState: IStyleState;
   settingState: ISettingState;
+  roomListTabbar?: React.ComponentClass<any>;
 }
 
 export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
@@ -122,7 +123,6 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
       pluginState,
       history,
       messageState,
-
     } = this.props;
     if (!(roomState && roomState.room)) {
       return <div />;
@@ -136,18 +136,26 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
         pictureUrl = users[0].pictureUrl;
       }
     }
+
+    const rootClassName = classNames(styles.topBar, styles.tabBar);
+
     return (
-      <div>
+      <div className={rootClassName}>
         <TopBar
           title={name}
-          leftButton={<Button icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack} />}
-          rightButton={<Avatar
-            onClick={this.onRoomSetting.bind(this)}
-            src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}
-            width="30px"
-            height="30px"
-            margin="9px"
-          />}
+          leftButton={
+            <Button
+              color="linkPrimary"
+              icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack}
+            />
+          }
+          rightButton={
+            <Avatar
+              className={styles.topBarAvatar}
+              onClick={this.onRoomSetting.bind(this)}
+              src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}
+            />
+          }
         />
         <div className={classNames(styles.menu, styles.top)} style={styleState.messageBodyMenuStyle}>
           <MessageMenu

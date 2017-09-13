@@ -1,6 +1,6 @@
 export const colors: string;
 export const colorPrimary: string;
-export const colorDark: string;
+export const colorDisable: string;
 export const root: string;
 export const bottom: string;
 export const top: string;

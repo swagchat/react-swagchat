@@ -4,7 +4,7 @@ import * as styles from './button.css';
 const classNames = require('classnames');
 
 export interface IButtonProps extends IShapeProps, IOnClickProps {
-  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' |  'light' | 'dark' | 'link-primary' | 'link-white' | 'link-black';
+  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'disable' | 'dark' | 'light' | 'linkPrimary' | 'linkBlack' | 'linkWhite';
   text?: string;
   icon?: React.ReactNode;
   width?: string;
@@ -169,7 +169,7 @@ export class Button extends React.Component<IButtonProps, {}> {
     }
 
     let colorClassName = '';
-    if (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'disable', 'light', 'dark', 'link-primary', 'link-black', 'link-white'].indexOf(color!) >= 0 ) {
+    if (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'disable', 'dark', 'light', 'linkPrimary', 'linkBlack', 'linkWhite'].indexOf(color!) >= 0 ) {
       colorClassName = styles[color!];
     } else {
       colorClassName = styles.primary;

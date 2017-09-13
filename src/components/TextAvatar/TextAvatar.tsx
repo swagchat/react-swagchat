@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { IOnClickProps } from '../';
+import { IOnClickProps, IShapeProps } from '../';
+import * as styles from './text-avatar.css';
 const classNames = require('classnames');
 
-export interface ITextAvatarProps extends IOnClickProps {
-  type?: 'circle' | 'square' | 'square-round' | 'round';
+export interface ITextAvatarProps extends IOnClickProps, IShapeProps {
   text: string;
   fontSize?: string;
   fontColor?: string;
@@ -17,29 +17,20 @@ export interface ITextAvatarProps extends IOnClickProps {
 
 export class TextAvatar extends React.Component<ITextAvatarProps, {}> {
   public static defaultProps: Partial<ITextAvatarProps> = {
-    type: 'circle',
+    shape: 'circle',
     className: '',
     style: {},
     onClick: () => {},
   };
 
   render(): JSX.Element  {
-    const { type, text, width, height, margin, fontColor, fontSize, backgroundColor, className, style, onClick } = this.props;
+    const { shape, text, width, height, margin, fontColor, fontSize, backgroundColor, className, style, onClick } = this.props;
 
-    let avatarClassName = '';
-    switch (type) {
-      case 'circle':
-        avatarClassName = classNames('sc-text-avatar-root', 'circle');
-        break;
-      case 'square':
-        avatarClassName = classNames('sc-text-avatar-root', 'square');
-        break;
-      case 'square-round':
-        avatarClassName = classNames('sc-text-avatar-root', 'square-round');
-        break;
-      case 'round':
-        avatarClassName = classNames('sc-text-avatar-root', 'round');
-        break;
+    let shapeClassName = '';
+    if (['circle', 'square', 'squareRound', 'round'].indexOf(shape!) >= 0 ) {
+      shapeClassName = styles[shape!];
+    } else {
+      shapeClassName = styles.circle;
     }
 
     let textAvatarRootStyle: Object;
@@ -67,12 +58,12 @@ export class TextAvatar extends React.Component<ITextAvatarProps, {}> {
 
     return (
       <div
-        className={classNames(avatarClassName, className)}
+        className={classNames(styles.root, shapeClassName, className)}
         style={textAvatarRootStyle}
         onClick={onClick}
       >
         <div
-          className="sc-text-avatar-element"
+          className={styles.element}
           style={textAvatarElementStyle}
         >
           {text}

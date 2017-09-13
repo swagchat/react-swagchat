@@ -1,10 +1,13 @@
-@value color-black: rgb(0, 0, 0);
+@value color-black: rgb(33, 33, 33);
 @value color-white: rgb(255, 255, 255);
+@value color-black-alpha: rgba(33, 33, 33, 0.2);
 @value color-grey-alpha: rgba(158, 158, 158, 0.2);
+
 @value color-primary: rgb(33, 150, 243);
 @value color-primary-hover: rgb(25, 118, 210);
 @value color-secondary: rgb(233, 30, 99);
 @value color-secondary-hover: rgb(194, 24, 91);
+
 @value color-success: rgb(63, 81, 181);
 @value color-success-hover: rgb(48, 63, 159);
 @value color-danger: rgb(244, 67, 54);
@@ -17,5 +20,20 @@
 @value color-disable-hover: rgb(97, 97, 97);
 @value color-dark: rgb(66, 66, 66);
 @value color-dark-hover: rgb(0, 0, 0);
+@value color-grey: rgb(224, 224, 224);
+@value color-grey-hover: rgb(158, 158, 158);
 @value color-light: rgb(250, 250, 250);
 @value color-light-hover: rgb(245, 245, 245);
+
+@value color-text-avatar-bg: rgb(0, 188, 212);
+@value color-text-avatar-text: rgb(224, 224, 224);
+
+@value color-top-bar-bg: rgb(250, 250, 250);
+@value color-top-bar-border: rgb(224, 224, 224);
+@value color-top-bar-text: rgb(33, 33, 33);
+
+@value color-sub-title-bar-border: rgb(224, 224, 224);
+@value color-sub-title-bar-text: rgb(33, 33, 33);
+
+@value color-input-text: rrgb(33, 33, 33);
+@value color-input-border: rgba(158, 158, 158, 0.2);

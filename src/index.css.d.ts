@@ -1,3 +1,5 @@
+export const colors: string;
+export const colorLight: string;
 export const nodataWrap: string;
 export const nodataText: string;
 export const nodataImage: string;

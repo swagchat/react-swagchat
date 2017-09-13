@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { IRoomForUser, IPluginRoomListItem } from 'swagchat-sdk';
-import { RoomItem } from './RoomItem';
-import { SubTitleBar, IOnClickProps } from '../';
+import { RoomItem } from './internal/RoomItem';
+import { SubTitleBar, IOnClickProps, IRootStyleProps } from '../';
 import * as indexStyles from '../../index.css';
+const classNames = require('classnames');
 
-export interface IRoomListProps extends IOnClickProps {
+export interface IRoomListProps extends IOnClickProps, IRootStyleProps {
   myUserId: string;
   userRooms: IRoomForUser[];
   roomListItems: {[key: number]: IPluginRoomListItem};
   customRoomListItems: {[key: number]: IPluginRoomListItem};
   title?: string;
-  hasTopBar?: boolean;
-  hasTabBar?: boolean;
   noRoomListText?: string;
   noRoomListImage?: string;
   noAvatarImages: string[];
@@ -19,7 +18,8 @@ export interface IRoomListProps extends IOnClickProps {
 
 export class RoomList extends React.Component<IRoomListProps, {}> {
   public static defaultProps: Partial<IRoomListProps> = {
-    hasTopBar: false,
+    className: '',
+    style: {},
   };
 
   onClick(room: any) {
@@ -29,14 +29,9 @@ export class RoomList extends React.Component<IRoomListProps, {}> {
   }
 
   render(): JSX.Element {
-    const {myUserId, roomListItems, customRoomListItems, title, hasTopBar, hasTabBar, noRoomListText, noRoomListImage, userRooms, noAvatarImages} = this.props;
-    let style = Object.assign(
-      {},
-      hasTopBar ? {marginTop: '47px'} : {},
-      hasTabBar ? {marginBottom: '57px'} : {},
-    );
+    const {className, style, myUserId, roomListItems, customRoomListItems, title, noRoomListText, noRoomListImage, userRooms, noAvatarImages} = this.props;
     return (
-      <div className={indexStyles.pageContainer} style={style}>
+      <div className={classNames(indexStyles.pageContainer, className)} style={style}>
         { title ? <SubTitleBar title={title!} /> : null}
         {(() => {
           if (userRooms && userRooms.length > 0) {
@@ -44,7 +39,7 @@ export class RoomList extends React.Component<IRoomListProps, {}> {
             for (let i = 0; i < userRooms.length; i++) {
               roomItems.push(
                 <RoomItem
-                  key={i}
+                  key={'room-item-' + i}
                   roomListItems={roomListItems}
                   customRoomListItems={customRoomListItems}
                   myUserId={myUserId}

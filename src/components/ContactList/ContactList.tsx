@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IUser, updateSelectContactsActionDispatch } from 'swagchat-sdk';
-import { Avatar, CheckListItem, IOnClickProps } from '../';
+import { Avatar, IOnClickProps } from '../';
+import { CheckListItem　} from './internal/CheckListItem/CheckListItem';
 import * as indexStyles from '../../index.css';
 import * as styles from './contact-list.css';
 

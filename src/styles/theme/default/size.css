@@ -1,0 +1,20 @@
+@value size-avatar-root: 100px;
+@value size-avatar-text: 3rem;
+
+@value size-top-bar-height: 48px;
+@value size-top-bar-text: 1.2rem;
+@value size-weight-top-bar-text: 100;
+@value size-top-bar-avatar: 28px;
+@value size-tab-bar-height: 58px;
+
+@value size-sub-title-bar-height: 32px;
+@value size-sub-title-bar-text: 1.1rem;
+@value size-weight-sub-title-bar-text: 100;
+
+@value size-photo-edit-root: 100px;
+@value size-photo-edit-button: 42px;
+@value size-photo-edit-icon: 20px;
+
+@value size-room-edit-photo-edit: 120px;
+@value size-room-edit-text-height: 2.5rem;
+@value size-room-edit-text-size: 1rem;

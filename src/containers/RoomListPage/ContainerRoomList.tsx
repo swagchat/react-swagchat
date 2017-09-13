@@ -10,6 +10,8 @@ import {
   TopBar,
   Button,
 } from '../../components';
+import * as styles from './room-list-page.css';
+const classNames = require('classnames');
 
 export interface IReduxRoomListProps extends RouteComponentProps<any> {
   apiKey: string;
@@ -26,7 +28,7 @@ export interface IReduxRoomListProps extends RouteComponentProps<any> {
   roomListRoutePath: string;
   messageRoutePath: string;
   selectContactRoutePath: string;
-  roomListTabbar: React.ComponentClass<any> | null;
+  roomListTabbar?: React.ComponentClass<any>;
 }
 
 class ReduxRoomList extends React.Component<IReduxRoomListProps, any> {
@@ -44,25 +46,32 @@ class ReduxRoomList extends React.Component<IReduxRoomListProps, any> {
 
   render(): JSX.Element  {
     const {userId, userRooms, roomListItems, customRoomListItems, roomListTabbar, noRoomListText, noRoomListImage, noAvatarImages} = this.props;
+
+    const rootClassName = classNames(styles.topBar, roomListTabbar ? styles.tabBar : '');
+
     return (
       <div>
         <TopBar
           title={store.getState().setting.roomListTitle}
-          rightButton={<Button icon={<i className="material-icons">open_in_new</i>} onClick={this.onCreateRoomButton.bind(this)} />}
+          rightButton={
+            <Button
+              color="linkPrimary"
+              icon={<i className="material-icons">open_in_new</i>} onClick={this.onCreateRoomButton.bind(this)}
+            />
+          }
         />
         <RoomList
+          className={rootClassName}
           myUserId={userId}
           userRooms={userRooms}
           roomListItems={roomListItems}
           customRoomListItems={customRoomListItems}
-          hasTopBar={true}
-          hasTabBar={roomListTabbar ? true : false}
           noRoomListText={noRoomListText}
           noRoomListImage={noRoomListImage}
           noAvatarImages={noAvatarImages}
           onClick={this.onItemTap.bind(this)}
         />
-        {store.getState().setting.roomListTabbar ? store.getState().setting.roomListTabbar : null}
+        {roomListTabbar ? roomListTabbar : null}
       </div>
     );
   }

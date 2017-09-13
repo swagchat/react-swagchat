@@ -1,0 +1,32 @@
+@value colors: "../../styles/theme/default/color.css";
+@value color-input-text, color-input-border from colors;
+@value sizes: "../../styles/theme/default/size.css";
+@value size-room-edit-photo-edit, size-room-edit-text-height, size-room-edit-text-size from sizes;
+@value shapes: "../../styles/theme/default/shape.css";
+@value shape-room-edit-input-text from shapes;
+
+.root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.photo-edit {
+  width: size-room-edit-photo-edit;
+  height: size-room-edit-photo-edit;
+}
+.input-text {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  width: 90%;
+  max-width: 400px;
+  height: size-room-edit-text-height;
+  font-size: size-room-edit-text-size;
+  text-align: center;
+  color: color-input-text;
+  border: 1px solid color-input-border;
+  border-radius: shape-room-edit-input-text;
+  padding: 0 10px;
+  -webkit-appearance: none;
+}

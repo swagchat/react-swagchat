@@ -1,10 +1,12 @@
+@value size: "../../styles/theme/default/size.css";
+@value size-avatar-root from size;
 @value shapes: "../../styles/theme/default/shape.css";
 @value shape-circle, shape-square, shape-square-round, shape-round from shapes;
 
 .root {
   user-select: none;
-  height: 100px;
-  width: 100px;
+  height: size-avatar-root;
+  width: size-avatar-root;
   object-fit: cover;
 }
 .root.circle {

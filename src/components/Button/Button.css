@@ -89,9 +89,13 @@
   background-color: color-light-hover;
 }
 .root.link-primary,
-.root.link-black,
-.root.link-white {
+.root.link-black {
   background-color: transparent;
+}
+.root.link-primary:hover,
+.root.link-white:hover,
+.root.link-black:hover {
+  background-color: color-grey-alpha;
 }
 
 .wrap {

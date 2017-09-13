@@ -1,12 +1,15 @@
+@value colors: "./styles/theme/default/color.css";
+@value color-light from colors;
+
 body {
   font-family: 'Roboto', sans-serif;
+  background-color: color-light;
 }
 .nodata-wrap {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  /* margin-top: 150px; */
 }
 .nodata-text {
   opacity: 0.1;
@@ -21,7 +24,7 @@ body {
 }
 .layout-box-1 {
   padding: 10px 0;
-  background-color: #fafafa;
+  background-color: color-light;
 }
 .page-container {
   min-width: 320px;

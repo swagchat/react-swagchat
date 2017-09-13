@@ -1,4 +1,4 @@
-@value colors: "../../styles/theme/default/color.css";
+@value colors: "../../../../styles/theme/default/color.css";
 @value color-primary, color-grey-alpha from colors;
 
 .root {

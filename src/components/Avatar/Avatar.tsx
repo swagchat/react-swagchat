@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { IOnClickProps, IShapeProps } from '../';
+import { IOnClickProps, IShapeProps, IRootStyleProps } from '../';
 import * as styles from './avatar.css';
 const classNames = require('classnames');
 
-export interface IAvatarProps extends IOnClickProps, IShapeProps {
+export interface IAvatarProps extends IOnClickProps, IShapeProps, IRootStyleProps {
   src: string;
   width?: string;
   height?: string;
   margin?: string;
-  className?: string;
-  style?: Object;
 }
 
 export class Avatar extends React.Component<IAvatarProps, {}> {

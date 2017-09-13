@@ -1,0 +1,10 @@
+@value colors: "../../styles/theme/default/color.css";
+@value color-white, color-grey-alpha from colors;
+
+.room-setting-button {
+  background-color: color-white !important;
+  padding: 10px;
+}
+.room-setting-button:hover {
+  background-color: color-grey-alpha !important;
+}

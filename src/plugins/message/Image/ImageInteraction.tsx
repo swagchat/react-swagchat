@@ -79,7 +79,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
         <div className={this.props.position === 'top' ?  classNames(styles.confirmWrap, styles.top) : classNames(styles.confirmWrap, styles.bottom)} style={this.state.pluginMessageImageInteractionStyle} >
           <Button
             icon={<i className="material-icons">close</i>}
-            fontColor="white"
+            color="linkWhite"
             className={styles.closeIcon}
             onClick={this.onConfirmClose.bind(this)}
           />

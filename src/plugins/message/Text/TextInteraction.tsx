@@ -134,6 +134,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
         />
         <Button
           className={styles.sendButton}
+          color="linkPrimary"
           icon={<i className={classNames('material-icons', styles.sendIcon)} style={this.sendIconStyle}>send</i>}
           onClick={this.onClick.bind(this)}
         />

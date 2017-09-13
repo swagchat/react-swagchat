@@ -1,5 +1,5 @@
 @value colors: "../../../styles/theme/default/color.css";
-@value color-primary, color-dark from colors;
+@value color-primary, color-disable from colors;
 
 .root.bottom {
   background-color: #fff;
@@ -32,5 +32,8 @@
   color: color-primary;
 }
 .off {
-  color: color-dark;
+  color: color-disable;
+}
+.off:hover {
+  color: color-primary;
 }

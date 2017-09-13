@@ -1,7 +1,7 @@
 {
   "name": "react-swagchat",
   "version": "0.9.4",
-  "description": "Open source chat components - swagchat UIKit for React",
+  "description": "swagchat UIKit - A set of React components for swagchat -",
   "keywords": [
     "swagchat",
     "chat",
@@ -15,11 +15,12 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build:lib": "./node_modules/.bin/tsc --pretty --watch",
-    "type:css": "./node_modules/.bin/tcm src -c --pretty --watch",
+    "build:css": "./node_modules/.bin/tcm src -c --pretty --watch",
     "build:dev": "./node_modules/.bin/webpack --env=dev --progress --profile --colors --watch",
     "build:prod": "./node_modules/.bin/webpack --env=prod --progress --profile --colors --watch",
+    "cpx:css": "./node_modules/.bin/cpx 'src/**/*.css*' lib",
     "test": "./node_modules/.bin/jest --coverage",
-    "prepublish": "./node_modules/.bin/cpx 'src/**/*.css*' lib && ./node_modules/.bin/tsc && ./node_modules/.bin/webpack --env=prod && ./node_modules/.bin/webpack --env=dev"
+    "publish": "./node_modules/.bin/cpx 'src/**/*.css*' lib && ./node_modules/.bin/tsc && ./node_modules/.bin/webpack --env=prod && ./node_modules/.bin/webpack --env=dev"
   },
   "author": "Betchi <shinichi.minobe@gmail.com>",
   "contributors": [

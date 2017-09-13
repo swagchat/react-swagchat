@@ -1,7 +1,6 @@
 export { Avatar } from './Avatar/Avatar';
 export { Badge } from './Badge/Badge';
 export { Button } from './Button/Button';
-export { CheckListItem } from './CheckListItem/CheckListItem';
 export { ContactList, IContactListProps } from './ContactList/ContactList';
 export { MessageBody } from './Message/MessageBody';
 export { MessageDateSeparator } from './Message/internal/MessageDateSeparator';
@@ -11,10 +10,9 @@ export { MessageMenu } from './Message/internal/MessageMenu';
 export { Modal } from './Modal/Modal';
 export { ModalAction, IModalAction } from './Modal/ModalAction';
 export { PhotoEdit } from './PhotoEdit/PhotoEdit';
-export { RoomEdit } from './RoomEdit/RoomEdit';
-export { RoomItem } from './RoomList/RoomItem';
+export { RoomEditForm } from './RoomEditForm/RoomEditForm';
 export { RoomList, IRoomListProps } from './RoomList/RoomList';
-export { RoomSettingList, IRoomSettingListProps } from './RoomSettingList/RoomSettingList';
+export { RoomSettingButtons, IRoomSettingButtonsProps } from './RoomSettingButtons/RoomSettingButtons';
 export { SubTitleBar } from './SubTitleBar/SubTitleBar';
 export { TextAvatar } from './TextAvatar/TextAvatar';
 export { TopBar } from './TopBar/TopBar';
@@ -61,4 +59,9 @@ export interface IShapeProps {
 
 export interface IColorProps {
   color?: ColorTypes;
+}
+
+export interface IRootStyleProps {
+  className?: string;
+  style?: Object;
 }
