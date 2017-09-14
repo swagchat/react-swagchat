@@ -38,70 +38,153 @@ import {
 import {
   PluginMessageText,
   PluginMessageImage
-} from '../addons/chatApps';
+} from '../addons/messages';
 import {
   PluginRoomListItemRoomAndUserNameWithMessage,
   PluginRoomListItemRoomNameWithMessage,
 } from '../addons/roomListItem';
 
-export class TemplateMessenger extends React.Component<any, {}> {
+export interface ITemplateMessengerProps {
+  userId: string;
+  userAccessToken?: string;
+  apiEndpoint: string;
+  apiKey?: string;
+  rtmProtocol?: string;
+  rtmHost?: string;
+  rtmPath?: string;
+  roomListRoutePath?: string;
+  messageRoutePath?: string;
+  roomSettingRoutePath?: string;
+  selectContactRoutePath?: string;
+  roomListTitle?: string;
+  noRoomListText?: string;
+  noRoomListImage?: string;
+  noMessageText?: string;
+  noMessageImage?: string;
+  inputMessagePlaceholderText?: string;
+  roomSettingTitle?: string;
+  roomMembersTitle?: string;
+  noAvatarImages?: string[];
+  selectContactTitle?: string;
+  noContactListText?: string;
+  noContactListImage?: string;
+  renderDomId?: string;
+  tabbar?: React.ReactNode;
+  route?: any;
+}
+
+export class TemplateMessenger extends React.Component<ITemplateMessengerProps, {}> {
+  public static defaultProps: Partial<ITemplateMessengerProps> = {
+    userId: '',
+    userAccessToken: '',
+    apiEndpoint: '',
+    apiKey: '',
+    rtmProtocol: '',
+    rtmHost: '',
+    rtmPath: '',
+    roomListRoutePath: '/',
+    messageRoutePath: '/messages',
+    roomSettingRoutePath: '/roomSetting',
+    selectContactRoutePath: '/selectContact',
+    roomListTitle: 'Room List',
+    noRoomListText: 'No rooms.',
+    noRoomListImage: '',
+    noMessageText: 'No messages.',
+    noMessageImage: '',
+    inputMessagePlaceholderText: 'Input text...',
+    roomSettingTitle: 'Room Settings',
+    roomMembersTitle: 'Members',
+    noAvatarImages: ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png'],
+    selectContactTitle: 'Select Contacts',
+    noContactListText: 'No Contacts',
+    noContactListImage: '',
+    renderDomId: 'swagchat',
+  };
+
   constructor(props: any, context: IContext) {
     super(props, context);
 
-    const scMessagePlugins = this.props.route && this.props.route.scMessagePlugins ? this.props.route.scMessagePlugins : [
+    const {
+      route,
+      userId,
+      userAccessToken,
+      apiEndpoint,
+      apiKey,
+      rtmProtocol,
+      rtmHost,
+      rtmPath,
+      roomListRoutePath,
+      messageRoutePath,
+      roomSettingRoutePath,
+      selectContactRoutePath,
+      roomListTitle,
+      noRoomListText,
+      noRoomListImage,
+      noMessageText,
+      noMessageImage,
+      inputMessagePlaceholderText,
+      noAvatarImages,
+      roomMembersTitle,
+      roomSettingTitle,
+      selectContactTitle,
+      noContactListText,
+      noContactListImage,
+      tabbar,
+    } = props;
+
+    const scMessagePlugins = route && route.scMessagePlugins ? route.scMessagePlugins : [
       new PluginMessageText(),
       new PluginMessageImage(),
     ];
     store.dispatch(setPluginMessageActionCreator(scMessagePlugins));
 
-    const scCustomMessagePlugins = this.props.route && this.props.route.scMessagePlugins ? this.props.route.scMessagePlugins : [
+    const scCustomMessagePlugins = route && route.scMessagePlugins ? route.scMessagePlugins : [
       new PluginMessageText(),
       new PluginMessageImage(),
     ];
     store.dispatch(setCustomPluginMessageActionCreator(scCustomMessagePlugins));
 
-    const scRoomListItemPlugins = this.props.route && this.props.route.scRoomListItemPlugins ? this.props.route.scRoomListItemPlugins : {
+    const scRoomListItemPlugins = route && route.scRoomListItemPlugins ? route.scRoomListItemPlugins : {
       1: new PluginRoomListItemRoomNameWithMessage(),
       2: new PluginRoomListItemRoomAndUserNameWithMessage(),
     };
     store.dispatch(setPluginRoomListItemActionCreator(scRoomListItemPlugins));
 
-    store.dispatch(setRoomListTitleActionCreator(props.route ? props.route.roomListTitle : props.roomListTitle));
-    store.dispatch(setRoomListTabbarActionCreator(props.route ? props.route.tabbar : props.tabbar));
-    store.dispatch(setNoRoomListTextActionCreator(props.route ? props.route.noRoomListText : props.noRoomListText));
-    store.dispatch(setNoRoomListImageActionCreator(props.route ? props.route.noRoomListImage : props.noRoomListImage));
-    store.dispatch(setNoMessageTextActionCreator(props.route ? props.route.noMessageText : props.noMessageText));
-    store.dispatch(setNoMessageImageActionCreator(props.route ? props.route.noMessageImage : props.noMessageImage));
-    store.dispatch(setInputMessagePlaceholderTextActionCreator(props.route ? props.route.inputMessagePlaceholderText : props.inputMessagePlaceholderText));
-    store.dispatch(setRoomSettingTitleActionCreator(props.route ? props.route.roomSettingTitle : props.roomSettingTitle));
-    store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
-    store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
-    store.dispatch(setSelectContactTitleActionCreator(props.route ? props.route.selectContactTitle : props.selectContactTitle));
-    store.dispatch(setNoContactListTextActionCreator(props.route ? props.route.noContactListText : props.noContactListText));
-    store.dispatch(setNoContactListImageActionCreator(props.route ? props.route.noContactListImage : props.noContactListImage));
-    store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
-    store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
-    store.dispatch(setRoomSettingRoutePathActionCreator(props.route ? props.route.roomSettingRoutePath : props.roomSettingRoutePath));
-    store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
+    store.dispatch(setRoomListTitleActionCreator(route ? route.roomListTitle : roomListTitle));
+    store.dispatch(setRoomListTabbarActionCreator(route ? route.tabbar : tabbar));
+    store.dispatch(setNoRoomListTextActionCreator(route ? route.noRoomListText : noRoomListText));
+    store.dispatch(setNoRoomListImageActionCreator(route ? route.noRoomListImage : noRoomListImage));
+    store.dispatch(setNoMessageTextActionCreator(route ? route.noMessageText : noMessageText));
+    store.dispatch(setNoMessageImageActionCreator(route ? route.noMessageImage : noMessageImage));
+    store.dispatch(setInputMessagePlaceholderTextActionCreator(route ? route.inputMessagePlaceholderText : inputMessagePlaceholderText));
+    store.dispatch(setRoomSettingTitleActionCreator(route ? route.roomSettingTitle : roomSettingTitle));
+    store.dispatch(setRoomMembersTitleActionCreator(route ? route.roomMembersTitle : roomMembersTitle));
+    store.dispatch(setNoAvatarImagesActionCreator(route ? route.noAvatarImages : noAvatarImages));
+    store.dispatch(setSelectContactTitleActionCreator(route ? route.selectContactTitle : selectContactTitle));
+    store.dispatch(setNoContactListTextActionCreator(route ? route.noContactListText : noContactListText));
+    store.dispatch(setNoContactListImageActionCreator(route ? route.noContactListImage : noContactListImage));
+    store.dispatch(setRoomListRoutePathActionCreator(route ? route.roomListRoutePath : roomListRoutePath));
+    store.dispatch(setMessageRoutePathActionCreator(route ? route.messageRoutePath : messageRoutePath));
+    store.dispatch(setRoomSettingRoutePathActionCreator(route ? route.roomSettingRoutePath : roomSettingRoutePath));
+    store.dispatch(setSelectContactRoutePathActionCreator(route ? route.selectContactRoutePath : selectContactRoutePath));
 
     let rtmEndpoint = '';
-    const rtmProtocol = props.route ? props.route.rtmProtocol : props.rtmProtocol;
-    let rtmHost = props.route ? props.route.rtmHost : props.rtmHost;
-    const rtmPath = props.route ? props.route.rtmPath : props.rtmPath;
-
-    if (!(rtmProtocol === '' && rtmHost === '' && rtmPath === '')) {
+    const tmpRtmProtocol = route ? route.rtmProtocol : rtmProtocol;
+    let tmpRtmHost = route ? route.rtmHost : rtmHost;
+    const tmpRtmPath = route ? route.rtmPath : rtmPath;
+    if (!(tmpRtmProtocol === '' && tmpRtmHost === '' && tmpRtmPath === '')) {
       if (rtmHost === '') {
-        rtmHost = location.host;
+        tmpRtmHost = location.host;
       }
-      rtmEndpoint = rtmProtocol + '://' + rtmHost + rtmPath;
+      rtmEndpoint = tmpRtmProtocol + '://' + tmpRtmHost + tmpRtmPath;
     }
 
     store.dispatch(setUserAuthParamsActionCreator(
-      props.route ? props.route.apiKey : props.apiKey,
-      props.route ? props.route.apiEndpoint : props.apiEndpoint,
+      route ? route.apiKey : apiKey,
+      route ? route.apiEndpoint : apiEndpoint,
       rtmEndpoint,
-      props.route ? props.route.userId : props.userId,
-      props.route ? props.route.userAccessToken : props.userAccessToken,
+      route ? route.userId : userId,
+      route ? route.userAccessToken : userAccessToken,
     ));
   }
 
@@ -124,10 +207,10 @@ export class TemplateMessenger extends React.Component<any, {}> {
 export const renderTemplateMessenger = (params: any) => {
   ReactDom.render(
     <TemplateMessenger
-      apiKey={params.apiKey ? params.apiKey : ''}
       userId={params.userId ? params.userId : ''}
       userAccessToken={params.userAccessToken ? params.userAccessToken : ''}
       apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
+      apiKey={params.apiKey ? params.apiKey : ''}
       rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
       rtmHost={params.rtmHost ? params.rtmHost : ''}
       rtmPath={params.rtmPath ? params.rtmPath : ''}

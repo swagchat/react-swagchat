@@ -23,7 +23,7 @@ import {
   PluginMessageImage,
   TextItem,
   ImageItem,
-} from './addons/chatApps';
+} from './addons/messages';
 import {
   PluginRoomListItemRoomAndUserNameWithMessage,
   PluginRoomListItemRoomNameWithMessage,

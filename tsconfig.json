@@ -19,11 +19,11 @@
     "declaration": true,
     "alwaysStrict": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots" : ["./types", "./node_modules/@types"],
+    "typeRoots" : ["./node_modules/@types"],
     "baseUrl": ".",
     "paths": {
-      "react-router": ["types/react-router"],
-      "react-router-redux": ["types/react-router-redux"]
+      "react-router": ["customTypes/react-router"],
+      "react-router-redux": ["customTypes/react-router-redux"]
     }
   },
   "compileOnSave": false,
