@@ -21,7 +21,7 @@ import { MessagePage, RoomSettingPage, IContext } from '../containers';
 import {
   PluginMessageText,
   PluginMessageImage
-} from '../plugins/message';
+} from '../addons/chatApps';
 
 export class TemplateSimpleMessage extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {

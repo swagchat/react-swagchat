@@ -38,11 +38,11 @@ import {
 import {
   PluginMessageText,
   PluginMessageImage
-} from '../plugins/message';
+} from '../addons/chatApps';
 import {
   PluginRoomListItemRoomAndUserNameWithMessage,
   PluginRoomListItemRoomNameWithMessage,
-} from '../plugins/roomListItem';
+} from '../addons/roomListItem';
 
 export class TemplateMessenger extends React.Component<any, {}> {
   constructor(props: any, context: IContext) {

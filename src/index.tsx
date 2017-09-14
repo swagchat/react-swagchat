@@ -23,11 +23,11 @@ import {
   PluginMessageImage,
   TextItem,
   ImageItem,
-} from './plugins/message';
+} from './addons/chatApps';
 import {
   PluginRoomListItemRoomAndUserNameWithMessage,
   PluginRoomListItemRoomNameWithMessage,
-} from './plugins/roomListItem';
+} from './addons/roomListItem';
 
 export * from './components';
 export * from './templates';
