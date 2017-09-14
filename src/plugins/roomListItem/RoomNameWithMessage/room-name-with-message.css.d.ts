@@ -1,3 +1,5 @@
+export const size: string;
+export const sizeRoomListAvatar: string;
 export const root: string;
 export const avatar: string;
 export const subject: string;

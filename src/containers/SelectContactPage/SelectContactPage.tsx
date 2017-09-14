@@ -90,7 +90,7 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
         />
         <Modal
           ref={(child) => this._createRoomModalView = child}
-          type="buttonTop"
+          buttonPosition="top"
           title="グループ情報登録"
           component={
             <RoomEditForm

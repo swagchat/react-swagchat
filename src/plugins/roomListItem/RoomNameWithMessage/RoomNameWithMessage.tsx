@@ -38,8 +38,6 @@ export class RoomNameWithMessage extends React.Component<IPluginRoomListItemProp
       <div className={styles.root} onClick={this.onClick.bind(this, userRoom)}>
         <div className={styles.flex1}>
           <Avatar
-            width="40px"
-            height="40px"
             src={pictureUrl ? pictureUrl : noAvatarImages[0]}
             className={styles.avatar}
           />

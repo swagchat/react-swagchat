@@ -34,8 +34,6 @@ export class RoomAndUserNameWithMessage extends React.Component<IPluginRoomListI
         <div className={styles.flex1}>
           <Avatar
             shape="squareRound"
-            width="40px"
-            height="40px"
             src={userRoom.pictureUrl ? userRoom.pictureUrl : noAvatarImages[0]}
             className={styles.avatar}
           />

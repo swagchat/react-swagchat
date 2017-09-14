@@ -1,18 +1,11 @@
 import * as React from 'react';
-import { IOnClickProps, IShapeProps } from '../';
+import { IRootStyleProps, IOnClickProps } from '../';
 import * as styles from './text-avatar.css';
 const classNames = require('classnames');
 
-export interface ITextAvatarProps extends IOnClickProps, IShapeProps {
+export interface ITextAvatarProps extends IOnClickProps, IRootStyleProps {
   text: string;
-  fontSize?: string;
-  fontColor?: string;
-  backgroundColor?: string;
-  width?: number;
-  height?: number;
-  margin?: number;
-  className?: string;
-  style?: Object;
+  shape?: 'circle' | 'square' | 'squareRound' | 'round';
 }
 
 export class TextAvatar extends React.Component<ITextAvatarProps, {}> {
@@ -24,7 +17,7 @@ export class TextAvatar extends React.Component<ITextAvatarProps, {}> {
   };
 
   render(): JSX.Element  {
-    const { shape, text, width, height, margin, fontColor, fontSize, backgroundColor, className, style, onClick } = this.props;
+    const { shape, text, className, style, onClick } = this.props;
 
     let shapeClassName = '';
     if (['circle', 'square', 'squareRound', 'round'].indexOf(shape!) >= 0 ) {
@@ -33,41 +26,13 @@ export class TextAvatar extends React.Component<ITextAvatarProps, {}> {
       shapeClassName = styles.circle;
     }
 
-    let textAvatarRootStyle: Object;
-    let tmpTextAvatarRootStyle: {
-      width?: string;
-      height?: string;
-      margin?: string;
-      backgroundColor?: string;
-    } = {};
-    backgroundColor ? tmpTextAvatarRootStyle.backgroundColor = backgroundColor : null;
-    width ? tmpTextAvatarRootStyle.width = width + 'px' : null;
-    height ? tmpTextAvatarRootStyle.height = height + 'px' : null;
-    margin ? tmpTextAvatarRootStyle.margin = margin + 'px' : null;
-    textAvatarRootStyle = Object.assign(
-      tmpTextAvatarRootStyle,
-      style,
-    );
-
-    let textAvatarElementStyle: {
-      color?: string;
-      fontSize?: string;
-    } = {};
-    fontSize ? textAvatarElementStyle.fontSize = fontSize : null;
-    fontColor ? textAvatarElementStyle.color = fontColor : null;
-
     return (
       <div
         className={classNames(styles.root, shapeClassName, className)}
-        style={textAvatarRootStyle}
+        style={style}
         onClick={onClick}
       >
-        <div
-          className={styles.element}
-          style={textAvatarElementStyle}
-        >
-          {text}
-        </div>
+        <div className={styles.element}>{text}</div>
       </div>
     );
   }

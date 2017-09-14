@@ -3,6 +3,8 @@ export const colorWhite: string;
 export const colorBlack: string;
 export const colorGrey: string;
 export const colorPrimary: string;
+export const size: string;
+export const sizeMessageItemAvatar: string;
 export const root: string;
 export const avatar: string;
 export const name: string;

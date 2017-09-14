@@ -2,6 +2,7 @@
 @value color-white, color-grey-alpha from colors;
 
 .room-setting-button {
+  width: 100%;
   background-color: color-white !important;
   padding: 10px;
 }

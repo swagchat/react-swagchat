@@ -14,10 +14,11 @@ import {
   Modal,
   ModalAction,
   RoomEditForm,
+  IRootStyleProps,
 } from '../../components';
 import * as styles from './room-setting-list.css';
 
-export interface IRoomSettingButtonsProps {
+export interface IRoomSettingButtonsProps extends IRootStyleProps {
   userId: string;
   userBlocks: string[];
   room: IRoom;
@@ -35,6 +36,8 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
   public static defaultProps: Partial<IRoomSettingButtonsProps> = {
     displayNoDataImage: '',
     displayNoDataText: '',
+    className: '',
+    style: {},
   };
 
   onConfirmBlockModalView() {
@@ -77,9 +80,11 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
       userBlocks,
       room,
       noAvatarImages,
+      className,
+      style,
     } = this.props;
     return (
-      <div className="room-setting-list-root">
+      <div className={className} style={style}>
         {(() => {
           if (room!.type === RoomType.ONE_ON_ONE) {
             const users = opponentUser(room!.users!, userId);
@@ -91,8 +96,8 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                 modalDescription = 'ブロックを解除しますか？';
               }
               let blockActions: IModalAction[] = [
-                {name: 'はい', onItemTap: this.onBlockItemTap.bind(this)},
-                {name: 'いいえ', onItemTap: this.onConfirmBlockModalView.bind(this)},
+                {name: 'はい', onClick: this.onBlockItemTap.bind(this)},
+                {name: 'いいえ', onClick: this.onConfirmBlockModalView.bind(this)},
               ];
               return (
                 <div>
@@ -102,7 +107,6 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                     color="linkPrimary"
                     position="left"
                     shape="square"
-                    width="100%"
                     icon={<i className="material-icons">block</i>}
                     onClick={this.onConfirmBlockModalView.bind(this)}
                   />
@@ -125,13 +129,12 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                     color="linkPrimary"
                     position="left"
                     shape="square"
-                    width="100%"
                     icon={<i className="material-icons">block</i>}
                     onClick={this.onEditRoomModalView.bind(this)}
                   />
                   <Modal
                     ref={(child) => this._editRoomModalView = child}
-                    type="buttonTop"
+                    buttonPosition="top"
                     title="グループ情報編集"
                     component={
                       <RoomEditForm
@@ -147,13 +150,12 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                     color="linkPrimary"
                     position="left"
                     shape="square"
-                    width="100%"
                     icon={<i className="material-icons">exit_to_app</i>}
                     onClick={this.onConfirmLeftModalView.bind(this)}
                   />
                   <Modal
                     ref={(child) => this._confirmLeftModalView = child}
-                    type="buttonBottom"
+                    buttonPosition="bottom"
                     component={<p>退出しますか？</p>}
                     onOkModalClick={this.onLeftItemTap.bind(this)}
                   />

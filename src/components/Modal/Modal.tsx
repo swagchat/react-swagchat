@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { Button } from '../../components';
+import { Button, IRootStyleProps } from '../../components';
 import * as styles from './modal.css';
 const classNames = require('classnames');
 
-export interface IModalProps {
-  type?: 'buttonTop' | 'buttonBottom';
+export interface IModalProps extends IRootStyleProps {
   title?: string;
-  component: React.ReactNode;
+  buttonPosition?: 'top' | 'bottom';
+  component?: React.ReactNode;
   positiveButtonName?: string;
   negativeButtonName?: string;
-  className?: string;
-  style?: Object;
   onOkModalClick: () => void;
 }
 
@@ -20,7 +18,7 @@ export interface IModalState {
 
 export class Modal extends React.Component<IModalProps, IModalState> {
   public static defaultProps: Partial<IModalProps> = {
-    type: 'buttonBottom',
+    buttonPosition: 'bottom',
     positiveButtonName: 'OK',
     negativeButtonName: 'CANCEL',
     className: '',
@@ -47,7 +45,7 @@ export class Modal extends React.Component<IModalProps, IModalState> {
       return <div />;
     }
 
-    const { type, title, component, positiveButtonName, negativeButtonName, className, style } = this.props;
+    const { buttonPosition, title, component, positiveButtonName, negativeButtonName, className, style } = this.props;
 
     return (
       <div
@@ -57,7 +55,7 @@ export class Modal extends React.Component<IModalProps, IModalState> {
       >
         <div className={styles.wrap} onClick={this.onWrapTap.bind(this)}>
           {(() => {
-            if (title && type === 'buttonTop') {
+            if (title && buttonPosition === 'top') {
               return (
                 <div className={styles.viewHeader}>
                   <Button className={styles.viewHeaderButtonTop} color="linkWhite" icon={<i className="material-icons">close</i>} onClick={this.onModalClick.bind(this)} />
@@ -65,7 +63,7 @@ export class Modal extends React.Component<IModalProps, IModalState> {
                   <Button className={styles.viewHeaderButtonTop} color="linkWhite" icon={<i className="material-icons">done</i>} onClick={this.props.onOkModalClick} />
                 </div>
               );
-            } else if (title && type === 'buttonBottom') {
+            } else if (title && buttonPosition === 'bottom') {
               return (
                 <div className={styles.viewHeader}>
                   <div className={styles.viewTitle}>{title}</div>
@@ -79,10 +77,10 @@ export class Modal extends React.Component<IModalProps, IModalState> {
             {component}
           </div>
           {
-            type === 'buttonBottom' ? (
+            buttonPosition === 'bottom' ? (
               <div className={styles.viewFooter}>
-                <Button className={styles.dialogActionButton} shape="squareRound" text={negativeButtonName} width="80%" onClick={this.onModalClick.bind(this)} />
-                <Button className={styles.dialogActionButton} shape="squareRound" text={positiveButtonName} width="80%" onClick={this.props.onOkModalClick} />
+                <Button className={styles.dialogActionButton} position="center" text={negativeButtonName} onClick={this.onModalClick.bind(this)} />
+                <Button className={styles.dialogActionButton} position="center" text={positiveButtonName} onClick={this.props.onOkModalClick} />
               </div>
             ) : null
           }

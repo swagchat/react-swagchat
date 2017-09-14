@@ -1,19 +1,17 @@
 import * as React from 'react';
 import { IUser, updateSelectContactsActionDispatch } from 'swagchat-sdk';
-import { Avatar, IOnClickProps } from '../';
+import { Avatar, IRootStyleProps, IOnClickProps } from '../';
 import { CheckListItem　} from './internal/CheckListItem/CheckListItem';
 import * as indexStyles from '../../index.css';
 import * as styles from './contact-list.css';
 
-export interface IContactListProps extends IOnClickProps {
+export interface IContactListProps extends IRootStyleProps, IOnClickProps {
   contacts: IUser[];
   selectedContacts: {[key: string]: IUser};
   noContactListText?: string;
   noContactListImage?: string;
   checkedIcon?: React.ReactNode;
   unCheckedIcon?: React.ReactNode;
-  className?: string;
-  style?: Object;
 }
 
 export class ContactList extends React.Component<IContactListProps, {}> {
@@ -22,6 +20,7 @@ export class ContactList extends React.Component<IContactListProps, {}> {
     selectedContacts: {},
     className: '',
     style: {},
+    onClick: () => {},
   };
 
   onClick(user: IUser) {
@@ -34,13 +33,13 @@ export class ContactList extends React.Component<IContactListProps, {}> {
     return (
       <div
         className={classNames(styles.root, className ? className : '')}
-        style={style ? style : {}}
+        style={style}
       >
         {contacts ? contacts.map((contact, i) =>
           <CheckListItem
             key={'contact-list-item-' + i}
             text={contact.name}
-            icon={<Avatar width="40px" height="40px" src={contact.pictureUrl} />}
+            icon={<Avatar className={styles.avatar} src={contact.pictureUrl} />}
             isChecked={(selectedContacts[contact.userId]) ? true : false}
             onClick={() => this.onClick(contact)}
             checkedIcon={checkedIcon}

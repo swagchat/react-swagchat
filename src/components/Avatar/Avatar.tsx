@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { IOnClickProps, IShapeProps, IRootStyleProps } from '../';
+import { IRootStyleProps, IOnClickProps } from '../';
 import * as styles from './avatar.css';
 const classNames = require('classnames');
 
-export interface IAvatarProps extends IOnClickProps, IShapeProps, IRootStyleProps {
+export interface IAvatarProps extends IRootStyleProps, IOnClickProps {
   src: string;
-  width?: string;
-  height?: string;
-  margin?: string;
+  shape?: 'circle' | 'square' | 'squareRound' | 'round';
 }
 
 export class Avatar extends React.Component<IAvatarProps, {}> {
@@ -19,21 +17,7 @@ export class Avatar extends React.Component<IAvatarProps, {}> {
   };
 
   render(): JSX.Element  {
-    const { shape, src, width, height, margin, className, style, onClick } = this.props;
-
-    let avatarStyle: Object;
-    let tmpStyle: {
-      width?: string;
-      height?: string;
-      margin?: string;
-    } = {};
-    width ? tmpStyle.width = width : null;
-    height ? tmpStyle.height = height : null;
-    margin ? tmpStyle.margin = margin : null;
-    avatarStyle = Object.assign(
-      tmpStyle,
-      style,
-    );
+    const { src, shape, className, style, onClick } = this.props;
 
     let shapeClassName = '';
     if (['circle', 'square', 'squareRound', 'round'].indexOf(shape!) >= 0 ) {
@@ -46,7 +30,7 @@ export class Avatar extends React.Component<IAvatarProps, {}> {
       <img
         src={src}
         className={classNames(styles.root, shapeClassName, className)}
-        style={avatarStyle}
+        style={style}
         onClick={onClick}
       />
     );

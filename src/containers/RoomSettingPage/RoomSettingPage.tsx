@@ -81,7 +81,6 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
           className={styles.roomButton}
           text={name}
           icon={<Avatar src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]} style={{width: '80px', height: '80px'}} />}
-          width="100%"
         />
         <RoomSettingButtons
           userId={userState.user!.userId}
@@ -93,7 +92,7 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
         />
         {(roomState.room!.type !== RoomType.ONE_ON_ONE && roomState.room!.isShowUsers && roomState.room!.type !== RoomType.NOTICE_ROOM) ? (
           <div className={indexStyles.layoutBox1}>
-            <SubTitleBar title={settingState.roomMembersTitle} isDisplayBorder={false} />
+            <SubTitleBar title={settingState.roomMembersTitle} />
             {roomState.room!.users!.map((user, i) =>
               <Button
                 key={'member-list-item-' + i}
@@ -103,7 +102,6 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
                 color="linkBlack"
                 text={user.name}
                 icon={<Avatar src={user.pictureUrl} style={{width: '40px', height: '40px'}} />}
-                width="100%"
                 style={{padding: '10px'}}
               />
             )}

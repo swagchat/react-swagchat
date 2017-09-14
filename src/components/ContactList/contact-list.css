@@ -1,3 +1,10 @@
+@value size: "../../styles/theme/default/size.css";
+@value size-contact-list-avatar from size;
+
 .root {
   width: 100%;
+}
+.avatar {
+  width: size-contact-list-avatar;
+  height: size-contact-list-avatar;
 }

@@ -14,3 +14,6 @@ export const sizePhotoEditIcon: string;
 export const sizeRoomEditPhotoEdit: string;
 export const sizeRoomEditTextHeight: string;
 export const sizeRoomEditTextSize: string;
+export const sizeRoomListAvatar: string;
+export const sizeMessageItemAvatar: string;
+export const sizeContactListAvatar: string;

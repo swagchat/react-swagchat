@@ -1,3 +1,6 @@
+@value size: "../../../styles/theme/default/size.css";
+@value size-room-list-avatar from size;
+
 .root {
   margin-left: 0px;
   position: relative;
@@ -9,6 +12,8 @@
 
 .avatar {
   position: absolute;
+  width: size-room-list-avatar;
+  height: size-room-list-avatar;
 }
 
 .subject {
@@ -71,4 +76,7 @@
 .flex3 {
   width: 50px;
   margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { IShapeProps, IRootStyleProps } from '../';
+import { IRootStyleProps } from '../';
 import * as indexStyles from '../../index.css';
 import * as styles from './photo-edit.css';
 const classNames = require('classnames');
 
-export interface IPhotoEditProps extends IShapeProps, IRootStyleProps {
+export interface IPhotoEditProps extends IRootStyleProps {
   src: string;
-  width?: string;
-  height?: string;
-  margin?: string;
+  shape?: 'circle' | 'square' | 'squareRound' | 'round';
   onUpdatePhoto: (updatePictureUrl: Blob) => void;
 }
 
@@ -46,20 +44,7 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
   }
 
   render(): JSX.Element  {
-    const { shape, src, width, height, margin, className, style } = this.props;
-
-    let tempRootStyle: {
-      width?: string;
-      height?: string;
-      margin?: string;
-    } = {};
-    width ? tempRootStyle.width = width : null;
-    height ? tempRootStyle.height = height : null;
-    margin ? tempRootStyle.margin = margin : null;
-    const rootStyle = Object.assign(
-      tempRootStyle,
-      style,
-    );
+    const { shape, src, className, style } = this.props;
 
     let shapeClassName = '';
     if (['circle', 'square', 'squareRound', 'round'].indexOf(shape!) >= 0 ) {
@@ -71,7 +56,7 @@ export class PhotoEdit extends React.Component<IPhotoEditProps, {}> {
     return (
       <div
         className={classNames(styles.root, className)}
-        style={rootStyle}
+        style={style}
       >
         <img
           src={src}

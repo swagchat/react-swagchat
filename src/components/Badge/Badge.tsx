@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { IColorProps } from '../';
+import { IRootStyleProps } from '../';
 import * as styles from './badge.css';
 const classNames = require('classnames');
 
-export interface IBadgeProps extends IColorProps {
+export interface IBadgeProps extends IRootStyleProps {
   count: number;
-  className?: string;
-  style?: Object;
+  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'disable' | 'dark' | 'light';
 }
 
 export class Badge extends React.Component<IBadgeProps, {}> {
@@ -19,7 +18,7 @@ export class Badge extends React.Component<IBadgeProps, {}> {
     const { color, className, style } = this.props;
 
     let colorClassName = '';
-    if (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'disable', 'light', 'dark', 'link'].indexOf(color!) >= 0 ) {
+    if (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'disable', 'dark', 'light'].indexOf(color!) >= 0 ) {
       colorClassName = styles[color!];
     } else {
       colorClassName = styles.primary;

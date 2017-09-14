@@ -45,6 +45,7 @@
 .dialog-action-button {
   padding: 5px;
   margin: 0 10px;
+  width: 80%;
 }
 
 .view-header {

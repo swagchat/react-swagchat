@@ -5,14 +5,16 @@ import {
   IMessage,
   dateFormateMMDD,
 } from 'swagchat-sdk';
+import { IRootStyleProps } from '../';
 import * as indexStyles from '../../index.css';
 import * as styles from './message-body.css';
 import {
   MessageDateSeparator,
   MessageItem,
 } from '../../components';
+const classNames = require('classnames');
 
-export interface IMessageBodyProps {
+export interface IMessageBodyProps extends IRootStyleProps {
   pluginMessages:  IPluginMessage[];
   customPluginMessages:  IPluginMessage[];
   myUserId: string;
@@ -27,8 +29,13 @@ export interface IMessageBodyProps {
 }
 
 export class MessageBody extends React.Component<IMessageBodyProps, {}> {
+  public static defaultProps: Partial<IMessageBodyProps> = {
+    className: '',
+    style: {},
+  };
+
   render(): JSX.Element  {
-    const { messages, noMessageImage, noMessageText, pluginMessages, customPluginMessages, roomUsers, myUserId } = this.props;
+    const { messages, noMessageImage, noMessageText, pluginMessages, customPluginMessages, roomUsers, myUserId, className, style } = this.props;
 
     if (!(messages && Object.keys(messages).length > 0)) {
       return (
@@ -40,7 +47,7 @@ export class MessageBody extends React.Component<IMessageBodyProps, {}> {
     }
 
     return (
-      <div className={styles.root}>
+      <div className={classNames(className, styles.root)} style={style}>
         {(() => {
           let messageItems = new Array;
           let workMMDD = '';

@@ -1,20 +1,14 @@
 import * as React from 'react';
-import { IOnClickProps } from '../../../';
+import { IRootStyleProps, IOnClickProps } from '../../../';
 import * as styles from './check-list-item.css';
 const classNames = require('classnames');
 
-export interface ICheckListItemProps extends IOnClickProps {
+export interface ICheckListItemProps extends IRootStyleProps, IOnClickProps {
   text: string;
   icon?: React.ReactNode;
   isChecked?: boolean;
   checkedIcon?: React.ReactNode;
   unCheckedIcon?: React.ReactNode;
-  width?: string;
-  height?: string;
-  fontSize?: string;
-  fontColor?: string;
-  className?: string;
-  style?: Object;
 }
 
 export interface ICheckState {
@@ -45,27 +39,13 @@ export class CheckListItem extends React.Component<ICheckListItemProps, ICheckSt
   }
 
   render(): JSX.Element  {
-    const { text, icon, width, height, fontSize, fontColor } = this.props;
-
-    let rootStyle: {
-      width?: string;
-      height?: string;
-    } = {};
-    width ? rootStyle.width = width : null;
-    height ? rootStyle.height = height : null;
-
-    let descriptionStyle: {
-      color?: string,
-      fontSize?: string,
-    } = {};
-    fontSize ? descriptionStyle.fontSize = fontSize : null;
-    fontColor ? descriptionStyle.color = fontColor : null;
+    const { text, icon, className, style} = this.props;
 
     return (
-      <div className={styles.root} onClick={this.onClick.bind(this)} style={rootStyle}>
+      <div className={classNames(styles.root, className)} onClick={this.onClick.bind(this)} style={style}>
         {icon ? <div className={styles.flex1}>{icon}</div> : null}
         <div className={styles.flex2}>
-          <div className={styles.subject} style={descriptionStyle}>{text}</div>
+          <div className={styles.subject}>{text}</div>
         </div>
         <div className={styles.flex3}>
           {this.state.isChecked ? (

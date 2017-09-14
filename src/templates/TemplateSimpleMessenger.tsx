@@ -91,8 +91,8 @@ export class TemplateSimpleMessage extends React.Component<any, {}> {
       <Provider store={store}>
         <ConnectedRouter history={routerHistory}>
           <Switch>
-            <Route path={store.getState().setting.messageRoutePath + '/:roomId'} component={MessagePage} />
-            <Route path={store.getState().setting.roomSettingRoutePath + '/:roomId'} component={RoomSettingPage} />
+          <Route path={store.getState().setting.messageRoutePath + '/:messageId'} component={MessagePage} />
+          <Route path={store.getState().setting.roomSettingRoutePath + '/:roomId'} component={RoomSettingPage} />
           </Switch>
         </ConnectedRouter>
       </Provider>
@@ -100,7 +100,7 @@ export class TemplateSimpleMessage extends React.Component<any, {}> {
   }
 }
 
-export const renderTemplateSimpleMessage = (params: any) => {
+export const renderTemplateSimpleMessenger = (params: any) => {
   ReactDom.render(
     <TemplateSimpleMessage
       apiKey={params.apiKey}

@@ -45,7 +45,6 @@ export interface IReduxMessageProps extends RouteComponentProps<any> {
   messageState: IMessageState;
   styleState: IStyleState;
   settingState: ISettingState;
-  roomListTabbar?: React.ComponentClass<any>;
 }
 
 export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {

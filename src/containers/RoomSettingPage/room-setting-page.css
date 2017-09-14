@@ -13,12 +13,14 @@
   margin-bottom: size-tab-bar-height;
 }
 .room-button {
+  width: 100%;
   padding: 10px;
   background-color: transparent !important;
   cursor: default;
 }
 .members-block-button {
   background-color: color-white !important;
+  padding: 5px;
 }
 .members-block-button:hover {
   background-color: color-grey-alpha !important;

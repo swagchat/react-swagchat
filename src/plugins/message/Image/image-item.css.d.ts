@@ -1,3 +1,5 @@
+export const size: string;
+export const sizeMessageItemAvatar: string;
 export const avatar: string;
 export const name: string;
 export const messageLeft: string;

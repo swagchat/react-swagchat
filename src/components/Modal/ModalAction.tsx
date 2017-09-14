@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { Button } from '../';
+import { Button, IRootStyleProps } from '../';
 import * as styles from './modal.css';
 
 export interface IModalAction {
   name: string;
-  onItemTap: () => void;
+  onClick: () => void;
 }
 
-export interface IModalActionProps {
+export interface IModalActionProps extends IRootStyleProps {
   title?: string;
   component: React.ReactNode;
   actions: IModalAction[];
-  className?: string;
-  style?: Object;
 }
 
 export interface IModalState {
@@ -57,7 +55,7 @@ export class ModalAction extends React.Component<IModalActionProps, IModalState>
           {title ? (
             <div className={styles.viewHeader}>
               <div className={styles.viewTitle}>{title}</div>
-              <Button color="linkWhite" icon={<i className="material-icons">close</i>} fontColor="white" onClick={this.onModalClick.bind(this)} />
+              <Button color="linkWhite" icon={<i className="material-icons">close</i>} onClick={this.onModalClick.bind(this)} />
             </div>
           ) : null}
           <p className={styles.component}>{component}</p>
@@ -66,10 +64,9 @@ export class ModalAction extends React.Component<IModalActionProps, IModalState>
               <Button
                 key={'sc-modal-dialog-action-item-' + i}
                 className={styles.dialogActionButton}
-                shape="squareRound"
+                position="center"
                 text={action.name}
-                width="95%"
-                onClick={action.onItemTap}
+                onClick={action.onClick}
               />
             ) : null}
           </ul>

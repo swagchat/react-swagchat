@@ -1,5 +1,4 @@
 export const shapes: string;
-export const shapeCircle: string;
 export const shapeSquare: string;
 export const shapeSquareRound: string;
 export const shapeRound: string;
@@ -25,7 +24,6 @@ export const colorLightHover: string;
 export const colorDark: string;
 export const colorDarkHover: string;
 export const root: string;
-export const circle: string;
 export const square: string;
 export const squareRound: string;
 export const round: string;

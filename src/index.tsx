@@ -1,6 +1,6 @@
 import {
   renderTemplateMessenger,
-  renderTemplateSimpleMessage,
+  renderTemplateSimpleMessenger,
 } from './templates/';
 import {
   Avatar,
@@ -36,7 +36,7 @@ export * from './templates';
 (window as any).Swag = {};
 
 (window as any).Swag.renderTemplateMessenger = renderTemplateMessenger;
-(window as any).Swag.renderTemplateSimpleMessage = renderTemplateSimpleMessage;
+(window as any).Swag.renderTemplateSimpleMessenger = renderTemplateSimpleMessenger;
 
 (window as any).Swag.Avatar = Avatar;
 (window as any).Swag.Badge = Badge;

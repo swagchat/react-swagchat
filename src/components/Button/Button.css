@@ -1,5 +1,5 @@
 @value shapes: "../../styles/theme/default/shape.css";
-@value shape-circle, shape-square, shape-square-round, shape-round from shapes;
+@value shape-square, shape-square-round, shape-round from shapes;
 @value colors: "../../styles/theme/default/color.css";
 @value color-white, color-grey-alpha, color-primary, color-primary-hover, color-secondary, color-secondary-hover, color-success, color-success-hover, color-danger, color-danger-hover, color-warning, color-warning-hover, color-info, color-info-hover, color-disable, color-disable-hover, color-light, color-light-hover, color-dark, color-dark-hover from colors;
 
@@ -19,10 +19,6 @@
   z-index: 1;
   overflow: visible;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-}
-.root.circle {
-  border-radius: shape-circle;
-  padding: 10px;
 }
 .root.square {
   border-radius: shape-square;
@@ -99,6 +95,7 @@
 }
 
 .wrap {
+  width: 100%;
   padding: 5px;
   display: flex;
   justify-content: center;

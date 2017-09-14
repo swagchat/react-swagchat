@@ -1,13 +1,15 @@
 @value colors: "../../../styles/theme/default/color.css";
 @value color-white, color-black, color-grey, color-primary from colors;
+@value size: "../../../styles/theme/default/size.css";
+@value size-message-item-avatar from size;
 
 .root {
   width: 100%;
 }
 .avatar {
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: size-message-item-avatar;
+  width: size-message-item-avatar;
   margin-left: 10px;
 }
 .name {

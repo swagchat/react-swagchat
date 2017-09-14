@@ -1,11 +1,10 @@
 import * as React from 'react';
+import { IRootStyleProps } from '../../';
 import * as styles from './message-date-separator.css';
 const classNames = require('classnames');
 
-export interface IMessageDateSeparatorProps {
+export interface IMessageDateSeparatorProps extends IRootStyleProps {
   date: string;
-  className?: string;
-  style?: Object;
 }
 
 export class MessageDateSeparator extends React.Component<IMessageDateSeparatorProps, {}> {

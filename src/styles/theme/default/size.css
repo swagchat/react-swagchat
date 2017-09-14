@@ -18,3 +18,7 @@
 @value size-room-edit-photo-edit: 120px;
 @value size-room-edit-text-height: 2.5rem;
 @value size-room-edit-text-size: 1rem;
+
+@value size-room-list-avatar: 40px;
+@value size-message-item-avatar: 40px;
+@value size-contact-list-avatar: 40px;
