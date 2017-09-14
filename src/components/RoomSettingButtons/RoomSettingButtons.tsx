@@ -18,12 +18,10 @@ import {
 import * as styles from './room-setting-list.css';
 
 export interface IRoomSettingButtonsProps {
-  title?: string;
   userId: string;
   userBlocks: string[];
   room: IRoom;
   noAvatarImages: string[];
-  desableMarginTop?: boolean;
   displayNoDataImage?: string;
   displayNoDataText?: string;
   onItemTap?: Function;
@@ -35,8 +33,6 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
   private _confirmLeftModalView: Modal | null;
 
   public static defaultProps: Partial<IRoomSettingButtonsProps> = {
-    title: '',
-    desableMarginTop: true,
     displayNoDataImage: '',
     displayNoDataText: '',
   };

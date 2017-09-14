@@ -1,121 +1,111 @@
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
-import { Route } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
-import { Provider } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { IRoomForUser, State, store, IPluginRoomListItem } from 'swagchat-sdk';
+import { push } from 'react-router-redux';
 import {
-  setPluginRoomListItemActionCreator,
-  setRoomListTitleActionCreator,
-  setRoomListTabbarActionCreator,
-  setNoRoomListTextActionCreator,
-  setNoRoomListImageActionCreator,
-  setRoomSettingTitleActionCreator,
-  setRoomMembersTitleActionCreator,
-  setNoAvatarImagesActionCreator,
-  setRoomListRoutePathActionCreator,
-  setMessageRoutePathActionCreator,
-  setSelectContactRoutePathActionCreator,
-  setUserAuthParamsActionCreator,
-  store,
-  routerHistory,
-  getAuthInfoFromStorage,
-} from 'swagchat-sdk';
-import { ContainerRoomList, IContext } from '../';
-import {
-  PluginRoomListItemRoomAndUserNameWithMessage,
-  PluginRoomListItemRoomNameWithMessage,
-} from '../../plugins/roomListItem';
+  RoomList,
+  TopBar,
+  Button,
+} from '../../components';
+import * as styles from './room-list-page.css';
+const classNames = require('classnames');
 
-export class RoomListPage extends React.Component<any, {}> {
-  constructor(props: any, context: IContext) {
-    super(props, context);
+export interface IReduxRoomListProps extends RouteComponentProps<any> {
+  apiKey: string;
+  apiEndpoint: string;
+  userAccessToken: string;
+  roomListTitle: string;
+  userId: string;
+  userRooms: IRoomForUser[];
+  roomListItems: {[key: number]: IPluginRoomListItem};
+  customRoomListItems: {[key: number]: IPluginRoomListItem};
+  noRoomListText: string;
+  noRoomListImage: string;
+  noAvatarImages: string[];
+  roomListRoutePath: string;
+  messageRoutePath: string;
+  selectContactRoutePath: string;
+  roomListTabbar?: React.ComponentClass<any>;
+}
 
-    let apiKey;
-    let userId;
-    let userAccessToken;
-    if (props.route && props.route.userId) {
-      apiKey = props.route.apiKey;
-      userId = props.route.userId;
-      userAccessToken = props.route.userAccessToken;
-    } else if (props.userId) {
-      apiKey = props.apiKey;
-      userId = props.userId;
-      userAccessToken = props.userAccessToken;
-    } else {
-      const scObj = getAuthInfoFromStorage();
-      apiKey = scObj.apiKey;
-      userId = scObj.userId;
-      userAccessToken = scObj.userAccessToken;
+class ReduxRoomListPage extends React.Component<IReduxRoomListProps, any> {
+  onItemTap(room: IRoomForUser) {
+    if (this.props.history) {
+      store.dispatch(push(this.props.messageRoutePath + '/' + room.roomId));
     }
-
-    const scRoomListItemPlugins = this.props.route && this.props.route.scRoomListItemPlugins ? this.props.route.scRoomListItemPlugins : {
-      1: new PluginRoomListItemRoomNameWithMessage(),
-      2: new PluginRoomListItemRoomAndUserNameWithMessage(),
-    };
-    store.dispatch(setPluginRoomListItemActionCreator(scRoomListItemPlugins));
-
-    store.dispatch(setRoomListTitleActionCreator(props.route ? props.route.roomListTitle : props.roomListTitle));
-    store.dispatch(setRoomListTabbarActionCreator(props.route ? props.route.tabbar : props.tabbar));
-    store.dispatch(setNoRoomListTextActionCreator(props.route ? props.route.noRoomListText : props.noRoomListText));
-    store.dispatch(setNoRoomListImageActionCreator(props.route ? props.route.noRoomListImage : props.noRoomListImage));
-    store.dispatch(setRoomSettingTitleActionCreator(props.route ? props.route.roomSettingTitle : props.roomSettingTitle));
-    store.dispatch(setRoomMembersTitleActionCreator(props.route ? props.route.roomMembersTitle : props.roomMembersTitle));
-    store.dispatch(setNoAvatarImagesActionCreator(props.route ? props.route.noAvatarImages : props.noAvatarImages));
-    store.dispatch(setRoomListRoutePathActionCreator(props.route ? props.route.roomListRoutePath : props.roomListRoutePath));
-    store.dispatch(setMessageRoutePathActionCreator(props.route ? props.route.messageRoutePath : props.messageRoutePath));
-    store.dispatch(setSelectContactRoutePathActionCreator(props.route ? props.route.selectContactRoutePath : props.selectContactRoutePath));
-
-    let rtmEndpoint = '';
-    const rtmProtocol = props.route ? props.route.rtmProtocol : props.rtmProtocol;
-    let rtmHost = props.route ? props.route.rtmHost : props.rtmHost;
-    const rtmPath = props.route ? props.route.rtmPath : props.rtmPath;
-
-    if (!(rtmProtocol === '' && rtmHost === '' && rtmPath === '')) {
-      if (rtmHost === '') {
-        rtmHost = location.host;
-      }
-      rtmEndpoint = rtmProtocol + '://' + rtmHost + rtmPath;
-    }
-
-    store.dispatch(setUserAuthParamsActionCreator(
-      apiKey,
-      props.route ? props.route.apiEndpoint : props.apiEndpoint,
-      rtmEndpoint,
-      userId,
-      userAccessToken,
-    ));
   }
 
-  render(): JSX.Element {
+  onCreateRoomButton() {
+    if (this.props.history) {
+      store.dispatch(push(this.props.selectContactRoutePath));
+    }
+  }
+
+  render(): JSX.Element  {
+    const {userId, userRooms, roomListTitle, roomListItems, customRoomListItems, roomListTabbar, noRoomListText, noRoomListImage, noAvatarImages} = this.props;
+
+    const rootClassName = classNames(styles.topBar, roomListTabbar ? styles.tabBar : '');
+
     return (
-      <Provider store={store}>
-        <ConnectedRouter history={routerHistory}>
-          <Route path={store.getState().setting.roomListRoutePath} component={ContainerRoomList} />
-        </ConnectedRouter>
-      </Provider>
+      <div>
+        <TopBar
+          title={roomListTitle}
+          rightButton={
+            <Button
+              color="linkPrimary"
+              icon={<i className="material-icons">open_in_new</i>} onClick={this.onCreateRoomButton.bind(this)}
+            />
+          }
+        />
+        <RoomList
+          className={rootClassName}
+          myUserId={userId}
+          userRooms={userRooms}
+          roomListItems={roomListItems}
+          customRoomListItems={customRoomListItems}
+          noRoomListText={noRoomListText}
+          noRoomListImage={noRoomListImage}
+          noAvatarImages={noAvatarImages}
+          onClick={this.onItemTap.bind(this)}
+        />
+        {roomListTabbar ? roomListTabbar : null}
+      </div>
     );
   }
 }
 
-export const renderRoomList = (params: any) => {
-  ReactDom.render(
-    <RoomListPage
-      apiKey={params.apiKey}
-      userId={params.userId}
-      userAccessToken={params.userAccessToken}
-      apiEndpoint={params.apiEndpoint}
-      rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
-      rtmHost={params.rtmHost ? params.rtmHost : ''}
-      rtmPath={params.rtmPath ? params.rtmPath : ''}
-      roomListRoutePath={params.roomListRoutePath}
-      messageRoutePath={params.messageRoutePath}
-      selectContactRoutePath={params.selectContactRoutePath}
-      roomListTitle={params.roomListTitle}
-      noRoomListText={params.noRoomListText}
-      noRoomListImage={params.noRoomListImage}
-      roomSettingTitle={params.roomSettingTitle}
-      roomMembersTitle={params.roomMembersTitle}
-      noAvatarImages={params.noAvatarImages ? params.noAvatarImages : ['https://unpkg.com/react-swagchat/dist/img/normal.png', 'https://unpkg.com/react-swagchat/dist/img/sad.png', 'https://unpkg.com/react-swagchat/dist/img/smile.png']}
-    />, document.getElementById(params.renderDomId ? params.renderDomId : 'swagchat')
-  );
+const mapStateToProps = (state: State) => {
+  if (state.client.client && state.user.user) {
+    return {
+      apiKey: state.client.client!.apiKey,
+      apiEndpoint: state.client.client!.apiEndpoint,
+      userAccessToken: state.user.user!.accessToken,
+      roomListTitle: state.setting.roomListTitle,
+      userId: state.user.user!.userId,
+      userRooms: state.user.userRooms,
+      roomListItems: state.plugin.roomListItems,
+      customRoomListItems: state.plugin.customRoomListItems,
+      noRoomListText: state.setting.noRoomListText,
+      noRoomListImage: state.setting.noRoomListImage,
+      noAvatarImages: state.setting.noAvatarImages,
+      roomListRoutePath: state.setting.roomListRoutePath,
+      messageRoutePath: state.setting.messageRoutePath,
+      selectContactRoutePath: state.setting.selectContactRoutePath,
+      roomListTabbar: state.setting.roomListTabbar,
+    };
+  }
+  return {};
 };
+
+const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IReduxRoomListProps) => {
+  dispatch; ownProps; // TODO
+  return {};
+};
+
+export const RoomListPage = withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReduxRoomListPage));

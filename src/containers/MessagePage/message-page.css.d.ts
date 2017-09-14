@@ -1,5 +1,5 @@
 export const colors: string;
-export const colorLight: string;
+export const colorMessagePageBg: string;
 export const sizes: string;
 export const sizeTopBarAvatar: string;
 export const sizeTopBarHeight: string;

@@ -6,17 +6,28 @@ export interface IContext {
   client: Client;
   uiSettings: IUISettings;
 }
-export { ContainerRoomList } from './RoomListPage/ContainerRoomList';
-export { RoomListPage, renderRoomList } from './RoomListPage/RoomListPage';
-
-export { ContainerRoomSetting } from './RoomSettingPage/ContainerRoomSetting';
-export { RoomSettingPage, renderRoomSetting } from './RoomSettingPage/RoomSettingPage';
-
-export { ContainerSelectContact } from './SelectContactPage/ContainerSelectContact';
+export { RoomListPage } from './RoomListPage/RoomListPage';
+export { RoomSettingPage } from './RoomSettingPage/RoomSettingPage';
 export { SelectContactPage } from './SelectContactPage/SelectContactPage';
+export { MessagePage } from './MessagePage/MessagePage';
+export { NotFoundPage } from './/NotFoundPage/NotFoundPage';
 
-export { ContainerMessage } from './MessagePage/ContainerMessage';
-export { MessagePage, renderMessagePage } from './MessagePage/MessagePage';
+export interface IRenderUserInfoParams {
+  userId?: string;
+  userAccessToken?: string;
+}
 
-export { ContainerNotFoundPage } from './/NotFoundPage/NotFoundPage';
+export interface IRenderClientParams {
+  apiKey?: string;
+  apiEndpoint?: string;
+  rtmProtocol?: string;
+  rtmHost?: string;
+  rtmPath?: string;
+}
 
+export interface IRenderRoutePathParams {
+  roomListRoutePath?: string;
+  messageRoutePath?: string;
+  roomSettingRoutePath?: string;
+  selectContactRoutePath?: string;
+}

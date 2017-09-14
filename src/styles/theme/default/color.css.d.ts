@@ -31,3 +31,5 @@ export const colorSubTitleBarBorder: string;
 export const colorSubTitleBarText: string;
 export const colorInputText: string;
 export const colorInputBorder: string;
+export const colorMessagePageBg: string;
+export const colorRoomSettingPageBg: string;

@@ -18,7 +18,7 @@ export class TopBar extends React.Component<IProps, {}> {
         {leftButton ? <div className={styles.leftButton}>{leftButton}</div> : null}
         <div className={styles.avatarTitleWrap}>
           {pictureUrl ? (
-            <div className={styles.avatar}><Avatar src={pictureUrl} /></div>
+            <Avatar className={styles.avatar} src={pictureUrl} />
           ) : null}
           <h1 className={styles.title}>{title}</h1>
         </div>

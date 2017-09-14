@@ -1,1 +1,2 @@
-export { TemplateMessenger, renderTemplateMessenger } from './TemplateMessenger';
+export { renderTemplateMessenger, TemplateMessenger } from './TemplateMessenger';
+export { renderTemplateSimpleMessage, TemplateSimpleMessage } from './TemplateSimpleMessenger';

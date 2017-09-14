@@ -1,5 +1,5 @@
 @value colors: "../../styles/theme/default/color.css";
-@value color-light from colors;
+@value color-message-page-bg from colors;
 @value sizes: "../../styles/theme/default/size.css";
 @value size-top-bar-avatar, size-top-bar-height, size-tab-bar-height from sizes;
 
@@ -23,9 +23,11 @@
 }
 .menu.bottom {
   bottom: 0;
-  background-color: color-light;
+  background-color: color-message-page-bg;
+  padding: 10px 0;
 }
 .top-bar-avatar {
   width: size-top-bar-avatar;
   height: size-top-bar-avatar;
+  padding: 10px;
 }

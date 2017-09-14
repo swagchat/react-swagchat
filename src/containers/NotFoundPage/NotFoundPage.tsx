@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 export interface IProps extends RouteComponentProps<any> {
 }
-export class NotFoundPage extends React.Component<IProps, {}> {
+export class ReduxNotFoundPage extends React.Component<IProps, {}> {
   render() {
     return (
       <div className="not-found-page-root">
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IProps) => {
   return {};
 };
 
-export const ContainerNotFoundPage = connect(
+export const NotFoundPage = connect(
   null,
   mapDispatchToProps
-)(NotFoundPage);
+)(ReduxNotFoundPage);

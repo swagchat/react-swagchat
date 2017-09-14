@@ -1,8 +1,11 @@
 @value colors: "../../styles/theme/default/color.css";
-@value color-white, color-grey-alpha from colors;
+@value color-white, color-grey-alpha, color-room-setting-page-bg from colors;
 @value size: "../../styles/theme/default/size.css";
 @value size-top-bar-height, size-tab-bar-height from size;
 
+.root {
+  background-color: color-room-setting-page-bg;
+}
 .top-bar {
   margin-top: size-top-bar-height;
 }

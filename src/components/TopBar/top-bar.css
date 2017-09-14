@@ -35,20 +35,16 @@
 .avatar {
   display: flex;
   align-items: center;
-}
-.avatar > img {
-  width: 32px;
-  height: 32px;
+  width: calc(size-top-bar-height * 0.7);
+  height: calc(size-top-bar-height * 0.7);
 }
 .leftButton {
   position: fixed;
   display: flex;
-  padding: 10px;
   z-index: 10002;
 }
 .rightButton {
   position: fixed;
   right: 0;
-  padding: 10px;
   z-index: 10002;
 }

@@ -37,3 +37,6 @@
 
 @value color-input-text: rrgb(33, 33, 33);
 @value color-input-border: rgba(158, 158, 158, 0.2);
+
+@value color-message-page-bg: rgba(250, 250, 250, 0.9);
+@value color-room-setting-page-bg: rgba(250, 250, 250, 0.9);
