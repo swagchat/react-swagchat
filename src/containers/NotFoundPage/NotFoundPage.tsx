@@ -17,7 +17,8 @@ export class ReduxNotFoundPage extends React.Component<IProps, {}> {
 
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IProps) => {
-  dispatch; ownProps; // TODO
+  dispatch; // TODO
+  ownProps; // TODO
   return {};
 };
 

@@ -1,7 +1,7 @@
 import {
-  renderTemplateMessenger,
-  renderTemplateSimpleMessenger,
-} from './templates/';
+  renderMessenger,
+  renderSimpleMessenger,
+} from './applications/';
 import {
   Avatar,
   Badge,
@@ -30,13 +30,13 @@ import {
 } from './addons/roomListItem';
 
 export * from './components';
-export * from './templates';
+export * from './applications';
 
 // For browser
 (window as any).Swag = {};
 
-(window as any).Swag.renderTemplateMessenger = renderTemplateMessenger;
-(window as any).Swag.renderTemplateSimpleMessenger = renderTemplateSimpleMessenger;
+(window as any).Swag.renderMessenger = renderMessenger;
+(window as any).Swag.renderSimpleMessenger = renderSimpleMessenger;
 
 (window as any).Swag.Avatar = Avatar;
 (window as any).Swag.Badge = Badge;

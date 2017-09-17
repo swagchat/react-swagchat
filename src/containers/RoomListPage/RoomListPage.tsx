@@ -101,7 +101,8 @@ const mapStateToProps = (state: State) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IReduxRoomListProps) => {
-  dispatch; ownProps; // TODO
+  dispatch; // TODO
+  ownProps; // TODO
   return {};
 };
 
