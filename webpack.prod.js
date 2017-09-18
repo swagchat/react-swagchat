@@ -49,8 +49,7 @@ module.exports = {
     }),
     new ExtractTextPlugin({
       filename: distDir + '/react-swagchat.min.css',
-      disable: false,
-      allChunks: true 
+      ignoreOrder: true
     }),
     // new webpack.optimize.UglifyJsPlugin({
     //   beautify: false,
@@ -59,7 +58,8 @@ module.exports = {
     //     keep_fnames: true
     //   },
     //   compress: {
-    //     screw_ie8: true
+    //     screw_ie8: true,
+    //     drop_console: true
     //   },
     //   comments: false
     // })
