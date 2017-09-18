@@ -1,7 +1,7 @@
+@value colors: "../../styles/theme/default/color.css";
+@value color-white, color-primary, color-secondary, color-success, color-danger, color-warning, color-info, color-disable, color-light, color-dark from colors;
 @value shapes: "../../styles/theme/default/shape.css";
 @value shape-circle from shapes;
-@value colors: "../../styles/theme/default/color.css";
-@value color-white, color-grey-alpha, color-primary, color-primary-hover, color-secondary, color-secondary-hover, color-success, color-success-hover, color-danger, color-danger-hover, color-warning, color-warning-hover, color-info, color-info-hover, color-disable, color-disable-hover, color-light, color-light-hover, color-dark, color-dark-hover from colors;
 
 .root {
   display: flex;
@@ -9,7 +9,6 @@
   justify-content: center;
   align-content: center;
   align-items: center;
-  /* position: absolute; */
   font-weight: 500;
   font-size: 12px;
   min-width: 18px;
