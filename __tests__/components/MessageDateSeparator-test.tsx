@@ -4,28 +4,26 @@ import * as React from 'react';
 import {shallow} from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import { Avatar } from '../../src/components';
+import { MessageDateSeparator } from '../../src/components/Message/internal/MessageDateSeparator';
 
 const testComponent1 = shallow(
-  <Avatar
-    src="http://swagchat.io/logo.png"
+  <MessageDateSeparator
+    date="1/1"
   />
 );
-it('Avatar renders correctly', () => {
+it('MessageDateSeparator renders correctly', () => {
   const j = toJson(testComponent1);
   expect(j).toMatchSnapshot();
 });
 
 const testComponent2 = shallow(
-  <Avatar
-    src="http://swagchat.io/logo.png"
-    shape="square"
+  <MessageDateSeparator
+    date="1/1"
     className="test-class"
     style={{width: '100px'}}
-    onClick={() => console.log('click')}
   />
 );
-it('Avatar renders correctly', () => {
+it('MessageDateSeparator renders correctly', () => {
   const j = toJson(testComponent2);
   expect(j).toMatchSnapshot();
 });

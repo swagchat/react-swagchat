@@ -3,7 +3,6 @@ export { Badge } from './Badge/Badge';
 export { Button } from './Button/Button';
 export { ContactList, IContactListProps } from './ContactList/ContactList';
 export { MessageBody } from './Message/MessageBody';
-export { MessageDateSeparator } from './Message/internal/MessageDateSeparator';
 export { MessageInteraction } from './Message/internal/MessageInteraction';
 export { MessageItem } from './Message/internal/MessageItem';
 export { MessageMenu } from './Message/internal/MessageMenu';

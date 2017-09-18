@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactList renders correctly 1`] = `
+<div
+  className=""
+  style={Object {}}
+>
+  <CheckListItem
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/adellecharles-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={false}
+    key="contact-list-item-0"
+    onClick={[Function]}
+    style={Object {}}
+    text="Perez"
+  />
+  <CheckListItem
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/adhamdannaway-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={false}
+    key="contact-list-item-1"
+    onClick={[Function]}
+    style={Object {}}
+    text="Lewis"
+  />
+  <CheckListItem
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/allisongrayce-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={false}
+    key="contact-list-item-2"
+    onClick={[Function]}
+    style={Object {}}
+    text="Harris"
+  />
+  <CheckListItem
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/ok-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={false}
+    key="contact-list-item-3"
+    onClick={[Function]}
+    style={Object {}}
+    text="Lee"
+  />
+  <CheckListItem
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/angelceballos-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={false}
+    key="contact-list-item-4"
+    onClick={[Function]}
+    style={Object {}}
+    text="Gonzalez"
+  />
+</div>
+`;
+
+exports[`ContactList renders correctly 2`] = `
+<div
+  className="test-class"
+  style={
+    Object {
+      "width": "100px",
+    }
+  }
+>
+  <CheckListItem
+    checkedIcon={<div />}
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/adellecharles-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={true}
+    key="contact-list-item-0"
+    onClick={[Function]}
+    style={Object {}}
+    text="Perez"
+    unCheckedIcon={<div />}
+  />
+  <CheckListItem
+    checkedIcon={<div />}
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/adhamdannaway-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={false}
+    key="contact-list-item-1"
+    onClick={[Function]}
+    style={Object {}}
+    text="Lewis"
+    unCheckedIcon={<div />}
+  />
+  <CheckListItem
+    checkedIcon={<div />}
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/allisongrayce-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={false}
+    key="contact-list-item-2"
+    onClick={[Function]}
+    style={Object {}}
+    text="Harris"
+    unCheckedIcon={<div />}
+  />
+  <CheckListItem
+    checkedIcon={<div />}
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/ok-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={false}
+    key="contact-list-item-3"
+    onClick={[Function]}
+    style={Object {}}
+    text="Lee"
+    unCheckedIcon={<div />}
+  />
+  <CheckListItem
+    checkedIcon={<div />}
+    className=""
+    icon={
+      <Avatar
+        className=""
+        onClick={[Function]}
+        shape="circle"
+        src="http://www.material-ui.com/images/angelceballos-128.jpg"
+        style={Object {}}
+      />
+    }
+    isChecked={false}
+    key="contact-list-item-4"
+    onClick={[Function]}
+    style={Object {}}
+    text="Gonzalez"
+    unCheckedIcon={<div />}
+  />
+</div>
+`;

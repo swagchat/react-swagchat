@@ -7,7 +7,7 @@ import * as styles from './contact-list.css';
 
 export interface IContactListProps extends IRootStyleProps, IOnClickProps {
   contacts: IUser[];
-  selectedContacts: {[key: string]: IUser};
+  selectedContacts?: {[key: string]: IUser};
   noContactListText?: string;
   noContactListImage?: string;
   checkedIcon?: React.ReactNode;
@@ -39,8 +39,8 @@ export class ContactList extends React.Component<IContactListProps, {}> {
           <CheckListItem
             key={'contact-list-item-' + i}
             text={contact.name}
-            icon={<Avatar className={styles.avatar} src={contact.pictureUrl} />}
-            isChecked={(selectedContacts[contact.userId]) ? true : false}
+            icon={<Avatar className={styles.avatar} src={contact.pictureUrl!} />}
+            isChecked={(selectedContacts![contact.userId]) ? true : false}
             onClick={() => this.onClick(contact)}
             checkedIcon={checkedIcon}
             unCheckedIcon={unCheckedIcon}

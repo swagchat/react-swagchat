@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders correctly. All property setting. 1`] = `
+<a
+  className="test-class"
+  onClick={[Function]}
+>
+  <div
+    style={
+      Object {
+        "justifyContent": "flex-start",
+      }
+    }
+  >
+    <div
+      className="text"
+    >
+      Button
+    </div>
+    <div
+      className="icon"
+    >
+      <div />
+    </div>
+  </div>
+</a>
+`;
+
+exports[`Button renders correctly. Very simple setting. 1`] = `
+<a
+  className=""
+  onClick={[Function]}
+>
+  <div
+    style={
+      Object {
+        "justifyContent": "flex-start",
+      }
+    }
+  >
+    <div
+      className="text"
+    >
+      Button
+    </div>
+  </div>
+</a>
+`;

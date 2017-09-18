@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageDateSeparator renders correctly 1`] = `
+<div
+  className=""
+  style={Object {}}
+>
+  <div>
+    <div>
+      <div>
+        1/1
+      </div>
+    </div>
+    <div />
+  </div>
+</div>
+`;
+
+exports[`MessageDateSeparator renders correctly 2`] = `
+<div
+  className="test-class"
+  style={
+    Object {
+      "width": "100px",
+    }
+  }
+>
+  <div>
+    <div>
+      <div>
+        1/1
+      </div>
+    </div>
+    <div />
+  </div>
+</div>
+`;

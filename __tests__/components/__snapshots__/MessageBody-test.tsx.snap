@@ -1,0 +1,717 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageBody renders correctly 1`] = `
+<div
+  className=""
+  style={Object {}}
+>
+  <MessageDateSeparator
+    className=""
+    date="6/30"
+    key="date-separator-61952241-48c8-4cdd-9fe2-ab61b8bf9c55"
+    style={Object {}}
+  />
+  <MessageItem
+    key="message-item-61952241-48c8-4cdd-9fe2-ab61b8bf9c55"
+    message={
+      Object {
+        "created": "2017-06-30T11:39:31Z",
+        "messageId": "61952241-48c8-4cdd-9fe2-ab61b8bf9c55",
+        "payload": Object {
+          "text": "How've you been recently?",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Williams",
+        "pictureUrl": "http://example.com/williams.png",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+  />
+  <MessageItem
+    key="message-item-9d79f275-a80c-41ae-aa26-0631d94486b4"
+    message={
+      Object {
+        "created": "2017-06-30T11:42:09Z",
+        "messageId": "9d79f275-a80c-41ae-aa26-0631d94486b4",
+        "payload": Object {
+          "text": "I've been good. And you?",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Lee",
+        "pictureUrl": "http://example.com/lee.png",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+  />
+  <MessageItem
+    key="message-item-d26c3d0e-7568-49be-ada7-e9e2ef023cda"
+    message={
+      Object {
+        "created": "2017-06-30T11:46:15Z",
+        "messageId": "d26c3d0e-7568-49be-ada7-e9e2ef023cda",
+        "payload": Object {
+          "text": "I've been working all day.",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Williams",
+        "pictureUrl": "http://example.com/williams.png",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+  />
+  <MessageItem
+    key="message-item-7ecc5c82-8861-4161-9d18-98dc4f160976"
+    message={
+      Object {
+        "created": "2017-06-30T11:46:44Z",
+        "messageId": "7ecc5c82-8861-4161-9d18-98dc4f160976",
+        "payload": Object {
+          "text": "Don't push yourself too hard. You should get some rest.",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Lee",
+        "pictureUrl": "http://example.com/lee.png",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+  />
+  <MessageItem
+    key="message-item-00dfce2d-2635-4adf-b999-3e0f0bddabb6"
+    message={
+      Object {
+        "created": "2017-06-30T12:05:56Z",
+        "messageId": "00dfce2d-2635-4adf-b999-3e0f0bddabb6",
+        "payload": Object {
+          "text": "By the way, recently I started keeping dogs.",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Lee",
+        "pictureUrl": "http://example.com/lee.png",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+  />
+  <MessageDateSeparator
+    className=""
+    date="8/15"
+    key="date-separator-fd10d8f2-1924-4398-bac0-d941b4c6f512"
+    style={Object {}}
+  />
+  <MessageItem
+    key="message-item-fd10d8f2-1924-4398-bac0-d941b4c6f512"
+    message={
+      Object {
+        "created": "2017-08-15T08:19:26Z",
+        "messageId": "fd10d8f2-1924-4398-bac0-d941b4c6f512",
+        "payload": Object {
+          "text": "That's nice.",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Williams",
+        "pictureUrl": "http://example.com/williams.png",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`MessageBody renders correctly 2`] = `
+<div
+  className="test-class"
+  style={
+    Object {
+      "width": "100px",
+    }
+  }
+>
+  <MessageDateSeparator
+    className=""
+    date="6/30"
+    key="date-separator-61952241-48c8-4cdd-9fe2-ab61b8bf9c55"
+    style={Object {}}
+  />
+  <MessageItem
+    customPluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    key="message-item-61952241-48c8-4cdd-9fe2-ab61b8bf9c55"
+    message={
+      Object {
+        "created": "2017-06-30T11:39:31Z",
+        "messageId": "61952241-48c8-4cdd-9fe2-ab61b8bf9c55",
+        "payload": Object {
+          "text": "How've you been recently?",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Williams",
+        "pictureUrl": "http://example.com/williams.png",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+  />
+  <MessageItem
+    customPluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    key="message-item-9d79f275-a80c-41ae-aa26-0631d94486b4"
+    message={
+      Object {
+        "created": "2017-06-30T11:42:09Z",
+        "messageId": "9d79f275-a80c-41ae-aa26-0631d94486b4",
+        "payload": Object {
+          "text": "I've been good. And you?",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Lee",
+        "pictureUrl": "http://example.com/lee.png",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+  />
+  <MessageItem
+    customPluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    key="message-item-d26c3d0e-7568-49be-ada7-e9e2ef023cda"
+    message={
+      Object {
+        "created": "2017-06-30T11:46:15Z",
+        "messageId": "d26c3d0e-7568-49be-ada7-e9e2ef023cda",
+        "payload": Object {
+          "text": "I've been working all day.",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Williams",
+        "pictureUrl": "http://example.com/williams.png",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+  />
+  <MessageItem
+    customPluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    key="message-item-7ecc5c82-8861-4161-9d18-98dc4f160976"
+    message={
+      Object {
+        "created": "2017-06-30T11:46:44Z",
+        "messageId": "7ecc5c82-8861-4161-9d18-98dc4f160976",
+        "payload": Object {
+          "text": "Don't push yourself too hard. You should get some rest.",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Lee",
+        "pictureUrl": "http://example.com/lee.png",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+  />
+  <MessageItem
+    customPluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    key="message-item-00dfce2d-2635-4adf-b999-3e0f0bddabb6"
+    message={
+      Object {
+        "created": "2017-06-30T12:05:56Z",
+        "messageId": "00dfce2d-2635-4adf-b999-3e0f0bddabb6",
+        "payload": Object {
+          "text": "By the way, recently I started keeping dogs.",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Lee",
+        "pictureUrl": "http://example.com/lee.png",
+        "userId": "7da9e9c6-d174-4ab5-86f8-99e727c710ff",
+      }
+    }
+  />
+  <MessageDateSeparator
+    className=""
+    date="8/15"
+    key="date-separator-fd10d8f2-1924-4398-bac0-d941b4c6f512"
+    style={Object {}}
+  />
+  <MessageItem
+    customPluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    key="message-item-fd10d8f2-1924-4398-bac0-d941b4c6f512"
+    message={
+      Object {
+        "created": "2017-08-15T08:19:26Z",
+        "messageId": "fd10d8f2-1924-4398-bac0-d941b4c6f512",
+        "payload": Object {
+          "text": "That's nice.",
+        },
+        "roomId": "821d92d7-4a68-452a-b660-51379544cec4",
+        "type": "text",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+    myUserId="myUserId"
+    pluginMessages={
+      Array [
+        PluginMessageText {
+          "interaction": [Function],
+          "isAlwaysDisplay": true,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "text",
+          "position": "bottom",
+        },
+        PluginMessageImage {
+          "interaction": [Function],
+          "isAlwaysDisplay": false,
+          "item": [Function],
+          "menu": [Function],
+          "messageListMarginBottom": 88,
+          "name": "image",
+          "position": "bottom",
+        },
+      ]
+    }
+    user={
+      Object {
+        "name": "Williams",
+        "pictureUrl": "http://example.com/williams.png",
+        "userId": "00581ea9-3547-4c81-930c-a3ed042e4b21",
+      }
+    }
+  />
+</div>
+`;

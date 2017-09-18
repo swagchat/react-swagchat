@@ -181,11 +181,11 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           />
         </div>
         <MessageBody
+          myUserId={userState.user!.userId}
+          messages={messageState.messages}
+          roomUsers={roomState.roomUsers}
           pluginMessages={pluginState.messages}
           customPluginMessages={pluginState.customMessages}
-          myUserId={userState.user!.userId}
-          roomUsers={roomState.roomUsers}
-          messages={messageState.messages}
           noMessageImage={settingState.noMessageImage}
           noMessageText={settingState.noMessageText}
         />

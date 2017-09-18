@@ -3,7 +3,7 @@ import { IUserForRoom, IMessage, IPluginMessage } from 'swagchat-sdk';
 
 export interface IMessageItemProps {
   pluginMessages: IPluginMessage[];
-  customPluginMessages: IPluginMessage[];
+  customPluginMessages?: IPluginMessage[];
   message: IMessage;
   user: IUserForRoom;
   myUserId: string;

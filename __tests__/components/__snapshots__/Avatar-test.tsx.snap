@@ -2,8 +2,8 @@
 
 exports[`Avatar renders correctly 1`] = `
 <img
-  className="avatar"
-  onClick={undefined}
+  className=""
+  onClick={[Function]}
   src="http://swagchat.io/logo.png"
   style={Object {}}
 />
@@ -11,9 +11,13 @@ exports[`Avatar renders correctly 1`] = `
 
 exports[`Avatar renders correctly 2`] = `
 <img
-  className="avatar test-class"
-  onClick={undefined}
+  className="test-class"
+  onClick={[Function]}
   src="http://swagchat.io/logo.png"
-  style={Object {}}
+  style={
+    Object {
+      "width": "100px",
+    }
+  }
 />
 `;

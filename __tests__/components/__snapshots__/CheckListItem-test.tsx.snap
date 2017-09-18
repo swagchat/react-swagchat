@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckListItem renders correctly 1`] = `
+<div
+  className=""
+  onClick={[Function]}
+  style={Object {}}
+>
+  <div>
+    <div>
+      Button
+    </div>
+  </div>
+  <div>
+    <i
+      className="material-icons"
+    >
+      radio_button_unchecked
+    </i>
+  </div>
+</div>
+`;
+
+exports[`CheckListItem renders correctly 2`] = `
+<div
+  className="test-class"
+  onClick={[Function]}
+  style={
+    Object {
+      "width": "100px",
+    }
+  }
+>
+  <div>
+    <div />
+  </div>
+  <div>
+    <div>
+      Button
+    </div>
+  </div>
+  <div>
+    <div />
+  </div>
+</div>
+`;

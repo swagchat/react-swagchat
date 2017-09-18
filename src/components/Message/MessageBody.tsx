@@ -8,22 +8,16 @@ import {
 import { IRootStyleProps } from '../';
 import * as indexStyles from '../../index.css';
 import * as styles from './message-body.css';
-import {
-  MessageDateSeparator,
-  MessageItem,
-} from '../../components';
+import { MessageDateSeparator } from './internal/MessageDateSeparator';
+import { MessageItem } from '../../components';
 const classNames = require('classnames');
 
 export interface IMessageBodyProps extends IRootStyleProps {
-  pluginMessages:  IPluginMessage[];
-  customPluginMessages:  IPluginMessage[];
   myUserId: string;
-  roomUsers: {
-    [key: string]: IUserForRoom;
-  } | null;
-  messages: {
-    [key: string]: IMessage;
-  };
+  messages: {[key: string]: IMessage};
+  roomUsers: {[key: string]: IUserForRoom} | null;
+  pluginMessages:  IPluginMessage[];
+  customPluginMessages?:  IPluginMessage[];
   noMessageImage?: string;
   noMessageText?: string;
 }
