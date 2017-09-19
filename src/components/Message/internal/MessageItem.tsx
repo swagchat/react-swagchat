@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { IUserForRoom, IMessage, IPluginMessage } from 'swagchat-sdk';
+import { IUserForRoom, IMessage, IAddonMessage } from 'swagchat-sdk';
 
 export interface IMessageItemProps {
-  pluginMessages: IPluginMessage[];
-  customPluginMessages?: IPluginMessage[];
+  addonMessages: IAddonMessage[];
+  addonPluginMessages?: IAddonMessage[];
   message: IMessage;
   user: IUserForRoom;
   myUserId: string;
@@ -12,7 +12,7 @@ export interface IMessageItemProps {
 export class MessageItem extends React.Component<IMessageItemProps, {}> {
   renderMessageItem = () => {
     let node: React.ReactNode = null;
-    this.props.pluginMessages.forEach((plugin: IPluginMessage) => {
+    this.props.addonMessages.forEach((plugin: IAddonMessage) => {
       if (plugin.name === this.props.message.type) {
         node = React.createElement(
           plugin.item, {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  IPluginMessage,
+  IAddonMessage,
   IUser,
   IRoom,
 } from 'swagchat-sdk';
@@ -8,8 +8,8 @@ import * as styles from './message-menu.css';
 
 export interface IMessageMenuProps {
   position?: 'top' | 'bottom';
-  pluginMessages: IPluginMessage[];
-  customPluginMessages: IPluginMessage[];
+  addonMessages: IAddonMessage[];
+  customAddonMessages: IAddonMessage[];
   user: IUser;
   room: IRoom;
   currentMenuIndex: number;
@@ -23,7 +23,7 @@ export class MessageMenu extends React.Component<IMessageMenuProps, {}> {
 
   renderMessageMenu = () => {
     let menus = new Array;
-    this.props.pluginMessages.map((pluginMessage, i) => {
+    this.props.addonMessages.map((pluginMessage, i) => {
       if (pluginMessage.name !== 'text' && pluginMessage.position === this.props.position) {
         menus.push(React.createElement(
           pluginMessage.menu, {
@@ -42,7 +42,7 @@ export class MessageMenu extends React.Component<IMessageMenuProps, {}> {
   renderCustomMessageMenu = () => {
     let menus = new Array;
     this.props.availableMessageTypes!.map((availableMessageType, i) => {
-      this.props.customPluginMessages.map(customPluginMessage => {
+      this.props.customAddonMessages.map(customPluginMessage => {
         if (customPluginMessage.name === availableMessageType && customPluginMessage.name !== 'text' && customPluginMessage.position === this.props.position) {
           menus.push(React.createElement(
             customPluginMessage.menu, {

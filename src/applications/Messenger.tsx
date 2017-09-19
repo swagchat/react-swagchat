@@ -4,9 +4,9 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import {
-  setPluginMessageActionCreator,
-  setCustomPluginMessageActionCreator,
-  setPluginRoomListItemActionCreator,
+  setAddonMessageActionCreator,
+  setCustomAddonMessageActionCreator,
+  setAddonRoomListItemActionCreator,
   setRoomListTitleActionCreator,
   setRoomListTabbarActionCreator,
   setNoRoomListTextActionCreator,
@@ -136,19 +136,19 @@ export class Messenger extends React.Component<IMessengerProps, {}> {
       new PluginMessageText(),
       new PluginMessageImage(),
     ];
-    store.dispatch(setPluginMessageActionCreator(scMessagePlugins));
+    store.dispatch(setAddonMessageActionCreator(scMessagePlugins));
 
     const scCustomMessagePlugins = route && route.scMessagePlugins ? route.scMessagePlugins : [
       new PluginMessageText(),
       new PluginMessageImage(),
     ];
-    store.dispatch(setCustomPluginMessageActionCreator(scCustomMessagePlugins));
+    store.dispatch(setCustomAddonMessageActionCreator(scCustomMessagePlugins));
 
     const scRoomListItemPlugins = route && route.scRoomListItemPlugins ? route.scRoomListItemPlugins : {
       1: new PluginRoomListItemRoomNameWithMessage(),
       2: new PluginRoomListItemRoomAndUserNameWithMessage(),
     };
-    store.dispatch(setPluginRoomListItemActionCreator(scRoomListItemPlugins));
+    store.dispatch(setAddonRoomListItemActionCreator(scRoomListItemPlugins));
 
     store.dispatch(setRoomListTitleActionCreator(route ? route.roomListTitle : roomListTitle));
     store.dispatch(setRoomListTabbarActionCreator(route ? route.tabbar : tabbar));

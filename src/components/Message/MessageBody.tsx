@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  IPluginMessage,
+  IAddonMessage,
   IUserForRoom,
   IMessage,
   dateFormateMMDD,
@@ -16,8 +16,8 @@ export interface IMessageBodyProps extends IRootStyleProps {
   myUserId: string;
   messages: {[key: string]: IMessage};
   roomUsers: {[key: string]: IUserForRoom} | null;
-  pluginMessages:  IPluginMessage[];
-  customPluginMessages?:  IPluginMessage[];
+  addonMessages:  IAddonMessage[];
+  customAddonMessages?:  IAddonMessage[];
   noMessageImage?: string;
   noMessageText?: string;
 }
@@ -29,7 +29,7 @@ export class MessageBody extends React.Component<IMessageBodyProps, {}> {
   };
 
   render(): JSX.Element  {
-    const { messages, noMessageImage, noMessageText, pluginMessages, customPluginMessages, roomUsers, myUserId, className, style } = this.props;
+    const { messages, noMessageImage, noMessageText, addonMessages, customAddonMessages, roomUsers, myUserId, className, style } = this.props;
 
     if (!(messages && Object.keys(messages).length > 0)) {
       return (
@@ -57,8 +57,8 @@ export class MessageBody extends React.Component<IMessageBodyProps, {}> {
             messageItems.push(
               <MessageItem
                 key={'message-item-' + messages[messageId].messageId!}
-                pluginMessages={pluginMessages}
-                customPluginMessages={customPluginMessages}
+                addonMessages={addonMessages}
+                addonPluginMessages={customAddonMessages}
                 message={messages[messageId]}
                 user={roomUsers![messages[messageId].userId]}
                 myUserId={myUserId}

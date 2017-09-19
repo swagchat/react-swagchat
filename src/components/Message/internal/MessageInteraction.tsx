@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  IPluginMessage,
+  IAddonMessage,
   ISettingState,
   IUser,
   IRoom,
@@ -14,8 +14,8 @@ export interface IMessageInteractionProps {
   room: IRoom;
   position: 'top' | 'bottom';
   isAlwaysDisplay: boolean;
-  pluginMessages: IPluginMessage[];
-  customPluginMessages: IPluginMessage[];
+  addonMessages: IAddonMessage[];
+  customAddonMessages: IAddonMessage[];
   currentMenuIndex: number;
   availableMessageTypes: string[] | null;
 }
@@ -26,9 +26,9 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
   };
 
   renderMessageInteraction = () => {
-    const { settingState, pluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position } = this.props;
+    const { settingState, addonMessages, isAlwaysDisplay, currentMenuIndex, user, room, position } = this.props;
     let interactions = new Array;
-    pluginMessages.map((pluginMessage, i) => {
+    addonMessages.map((pluginMessage, i) => {
       if ((pluginMessage.position === position && pluginMessage.isAlwaysDisplay) ||
         (pluginMessage.position === position && i === currentMenuIndex)) {
           interactions.push(React.createElement(
@@ -48,9 +48,9 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
   }
 
   renderCustomMessageInteraction = () => {
-    const { settingState, customPluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position } = this.props;
+    const { settingState, customAddonMessages, isAlwaysDisplay, currentMenuIndex, user, room, position } = this.props;
     let interactions = new Array;
-    customPluginMessages.map((pluginMessage, i) => {
+    customAddonMessages.map((pluginMessage, i) => {
       if ((pluginMessage.position === position && pluginMessage.isAlwaysDisplay) ||
         (pluginMessage.position === position && i === currentMenuIndex)) {
         interactions.push(React.createElement(

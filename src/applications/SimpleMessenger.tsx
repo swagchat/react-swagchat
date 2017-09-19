@@ -4,9 +4,9 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import {
-  setPluginMessageActionCreator,
-  setCustomPluginMessageActionCreator,
-  setPluginRoomListItemActionCreator,
+  setAddonMessageActionCreator,
+  setCustomAddonMessageActionCreator,
+  setAddonRoomListItemActionCreator,
   setNoMessageTextActionCreator,
   setNoMessageImageActionCreator,
   setNoAvatarImagesActionCreator,
@@ -99,19 +99,19 @@ export class SimpleMessenger extends React.Component<ISimpleMessengerProps, {}> 
       new PluginMessageText(),
       new PluginMessageImage(),
     ];
-    store.dispatch(setPluginMessageActionCreator(scMessagePlugins));
+    store.dispatch(setAddonMessageActionCreator(scMessagePlugins));
 
     const scCustomMessagePlugins = route && route.scMessagePlugins ? route.scMessagePlugins : [
       new PluginMessageText(),
       new PluginMessageImage(),
     ];
-    store.dispatch(setCustomPluginMessageActionCreator(scCustomMessagePlugins));
+    store.dispatch(setCustomAddonMessageActionCreator(scCustomMessagePlugins));
 
     const scRoomListItemPlugins = route && route.scRoomListItemPlugins ? route.scRoomListItemPlugins : {
       1: new PluginRoomListItemRoomNameWithMessage(),
       2: new PluginRoomListItemRoomAndUserNameWithMessage(),
     };
-    store.dispatch(setPluginRoomListItemActionCreator(scRoomListItemPlugins));
+    store.dispatch(setAddonRoomListItemActionCreator(scRoomListItemPlugins));
 
     store.dispatch(setNoMessageTextActionCreator(route ? route.noMessageText : noMessageText));
     store.dispatch(setNoMessageImageActionCreator(route ? route.noMessageImage : noMessageImage));

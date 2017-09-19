@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IRoomForUser, IPluginRoomListItem } from 'swagchat-sdk';
+import { IRoomForUser, IAddonRoomListItem } from 'swagchat-sdk';
 import { RoomItem } from './internal/RoomItem';
 import { SubTitleBar, IOnClickProps, IRootStyleProps } from '../';
 import * as indexStyles from '../../index.css';
@@ -8,8 +8,8 @@ const classNames = require('classnames');
 export interface IRoomListProps extends IOnClickProps, IRootStyleProps {
   myUserId: string;
   userRooms: IRoomForUser[];
-  roomListItems: {[key: number]: IPluginRoomListItem};
-  customRoomListItems: {[key: number]: IPluginRoomListItem};
+  roomListItems: {[key: number]: IAddonRoomListItem};
+  customRoomListItems: {[key: number]: IAddonRoomListItem};
   title?: string;
   noRoomListText?: string;
   noRoomListImage?: string;

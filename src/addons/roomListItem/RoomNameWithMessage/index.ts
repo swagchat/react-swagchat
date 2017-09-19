@@ -1,10 +1,10 @@
 import {
-  IPluginRoomListItem,
-  IPluginRoomListItemProps,
+  IAddonRoomListItem,
+  IAddonRoomListItemProps,
 } from 'swagchat-sdk';
 import { RoomNameWithMessage } from './RoomNameWithMessage';
 
-export class PluginRoomListItemRoomNameWithMessage implements IPluginRoomListItem {
+export class PluginRoomListItemRoomNameWithMessage implements IAddonRoomListItem {
   name: string = 'roomNameWithMessage';
-  item: React.ComponentClass<IPluginRoomListItemProps> = RoomNameWithMessage;
+  item: React.ComponentClass<IAddonRoomListItemProps> = RoomNameWithMessage;
 }

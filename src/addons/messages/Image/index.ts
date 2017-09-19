@@ -1,20 +1,20 @@
 import {
-  IPluginMessage,
-  IPluginMessageItemProps,
-  IPluginMessageInteractionProps,
-  IPluginMessageMenuProps
+  IAddonMessage,
+  IAddonMessageItemProps,
+  IAddonMessageInteractionProps,
+  IAddonMessageMenuProps
 } from 'swagchat-sdk';
 import { ImageItem } from './ImageItem';
 import { ImageInteraction } from './ImageInteraction';
 import { ImageMenu } from './ImageMenu';
 import { IPluginMessageParams } from '../';
 
-export class PluginMessageImage implements IPluginMessage {
+export class PluginMessageImage implements IAddonMessage {
   name: string = 'image';
   messageListMarginBottom: number = 88;
-  item: React.ComponentClass<IPluginMessageItemProps> = ImageItem;
-  interaction: React.ComponentClass<IPluginMessageInteractionProps> = ImageInteraction;
-  menu: React.ComponentClass<IPluginMessageMenuProps> = ImageMenu;
+  item: React.ComponentClass<IAddonMessageItemProps> = ImageItem;
+  interaction: React.ComponentClass<IAddonMessageInteractionProps> = ImageInteraction;
+  menu: React.ComponentClass<IAddonMessageMenuProps> = ImageMenu;
   position: 'top' | 'bottom' = 'bottom';
   isAlwaysDisplay: boolean = false;
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { dateFormateHHMM, IPluginMessageItemProps } from 'swagchat-sdk';
+import { dateFormateHHMM, IAddonMessageItemProps } from 'swagchat-sdk';
 import { Avatar } from '../../../components';
 import * as styles from './image-item.css';
 
@@ -9,7 +9,7 @@ export interface IImagePayload {
   thumbnailUrl: string;
 }
 
-export class ImageItem extends React.Component<IPluginMessageItemProps, {}> {
+export class ImageItem extends React.Component<IAddonMessageItemProps, {}> {
   render(): JSX.Element  {
     const { message, myUserId, user} = this.props;
     const payload = message.payload as IImagePayload;

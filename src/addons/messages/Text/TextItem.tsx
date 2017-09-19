@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { dateFormateHHMM, IPluginMessageItemProps } from 'swagchat-sdk';
+import { dateFormateHHMM, IAddonMessageItemProps } from 'swagchat-sdk';
 import { Avatar } from '../../../components';
 import * as styles from './text-item.css';
 
@@ -7,7 +7,7 @@ export interface ITextPayload {
   text: string;
 }
 
-export class TextItem extends React.Component<IPluginMessageItemProps, {}> {
+export class TextItem extends React.Component<IAddonMessageItemProps, {}> {
   render(): JSX.Element {
     const { message, myUserId, user} = this.props;
     const payload = message.payload as ITextPayload;

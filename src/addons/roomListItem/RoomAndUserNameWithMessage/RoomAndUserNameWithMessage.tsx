@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
   IRoomForUser,
-  IPluginRoomListItemProps,
+  IAddonRoomListItemProps,
   dateHumanize,
   opponentUser,
 } from 'swagchat-sdk';
 import { Avatar, Badge } from '../../../components';
 import * as styles from './room-and-user-name-with-message.css';
 
-export class RoomAndUserNameWithMessage extends React.Component<IPluginRoomListItemProps, {}> {
+export class RoomAndUserNameWithMessage extends React.Component<IAddonRoomListItemProps, {}> {
   onClick(room: IRoomForUser) {
     if (this.props.onClick) {
       this.props.onClick(room);

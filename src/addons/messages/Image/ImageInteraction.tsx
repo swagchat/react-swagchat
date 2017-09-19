@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
-  IPluginMessageInteractionProps,
-  pluginMessageUpdateMenuIndexActionDispatch,
+  IAddonMessageInteractionProps,
+  updateAddonMessageMenuIndexActionDispatch,
   combinedAssetPostAndSendMessageRequestActionDispatch,
 } from 'swagchat-sdk';
 const classNames = require('classnames');
@@ -15,7 +15,7 @@ export interface IPluginMessageImageInteractionStyle {
   };
 }
 
-export class ImageInteraction extends React.Component<IPluginMessageInteractionProps, IPluginMessageImageInteractionStyle> {
+export class ImageInteraction extends React.Component<IAddonMessageInteractionProps, IPluginMessageImageInteractionStyle> {
   private _selectImage: any;
   private _confirmImageDOM: HTMLImageElement | null;
   private _inputFileDom: HTMLInputElement | null;
@@ -26,7 +26,7 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
     },
   };
 
-  constructor(props: IPluginMessageInteractionProps) {
+  constructor(props: IAddonMessageInteractionProps) {
     super(props);
 
     this.state = this.initialInteractionStyle;
@@ -62,13 +62,13 @@ export class ImageInteraction extends React.Component<IPluginMessageInteractionP
 
   onConfirmClose() {
     this.setState(this.initialInteractionStyle);
-    pluginMessageUpdateMenuIndexActionDispatch(0);
+    updateAddonMessageMenuIndexActionDispatch(0);
   }
 
   onFileUploadRequest() {
     this._confirmImageDOM!.src = '';
     this.setState(this.initialInteractionStyle);
-    pluginMessageUpdateMenuIndexActionDispatch(0);
+    updateAddonMessageMenuIndexActionDispatch(0);
     combinedAssetPostAndSendMessageRequestActionDispatch(this._selectImage);
     this._selectImage = null;
   }

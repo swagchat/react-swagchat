@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   countString,
-  IPluginMessageInteractionProps,
+  IAddonMessageInteractionProps,
   IPluginMessageTextInteractionStyle,
   createMessageActionDispatch,
   sendMessagesActionDispatch,
@@ -14,7 +14,7 @@ import { settings } from '../../../settings';
 import * as styles from './text-interaction.css';
 const classNames = require('classnames');
 
-export class TextInteraction extends React.Component<IPluginMessageInteractionProps, IPluginMessageTextInteractionStyle> {
+export class TextInteraction extends React.Component<IAddonMessageInteractionProps, IPluginMessageTextInteractionStyle> {
   private sendIconStyle: Object;
   private fontSize: number = 18;
   private padding: number = 10;
@@ -38,7 +38,7 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
     paddingBottom: '10px',
   };
 
-  constructor(props: IPluginMessageInteractionProps) {
+  constructor(props: IAddonMessageInteractionProps) {
     super(props);
 
     this.state = this.initialInteractionStyle;

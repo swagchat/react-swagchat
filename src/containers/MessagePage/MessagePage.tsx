@@ -11,13 +11,13 @@ import {
   State,
   store,
   IClientState,
-  IPluginState,
+  IAddonState,
   IUserState,
   IRoomState,
   IMessageState,
   IStyleState,
   ISettingState,
-  pluginMessageUpdateMenuIndexActionDispatch,
+  updateAddonMessageMenuIndexActionDispatch,
   messagesFetchRequestActionDispatch,
   logColor,
   opponentUser,
@@ -36,7 +36,7 @@ import * as styles from './message-page.css';
 const classNames = require('classnames');
 
 export interface IReduxMessageProps extends RouteComponentProps<any> {
-  pluginState: IPluginState;
+  pluginState: IAddonState;
   clientState: IClientState;
   userState: IUserState;
   roomState: IRoomState;
@@ -78,14 +78,14 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
     this.onScroll = throttle(this.handleScroll, 100);
     console.info('%c[ReactSwagChat]Add scroll EventListener', 'color:' + logColor);
     window.addEventListener('scroll', this.onScroll);
-    pluginMessageUpdateMenuIndexActionDispatch(0);
+    updateAddonMessageMenuIndexActionDispatch(0);
     Scroll.animateScroll.scrollToBottom({duration: 0});
   }
 
   componentWillUnmount() {
     console.info('%c[ReactSwagChat]Remove scroll EventListener', 'color:' + logColor);
     window.removeEventListener('scroll', this.onScroll);
-    pluginMessageUpdateMenuIndexActionDispatch(0);
+    updateAddonMessageMenuIndexActionDispatch(0);
     unsubscribeMessage(this.props.roomState.room!.roomId!);
   }
 
@@ -141,8 +141,8 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
         <div className={classNames(styles.menu, styles.top)} style={styleState.messageBodyMenuStyle}>
           <MessageMenu
             position="top"
-            pluginMessages={pluginState.messages}
-            customPluginMessages={pluginState.customMessages}
+            addonMessages={pluginState.messages}
+            customAddonMessages={pluginState.customMessages}
             user={userState.user!}
             room={roomState.room!}
             currentMenuIndex={pluginState.currentMenuIndex}
@@ -151,8 +151,8 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           <MessageInteraction
             position="top"
             isAlwaysDisplay={false}
-            pluginMessages={pluginState.messages}
-            customPluginMessages={pluginState.customMessages}
+            addonMessages={pluginState.messages}
+            customAddonMessages={pluginState.customMessages}
             currentMenuIndex={pluginState.currentMenuIndex}
             settingState={settingState}
             user={userState.user!}
@@ -164,16 +164,16 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           myUserId={userState.user!.userId}
           messages={messageState.messages}
           roomUsers={roomState.roomUsers}
-          pluginMessages={pluginState.messages}
-          customPluginMessages={pluginState.customMessages}
+          addonMessages={pluginState.messages}
+          customAddonMessages={pluginState.customMessages}
           noMessageImage={settingState.noMessageImage}
           noMessageText={settingState.noMessageText}
         />
         <div className={classNames(styles.menu, styles.bottom)} style={styleState.messageBodyMenuStyle}>
           <MessageMenu
             position="bottom"
-            pluginMessages={pluginState.messages}
-            customPluginMessages={pluginState.customMessages}
+            addonMessages={pluginState.messages}
+            customAddonMessages={pluginState.customMessages}
             user={userState.user!}
             room={roomState.room!}
             currentMenuIndex={pluginState.currentMenuIndex}
@@ -182,8 +182,8 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           <MessageInteraction
             position="bottom"
             isAlwaysDisplay={false}
-            pluginMessages={pluginState.messages}
-            customPluginMessages={pluginState.customMessages}
+            addonMessages={pluginState.messages}
+            customAddonMessages={pluginState.customMessages}
             currentMenuIndex={pluginState.currentMenuIndex}
             settingState={settingState}
             user={userState.user!}
@@ -199,7 +199,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
 const mapStateToProps = (state: State) => {
   if (state.client.client && state.user.user) {
     return {
-      pluginState: state.plugin,
+      pluginState: state.addon,
       clientState: state.client,
       userState: state.user,
       roomState: state.room,

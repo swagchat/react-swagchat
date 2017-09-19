@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { IRoomForUser, State, store, IPluginRoomListItem } from 'swagchat-sdk';
+import { IRoomForUser, State, store, IAddonRoomListItem } from 'swagchat-sdk';
 import { push } from 'react-router-redux';
 import {
   RoomList,
@@ -20,8 +20,8 @@ export interface IReduxRoomListProps extends RouteComponentProps<any> {
   roomListTitle: string;
   userId: string;
   userRooms: IRoomForUser[];
-  roomListItems: {[key: number]: IPluginRoomListItem};
-  customRoomListItems: {[key: number]: IPluginRoomListItem};
+  roomListItems: {[key: number]: IAddonRoomListItem};
+  customRoomListItems: {[key: number]: IAddonRoomListItem};
   noRoomListText: string;
   noRoomListImage: string;
   noAvatarImages: string[];
@@ -86,8 +86,8 @@ const mapStateToProps = (state: State) => {
       roomListTitle: state.setting.roomListTitle,
       userId: state.user.user!.userId,
       userRooms: state.user.userRooms,
-      roomListItems: state.plugin.roomListItems,
-      customRoomListItems: state.plugin.customRoomListItems,
+      roomListItems: state.addon.roomListItems,
+      customRoomListItems: state.addon.customRoomListItems,
       noRoomListText: state.setting.noRoomListText,
       noRoomListImage: state.setting.noRoomListImage,
       noAvatarImages: state.setting.noAvatarImages,

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { IRoomForUser, IPluginRoomListItem } from 'swagchat-sdk';
+import { IRoomForUser, IAddonRoomListItem } from 'swagchat-sdk';
 
 export interface IRoomItemProps {
   myUserId: string;
-  roomListItems: {[key: number]: IPluginRoomListItem};
-  customRoomListItems?: {[key: number]: IPluginRoomListItem};
+  roomListItems: {[key: number]: IAddonRoomListItem};
+  customRoomListItems?: {[key: number]: IAddonRoomListItem};
   userRoom: IRoomForUser;
   noAvatarImages: string[];
   onClick?: Function;
