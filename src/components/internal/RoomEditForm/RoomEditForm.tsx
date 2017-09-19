@@ -3,8 +3,8 @@ import {
   roomUpdateNameActionDispatch,
   roomUpdatePictureActionDispatch,
 } from 'swagchat-sdk';
-import { PhotoEdit, IRootStyleProps} from '../../components';
-import * as styles from './room-edit.css';
+import { PhotoEdit, IRootStyleProps} from '../../../components';
+import * as styles from './room-edit-form.css';
 const classNames = require('classnames');
 
 export interface IRoomEditProps extends IRootStyleProps {

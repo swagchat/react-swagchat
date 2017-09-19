@@ -13,9 +13,10 @@ import {
   IModalAction,
   Modal,
   ModalAction,
-  RoomEditForm,
   IRootStyleProps,
 } from '../../components';
+import { RoomEditForm } from '../../components/internal/RoomEditForm/RoomEditForm';
+
 import * as styles from './room-setting-list.css';
 
 export interface IRoomSettingButtonsProps extends IRootStyleProps {

@@ -20,8 +20,8 @@ import {
   ContactList,
   Button,
   Modal,
-  RoomEditForm,
 } from '../../components';
+import { RoomEditForm } from '../../components/internal/RoomEditForm/RoomEditForm';
 
 export interface IReduxSelectContactProps extends RouteComponentProps<any> {
   title: string;

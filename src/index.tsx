@@ -11,7 +11,6 @@ import {
   Modal,
   ModalAction,
   PhotoEdit,
-  RoomEditForm,
   RoomList,
   RoomSettingButtons,
   SubTitleBar,
@@ -21,8 +20,6 @@ import {
 import {
   PluginMessageText,
   PluginMessageImage,
-  TextItem,
-  ImageItem,
 } from './addons/messages';
 import {
   PluginRoomListItemRoomAndUserNameWithMessage,
@@ -46,7 +43,6 @@ export * from './applications';
 (window as any).Swag.Modal = Modal;
 (window as any).Swag.ModalAction = ModalAction;
 (window as any).Swag.PhotoEdit = PhotoEdit;
-(window as any).Swag.RoomEditForm = RoomEditForm;
 (window as any).Swag.RoomList = RoomList;
 (window as any).Swag.RoomSettingButtons = RoomSettingButtons;
 (window as any).Swag.SubTitleBar = SubTitleBar;
@@ -57,5 +53,3 @@ export * from './applications';
 (window as any).Swag.PluginRoomListItemRoomNameWithMessage = PluginRoomListItemRoomNameWithMessage;
 (window as any).Swag.PluginMessageText = PluginMessageText;
 (window as any).Swag.PluginMessageImage = PluginMessageImage;
-(window as any).Swag.TextItem = TextItem;
-(window as any).Swag.ImageItem = ImageItem;

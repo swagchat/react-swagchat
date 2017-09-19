@@ -1,8 +1,8 @@
-@value colors: "../../styles/theme/default/color.css";
+@value colors: "../../../styles/theme/default/color.css";
 @value color-input-text, color-input-border from colors;
-@value sizes: "../../styles/theme/default/size.css";
+@value sizes: "../../../styles/theme/default/size.css";
 @value size-room-edit-photo-edit, size-room-edit-text-height, size-room-edit-text-size from sizes;
-@value shapes: "../../styles/theme/default/shape.css";
+@value shapes: "../../../styles/theme/default/shape.css";
 @value shape-room-edit-input-text from shapes;
 
 .root {
