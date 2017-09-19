@@ -39,11 +39,15 @@
   height: calc(size-top-bar-height * 0.7);
 }
 .leftButton {
+  display: flex;
+  height: size-top-bar-height;
   position: fixed;
   display: flex;
   z-index: 10002;
 }
 .rightButton {
+  display: flex;
+  height: size-top-bar-height;
   position: fixed;
   right: 0;
   z-index: 10002;
