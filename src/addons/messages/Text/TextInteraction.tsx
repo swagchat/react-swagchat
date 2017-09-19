@@ -5,8 +5,12 @@ import {
   IPluginMessageTextInteractionStyle,
   createMessageActionDispatch,
   sendMessagesActionDispatch,
+  isIphone,
+  updateMessageBodyMenuStyleActionDispatch,
+  IMessageBodyMenuStyle
 } from 'swagchat-sdk';
 import { Button } from '../../../components';
+import { settings } from '../../../settings';
 import * as styles from './text-interaction.css';
 const classNames = require('classnames');
 
@@ -28,6 +32,10 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
       height: this.fontSize + 'px',
       overflowY: 'hidden',
     },
+  };
+
+  private initiaIphoneStyle: IMessageBodyMenuStyle = {
+    paddingBottom: '10px',
   };
 
   constructor(props: IPluginMessageInteractionProps) {
@@ -95,9 +103,9 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
     }
     const doubleByteCharacterRegExp = '[^\x01-\x7E]';
     if ((lastLetter.match(new RegExp(doubleByteCharacterRegExp)) || lastLetter.match(new RegExp(noCountLetterRegexp)))) {
-      this.props.onTextareaFocus();
+      this.onTextareaFocus.bind(this);
     }　else {
-      this.props.onTextareaBlur();
+      this.onTextareaBlur.bind(this);
     }
     if (!lastLetter.match(new RegExp(noCountLetterRegexp))) {
       this.previousLastLetter = lastLetter;
@@ -120,6 +128,18 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
     this.textValue = '';
   }
 
+  onTextareaFocus() {
+    if (isIphone()) {
+      updateMessageBodyMenuStyleActionDispatch({paddingBottom: '45px'});
+    }
+  }
+
+  onTextareaBlur() {
+    if (isIphone()) {
+      updateMessageBodyMenuStyleActionDispatch(this.initiaIphoneStyle);
+    }
+  }
+
   render(): JSX.Element {
     return (
       <div className={styles.root}>
@@ -128,8 +148,8 @@ export class TextInteraction extends React.Component<IPluginMessageInteractionPr
           className={styles.textarea}
           style={this.state.textAreaStyle}
           onChange={this.onChange.bind(this)}
-          placeholder={this.props.settingState.inputMessagePlaceholderText}
-          onBlur={this.props.onTextareaBlur}
+          placeholder={settings.inputMessagePlaceholderText}
+          onBlur={this.onTextareaBlur.bind(this)}
           onKeyDown={this.onKeyDown.bind(this)}
         />
         <Button

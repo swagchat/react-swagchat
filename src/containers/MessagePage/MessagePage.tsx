@@ -22,9 +22,7 @@ import {
   logColor,
   opponentUser,
   unsubscribeMessage,
-  isIphone,
-  updateMessageBodyMenuStyleActionDispatch,
-  IMessageBodyMenuStyle
+
 } from 'swagchat-sdk';
 import {
   MessageMenu,
@@ -50,10 +48,6 @@ export interface IReduxMessageProps extends RouteComponentProps<any> {
 export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
   private isReceiveMessagesFinished = false;
   private onScroll: EventListener;
-
-  private initialInteractionStyle: IMessageBodyMenuStyle = {
-    paddingBottom: '10px',
-  };
 
   private updateMessages = () => {
     if (!this.props.roomState.room) {
@@ -98,18 +92,6 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
   onRoomSetting() {
     if (this.props.history) {
       store.dispatch(push(this.props.settingState.roomSettingRoutePath + '/' + this.props.roomState.room!.roomId));
-    }
-  }
-
-  onTextareaFocus() {
-    if (isIphone()) {
-      updateMessageBodyMenuStyleActionDispatch({paddingBottom: '45px'});
-    }
-  }
-
-  onTextareaBlur() {
-    if (isIphone()) {
-      updateMessageBodyMenuStyleActionDispatch(this.initialInteractionStyle);
     }
   }
 
@@ -175,8 +157,6 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
             settingState={settingState}
             user={userState.user!}
             room={roomState.room!}
-            onTextareaFocus={this.onTextareaFocus.bind(this)}
-            onTextareaBlur={this.onTextareaBlur.bind(this)}
             availableMessageTypes={roomState.room!.availableMessageTypes!}
           />
         </div>
@@ -208,8 +188,6 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
             settingState={settingState}
             user={userState.user!}
             room={roomState.room!}
-            onTextareaFocus={this.onTextareaFocus.bind(this)}
-            onTextareaBlur={this.onTextareaBlur.bind(this)}
             availableMessageTypes={roomState.room!.availableMessageTypes!}
           />
         </div>

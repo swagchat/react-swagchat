@@ -14,8 +14,6 @@ export interface IMessageInteractionProps {
   room: IRoom;
   position: 'top' | 'bottom';
   isAlwaysDisplay: boolean;
-  onTextareaFocus: () => void;
-  onTextareaBlur: () => void;
   pluginMessages: IPluginMessage[];
   customPluginMessages: IPluginMessage[];
   currentMenuIndex: number;
@@ -28,7 +26,7 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
   };
 
   renderMessageInteraction = () => {
-    const { settingState, pluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position, onTextareaBlur, onTextareaFocus } = this.props;
+    const { settingState, pluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position } = this.props;
     let interactions = new Array;
     pluginMessages.map((pluginMessage, i) => {
       if ((pluginMessage.position === position && pluginMessage.isAlwaysDisplay) ||
@@ -41,8 +39,6 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
               room: room,
               position: position,
               isAlwaysDisplay: isAlwaysDisplay,
-              onTextareaFocus: onTextareaFocus,
-              onTextareaBlur: onTextareaBlur,
             }
           ));
         }
@@ -52,7 +48,7 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
   }
 
   renderCustomMessageInteraction = () => {
-    const { settingState, customPluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position, onTextareaBlur, onTextareaFocus } = this.props;
+    const { settingState, customPluginMessages, isAlwaysDisplay, currentMenuIndex, user, room, position } = this.props;
     let interactions = new Array;
     customPluginMessages.map((pluginMessage, i) => {
       if ((pluginMessage.position === position && pluginMessage.isAlwaysDisplay) ||
@@ -65,8 +61,6 @@ export class MessageInteraction extends React.Component<IMessageInteractionProps
             room: room,
             position: position,
             isAlwaysDisplay: isAlwaysDisplay,
-            onTextareaFocus: onTextareaFocus,
-            onTextareaBlur: onTextareaBlur,
           }
         ));
       }
