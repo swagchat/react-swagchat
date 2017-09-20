@@ -1,17 +1,24 @@
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![npm version](https://badge.fury.io/js/swagchat-sdk.svg)](https://badge.fury.io/js/react-swagchat)
 
-# Swagchat UIKit (React components)
+# swagchat UIKit (A set of React components)
 
-Swagchat is an open source chat components for your webapps.
+swagchat is an open source chat components for your webapps.
 
 This is UIKit for [Chat API](http://github.com/fairway-corp/swagchat-chat-api)
 
-![Architecture](https://client.fairway.ne.jp/swagchat/img/react-swagchat-sample-ui-20170630.png "Architecture")
+![Architecture](https://client.fairway.ne.jp/swagchat/img/uikit-messenger-20170920.png "Architecture")
 
 ## Architecture
 
-![Architecture](https://client.fairway.ne.jp/swagchat/img/architecture-201703011307.png "Architecture")
+![Architecture](https://client.fairway.ne.jp/swagchat/img/swagchat-start-guide-20170920.png "Architecture")
+
+##### Related repositories
+
+* [Chat API](https://github.com/fairway-corp/swagchat-chat-api)
+* [RTM API (Real Time Messaging API)](https://github.com/fairway-corp/swagchat-rtm-api)
+* [SDK (TypeScript & JavaScript)](https://github.com/swagchat/swagchat-sdk-js)
+
 
 ## Installation
 
@@ -40,19 +47,18 @@ Using the `renderTemplateMessenger` function you can create the general chat UI 
 
 ```
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css" media="all">
     <link rel="stylesheet" href="https://unpkg.com/react-swagchat/dist/react-swagchat.min.css">
 </head>
 <body>
   <div id="swagchat" />
   <script src="https://unpkg.com/react-swagchat/dist/react-swagchat.min.js"></script>
   <script>
-    renderTemplateMessenger({
-      apiEndpoint: 'http://localhost:9000/v0',
-      rtmProtocol: 'ws',
-      rtmHost: 'localhost:9100',
-      rtmPath: '/v0',
-      userId: 'USER_ID',
-    });
+      Swag.renderMessenger({
+        userId: 'USER_ID',
+        apiEndpoint: 'http://localhost:9000/v0',
+      });
   </script>
 </body>
 ```
@@ -60,19 +66,13 @@ Using the `renderTemplateMessenger` function you can create the general chat UI 
 ### Node
 
 ```
-import { TopBar, RoomList } from 'react-swagchat';
+import { Avatar } from 'react-swagchat';
 
-const RoomList = (props) => (
-  <TopBar
-    title={props.roomListTitle}
-  />
-  <RoomList
-    myUserId={props.userId}
-    userRooms={props.userRooms}
-    roomListItems={props.roomListItems}
-    hasTopBar={props.true}
-    noRoomListText={props.noRoomListText}
-    noRoomListImage={props.noRoomListImage}
+const AvatarExample = () => (
+  <Avatar
+    src="https://dummyimage.com/300x300/3768c4/fff&text=circle"
+    shape="circle"
+    onClick={() => alert("Click")}
   />
 );
 
@@ -83,15 +83,17 @@ const RoomList = (props) => (
 ```
 npm install
 
+npm run build:css (Create type definitions of css file)
 npm run build:lib (for Node)
+npm run cpx:css (Copy css and css.d.js file globs)
 npm run build:dev (for Browser [development])
 npm run build:prod (for Browser [production])
 ```
 
-### environment
+### Build flow
 
-* node v6.9.4
-* npm v5.0.3
+![Architecture](https://client.fairway.ne.jp/swagchat/img/uikit-build-20170920.png "Build flow")
+
 
 ## License
 
