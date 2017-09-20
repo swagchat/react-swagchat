@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   IAddonMessageInteractionProps,
   updateAddonMessageMenuIndexActionDispatch,
-  combinedAssetPostAndSendMessageRequestActionDispatch,
+  uploadAssetAndSendMessageRequestActionDispatch,
 } from 'swagchat-sdk';
 const classNames = require('classnames');
 import { Button } from '../../../components';
@@ -69,7 +69,7 @@ export class ImageInteraction extends React.Component<IAddonMessageInteractionPr
     this._confirmImageDOM!.src = '';
     this.setState(this.initialInteractionStyle);
     updateAddonMessageMenuIndexActionDispatch(0);
-    combinedAssetPostAndSendMessageRequestActionDispatch(this._selectImage);
+    uploadAssetAndSendMessageRequestActionDispatch(this._selectImage);
     this._selectImage = null;
   }
 

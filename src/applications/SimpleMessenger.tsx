@@ -15,7 +15,7 @@ import {
   setRoomMembersTitleActionCreator,
   setMessageRoutePathActionCreator,
   setRoomSettingRoutePathActionCreator,
-  setUserAuthParamsActionCreator,
+  setAuthParamsActionCreator,
   store,
   routerHistory,
 } from 'swagchat-sdk';
@@ -133,7 +133,7 @@ export class SimpleMessenger extends React.Component<ISimpleMessengerProps, {}> 
       rtmEndpoint = tmpRtmProtocol + '://' + tmpRtmHost + tmpRtmPath;
     }
 
-    store.dispatch(setUserAuthParamsActionCreator(
+    store.dispatch(setAuthParamsActionCreator(
       route ? route.apiKey : apiKey,
       route ? route.apiEndpoint : apiEndpoint,
       rtmEndpoint,

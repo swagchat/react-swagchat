@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
-  roomUpdateNameActionDispatch,
-  roomUpdatePictureActionDispatch,
+  updateRoomNameActionDispatch,
+  updateRoomPictureActionDispatch,
 } from 'swagchat-sdk';
 import { PhotoEdit, IRootStyleProps} from '../../../components';
 import * as styles from './room-edit-form.css';
@@ -25,7 +25,7 @@ export class RoomEditForm extends React.Component<IRoomEditProps, {}> {
   }
 
   onInputTextChange = (e: any) => {
-    roomUpdateNameActionDispatch(e.target.value);
+    updateRoomNameActionDispatch(e.target.value);
   }
 
   render(): JSX.Element {
@@ -35,7 +35,7 @@ export class RoomEditForm extends React.Component<IRoomEditProps, {}> {
         <PhotoEdit
           className={styles.photoEdit}
           src={roomPictureUrl}
-          onUpdatePhoto={roomUpdatePictureActionDispatch}
+          onUpdatePhoto={updateRoomPictureActionDispatch}
         />
         <input
           className={styles.inputText}

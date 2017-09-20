@@ -24,7 +24,7 @@ import {
   setMessageRoutePathActionCreator,
   setRoomSettingRoutePathActionCreator,
   setSelectContactRoutePathActionCreator,
-  setUserAuthParamsActionCreator,
+  setAuthParamsActionCreator,
   store,
   routerHistory,
 } from 'swagchat-sdk';
@@ -179,7 +179,7 @@ export class Messenger extends React.Component<IMessengerProps, {}> {
       rtmEndpoint = tmpRtmProtocol + '://' + tmpRtmHost + tmpRtmPath;
     }
 
-    store.dispatch(setUserAuthParamsActionCreator(
+    store.dispatch(setAuthParamsActionCreator(
       route ? route.apiKey : apiKey,
       route ? route.apiEndpoint : apiEndpoint,
       rtmEndpoint,

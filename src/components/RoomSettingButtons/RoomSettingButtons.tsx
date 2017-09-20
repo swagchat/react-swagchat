@@ -3,10 +3,10 @@ import {
   IRoom,
   RoomType,
   opponentUser,
-  userBlockFetchRequestActionDispatch,
-  userUnBlockFetchRequestActionDispatch,
-  roomUserRemoveFetchRequestActionDispatch,
-  combinedAssetPostAndRoomUpdateRequestActionDispatch,
+  userBlockRequestActionDispatch,
+  userUnBlockRequestActionDispatch,
+  removeRoomUserRequestActionDispatch,
+  uploadAssetAndUpdateRoomRequestActionDispatch,
 } from 'swagchat-sdk';
 import {
   Button,
@@ -49,9 +49,9 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
     const users = opponentUser(this.props.room!.users!, this.props.userId);
     if (users && users.length > 0) {
       if (this.props.userBlocks && this.props.userBlocks.indexOf(users[0].userId) >= 0) {
-        userUnBlockFetchRequestActionDispatch([users[0].userId]);
+        userUnBlockRequestActionDispatch([users[0].userId]);
       } else {
-        userBlockFetchRequestActionDispatch([users[0].userId]);
+        userBlockRequestActionDispatch([users[0].userId]);
       }
     }
     this._confirmBlockModalView ? this._confirmBlockModalView.onModalClick() : null;
@@ -62,7 +62,7 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
   }
 
   onLeftItemTap = () => {
-    roomUserRemoveFetchRequestActionDispatch([this.props.userId]);
+    removeRoomUserRequestActionDispatch([this.props.userId]);
     this._confirmLeftModalView ? this._confirmLeftModalView.onModalClick() : null;
   }
 
@@ -71,7 +71,7 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
   }
 
   onRoomEditOkClick = () => {
-    combinedAssetPostAndRoomUpdateRequestActionDispatch();
+    uploadAssetAndUpdateRoomRequestActionDispatch();
     this._editRoomModalView ? this._editRoomModalView.onModalClick() : null;
   }
 

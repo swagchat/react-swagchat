@@ -18,7 +18,7 @@ import {
   IStyleState,
   ISettingState,
   updateAddonMessageMenuIndexActionDispatch,
-  messagesFetchRequestActionDispatch,
+  fetchMessagesRequestActionDispatch,
   logColor,
   opponentUser,
   unsubscribeMessage,
@@ -53,7 +53,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
     if (!this.props.roomState.room) {
       return;
     }
-    messagesFetchRequestActionDispatch();
+    fetchMessagesRequestActionDispatch();
     if (this.props.messageState.messages) {
       console.info('%c[ReactSwagChat]Loaded message count [' + Object.keys(this.props.messageState.messages).length + ']', 'color:' + logColor);
       if (this.props.messageState.messagesAllCount <= Object.keys(this.props.messageState.messages).length) {

@@ -12,8 +12,8 @@ import {
   IStyleState,
   ISettingState,
   clearSelectContactsActionDispatch,
-  combinedCreateRoomAndMessagesFetchRequestActionDispatch,
-  combinedAssetPostAndRoomCreateAndMessageFetchRequestActionDispatch,
+  createRoomAndFetchMessagesRequestActionDispatch,
+  uploadAssetAndCreateRoomAndFetchMessagesRequestActionDispatch,
   } from 'swagchat-sdk';
 import {
   TopBar,
@@ -54,12 +54,12 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
       type: 0, // Update in saga
       name: '',
     };
-    combinedCreateRoomAndMessagesFetchRequestActionDispatch(room);
+    createRoomAndFetchMessagesRequestActionDispatch(room);
     this._createRoomModalView ? this._createRoomModalView.onModalClick() : null;
   }
 
   onRoomCreateOkClick = () => {
-    combinedAssetPostAndRoomCreateAndMessageFetchRequestActionDispatch();
+    uploadAssetAndCreateRoomAndFetchMessagesRequestActionDispatch();
   }
 
   render(): JSX.Element {

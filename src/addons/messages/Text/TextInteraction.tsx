@@ -4,7 +4,7 @@ import {
   IAddonMessageInteractionProps,
   IPluginMessageTextInteractionStyle,
   createMessageActionDispatch,
-  sendMessagesActionDispatch,
+  sendMessagesRequestActionDispatch,
   isIphone,
   updateMessageBodyMenuStyleActionDispatch,
   IMessageBodyMenuStyle
@@ -112,29 +112,32 @@ export class TextInteraction extends React.Component<IAddonMessageInteractionPro
     }
   }
 
-  onKeyDown(e: any) {
-    this.onKeyDownName = e.key;
-  }
-
   onClick() {
     let emptyCheckString = this.textValue.replace(/\s|\n|　/g, '');
     if (emptyCheckString === '') {
       return;
     }
     createMessageActionDispatch('text', {text: this.textValue});
-    sendMessagesActionDispatch();
+    sendMessagesRequestActionDispatch();
     this.setState(this.initialInteractionStyle);
     this.textareaDom!.value = '';
     this.textValue = '';
   }
 
+  onKeyDown(e: any) {
+    console.log(e.key);
+    this.onKeyDownName = e.key;
+  }
+
   onTextareaFocus() {
+    console.log('onTextareaFocus', isIphone());
     if (isIphone()) {
-      updateMessageBodyMenuStyleActionDispatch({paddingBottom: '45px'});
+      // updateMessageBodyMenuStyleActionDispatch({paddingBottom: '45px'});
     }
   }
 
   onTextareaBlur() {
+    console.log('onTextareaBlur', isIphone());
     if (isIphone()) {
       updateMessageBodyMenuStyleActionDispatch(this.initiaIphoneStyle);
     }
@@ -150,6 +153,7 @@ export class TextInteraction extends React.Component<IAddonMessageInteractionPro
           onChange={this.onChange.bind(this)}
           placeholder={settings.inputMessagePlaceholderText}
           onBlur={this.onTextareaBlur.bind(this)}
+          onFocus={this.onTextareaFocus.bind(this)}
           onKeyDown={this.onKeyDown.bind(this)}
         />
         <Button
