@@ -1,9 +1,10 @@
 src/
 tsconfig.json
-tsling.json
+tslint.json
 webpack*
 __tests__
+__mocks__
 coverage
 public
-types
+customTypes
 postcss.config.js
