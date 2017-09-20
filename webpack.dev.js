@@ -19,10 +19,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: [
-          'react-hot-loader',
-          'ts-loader'
-        ],
+        use: ['ts-loader'],
         exclude: /node_modules/
       },
       {
@@ -30,7 +27,17 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use:[
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                sourceMap: false,
+                minimize: true,
+                camelCase: 'dashes',
+                localIdentName: 'sc-[name]-[local]',
+                importLoaders: 1
+              }
+            },
             'postcss-loader'
           ]
         })
@@ -38,20 +45,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: [
-          require('autoprefixer')({
-            browsers: ['last 2 versions']
-          })
-        ]
-      }
-    }),
     new ExtractTextPlugin({
       filename: distDir + '/react-swagchat.css',
-      disable: false,
-      allChunks: true 
+      ignoreOrder: true
     })
   ],
   resolve: {

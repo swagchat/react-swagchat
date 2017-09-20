@@ -20,7 +20,7 @@
     "build:prod": "./node_modules/.bin/webpack --env=prod --progress --profile --colors --watch",
     "cpx:css": "./node_modules/.bin/cpx 'src/**/*.css*' lib --watch",
     "test": "./node_modules/.bin/jest --coverage",
-    "publish": "rm -rf lib && ./node_modules/.bin/cpx 'src/**/*.css*' lib && ./node_modules/.bin/tsc && ./node_modules/.bin/webpack --env=prod && ./node_modules/.bin/webpack --env=dev"
+    "publish": "rm -rf dist && rm -rf lib && ./node_modules/.bin/cpx 'src/**/*.css*' lib && ./node_modules/.bin/tsc && ./node_modules/.bin/webpack --env=prod && ./node_modules/.bin/webpack --env=dev"
   },
   "author": "Betchi <shinichi.minobe@gmail.com>",
   "contributors": [
