@@ -126,15 +126,17 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           title={name}
           leftButton={
             <Button
-              color="linkPrimary"
               icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack}
+              shape="square"
+              color="linkPrimary"
             />
           }
           rightButton={
             <Avatar
+              src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}
+              shape="square"
               className={styles.topBarAvatar}
               onClick={this.onRoomSetting.bind(this)}
-              src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}
             />
           }
         />

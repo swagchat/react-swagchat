@@ -55,8 +55,9 @@ class ReduxRoomListPage extends React.Component<IReduxRoomListProps, any> {
           title={roomListTitle}
           rightButton={
             <Button
-              color="linkPrimary"
               icon={<i className="material-icons">open_in_new</i>} onClick={this.onCreateRoomButton.bind(this)}
+              shape="square"
+              color="linkPrimary"
             />
           }
         />

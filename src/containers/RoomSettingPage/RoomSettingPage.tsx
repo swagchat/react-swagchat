@@ -69,8 +69,9 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
           title={settingState.roomSettingTitle}
           leftButton={
             <Button
-              color="linkPrimary"
               icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack}
+              shape="square"
+              color="linkPrimary"
             />
           }
         />

@@ -70,14 +70,16 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
           title={selectContactTitle}
           leftButton={
             <Button
-              color="linkPrimary"
               icon={<i className="material-icons">close</i>} onClick={this.onCloseButton.bind(this)}
+              shape="square"
+              color="linkPrimary"
             />
           }
           rightButton={
             <Button
-              color="linkPrimary"
               icon={<i className="material-icons">done</i>} onClick={this.onOkButton.bind(this)}
+              shape="square"
+              color="linkPrimary"
             />
           }
         />
