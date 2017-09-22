@@ -134,7 +134,6 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           rightButton={
             <Avatar
               src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}
-              shape="square"
               className={styles.topBarAvatar}
               onClick={this.onRoomSetting.bind(this)}
             />

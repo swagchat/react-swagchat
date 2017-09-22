@@ -10,9 +10,7 @@ import {
 } from 'swagchat-sdk';
 import {
   Button,
-  IModalAction,
   Modal,
-  ModalAction,
   IRootStyleProps,
 } from '../../components';
 import { RoomEditForm } from '../../components/internal/RoomEditForm/RoomEditForm';
@@ -31,7 +29,7 @@ export interface IRoomSettingButtonsProps extends IRootStyleProps {
 
 export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps, {}> {
   private _editRoomModalView: Modal | null;
-  private _confirmBlockModalView: ModalAction | null;
+  private _confirmBlockModalView: Modal | null;
   private _confirmLeftModalView: Modal | null;
 
   public static defaultProps: Partial<IRoomSettingButtonsProps> = {
@@ -96,10 +94,6 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                 title = 'ブロックを解除する';
                 modalDescription = 'ブロックを解除しますか？';
               }
-              let blockActions: IModalAction[] = [
-                {name: 'はい', onClick: this.onBlockItemTap.bind(this)},
-                {name: 'いいえ', onClick: this.onConfirmBlockModalView.bind(this)},
-              ];
               return (
                 <div>
                   <Button
@@ -111,10 +105,11 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                     icon={<i className="material-icons">block</i>}
                     onClick={this.onConfirmBlockModalView.bind(this)}
                   />
-                  <ModalAction
+                  <Modal
                     ref={(child) => this._confirmBlockModalView = child}
-                    component={modalDescription}
-                    actions={blockActions}
+                    buttonPosition="bottom"
+                    title={modalDescription}
+                    onOkModalClick={this.onBlockItemTap.bind(this)}
                   />
                 </div>
               );
@@ -157,7 +152,7 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                   <Modal
                     ref={(child) => this._confirmLeftModalView = child}
                     buttonPosition="bottom"
-                    component={<p>退出しますか？</p>}
+                    title="退出しますか？"
                     onOkModalClick={this.onLeftItemTap.bind(this)}
                   />
                 </div>

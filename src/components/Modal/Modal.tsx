@@ -73,14 +73,16 @@ export class Modal extends React.Component<IModalProps, IModalState> {
               return null;
             }
           })()}
-          <div className={styles.component}>
-            {component}
-          </div>
+          {component ? (
+            <div className={styles.component}>
+              {component}
+            </div>
+          ) : null}
           {
             buttonPosition === 'bottom' ? (
               <div className={styles.viewFooter}>
-                <Button className={styles.dialogActionButton} position="center" text={negativeButtonName} onClick={this.onModalClick.bind(this)} />
-                <Button className={styles.dialogActionButton} position="center" text={positiveButtonName} onClick={this.props.onOkModalClick} />
+                <Button className={styles.modalButton} position="center" text={negativeButtonName} onClick={this.onModalClick.bind(this)} />
+                <Button className={styles.modalButton} position="center" text={positiveButtonName} onClick={this.props.onOkModalClick} />
               </div>
             ) : null
           }

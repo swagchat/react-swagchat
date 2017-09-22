@@ -1,7 +1,7 @@
 @value shapes: "../../styles/theme/default/shape.css";
 @value shape-square, shape-square-round, shape-round from shapes;
 @value colors: "../../styles/theme/default/color.css";
-@value color-white, color-grey-alpha, color-primary, color-primary-hover, color-secondary, color-secondary-hover, color-success, color-success-hover, color-danger, color-danger-hover, color-warning, color-warning-hover, color-info, color-info-hover, color-disable, color-disable-hover, color-light, color-light-hover, color-dark, color-dark-hover from colors;
+@value color-white, color-grey-alpha, color-primary, color-primary-border, color-primary-hover, color-secondary, color-seconday-border, color-secondary-hover, color-success, color-success-border, color-success-hover, color-danger, color-danger-border, color-danger-hover, color-warning, color-warning-border, color-warning-hover, color-info, color-info-border, color-info-hover, color-disable, color-disable-border, color-disable-hover, color-light, color-light-border, color-light-hover, color-dark, color-dark-border, color-dark-hover, color-grey, color-grey-border, color-grey-hover from colors;
 
 .root {
   display: flex;
@@ -32,57 +32,92 @@
 
 .root.primary {
   background-color: color-primary;
+  border: 1px solid color-primary-border;
 }
 .root.primary:hover {
   background-color: color-primary-hover;
+  border: 1px solid color-primary-hover;
 }
+
 .root.secondary {
   background-color: color-secondary;
+  border: 1px solid color-secondary-border;
 }
 .root.secondary:hover {
   background-color: color-secondary-hover;
+  border: 1px solid color-secondary-hover;
 }
+
 .root.success {
   background-color: color-success;
+  border: 1px solid color-success-border;
 }
 .root.success:hover {
   background-color: color-success-hover;
+  border: 1px solid color-success-hover;
 }
+
 .root.danger {
   background-color: color-danger;
+  border: 1px solid color-danger-border;
 }
 .root.danger:hover {
   background-color: color-danger-hover;
+  border: 1px solid color-danger-hover;
 }
+
 .root.warning {
   background-color: color-warning;
+  border: 1px solid color-warning-border;
 }
 .root.warning:hover {
   background-color: color-warning-hover;
+  border: 1px solid color-warning-hover;
 }
+
 .root.info {
   background-color: color-info;
+  border: 1px solid color-info-border;
 }
 .root.info:hover {
   background-color: color-info-hover;
+  border: 1px solid color-info-hover;
 }
+
 .root.disable {
   background-color: color-disable;
+  border: 1px solid color-disable-border;
 }
 .root.disable:hover {
   background-color: color-disable-hover;
+  border: 1px solid color-disable-hover;
 }
+
 .root.dark {
   background-color: color-dark;
+  border: 1px solid color-dark-border;
 }
 .root.dark:hover {
   background-color: color-dark-hover;
+  border: 1px solid color-dark-hover;
 }
+
+.root.grey {
+  background-color: color-grey;
+  border: 1px solid color-grey-border;
+}
+.root.grey:hover {
+  background-color: color-grey-hover;
+  border: 1px solid color-grey-hover;
+}
+
 .root.light {
   background-color: color-light;
+  border: 1px solid color-light-border;
 }
 .root.light:hover {
   background-color: color-light-hover;
+  border: 1px solid color-light-hover;
 }
 .root.link-primary,
 .root.link-black {

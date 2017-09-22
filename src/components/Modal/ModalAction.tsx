@@ -59,11 +59,11 @@ export class ModalAction extends React.Component<IModalActionProps, IModalState>
             </div>
           ) : null}
           <p className={styles.component}>{component}</p>
-          <ul className={styles.dialogAction}>
+          <ul className={styles.modalAction}>
             {actions ? actions.map((action, i) =>
               <Button
                 key={'sc-modal-dialog-action-item-' + i}
-                className={styles.dialogActionButton}
+                className={styles.modalActionButton}
                 position="center"
                 text={action.name}
                 onClick={action.onClick}

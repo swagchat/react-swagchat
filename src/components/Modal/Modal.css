@@ -34,7 +34,7 @@
   color: color-white;
 }
 
-.dialog-action {
+.modal-action {
   width: 100%;
   padding: 0;
   margin: 10px 0;
@@ -42,10 +42,15 @@
   align-items: center;
   flex-flow: column nowrap;
 }
-.dialog-action-button {
+.modal-action-button {
   padding: 5px;
   margin: 0 10px;
   width: 80%;
+}
+.modal-button {
+  padding: 5px;
+  margin: 5px;
+  width: 30%;
 }
 
 .view-header {

@@ -7,7 +7,7 @@ export interface IButtonProps extends IRootStyleProps, IOnClickProps {
   text?: string;
   icon?: React.ReactNode;
   shape?: 'square' | 'squareRound' | 'round';
-  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'disable' | 'dark' | 'light' | 'linkPrimary' | 'linkBlack' | 'linkWhite';
+  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'disable' | 'dark' | 'grey' | 'light' | 'linkPrimary' | 'linkBlack' | 'linkWhite';
   position?: 'center' | 'left' | 'right' | 'around' | 'between';
   iconPosition?: 'left' | 'right';
 }
@@ -34,7 +34,7 @@ export class Button extends React.Component<IButtonProps, {}> {
     }
 
     let colorClassName = '';
-    if (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'disable', 'dark', 'light', 'linkPrimary', 'linkBlack', 'linkWhite'].indexOf(color!) >= 0 ) {
+    if (['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'disable', 'dark', 'grey', 'light', 'linkPrimary', 'linkBlack', 'linkWhite'].indexOf(color!) >= 0 ) {
       colorClassName = styles[color!];
     } else {
       colorClassName = styles.primary;
