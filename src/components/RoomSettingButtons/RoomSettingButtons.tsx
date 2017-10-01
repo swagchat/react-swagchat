@@ -7,6 +7,9 @@ import {
   userUnBlockRequestActionDispatch,
   removeRoomUserRequestActionDispatch,
   uploadAssetAndUpdateRoomRequestActionDispatch,
+  MODAL_KEY_BLOCK_USER,
+  MODAL_KEY_EDIT_ROOM,
+  MODAL_KEY_LEAVE_ROOM,
 } from 'swagchat-sdk';
 import {
   Button,
@@ -108,6 +111,7 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                   <Modal
                     ref={(child) => this._confirmBlockModalView = child}
                     buttonPosition="bottom"
+                    modalKey={MODAL_KEY_BLOCK_USER}
                     title={modalDescription}
                     onOkModalClick={this.onBlockItemTap.bind(this)}
                   />
@@ -131,6 +135,7 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                   <Modal
                     ref={(child) => this._editRoomModalView = child}
                     buttonPosition="top"
+                    modalKey={MODAL_KEY_EDIT_ROOM}
                     title="グループ情報編集"
                     component={
                       <RoomEditForm
@@ -152,6 +157,7 @@ export class RoomSettingButtons extends React.Component<IRoomSettingButtonsProps
                   <Modal
                     ref={(child) => this._confirmLeftModalView = child}
                     buttonPosition="bottom"
+                    modalKey={MODAL_KEY_LEAVE_ROOM}
                     title="退出しますか？"
                     onOkModalClick={this.onLeftItemTap.bind(this)}
                   />

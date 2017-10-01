@@ -14,9 +14,6 @@ import * as styles from './room-list-page.css';
 const classNames = require('classnames');
 
 export interface IReduxRoomListProps extends RouteComponentProps<any> {
-  apiKey: string;
-  apiEndpoint: string;
-  userAccessToken: string;
   roomListTitle: string;
   userId: string;
   userRooms: IRoomForUser[];
@@ -46,9 +43,7 @@ class ReduxRoomListPage extends React.Component<IReduxRoomListProps, any> {
 
   render(): JSX.Element  {
     const {userId, userRooms, roomListTitle, roomListItems, customRoomListItems, roomListTabbar, noRoomListText, noRoomListImage, noAvatarImages} = this.props;
-
     const rootClassName = classNames(styles.topBar, roomListTabbar ? styles.tabBar : '');
-
     return (
       <div>
         <TopBar
@@ -81,12 +76,9 @@ class ReduxRoomListPage extends React.Component<IReduxRoomListProps, any> {
 const mapStateToProps = (state: State) => {
   if (state.client.client && state.user.user) {
     return {
-      apiKey: state.client.client!.apiKey,
-      apiEndpoint: state.client.client!.apiEndpoint,
-      userAccessToken: state.user.user!.accessToken,
+      userId: state.user.user.userId,
+      userRooms: state.user.user.rooms,
       roomListTitle: state.setting.roomListTitle,
-      userId: state.user.user!.userId,
-      userRooms: state.user.userRooms,
       roomListItems: state.addon.roomListItems,
       customRoomListItems: state.addon.customRoomListItems,
       noRoomListText: state.setting.noRoomListText,

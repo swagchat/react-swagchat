@@ -4,9 +4,9 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import {
-  setAddonMessageActionCreator,
-  setCustomAddonMessageActionCreator,
-  setAddonRoomListItemActionCreator,
+  setAddonMessageActionDispatch,
+  setCustomAddonMessageActionDispatch,
+  setAddonRoomListItemActionDispatch,
   setRoomListTitleActionCreator,
   setRoomListTabbarActionCreator,
   setNoRoomListTextActionCreator,
@@ -24,9 +24,12 @@ import {
   setMessageRoutePathActionCreator,
   setRoomSettingRoutePathActionCreator,
   setSelectContactRoutePathActionCreator,
-  setAuthParamsActionCreator,
+  setClientActionDispatch,
+  setAuthParamsActionDispatch,
   store,
   routerHistory,
+  IRealtimeConfig,
+  Client,
 } from 'swagchat-sdk';
 import {
   RoomListPage,
@@ -49,6 +52,7 @@ export interface IMessengerProps {
   userAccessToken?: string;
   apiEndpoint: string;
   apiKey?: string;
+  apiSecret?: string;
   rtmProtocol?: string;
   rtmHost?: string;
   rtmPath?: string;
@@ -79,6 +83,7 @@ export class Messenger extends React.Component<IMessengerProps, {}> {
     userAccessToken: '',
     apiEndpoint: '',
     apiKey: '',
+    apiSecret: '',
     rtmProtocol: '',
     rtmHost: '',
     rtmPath: '',
@@ -110,6 +115,7 @@ export class Messenger extends React.Component<IMessengerProps, {}> {
       userAccessToken,
       apiEndpoint,
       apiKey,
+      apiSecret,
       rtmProtocol,
       rtmHost,
       rtmPath,
@@ -136,19 +142,19 @@ export class Messenger extends React.Component<IMessengerProps, {}> {
       new PluginMessageText(),
       new PluginMessageImage(),
     ];
-    store.dispatch(setAddonMessageActionCreator(scMessagePlugins));
+    setAddonMessageActionDispatch(scMessagePlugins);
 
     const scCustomMessagePlugins = route && route.scMessagePlugins ? route.scMessagePlugins : [
       new PluginMessageText(),
       new PluginMessageImage(),
     ];
-    store.dispatch(setCustomAddonMessageActionCreator(scCustomMessagePlugins));
+    setCustomAddonMessageActionDispatch(scCustomMessagePlugins);
 
     const scRoomListItemPlugins = route && route.scRoomListItemPlugins ? route.scRoomListItemPlugins : {
       1: new PluginRoomListItemRoomNameWithMessage(),
       2: new PluginRoomListItemRoomAndUserNameWithMessage(),
     };
-    store.dispatch(setAddonRoomListItemActionCreator(scRoomListItemPlugins));
+    setAddonRoomListItemActionDispatch(scRoomListItemPlugins);
 
     store.dispatch(setRoomListTitleActionCreator(route ? route.roomListTitle : roomListTitle));
     store.dispatch(setRoomListTabbarActionCreator(route ? route.tabbar : tabbar));
@@ -178,14 +184,20 @@ export class Messenger extends React.Component<IMessengerProps, {}> {
       }
       rtmEndpoint = tmpRtmProtocol + '://' + tmpRtmHost + tmpRtmPath;
     }
+    const realtimeConfig: IRealtimeConfig = {
+      endpoint: rtmEndpoint,
+    };
 
-    store.dispatch(setAuthParamsActionCreator(
-      route ? route.apiKey : apiKey,
-      route ? route.apiEndpoint : apiEndpoint,
-      rtmEndpoint,
+    setClientActionDispatch(new Client({
+      apiKey: route ? route.apiKey : apiKey,
+      apiSecret: route ? route.apiSecret : apiSecret,
+      apiEndpoint: route ? route.apiEndpoint : apiEndpoint,
+      realtime: realtimeConfig,
+    }));
+    setAuthParamsActionDispatch(
       route ? route.userId : userId,
       route ? route.userAccessToken : userAccessToken,
-    ));
+    );
   }
 
   render(): JSX.Element {

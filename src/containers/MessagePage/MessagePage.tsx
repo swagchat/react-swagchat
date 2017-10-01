@@ -21,8 +21,6 @@ import {
   fetchMessagesRequestActionDispatch,
   logColor,
   opponentUser,
-  unsubscribeMessage,
-
 } from 'swagchat-sdk';
 import {
   MessageMenu,
@@ -86,7 +84,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
     console.info('%c[ReactSwagChat]Remove scroll EventListener', 'color:' + logColor);
     window.removeEventListener('scroll', this.onScroll);
     updateAddonMessageMenuIndexActionDispatch(0);
-    unsubscribeMessage(this.props.roomState.room!.roomId!);
+    this.props.clientState.currentRoom!.unsubscribeMessage();
   }
 
   onRoomSetting() {

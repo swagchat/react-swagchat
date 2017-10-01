@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { updateModalActionDispatch, store, State } from 'swagchat-sdk';
 import { Button, IRootStyleProps } from '../';
 import * as styles from './modal.css';
 
@@ -8,6 +9,7 @@ export interface IModalAction {
 }
 
 export interface IModalActionProps extends IRootStyleProps {
+  modalKey: string;
   title?: string;
   component: React.ReactNode;
   actions: IModalAction[];
@@ -23,14 +25,8 @@ export class ModalAction extends React.Component<IModalActionProps, IModalState>
     style: {},
   };
 
-  constructor(props: IModalActionProps) {
-    super(props);
-
-    this.state = {isDisplayModal: false};
-  }
-
   onModalClick() {
-    this.setState({isDisplayModal: !this.state.isDisplayModal});
+    updateModalActionDispatch(this.props.modalKey);
   }
 
   onWrapTap(e: any) {
@@ -38,7 +34,9 @@ export class ModalAction extends React.Component<IModalActionProps, IModalState>
   }
 
   render(): JSX.Element {
-    if (!this.state.isDisplayModal) {
+    const state = store.getState() as State;
+    const modal = state.style.modal as any;
+    if (!modal[this.props.modalKey!]) {
       return <div />;
     }
 

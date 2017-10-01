@@ -4,16 +4,16 @@ import { push } from 'react-router-redux';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
+  IUser,
   IRoom,
   State,
   store,
-  IUserState,
-  IRoomState,
   IStyleState,
   ISettingState,
   clearSelectContactsActionDispatch,
   createRoomAndFetchMessagesRequestActionDispatch,
   uploadAssetAndCreateRoomAndFetchMessagesRequestActionDispatch,
+  MODAL_KEY_CREATE_ROOM,
   } from 'swagchat-sdk';
 import {
   TopBar,
@@ -25,8 +25,11 @@ import { RoomEditForm } from '../../components/internal/RoomEditForm/RoomEditFor
 
 export interface IReduxSelectContactProps extends RouteComponentProps<any> {
   title: string;
-  userState: IUserState;
-  roomState: IRoomState;
+  userId: string;
+  contacts: IUser[];
+  selectContacts: {[key: string]: IUser};
+  updateName: string;
+  updatePictureUrl: string;
   styleState: IStyleState;
   settingState: ISettingState;
   selectContactTitle: string;
@@ -42,6 +45,12 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
     clearSelectContactsActionDispatch();
   }
 
+  // componentWillReceiveProps(nextProps: IReduxSelectContactProps) {
+  //   if (nextProps.styleState.isDisplayModal === true) {
+  //     this._createRoomModalView ? this._createRoomModalView.onModalClick() : null;
+  //   }
+  // }
+
   onCloseButton() {
     if (this.props.history) {
       store.dispatch(push(this.props.roomListRoutePath));
@@ -50,12 +59,11 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
 
   onOkButton() {
     const room: IRoom = {
-      userId: this.props.userState.userId,
+      userId: this.props.userId,
       type: 0, // Update in saga
       name: '',
     };
     createRoomAndFetchMessagesRequestActionDispatch(room);
-    this._createRoomModalView ? this._createRoomModalView.onModalClick() : null;
   }
 
   onRoomCreateOkClick = () => {
@@ -63,7 +71,10 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
   }
 
   render(): JSX.Element {
-    const { selectContactTitle, userState, roomState, noContactListText, noContactListImage} = this.props;
+    const { selectContactTitle, contacts, selectContacts, updateName, updatePictureUrl, noContactListText, noContactListImage} = this.props;
+    if (!contacts) {
+      return <div />;
+    }
     return (
       <div>
         <TopBar
@@ -84,8 +95,8 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
           }
         />
         <ContactList
-          contacts={userState.contacts}
-          selectedContacts={userState.selectContacts}
+          contacts={contacts}
+          selectedContacts={selectContacts}
           noContactListText={noContactListText}
           noContactListImage={noContactListImage}
           style={{marginTop: '47px'}}
@@ -93,11 +104,12 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
         <Modal
           ref={(child) => this._createRoomModalView = child}
           buttonPosition="top"
+          modalKey={MODAL_KEY_CREATE_ROOM}
           title="グループ情報登録"
           component={
             <RoomEditForm
-              roomName={roomState.updateName}
-              roomPictureUrl={roomState.updatePictureUrl}
+              roomName={updateName}
+              roomPictureUrl={updatePictureUrl}
             />
           }
           onOkModalClick={this.onRoomCreateOkClick.bind(this)}
@@ -110,8 +122,11 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
 const mapStateToProps = (state: State) => {
   if (state.client.client && state.user.user) {
     return {
-      userState: state.user,
-      roomState: state.room,
+      userId: state.client.client.user.userId,
+      contacts: state.user.contacts,
+      selectContacts: state.user.selectContacts,
+      updateName: state.room.updateName,
+      updatePictureUrl: state.room.updatePictureUrl,
       styleState: state.style,
       settingState: state.setting,
       selectContactTitle: state.setting.selectContactTitle,
