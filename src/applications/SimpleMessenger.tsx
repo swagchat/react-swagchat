@@ -38,7 +38,7 @@ import {
 
 export interface ISimpleMessengerProps {
   userId: string;
-  userAccessToken?: string;
+  accessToken?: string;
   apiEndpoint: string;
   apiKey?: string;
   apiSecret?: string;
@@ -60,7 +60,7 @@ export interface ISimpleMessengerProps {
 export class SimpleMessenger extends React.Component<ISimpleMessengerProps, {}> {
   public static defaultProps: Partial<ISimpleMessengerProps> = {
     userId: '',
-    userAccessToken: '',
+    accessToken: '',
     apiEndpoint: '',
     apiKey: '',
     apiSecret: '',
@@ -84,7 +84,7 @@ export class SimpleMessenger extends React.Component<ISimpleMessengerProps, {}> 
     const {
       route,
       userId,
-      userAccessToken,
+      accessToken,
       apiEndpoint,
       apiKey,
       apiSecret,
@@ -150,7 +150,7 @@ export class SimpleMessenger extends React.Component<ISimpleMessengerProps, {}> 
     }));
     setAuthParamsActionDispatch(
       route ? route.userId : userId,
-      route ? route.userAccessToken : userAccessToken,
+      route ? route.accessToken : accessToken,
     );
   }
 
@@ -172,9 +172,10 @@ export const renderSimpleMessenger = (params: any) => {
   ReactDom.render(
     <SimpleMessenger
       userId={params.userId ? params.userId : ''}
-      userAccessToken={params.userAccessToken ? params.userAccessToken : ''}
+      accessToken={params.accessToken ? params.accessToken : ''}
       apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
       apiKey={params.apiKey ? params.apiKey : ''}
+      apiSecret={params.apiSecret ? params.apiSecret : ''}
       rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
       rtmHost={params.rtmHost ? params.rtmHost : ''}
       rtmPath={params.rtmPath ? params.rtmPath : ''}
