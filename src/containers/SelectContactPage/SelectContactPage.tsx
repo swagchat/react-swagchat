@@ -13,7 +13,6 @@ import {
   clearSelectContactsActionDispatch,
   createRoomAndFetchMessagesRequestActionDispatch,
   uploadAssetAndCreateRoomAndFetchMessagesRequestActionDispatch,
-  MODAL_KEY_CREATE_ROOM,
   } from 'swagchat-sdk';
 import {
   TopBar,
@@ -45,12 +44,6 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
     clearSelectContactsActionDispatch();
   }
 
-  // componentWillReceiveProps(nextProps: IReduxSelectContactProps) {
-  //   if (nextProps.styleState.isDisplayModal === true) {
-  //     this._createRoomModalView ? this._createRoomModalView.onModalClick() : null;
-  //   }
-  // }
-
   onCloseButton() {
     if (this.props.history) {
       store.dispatch(push(this.props.roomListRoutePath));
@@ -64,6 +57,7 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
       name: '',
     };
     createRoomAndFetchMessagesRequestActionDispatch(room);
+    this._createRoomModalView ? this._createRoomModalView.onModalClick() : null;
   }
 
   onRoomCreateOkClick = () => {
@@ -75,6 +69,7 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
     if (!contacts) {
       return <div />;
     }
+
     return (
       <div>
         <TopBar
@@ -101,19 +96,20 @@ class ReduxSelectContact extends React.Component<IReduxSelectContactProps, {}> {
           noContactListImage={noContactListImage}
           style={{marginTop: '47px'}}
         />
-        <Modal
-          ref={(child) => this._createRoomModalView = child}
-          buttonPosition="top"
-          modalKey={MODAL_KEY_CREATE_ROOM}
-          title="グループ情報登録"
-          component={
-            <RoomEditForm
-              roomName={updateName}
-              roomPictureUrl={updatePictureUrl}
-            />
-          }
-          onOkModalClick={this.onRoomCreateOkClick.bind(this)}
-        />
+        {Object.keys(selectContacts).length > 1 ? (
+          <Modal
+            ref={(child) => this._createRoomModalView = child}
+            buttonPosition="top"
+            title="グループ情報登録"
+            component={
+              <RoomEditForm
+                roomName={updateName}
+                roomPictureUrl={updatePictureUrl}
+              />
+            }
+            onOkModalClick={this.onRoomCreateOkClick.bind(this)}
+          />
+        ) : null}
       </div>
     );
   }

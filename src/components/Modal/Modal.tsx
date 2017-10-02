@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { updateModalActionDispatch, store, State } from 'swagchat-sdk';
 import { Button, IRootStyleProps } from '../../components';
 import * as styles from './modal.css';
 const classNames = require('classnames');
 
 export interface IModalProps extends IRootStyleProps {
-  modalKey: string;
   title?: string;
   buttonPosition?: 'top' | 'bottom';
   component?: React.ReactNode;
@@ -28,8 +26,18 @@ export class Modal extends React.Component<IModalProps, IModalState> {
     onOkModalClick: () => {},
   };
 
+  constructor(props: IModalProps) {
+    super(props);
+
+    this.state = {isDisplayModal: false};
+  }
+
   onModalClick() {
-      updateModalActionDispatch(this.props.modalKey);
+    this.setState({isDisplayModal: !this.state.isDisplayModal});
+  }
+
+  onModalForceDisplay() {
+    this.setState({isDisplayModal: true});
   }
 
   onWrapTap(e: Event) {
@@ -37,9 +45,7 @@ export class Modal extends React.Component<IModalProps, IModalState> {
   }
 
   render(): JSX.Element {
-    const state = store.getState() as State;
-    const modal = state.style.modal as any;
-    if (!modal[this.props.modalKey]) {
+    if (!this.state.isDisplayModal) {
       return <div />;
     }
 
@@ -71,11 +77,9 @@ export class Modal extends React.Component<IModalProps, IModalState> {
               return null;
             }
           })()}
-          {component ? (
-            <div className={styles.component}>
-              {component}
-            </div>
-          ) : null}
+          <div className={styles.component}>
+            {component}
+          </div>
           {
             buttonPosition === 'bottom' ? (
               <div className={styles.viewFooter}>
