@@ -52,9 +52,9 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
       return;
     }
     fetchMessagesRequestActionDispatch();
-    if (this.props.messageState.messages) {
-      console.info('%c[ReactSwagChat]Loaded message count [' + Object.keys(this.props.messageState.messages).length + ']', 'color:' + logColor);
-      if (this.props.messageState.messagesAllCount <= Object.keys(this.props.messageState.messages).length) {
+    if (this.props.messageState.messageMap) {
+      console.info('%c[ReactSwagChat]Loaded message count [' + Object.keys(this.props.messageState.messageMap).length + ']', 'color:' + logColor);
+      if (this.props.messageState.messagesAllCount <= Object.keys(this.props.messageState.messageMap).length) {
         this.isReceiveMessagesFinished = true;
       }
     }
@@ -161,7 +161,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
         </div>
         <MessageBody
           myUserId={userState.user!.userId}
-          messages={messageState.messages}
+          messages={messageState.messageMap}
           roomUsers={roomState.roomUsers}
           addonMessages={pluginState.messages}
           customAddonMessages={pluginState.customMessages}
