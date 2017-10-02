@@ -49,7 +49,7 @@ import {
 
 export interface IMessengerProps {
   userId: string;
-  userAccessToken?: string;
+  accessToken?: string;
   apiEndpoint: string;
   apiKey?: string;
   apiSecret?: string;
@@ -80,7 +80,7 @@ export interface IMessengerProps {
 export class Messenger extends React.Component<IMessengerProps, {}> {
   public static defaultProps: Partial<IMessengerProps> = {
     userId: '',
-    userAccessToken: '',
+    accessToken: '',
     apiEndpoint: '',
     apiKey: '',
     apiSecret: '',
@@ -112,7 +112,7 @@ export class Messenger extends React.Component<IMessengerProps, {}> {
     const {
       route,
       userId,
-      userAccessToken,
+      accessToken,
       apiEndpoint,
       apiKey,
       apiSecret,
@@ -196,7 +196,7 @@ export class Messenger extends React.Component<IMessengerProps, {}> {
     }));
     setAuthParamsActionDispatch(
       route ? route.userId : userId,
-      route ? route.userAccessToken : userAccessToken,
+      route ? route.accessToken : accessToken,
     );
   }
 
@@ -220,9 +220,10 @@ export const renderMessenger = (params: any) => {
   ReactDom.render(
     <Messenger
       userId={params.userId ? params.userId : ''}
-      userAccessToken={params.userAccessToken ? params.userAccessToken : ''}
+      accessToken={params.accessToken ? params.accessToken : ''}
       apiEndpoint={params.apiEndpoint ? params.apiEndpoint : ''}
       apiKey={params.apiKey ? params.apiKey : ''}
+      apiSecret={params.apiSecret ? params.apiSecret : ''}
       rtmProtocol={params.rtmProtocol ? params.rtmProtocol : ''}
       rtmHost={params.rtmHost ? params.rtmHost : ''}
       rtmPath={params.rtmPath ? params.rtmPath : ''}
