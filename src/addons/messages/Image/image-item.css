@@ -1,5 +1,9 @@
 @value size: "../../../styles/theme/default/size.css";
 @value size-message-item-avatar from size;
+@value shape: "../../../styles/theme/default/shape.css";
+@value shape-round from shape;
+@value colors: "../../../styles/theme/default/color.css";
+@value color-grey-alpha from colors;
 
 .avatar {
   border-radius: 50%;
@@ -15,20 +19,18 @@
   color: #212121;
   font-weight: 100,
 }
-.message-left {
-  width: 50%;
-  margin: 5px 10px 5px 60px;
-  border-radius: 20px;
+.message {
+  border-radius: shape-round;
   clear: both;
+}
+.message.left {
+  margin: 5px 10px 5px 60px;
   float: left;
 }
-.message-right {
-  width: 50%;
+.message.right {
   position: relative;
   margin: 10px 0px 5px 10px;
   right: 10px;
-  border-radius: 20px;
-  clear: both;
   float: right;
 }
 .time-left {
@@ -47,4 +49,12 @@
 .clear {
   clear: both;
   margin-bottom: 30px;
+}
+.progress {
+  padding: 50px 0;
+  border: 1px solid color-grey-alpha;
+  border-radius: shape-round;
+}
+.progress-left {
+  margin-left: 10px;
 }

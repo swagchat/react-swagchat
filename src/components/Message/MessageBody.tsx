@@ -20,6 +20,7 @@ export interface IMessageBodyProps extends IRootStyleProps {
   customAddonMessages?:  IAddonMessage[];
   noMessageImage?: string;
   noMessageText?: string;
+  onRenderComplete?: () => {};
 }
 
 export class MessageBody extends React.Component<IMessageBodyProps, {}> {
@@ -62,6 +63,7 @@ export class MessageBody extends React.Component<IMessageBodyProps, {}> {
                 message={messages[messageId]}
                 user={roomUsers![messages[messageId].userId]}
                 myUserId={myUserId}
+                onRenderComplete={this.props.onRenderComplete}
               />
             );
           }

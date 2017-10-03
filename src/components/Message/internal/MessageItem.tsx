@@ -7,6 +7,7 @@ export interface IMessageItemProps {
   message: IMessage;
   user: IUserForRoom;
   myUserId: string;
+  onRenderComplete?: () => {};
 }
 
 export class MessageItem extends React.Component<IMessageItemProps, {}> {
@@ -19,6 +20,7 @@ export class MessageItem extends React.Component<IMessageItemProps, {}> {
             message: this.props.message,
             user: this.props.user,
             myUserId: this.props.myUserId,
+            onRenderComplete: this.props.onRenderComplete,
           }
         );
         return;
