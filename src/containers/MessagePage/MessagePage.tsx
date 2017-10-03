@@ -44,8 +44,9 @@ export interface IReduxMessageProps extends RouteComponentProps<any> {
 }
 
 export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
-  private isReceiveMessagesFinished = false;
-  private onScroll: EventListener;
+  private _isReceiveMessagesFinished = false;
+  private _onScroll: EventListener;
+  private _previousBodyHeight = 0;
 
   private updateMessages = () => {
     if (!this.props.roomState.room) {
@@ -55,34 +56,51 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
     if (this.props.messageState.messageMap) {
       console.info('%c[ReactSwagChat]Loaded message count [' + Object.keys(this.props.messageState.messageMap).length + ']', 'color:' + logColor);
       if (this.props.messageState.messagesAllCount <= Object.keys(this.props.messageState.messageMap).length) {
-        this.isReceiveMessagesFinished = true;
+        this._isReceiveMessagesFinished = true;
       }
     }
   }
 
-  private handleScroll = () => {
-    if (this.isReceiveMessagesFinished) {
+  private _scrollBottom = () => {
+    const scrollPosition = document.documentElement.scrollTop === 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+    if (this._previousBodyHeight - scrollPosition < 200) {
+      const state: State = store.getState();
+      Scroll.animateScroll.scrollToBottom({duration: state.message.scrollBottomAnimationDuration});
+      this._previousBodyHeight = document.documentElement.offsetHeight - document.documentElement.clientHeight;
+    }
+  }
+
+  private _handleScroll = () => {
+    const scrollPosition = document.documentElement.scrollTop === 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+    if (this._isReceiveMessagesFinished) {
       console.info('%c[ReactSwagChat]Remove scroll EventListener', 'color:' + logColor);
-      window.removeEventListener('scroll', this.onScroll);
+      window.removeEventListener('scroll', this._onScroll);
       return;
     }
-    const scrollPosition = document.documentElement.scrollTop === 0 ? document.body.scrollTop : document.documentElement.scrollTop;
     if (scrollPosition < 100) {
       this.updateMessages();
     }
   }
 
   componentDidMount() {
-    this.onScroll = throttle(this.handleScroll, 100);
+    this._onScroll = throttle(this._handleScroll, 100);
     console.info('%c[ReactSwagChat]Add scroll EventListener', 'color:' + logColor);
-    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('scroll', this._onScroll);
     updateAddonMessageMenuIndexActionDispatch(0);
-    Scroll.animateScroll.scrollToBottom({duration: 0});
+  }
+
+  componentDidUpdate() {
+    const state: State = store.getState();
+    const pathname = state.router.location!.pathname;
+    let messagePathRegExp = state.setting.messageRoutePath ? pathname.match(new RegExp('^' + state.setting.messageRoutePath)) : null;
+    if (messagePathRegExp) {
+      this._scrollBottom();
+    }
   }
 
   componentWillUnmount() {
     console.info('%c[ReactSwagChat]Remove scroll EventListener', 'color:' + logColor);
-    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('scroll', this._onScroll);
     updateAddonMessageMenuIndexActionDispatch(0);
     this.props.clientState.currentRoom!.unsubscribeMessage();
   }
@@ -91,6 +109,10 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
     if (this.props.history) {
       store.dispatch(push(this.props.settingState.roomSettingRoutePath + '/' + this.props.roomState.room!.roomId));
     }
+  }
+
+  onRenderComplete = () => {
+    this._scrollBottom();
   }
 
   render(): JSX.Element  {
@@ -167,6 +189,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           customAddonMessages={pluginState.customMessages}
           noMessageImage={settingState.noMessageImage}
           noMessageText={settingState.noMessageText}
+          onRenderComplete={this.onRenderComplete.bind(this)}
         />
         <div className={classNames(styles.menu, styles.bottom)} style={styleState.messageBodyMenuStyle}>
           <MessageMenu
