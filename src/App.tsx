@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { ConnectedRouter } from 'react-router-redux';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { store, routerHistory } from './store';
-import Component1 from './component/Component1';
+import Main from './component/Main';
 import Login from './component/Login/Login';
 
 const theme = createMuiTheme({
@@ -32,20 +32,10 @@ class App extends React.Component {
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
           <ConnectedRouter history={routerHistory}>
-            <div>
-              <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/topics">Topics</Link></li>
-                <li><Link to="/login">login</Link></li>
-              </ul>
-              <Switch>
-                <Route exact={true} path="/" render={() => (<Component1 name="home" />)} />
-                <Route exact={true} path="/about" render={() => (<Component1 name="about" />)} />
-                <Route exact={true} path="/topics" render={() => (<Component1 name="topics" />)} />
-                <Route exact={true} path="/login" render={() => (<Login />)} />
-              </Switch>
-            </div>
+            <Switch>
+              <Route exact={true} path="/" render={() => (<Main />)} />
+              <Route exact={true} path="/login" render={() => (<Login />)} />
+            </Switch>
           </ConnectedRouter>
         </Provider>
       </MuiThemeProvider>

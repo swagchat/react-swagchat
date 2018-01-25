@@ -13,6 +13,7 @@ import { UserActions, loginRequestActionCreator, LoginRequestAction } from '../.
 import { State } from '../../store';
 import { User } from '../../store/user';
 import { ErrorResponse, InvalidParam } from '../../protogen/errorResponse_pb';
+import Cookie from '../../util/cookie';
 
 type positionType = 'absolute';
 type flexWrapType = 'wrap';
@@ -59,6 +60,7 @@ class Login extends React.Component<Props & WithStyles<ClassNames>, {}> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.user !== null) {
+      new Cookie().write('jwt', 'true');
       store.dispatch(push('/'));
     } else if (nextProps.errorResponse !== null) {
       this.setState({
@@ -70,6 +72,10 @@ class Login extends React.Component<Props & WithStyles<ClassNames>, {}> {
   }
 
   componentDidMount() {
+    const jwt = new Cookie().read('jwt');
+    if (jwt !== null) {
+      store.dispatch(push('/'));
+    }
     document.body.style.backgroundColor = lightBlue[700];
   }
 

@@ -3,7 +3,7 @@ import sagaMiddlewareFactory from 'redux-saga';
 import { SagaMiddleware } from 'redux-saga';
 import { routerMiddleware, routerReducer, RouterState } from 'react-router-redux';
 import { History } from 'history';
-import createHistory from 'history/createHashHistory';
+import createHistory from 'history/createBrowserHistory';
 import { Store, createStore, combineReducers, applyMiddleware, Middleware } from 'redux';
 
 import { UserState } from './user';
