@@ -1,0 +1,13 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "protobuf",
+      "type": "shell",
+      "command": "protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --js_out=import_style=commonjs,binary:src/protogen --ts_out=service=true:src/protogen -I ./src/proto src/proto/*.proto",
+      "problemMatcher": []
+    }
+  ]
+}
