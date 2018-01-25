@@ -6,6 +6,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { store, routerHistory } from './store';
 import Main from './component/Main';
 import Login from './component/Login';
+import Component1 from './component/Component1';
 
 const theme = createMuiTheme({
   palette: {
@@ -33,7 +34,7 @@ class App extends React.Component {
         <Provider store={store}>
           <ConnectedRouter history={routerHistory}>
             <Switch>
-              <Route exact={true} path="/" render={() => (<Main />)} />
+              <Route exact={true} path="/" render={() => (<Main component={<Component1 name="test" />} />)} />
               <Route exact={true} path="/login" render={() => (<Login />)} />
             </Switch>
           </ConnectedRouter>

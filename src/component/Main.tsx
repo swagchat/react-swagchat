@@ -15,7 +15,14 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props {
+  component?: React.ReactNode;
+}
+
+interface MapStateToProps {
   user: User | null;
+}
+
+interface MapDispatchToProps {
   loginRequestActionCreator: (username: string, password: string) => LoginRequestAction;
 }
 
@@ -23,7 +30,7 @@ type ClassNames =
   'root'
 ;
 
-class Main extends React.Component<Props & WithStyles<ClassNames>, {}> {
+class Main extends React.Component<Props & WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps, {}> {
   state = {
   };
 
@@ -40,24 +47,24 @@ class Main extends React.Component<Props & WithStyles<ClassNames>, {}> {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, component } = this.props;
 
     return (
       <div className={classes.root}>
-        <h1>main</h1>
+        {component}
         <Button raised={true} onClick={this.logout}>logout</Button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: State, ownProps: Props) => {
   return {
     user: state.user.user,
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UserActions>) => {
+const mapDispatchToProps = (dispatch: Dispatch<UserActions>, ownProps: Props) => {
   return {
     loginRequestActionCreator: (username: string, password: string) => {
       dispatch(loginRequestActionCreator(username, password));
@@ -65,7 +72,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UserActions>) => {
   };
 };
 
-export default connect(
+export default connect<MapStateToProps, MapDispatchToProps, Props>(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles, { withTheme: true })<Props>(Main));
+)(withStyles(styles, { withTheme: true })(Main));

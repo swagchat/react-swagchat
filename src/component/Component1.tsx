@@ -11,15 +11,21 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export interface Props {
+interface Props {
   name?: string;
+}
+
+interface MapStateToProps {
+}
+
+interface MapDispatchToProps {
 }
 
 type ClassNames = 
   'root'
 ;
 
-class Component1 extends React.Component<Props & WithStyles<ClassNames>, {}> {
+class Component1 extends React.Component<Props & WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps, {}> {
   render() {
     const { classes, name } = this.props;
 
@@ -39,7 +45,7 @@ const mapDispatchToProps = (dispatch: {}, ownProps: Props) => {
   return {};
 };
 
-export default connect(
+export default connect<MapStateToProps, MapDispatchToProps, Props>(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles, { withTheme: true })<Props>(Component1));
+)(withStyles(styles, { withTheme: true })(Component1));
