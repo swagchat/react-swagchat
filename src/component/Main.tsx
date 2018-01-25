@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
 import { UserActions, loginRequestActionCreator, LoginRequestAction } from '../action/user';
 import { store, State } from '../store';
 import { User } from '../store/user';
@@ -33,12 +34,18 @@ class Main extends React.Component<Props & WithStyles<ClassNames>, {}> {
     }
   }
 
+  logout() {
+    new Cookie().remove('jwt');
+    store.dispatch(push('/login'));
+  }
+
   render() {
     const { classes } = this.props;
 
     return (
       <div className={classes.root}>
         <h1>main</h1>
+        <Button raised={true} onClick={this.logout}>logout</Button>
       </div>
     );
   }
