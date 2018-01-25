@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package proto;
+
+message InvalidParam {
+  string name = 1;
+  string reason = 2;
+}
+
+message ErrorResponse{
+  string code = 1;
+  string title = 2;
+  string message = 3;
+  repeated InvalidParam invalidParams = 4;
+}
