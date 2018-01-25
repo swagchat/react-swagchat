@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { store, routerHistory } from './store';
 import Main from './component/Main';
-import Login from './component/Login/Login';
+import Login from './component/Login';
 
 const theme = createMuiTheme({
   palette: {
