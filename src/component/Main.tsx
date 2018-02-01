@@ -14,9 +14,9 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props {
-  component?: React.ReactNode;
-}
+type ClassNames = 
+  'root'
+;
 
 interface MapStateToProps {
   user: User | null;
@@ -26,11 +26,11 @@ interface MapDispatchToProps {
   loginRequestActionCreator: (username: string, password: string) => LoginRequestAction;
 }
 
-type ClassNames = 
-  'root'
-;
+interface Props {
+  component?: React.ReactNode;
+}
 
-class Main extends React.Component<Props & WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps, {}> {
+class Main extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
   state = {
   };
 

@@ -11,9 +11,9 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props {
-  name?: string;
-}
+type ClassNames = 
+  'root'
+;
 
 interface MapStateToProps {
 }
@@ -21,11 +21,11 @@ interface MapStateToProps {
 interface MapDispatchToProps {
 }
 
-type ClassNames = 
-  'root'
-;
+interface Props {
+  name?: string;
+}
 
-class Component1 extends React.Component<Props & WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps, {}> {
+class Component1 extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
   render() {
     const { classes, name } = this.props;
 

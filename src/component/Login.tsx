@@ -39,18 +39,24 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props {
-  user: User;
-  errorResponse: ErrorResponse;
-  loginRequestActionCreator: (username: string, password: string) => LoginRequestAction;
-}
-
 type ClassNames = 
   'loginWrap' |
   'form'
 ;
 
-class Login extends React.Component<Props & WithStyles<ClassNames>, {}> {
+interface MapStateToProps {
+  user: User | null;
+  errorResponse: ErrorResponse | null;
+}
+
+interface MapDispatchToProps {
+  loginRequestActionCreator: (username: string, password: string) => LoginRequestAction;
+}
+
+interface Props {
+}
+
+class Login extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
   state = {
     error: false,
     username: '',
@@ -58,7 +64,7 @@ class Login extends React.Component<Props & WithStyles<ClassNames>, {}> {
     errorResponse: null,
   };
 
-  componentWillReceiveProps(nextProps: Props) {
+  componentWillReceiveProps(nextProps: MapStateToProps) {
     if (nextProps.user !== null) {
       new Cookie().write('jwt', 'true');
       store.dispatch(push('/'));
@@ -179,7 +185,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UserActions>) => {
   };
 };
 
-export default connect(
+export default connect<MapStateToProps, MapDispatchToProps, Props>(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles, { withTheme: true })<Props>(Login));
+)(withStyles(styles, { withTheme: true })(Login));
