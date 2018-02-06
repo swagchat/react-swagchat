@@ -5,7 +5,7 @@
 
 swagchat is an open source chat components for your webapps.
 
-This is UIKit for [Chat API](http://github.com/fairway-corp/swagchat-chat-api)
+This is UIKit for [Chat API](http://github.com/swagchat/chat-api)
 
 ![Architecture](https://client.fairway.ne.jp/swagchat/img/uikit-messenger-20170920.png "Architecture")
 
@@ -15,9 +15,9 @@ This is UIKit for [Chat API](http://github.com/fairway-corp/swagchat-chat-api)
 
 ##### Related repositories
 
-* [Chat API](https://github.com/fairway-corp/swagchat-chat-api)
-* [RTM API (Real Time Messaging API)](https://github.com/fairway-corp/swagchat-rtm-api)
-* [SDK (TypeScript & JavaScript)](https://github.com/swagchat/swagchat-sdk-js)
+* [Chat API](https://github.com/swagchat/chat-api)
+* [RTM API (Real Time Messaging API)](https://github.com/swagchat/rtm-api)
+* [SDK (TypeScript & JavaScript)](https://github.com/swagchat/sdk-js)
 
 
 ## Installation
