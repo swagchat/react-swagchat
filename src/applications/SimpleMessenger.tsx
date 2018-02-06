@@ -159,8 +159,8 @@ export class SimpleMessenger extends React.Component<ISimpleMessengerProps, {}> 
       <Provider store={store}>
         <ConnectedRouter history={routerHistory}>
           <Switch>
-            <Route path={store.getState().setting.messageRoutePath + '/:messageId'} component={MessagePage} />
-            <Route path={store.getState().setting.roomSettingRoutePath + '/:roomId'} component={RoomSettingPage} />
+            <Route path={store.getState().setting.client.messageRoutePath + '/:messageId'} component={MessagePage} />
+            <Route path={store.getState().setting.client.roomSettingRoutePath + '/:roomId'} component={RoomSettingPage} />
           </Switch>
         </ConnectedRouter>
       </Provider>

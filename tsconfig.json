@@ -22,8 +22,10 @@
     "typeRoots" : ["./node_modules/@types"],
     "baseUrl": ".",
     "paths": {
+      "webaudioapi": ["customTypes/webaudioapi"],
       "react-router": ["customTypes/react-router"],
-      "react-router-redux": ["customTypes/react-router-redux"]
+      "react-router-redux": ["customTypes/react-router-redux"],
+      "watson-speech/speech-to-text/recognize-microphone": ["customTypes/watson-speech/"]
     }
   },
   "compileOnSave": false,

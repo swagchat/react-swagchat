@@ -92,7 +92,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
   componentDidUpdate() {
     const state: State = store.getState();
     const pathname = state.router.location!.pathname;
-    let messagePathRegExp = state.setting.messageRoutePath ? pathname.match(new RegExp('^' + state.setting.messageRoutePath)) : null;
+    let messagePathRegExp = state.setting.client!.messageRoutePath ? pathname.match(new RegExp('^' + state.setting.client!.messageRoutePath)) : null;
     if (messagePathRegExp) {
       this._scrollBottom();
     }
@@ -107,7 +107,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
 
   onRoomSetting() {
     if (this.props.history) {
-      store.dispatch(push(this.props.settingState.roomSettingRoutePath + '/' + this.props.roomState.room!.roomId));
+      store.dispatch(push(this.props.settingState.client!.roomSettingRoutePath + '/' + this.props.roomState.room!.roomId));
     }
   }
 
@@ -153,7 +153,7 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           }
           rightButton={
             <Avatar
-              src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]}
+              src={pictureUrl ? pictureUrl : settingState.server!.values.noAvatarImages[0]}
               className={styles.topBarAvatar}
               onClick={this.onRoomSetting.bind(this)}
             />
@@ -187,8 +187,8 @@ export class ReduxMessage extends React.Component<IReduxMessageProps, {}> {
           roomUsers={roomState.roomUsers}
           addonMessages={pluginState.messages}
           customAddonMessages={pluginState.customMessages}
-          noMessageImage={settingState.noMessageImage}
-          noMessageText={settingState.noMessageText}
+          noMessageImage={settingState.server!.values.noMessageImage}
+          noMessageText={settingState.server!.values.noMessageText}
           onRenderComplete={this.onRenderComplete.bind(this)}
         />
         <div className={classNames(styles.menu, styles.bottom)} style={styleState.messageBodyMenuStyle}>

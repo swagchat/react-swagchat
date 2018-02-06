@@ -1,13 +1,15 @@
 @value colors: "../../../styles/theme/default/color.css";
 @value color-primary, color-disable from colors;
 
+.root {
+  display: flex;
+}
 .root.bottom {
   background-color: #fff;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
-  display: flex;
   justify-content: flex-start;
   align-items: center;
 }
@@ -16,7 +18,6 @@
   overflow-y: hidden;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
-  display: flex;
   justify-content: space-around;
   align-items: center;
   height: 3rem;

@@ -1,0 +1,27 @@
+.confirm-wrap {
+  margin-top: 10px;
+  height: 35px;
+  display: block;
+  width: 100%;
+  background-color: rgba(250, 250, 250, 0.9);
+  text-align: center;
+  z-index: 10000;
+  position: fixed;
+  left: 0;
+}
+.confirm-wrap.top {
+  top: 38px;
+}
+.confirm-wrap.bottom {
+  bottom: 55px;
+}
+.confirm-image {
+  height: 40px;
+  width: 100%;
+}
+.close-icon {
+  display: inline-block;
+  position: fixed;
+  margin-top: 10px;
+  right: 10px;
+}

@@ -78,16 +78,16 @@ const mapStateToProps = (state: State) => {
     return {
       userId: state.user.user.userId,
       userRooms: state.user.user.rooms,
-      roomListTitle: state.setting.roomListTitle,
+      roomListTitle: state.setting.server!.values.roomListTitle,
       roomListItems: state.addon.roomListItems,
       customRoomListItems: state.addon.customRoomListItems,
-      noRoomListText: state.setting.noRoomListText,
-      noRoomListImage: state.setting.noRoomListImage,
-      noAvatarImages: state.setting.noAvatarImages,
-      roomListRoutePath: state.setting.roomListRoutePath,
-      messageRoutePath: state.setting.messageRoutePath,
-      selectContactRoutePath: state.setting.selectContactRoutePath,
-      roomListTabbar: state.setting.roomListTabbar,
+      noRoomListText: state.setting.server!.values.noRoomListText,
+      noRoomListImage: state.setting.server!.values.noRoomListImage,
+      noAvatarImages: state.setting.server!.values.noAvatarImages,
+      roomListRoutePath: state.setting.client!.roomListRoutePath,
+      messageRoutePath: state.setting.client!.messageRoutePath,
+      selectContactRoutePath: state.setting.client!.selectContactRoutePath,
+      roomListTabbar: state.setting.client!.roomListTabbar,
     };
   }
   return {};

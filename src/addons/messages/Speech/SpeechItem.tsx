@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { dateFormateHHMM, IAddonMessageItemProps, ITextPayload } from 'swagchat-sdk';
 import { Avatar } from '../../../components';
-import * as styles from './text-item.css';
+import * as styles from './speech-item.css';
 
-export class TextItem extends React.Component<IAddonMessageItemProps, {}> {
+export class SpeechItem extends React.Component<IAddonMessageItemProps, {}> {
   render(): JSX.Element {
     const { message, myUserId, user } = this.props;
     const payload = message.payload as ITextPayload;
     let splitMessage = payload.text.split('\n');
     let displayText = new Array;
     splitMessage.forEach((value, index) => {
-      displayText.push(<span key={'text-item-' + message.messageId + '-' + index}>{value}<br /></span>);
+      displayText.push(<span key={'web-speech-item-' + message.messageId + '-' + index}>{value}<br /></span>);
     });
-
     return (
       <div className={styles.root}>
         {user.userId === myUserId ? (

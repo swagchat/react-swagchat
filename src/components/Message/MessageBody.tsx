@@ -47,7 +47,10 @@ export class MessageBody extends React.Component<IMessageBodyProps, {}> {
           let messageItems = new Array;
           let workMMDD = '';
           let itemMMDD = '';
-          for (const messageId in messages) {
+
+          const keys = Object.keys(messages);
+          for (let i = 0; i < keys.length; i++) {
+            let messageId = keys[i];
             itemMMDD = dateFormateMMDD(messages[messageId].created!);
             if (workMMDD !== itemMMDD) {
               messageItems.push(
@@ -64,6 +67,7 @@ export class MessageBody extends React.Component<IMessageBodyProps, {}> {
                 user={roomUsers![messages[messageId].userId]}
                 myUserId={myUserId}
                 onRenderComplete={this.props.onRenderComplete}
+                isLast={(keys.length - 1) === i ? true : false}
               />
             );
           }

@@ -66,7 +66,7 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
     return (
       <div className={rootClassName}>
         <TopBar
-          title={settingState.roomSettingTitle}
+          title={settingState.server!.values.roomSettingTitle}
           leftButton={
             <Button
               icon={<i className="material-icons">keyboard_arrow_left</i>} onClick={history.goBack}
@@ -81,19 +81,19 @@ class ReduxRoomSetting extends React.Component<IReduxRoomSettingProps, {}> {
           shape="square"
           className={styles.roomButton}
           text={name}
-          icon={<Avatar src={pictureUrl ? pictureUrl : settingState.noAvatarImages[0]} style={{width: '80px', height: '80px'}} />}
+          icon={<Avatar src={pictureUrl ? pictureUrl : settingState.server!.values.noAvatarImages[0]} style={{width: '80px', height: '80px'}} />}
         />
         <RoomSettingButtons
           userId={userState.user!.userId}
           userBlocks={userBlocks}
           room={roomState.room}
-          noAvatarImages={settingState.noAvatarImages}
+          noAvatarImages={settingState.server!.values.noAvatarImages}
           displayNoDataText="No contacts."
           onItemTap={this.onItemTap.bind(this)}
         />
         {(roomState.room!.type !== RoomType.ONE_ON_ONE && roomState.room!.isShowUsers && roomState.room!.type !== RoomType.NOTICE_ROOM) ? (
           <div className={indexStyles.layoutBox1}>
-            <SubTitleBar title={settingState.roomMembersTitle} />
+            <SubTitleBar title={settingState.server!.values.roomMembersTitle} />
             {roomState.room!.users!.map((user, i) =>
               <Button
                 key={'member-list-item-' + i}

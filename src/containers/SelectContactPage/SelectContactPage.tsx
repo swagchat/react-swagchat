@@ -125,10 +125,10 @@ const mapStateToProps = (state: State) => {
       updatePictureUrl: state.room.updatePictureUrl,
       styleState: state.style,
       settingState: state.setting,
-      selectContactTitle: state.setting.selectContactTitle,
-      noContactListText: state.setting.noContactListText,
-      noContactListImage: state.setting.noContactListImage,
-      roomListRoutePath: state.setting.roomListRoutePath,
+      selectContactTitle: state.setting.server!.values.selectContactTitle,
+      noContactListText: state.setting.server!.values.noContactListText,
+      noContactListImage: state.setting.server!.values.noContactListImage,
+      roomListRoutePath: state.setting.client!.roomListRoutePath,
     };
   }
   return {};

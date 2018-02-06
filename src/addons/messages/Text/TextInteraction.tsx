@@ -7,7 +7,10 @@ import {
   sendMessagesRequestActionDispatch,
   isIphone,
   updateMessageBodyMenuStyleActionDispatch,
-  IMessageBodyMenuStyle
+  IMessageBodyMenuStyle,
+  updateAddonMessageMenuIndexActionDispatch,
+  store,
+  State,
 } from 'swagchat-sdk';
 import { Button } from '../../../components';
 import { settings } from '../../../settings';
@@ -131,6 +134,12 @@ export class TextInteraction extends React.Component<IAddonMessageInteractionPro
 
   onTextareaFocus() {
     console.log('onTextareaFocus', isIphone());
+    const state: State = store.getState();
+    state.addon.messages.map((messageAddon, i) => {
+      if (messageAddon.name === 'text') {
+        updateAddonMessageMenuIndexActionDispatch(i);
+      }
+    });
     if (isIphone()) {
       // updateMessageBodyMenuStyleActionDispatch({paddingBottom: '45px'});
     }

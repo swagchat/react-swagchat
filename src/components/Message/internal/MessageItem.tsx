@@ -8,6 +8,7 @@ export interface IMessageItemProps {
   user: IUserForRoom;
   myUserId: string;
   onRenderComplete?: () => {};
+  isLast: boolean;
 }
 
 export class MessageItem extends React.Component<IMessageItemProps, {}> {
@@ -21,6 +22,7 @@ export class MessageItem extends React.Component<IMessageItemProps, {}> {
             user: this.props.user,
             myUserId: this.props.myUserId,
             onRenderComplete: this.props.onRenderComplete,
+            isLast: this.props.isLast,
           }
         );
         return;

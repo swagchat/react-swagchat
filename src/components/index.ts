@@ -9,6 +9,7 @@ export { MessageMenu } from './Message/internal/MessageMenu';
 export { Modal } from './Modal/Modal';
 export { ModalAction, IModalAction } from './Modal/ModalAction';
 export { PhotoEdit } from './PhotoEdit/PhotoEdit';
+export { Progress } from './Progress/Progress';
 export { RoomList, IRoomListProps } from './RoomList/RoomList';
 export { RoomSettingButtons, IRoomSettingButtonsProps } from './RoomSettingButtons/RoomSettingButtons';
 export { SubTitleBar } from './SubTitleBar/SubTitleBar';
