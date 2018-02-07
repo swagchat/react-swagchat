@@ -3,10 +3,14 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { Client, IRealtimeConfig } from 'swagchat-sdk';
 import { store, routerHistory } from './store';
 import Main from './component/Main';
-import Login from './component/Login';
-import Component1 from './component/Component1';
+import { Container1 } from './component/Component1';
+import { RoomList } from './component/RoomList/RoomList';
+import { Swagchat } from './component/Swagchat';
+import { setClientActionCreator, setAuthParamsActionCreator } from './action/client';
+import { fetchUserRequestActionCreator } from './action/user';
 
 const theme = createMuiTheme({
   palette: {
@@ -28,14 +32,38 @@ const theme = createMuiTheme({
 });
 
 class App extends React.Component {
+  constructor(props: {}, context: {}) {
+    super(props, context);
+
+    const realtimeConfig: IRealtimeConfig = {
+      endpoint: 'ws://localhost:9100/v0',
+    };
+
+    store.dispatch(setClientActionCreator(
+      new Client({
+        apiKey: '',
+        apiSecret: '',
+        apiEndpoint: 'http://localhost:8000/v0',
+        realtime: realtimeConfig,
+      })
+    ));
+
+    store.dispatch(setAuthParamsActionCreator(
+      '00581ea9-3547-4c81-930c-a3ed042e4b21',
+      'dummy-token',
+    ));
+
+    store.dispatch(fetchUserRequestActionCreator());
+  }
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
           <ConnectedRouter history={routerHistory}>
             <Switch>
-              <Route exact={true} path="/" render={() => (<Main component={<Component1 name="test" />} />)} />
-              <Route exact={true} path="/login" render={() => (<Login />)} />
+              <Route exact={true} path="/" render={() => (<Main component={<Container1 name="test" />} />)} />
+              <Route exact={true} path="/roomList" render={() => (<Swagchat inner={<RoomList />} />)} />
             </Switch>
           </ConnectedRouter>
         </Provider>

@@ -21,7 +21,7 @@ interface MapStateToProps {
 interface MapDispatchToProps {
 }
 
-interface Props {
+export interface Props {
   name?: string;
 }
 
@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch: {}, ownProps: Props) => {
   return {};
 };
 
-export default connect<MapStateToProps, MapDispatchToProps, Props>(
+export const Container1 = connect<MapStateToProps, MapDispatchToProps, Props>(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles, { withTheme: true })(Component1));

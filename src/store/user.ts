@@ -1,25 +1,10 @@
-// import { ErrorResponse } from './';
-import { ErrorResponse } from '../protogen/errorResponse_pb';
+import { IUser, IRoomForUser } from 'swagchat-sdk';
 
 export interface UserState {
-  currentUserID: string;
-  users: User[] | null;
-  user: User | null;
-  errorResponse: ErrorResponse | null;
-}
-
-export interface User {
-  userID: string;
-  name: string;
-}
-
-export interface UserResponse {
-  user: User | null;
-  errorResponse: ErrorResponse | null;
-}
-
-export interface UsersResponse {
-  allCouunt: number;
-  users: User[] | null;
-  errorResponse: ErrorResponse | null;
+  user: IUser | null;
+  userRooms: {[key: string]: IRoomForUser} | null;
+  users: IUser[];
+  contacts: IUser[];
+  selectContacts: {[key: string]: IUser};
+  blocks: string[];
 }

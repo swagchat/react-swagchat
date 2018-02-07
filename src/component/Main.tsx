@@ -3,10 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
-import { UserActions, loginRequestActionCreator, LoginRequestAction } from '../action/user';
 import { store, State } from '../store';
-import { User } from '../store/user';
 import Cookie from '../util/cookie';
 
 const styles = (theme: Theme) => ({
@@ -19,14 +16,12 @@ type ClassNames =
 ;
 
 interface MapStateToProps {
-  user: User | null;
 }
 
 interface MapDispatchToProps {
-  loginRequestActionCreator: (username: string, password: string) => LoginRequestAction;
 }
 
-interface Props {
+export interface Props {
   component?: React.ReactNode;
 }
 
@@ -52,24 +47,18 @@ class Main extends React.Component<WithStyles<ClassNames> & MapStateToProps & Ma
     return (
       <div className={classes.root}>
         {component}
-        <Button raised={true} onClick={this.logout}>logout</Button>
+        <a onClick={this.logout}>logout</a>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state: State, ownProps: Props) => {
-  return {
-    user: state.user.user,
-  };
+  return {};
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UserActions>, ownProps: Props) => {
-  return {
-    loginRequestActionCreator: (username: string, password: string) => {
-      dispatch(loginRequestActionCreator(username, password));
-    },
-  };
+const mapDispatchToProps = (dispatch: Dispatch<{}>, ownProps: Props) => {
+  return {};
 };
 
 export default connect<MapStateToProps, MapDispatchToProps, Props>(

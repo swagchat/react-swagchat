@@ -1,58 +1,55 @@
-import { takeLatest, call, put, ForkEffect } from 'redux-saga/effects';
-// import { push } from 'react-router-redux';
-// import { InvalidParam } from '../store';
-import { InvalidParam, ErrorResponse } from '../protogen/errorResponse_pb';
+import { takeLatest, call, put, ForkEffect, select } from 'redux-saga/effects';
+import { State } from '../store';
 
 import {
-  UserResponse,
-} from '../store/user';
+  IFetchUserResponse,
+  IRoomForUser,
+  opponentUser,
+} from 'swagchat-sdk';
 import {
-  LOGIN_REQUEST,
-  LoginRequestAction,
-  loginRequestSuccessActionCreator,
-  loginRequestFailureActionCreator,
+  FETCH_USER_REQUEST,
+  FetchUserRequestAction,
+  fetchUserRequestSuccessActionCreator,
+  fetchUserRequestFailureActionCreator,
 } from '../action/user';
 
-function* gLoginRequest(action: LoginRequestAction) {
-  const res: UserResponse = yield call((username: string, password: string) => {
-    let invalidParams = new Array<InvalidParam>();
-    if (username === '') {
-      const invalidParam = new InvalidParam();
-      invalidParam.setName('username');
-      invalidParam.setReason('username is empty');
-      invalidParams.push(invalidParam);
-    }
-    if (password === '') {
-      const invalidParam = new InvalidParam();
-      invalidParam.setName('password');
-      invalidParam.setReason('password is empty');
-      invalidParams.push(invalidParam);
-    }
-    if (username === 'admin' && password === 'admin') {
-      return {
-        user: {
-          userID: 'admin',
-          name: 'admin',
-        },
-        error: null,
-      };
-    }
-    let errorResponse = new ErrorResponse();
-    errorResponse.setTitle('login failure');
-    errorResponse.setInvalidparamsList(invalidParams);
-    return {
-      user: null,
-      errorResponse: errorResponse,
+function* gFetchUserRequest(action: FetchUserRequestAction) {
+  const state: State = yield select();
+
+  if (state.client.userId === '' || state.client.accessToken === '') {
+    const error = {
+      title: 'not set auth params',
     };
-  },                                   action.username, action.password);
+    yield put(fetchUserRequestFailureActionCreator(error));
+    return;
+  }
+
+  const res: IFetchUserResponse = yield call(() => {
+    return state.client.client!.getUser(state.client.userId, state.client.accessToken);
+  });
   if (res.user) {
-    yield put(loginRequestSuccessActionCreator(res.user));
-    // store.dispatch(push('/'));
+    let userRooms: {[key: string]: IRoomForUser} = {};
+    res.user.rooms!.map((value: IRoomForUser) => {
+      const users = opponentUser(value.users, state.client.userId);
+      let userNames = '';
+      if (users) {
+        for (let i = 0; i < users.length; i++) {
+          if (users[i].isShowUsers) {
+            userNames += users[i].name + ' ';
+          }
+        }
+        value.name = userNames;
+        value.pictureUrl = users[0].pictureUrl;
+      }
+      userRooms[value.roomId] = value;
+    });
+
+    yield put(fetchUserRequestSuccessActionCreator(res.user, userRooms));
   } else {
-    yield put(loginRequestFailureActionCreator(res.errorResponse!));
+    yield put(fetchUserRequestFailureActionCreator(res.error!));
   }
 }
 
 export function* userSaga(): IterableIterator<ForkEffect> {
-  yield takeLatest(LOGIN_REQUEST, gLoginRequest);
+  yield takeLatest(FETCH_USER_REQUEST, gFetchUserRequest);
 }

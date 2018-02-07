@@ -6,7 +6,9 @@ import { History } from 'history';
 import createHistory from 'history/createBrowserHistory';
 import { Store, createStore, combineReducers, applyMiddleware, Middleware } from 'redux';
 
+import { ClientState } from './client';
 import { UserState } from './user';
+import { client } from '../reducer/client';
 import { user } from '../reducer/user';
 import { rootSaga } from '../saga';
 
@@ -26,6 +28,7 @@ middleware.push(routerMiddleware(routerHistory));
 
 export const store: Store<{}> = createStore(
   combineReducers({
+    client,
     user,
     router: routerReducer,
   }),
@@ -35,18 +38,7 @@ export const store: Store<{}> = createStore(
 sagaMiddleware.run(rootSaga);
 
 export type State = {
+  client: ClientState,
   user: UserState,
   router: RouterState,
 };
-
-export interface InvalidParam {
-  name: string;
-  reason: string;
-}
-
-export interface ErrorResponse {
-  code: number;
-  title: string;
-  message: string;
-  invalidParams?: InvalidParam[];
-}

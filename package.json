@@ -1,11 +1,11 @@
 {
-  "name": "react-starter-kit",
+  "name": "react-swagchat",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.5",
     "google-protobuf": "^3.5.0",
-    "material-ui": "next",
+    "material-ui": "^1.0.0-beta.32",
     "material-ui-icons": "^1.0.0-beta.17",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -15,14 +15,16 @@
     "react-scripts-ts": "2.13.0",
     "redux": "3.7.1",
     "redux-logger": "3.0.6",
-    "redux-saga": "0.15.3",
-    "ts-protoc-gen": "^0.4.0"
+    "redux-saga": "0.15.3"
   },
+  "main": "build/dist/index.js",
+  "types": "build/dist/index.d.ts",
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "build:lib": "./node_modules/.bin/tsc --pretty --watch"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",

@@ -1,50 +1,48 @@
 import { Action } from 'redux';
-import { User } from '../store/user';
-// import { ErrorResponse } from '../store';
-import { ErrorResponse } from '../protogen/errorResponse_pb';
+import { IUser, IRoomForUser, IProblemDetail } from 'swagchat-sdk';
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_REQUEST_SUCCESS = 'LOGIN_REQUEST_SUCCESS';
-export const LOGIN_REQUEST_FAILURE = 'LOGIN_REQUEST_FAILURE';
+export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST';
+export const FETCH_USER_REQUEST_SUCCESS = 'FETCH_USER_REQUEST_SUCCESS';
+export const FETCH_USER_REQUEST_FAILURE = 'FETCH_USER_REQUEST_FAILURE';
 
-export type UserActionTypes = typeof LOGIN_REQUEST
-  | typeof LOGIN_REQUEST_SUCCESS
-  | typeof LOGIN_REQUEST_FAILURE
+export type UserActionTypes =
+  typeof FETCH_USER_REQUEST |
+  typeof FETCH_USER_REQUEST_SUCCESS |
+  typeof FETCH_USER_REQUEST_FAILURE
 ;
 
 export interface UserBaseAction extends Action {
   type: UserActionTypes;
 }
 
-export interface LoginRequestAction extends UserBaseAction {
-  username: string;
-  password: string;
+export interface FetchUserRequestAction extends UserBaseAction {
 }
-export const loginRequestActionCreator = (username: string, password: string): LoginRequestAction => ({
-  type: LOGIN_REQUEST,
-  username: username,
-  password: password,
+export const fetchUserRequestActionCreator = (): FetchUserRequestAction => ({
+  type: FETCH_USER_REQUEST,
 });
 
-export interface LoginRequestSuccessAction extends UserBaseAction {
-  user: User;
+export interface FetchUserRequestSuccessAction extends UserBaseAction {
+  user: IUser;
+  userRooms: {[key: string]: IRoomForUser};
 }
-export const loginRequestSuccessActionCreator = (asset: User): LoginRequestSuccessAction => ({
-  type: LOGIN_REQUEST_SUCCESS,
-  user: asset,
+export const fetchUserRequestSuccessActionCreator = (
+  user: IUser, userRooms: {[key: string]: IRoomForUser}): FetchUserRequestSuccessAction => ({
+    type: FETCH_USER_REQUEST_SUCCESS,
+    user: user,
+    userRooms: userRooms,
 });
 
-export interface LoginRequestFailureAction extends UserBaseAction {
-  errorResponse: ErrorResponse;
+export interface FetchUserRequestFailureAction extends UserBaseAction {
+  problemDetail: IProblemDetail;
 }
-export const loginRequestFailureActionCreator = 
-  (errorResponse: ErrorResponse): LoginRequestFailureAction => ({
-  type: LOGIN_REQUEST_FAILURE,
-  errorResponse: errorResponse,
+export const fetchUserRequestFailureActionCreator = (problemDetail: IProblemDetail): FetchUserRequestFailureAction => ({
+  type: FETCH_USER_REQUEST_FAILURE,
+  problemDetail: problemDetail,
 });
 
-export type UserActions = UserBaseAction
-  | LoginRequestAction
-  | LoginRequestSuccessAction
-  | LoginRequestFailureAction
+export type UserActions =
+  UserBaseAction |
+  FetchUserRequestAction |
+  FetchUserRequestSuccessAction |
+  FetchUserRequestFailureAction
 ;

@@ -1,36 +1,41 @@
 import { UserState } from '../store/user';
 import {
-  LoginRequestSuccessAction,
-  LoginRequestFailureAction,
-  LOGIN_REQUEST_SUCCESS,
-  LOGIN_REQUEST_FAILURE,
+  FetchUserRequestSuccessAction,
+  FetchUserRequestFailureAction,
+  FETCH_USER_REQUEST_SUCCESS,
+  FETCH_USER_REQUEST_FAILURE,
   UserActions,
 } from '../action/user';
 
 const getInitialState = (): UserState => ({
-  currentUserID: '',
-  users: null,
-  user:  null,
-  errorResponse: null,
+  user: null,
+  userRooms: null,
+  users: [],
+  contacts: [],
+  selectContacts: {},
+  blocks: [],
 });
 
 export function user(state: UserState = getInitialState(), action: UserActions): UserState {
   switch (action.type) {
-    case LOGIN_REQUEST_SUCCESS:
+    case FETCH_USER_REQUEST_SUCCESS:
+      const fursAction = action as FetchUserRequestSuccessAction;
       return Object.assign(
         {},
         state,
         {
-          user: (action as LoginRequestSuccessAction).user,
+          user: fursAction.user,
+          userRooms: fursAction.userRooms,
+          blocks: fursAction.user.blocks,
         }
       );
-    case LOGIN_REQUEST_FAILURE:
+    case FETCH_USER_REQUEST_FAILURE:
       return Object.assign(
         {},
         state,
         {
           user: null,
-          errorResponse: (action as LoginRequestFailureAction).errorResponse,
+          problemDetail: (action as FetchUserRequestFailureAction).problemDetail,
         }
       );
     default:
