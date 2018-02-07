@@ -2221,7 +2221,7 @@ globby@^6.1.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-google-protobuf@^3.2.0, google-protobuf@^3.5.0:
+google-protobuf@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.5.0.tgz#b8cc63c74d83457bd8a9a904503c8efb26bca339"
 
@@ -5812,12 +5812,6 @@ ts-loader@^2.3.7:
     enhanced-resolve "^3.0.0"
     loader-utils "^1.0.2"
     semver "^5.0.1"
-
-ts-protoc-gen@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/ts-protoc-gen/-/ts-protoc-gen-0.4.0.tgz#e08e6cfec55ff4bf87bf02f72075199c871e001f"
-  dependencies:
-    google-protobuf "^3.2.0"
 
 tsconfig-paths-webpack-plugin@^2.0.0:
   version "2.0.0"

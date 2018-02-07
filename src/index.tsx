@@ -10,8 +10,8 @@ registerServiceWorker();
 
 // ##################################################
 export { default as Test2 } from './component/Test1';
-// export * from './component/Component1';
 export * from './component/RoomList/RoomList';
+export * from './component/Message/TextInteraction';
 export * from './component/Swagchat';
 // ##################################################
 

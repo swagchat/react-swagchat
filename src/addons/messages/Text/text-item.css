@@ -1,0 +1,66 @@
+@value colors: "../../../styles/theme/default/color.css";
+@value color-white, color-black, color-grey, color-primary from colors;
+@value size: "../../../styles/theme/default/size.css";
+@value size-message-item-avatar from size;
+
+.root {
+  width: 100%;
+}
+.avatar {
+  border-radius: 50%;
+  height: size-message-item-avatar;
+  width: size-message-item-avatar;
+  margin-left: 10px;
+}
+.name {
+  font-size: 0.6em;
+  margin-top: -40px;
+  margin-left: 70px;
+  margin-bottom: 0;
+  color: color-black;
+  font-weight: 100;
+}
+.message-left {
+  width: auto;
+  max-width: 60%;
+  background: color-grey;
+  border: 0px solid #777;
+  padding: 5px 10px;
+  margin: 5px 10px 5px 60px;
+  border-radius: 15px;
+  clear: both;
+  float: left;
+  word-wrap: break-word;
+}
+.message-right {
+  width: auto;
+  max-width: 70%;
+  color: color-white;
+  position: relative;
+  background: color-primary;
+  border: 0px solid #777;
+  padding: 5px 10px;
+  margin: 10px 0px 5px 10px;
+  right: 10px;
+  border-radius: 15px;
+  clear: both;
+  float: right;
+  word-wrap: break-word;
+}
+.time-left {
+  font-size: 0.6em;
+  color: color-black;
+  margin-top: 5px;
+  float: left;
+}
+.time-right {
+  font-size: 0.6em;
+  color: color-black;
+  margin-top: 10px;
+  margin-right: 10px;
+  float: right;
+}
+.clear {
+  clear: both;
+  margin-bottom: 30px;
+}

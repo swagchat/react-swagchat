@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
-import { IRoomForUser } from 'swagchat-sdk';
+import { IRoomForUser, dateHumanize } from 'swagchat-sdk';
 import { State } from '../../store';
 
 const styles = (theme: Theme) => ({
@@ -39,16 +39,15 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
 
     return (
       <div className={classes.root}>
-        <List>
-          {userRooms ? Object.keys(userRooms).map((key: string) => (
-            <ListItem button={true}>
-              <Avatar src={userRooms[key].pictureUrl} />
-              <ListItemText primary={userRooms[key].name} secondary={userRooms[key].lastMessage} />
-              <Typography variant="caption" color="textSecondary">{userRooms[key].lastMessageUpdated}</Typography>
-            </ListItem>
-          )) : null }
-          <p>sss</p>
-        </List>
+        {userRooms ? Object.keys(userRooms).map((key: string) => (
+          <ListItem button={true}>
+            <Avatar src={userRooms[key].pictureUrl} />
+            <ListItemText primary={userRooms[key].name} secondary={userRooms[key].lastMessage} />
+            <Typography variant="caption" color="textSecondary">
+              {userRooms[key].lastMessageUpdated ? dateHumanize(userRooms[key].lastMessageUpdated) : ''}
+            </Typography>
+          </ListItem>
+        )) : null }
       </div>
     );
   }

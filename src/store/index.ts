@@ -6,6 +6,7 @@ import { History } from 'history';
 import createHistory from 'history/createBrowserHistory';
 import { Store, createStore, combineReducers, applyMiddleware, Middleware } from 'redux';
 
+import { AddonState } from './addon';
 import { ClientState } from './client';
 import { UserState } from './user';
 import { client } from '../reducer/client';
@@ -26,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
 middleware.push(sagaMiddleware);
 middleware.push(routerMiddleware(routerHistory));
 
-export const store: Store<{}> = createStore(
+export const store: Store<State> = createStore(
   combineReducers({
     client,
     user,
@@ -38,6 +39,7 @@ export const store: Store<{}> = createStore(
 sagaMiddleware.run(rootSaga);
 
 export type State = {
+  addon: AddonState,
   client: ClientState,
   user: UserState,
   router: RouterState,

@@ -5,7 +5,7 @@ import { init, theme } from '../';
 import { store } from '../store';
 
 export interface SwagchatProps {
-  inner?: React.ReactNode;
+  component?: React.ReactNode;
 }
 
 export class Swagchat extends React.Component<SwagchatProps> {
@@ -18,7 +18,7 @@ export class Swagchat extends React.Component<SwagchatProps> {
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
-          {this.props.inner}
+          {this.props.component}
         </Provider>
       </MuiThemeProvider>
     );

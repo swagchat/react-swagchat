@@ -63,7 +63,7 @@ class App extends React.Component {
           <ConnectedRouter history={routerHistory}>
             <Switch>
               <Route exact={true} path="/" render={() => (<Main component={<Container1 name="test" />} />)} />
-              <Route exact={true} path="/roomList" render={() => (<Swagchat inner={<RoomList />} />)} />
+              <Route exact={true} path="/roomList" render={() => (<Swagchat component={<RoomList />} />)} />
             </Switch>
           </ConnectedRouter>
         </Provider>
