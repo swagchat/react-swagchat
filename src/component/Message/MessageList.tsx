@@ -13,6 +13,7 @@ import {
   IMessage,
   IMessages,
   IRoom,
+  IUserForRoom,
   IProblemDetail,
   MessageActions,
   clearMessagesActionCreator,
@@ -30,6 +31,7 @@ import {
   FetchMessagesRequestSuccessAction,
   FetchMessagesRequestFailureAction,
 } from 'swagchat-sdk';
+import { TextItem } from '../../addons/messages/Text/TextItem';
 
 type positionType = 'fixed';
 type displayType = 'fixed';
@@ -38,12 +40,16 @@ type alignItemsType = 'center';
 
 const styles = (theme: Theme) => ({
   root: {
+    minWidth: 200,
   },
   body: {
-
+    padding: 10,
+    marginBottom: 80,
   },
   bottom: {
     width: '100%',
+    minWidth: 200,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
     display: 'flex' as displayType,
     justifyContent: 'space-around' as justifyContentType,
     alignItems: 'center' as alignItemsType,
@@ -74,8 +80,10 @@ type ClassNames =
 interface MapStateToProps {
   client: Client | null;
   currentRoomId: string;
+  currentUserId: string;
   messages: {[key: string]: IMessage};
   roomResError: IProblemDetail | null;
+  roomUsers: {[key: string]: IUserForRoom} | null;
 }
 
 interface MapDispatchToProps {
@@ -99,7 +107,6 @@ class MessageListComponent extends
   };
 
   componentDidMount() {
-    window.console.log('--------------------> componentDidMount');
     if (this.props.client !== null && this.props.currentRoomId !== '') {
       this.getMessages(this.props.client, this.props.currentRoomId);
     }
@@ -143,20 +150,35 @@ class MessageListComponent extends
   }
 
   render() {
-    const { classes, left, messages } = this.props;
-
+    const { classes, left, currentUserId, messages, roomUsers } = this.props;
     return (
-        <div className={classes.root}>
+        <div className={classes.root} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
           <div className={classes.body}>
-            {messages ? Object.keys(messages).map((key: string) => (
-              <p key={messages[key].messageId}>{messages[key].messageId}</p>
-            )) : null }
+            {messages ? Object.keys(messages).map((key: string) => {
+              // window.console.log(key);
+              window.console.log(messages[key].type);
+              // window.console.log(roomUsers![messages[key].userId]);
+              // window.console.log(currentUserId);
+              switch (messages[key].type) {
+                case 'text':
+                  return (
+                    <TextItem
+                      key={key}
+                      message={messages[key]}
+                      user={roomUsers![messages[key].userId]}
+                      myUserId={currentUserId}
+                      isLast={false}
+                    />
+                  );
+                case 'image':
+                  return (<div />);
+                default:
+                  return (<div />);
+              }
+            }) : null }
           </div>
           {this.props.roomResError === null ?
             <div className={classes.bottom} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
-              <IconButton>
-                <CameraAltIcon />
-              </IconButton>
               <IconButton>
                 <CameraAltIcon />
               </IconButton>
@@ -187,8 +209,10 @@ const mapStateToProps = (state: State, ownProps: {}) => {
   return {
     client: state.client.client,
     currentRoomId: state.client.currentRoomId,
+    currentUserId: state.client.userId,
     messages: state.message.messageMap,
     roomResError: state.room.problemDetail,
+    roomUsers: state.room.roomUsers,
   };
 };
 
