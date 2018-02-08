@@ -8,6 +8,7 @@ import { Store, createStore, combineReducers, applyMiddleware, Middleware } from
 
 import { AddonState } from './addon';
 import { ClientState } from './client';
+import { RoomState } from './room';
 import { UserState } from './user';
 import { client } from '../reducer/client';
 import { user } from '../reducer/user';
@@ -41,6 +42,7 @@ sagaMiddleware.run(rootSaga);
 export type State = {
   addon: AddonState,
   client: ClientState,
+  room: RoomState,
   user: UserState,
   router: RouterState,
 };

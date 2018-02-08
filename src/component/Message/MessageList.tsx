@@ -55,7 +55,7 @@ interface MapDispatchToProps {
 export interface Props {
 }
 
-class TextInteractionComponent extends
+class MessageListComponent extends
     React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
   state = {
     amount: '',
@@ -103,9 +103,6 @@ class TextInteractionComponent extends
               <IconButton color="primary">
                 <SendIcon />
               </IconButton>
-              <IconButton color="primary">
-                <SendIcon />
-              </IconButton>
             </div>
           </div>
         </div>
@@ -121,7 +118,7 @@ const mapDispatchToProps = (dispatch: {}, ownProps: Props) => {
   return {};
 };
 
-export const TextInteraction = connect<MapStateToProps, MapDispatchToProps, Props>(
+export const MessageList = connect<MapStateToProps, MapDispatchToProps, Props>(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles, { withTheme: true })(TextInteractionComponent));
+)(withStyles(styles, { withTheme: true })(MessageListComponent));

@@ -6,9 +6,10 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { Client, IRealtimeConfig } from 'swagchat-sdk';
 import { store, routerHistory } from './store';
 import Main from './component/Main';
+import { Swagchat } from './component/Swagchat';
 import { Container1 } from './component/Component1';
 import { RoomList } from './component/RoomList/RoomList';
-import { Swagchat } from './component/Swagchat';
+import { MessageList } from './component/Message/MessageList';
 import { setClientActionCreator, setAuthParamsActionCreator } from './action/client';
 import { fetchUserRequestActionCreator } from './action/user';
 
@@ -64,6 +65,7 @@ class App extends React.Component {
             <Switch>
               <Route exact={true} path="/" render={() => (<Main component={<Container1 name="test" />} />)} />
               <Route exact={true} path="/roomList" render={() => (<Swagchat component={<RoomList />} />)} />
+              <Route exact={true} path="/message" render={() => (<Swagchat component={<MessageList />} />)} />
             </Switch>
           </ConnectedRouter>
         </Provider>
