@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
-import { store, State } from '../store';
+import { store, State } from 'swagchat-sdk';
 import Cookie from '../util/cookie';
 
 const styles = (theme: Theme) => ({

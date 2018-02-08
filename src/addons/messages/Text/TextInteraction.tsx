@@ -1,13 +1,14 @@
 import * as React from 'react';
+import Button from 'material-ui/Button';
+import SendIcon from 'material-ui-icons/Send';
+import * as styles from './text-interaction.css';
 import {
   countString,
   IAddonMessageInteractionProps,
   isIphone,
+  store,
+  State
 } from 'swagchat-sdk';
-import { store, State } from '../../../store';
-import Button from 'material-ui/Button';
-import SendIcon from 'material-ui-icons/Send';
-import * as styles from './text-interaction.css';
 
 export class TextInteraction extends React.Component
     <IAddonMessageInteractionProps> {

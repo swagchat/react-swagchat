@@ -1,24 +1,14 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-ReactDOM.render(
-  <App />,
-  document.getElementById('root') as HTMLElement
-);
-registerServiceWorker();
-
-// ##################################################
 export { default as Test2 } from './component/Test1';
 export * from './component/RoomList/RoomList';
 export * from './component/Message/MessageList';
 export * from './component/Swagchat';
+
 // ##################################################
 
 import { Client, IRealtimeConfig } from 'swagchat-sdk';
-import { store } from './store';
-import { setClientActionCreator, setAuthParamsActionCreator } from './action/client';
-import { fetchUserRequestActionCreator } from './action/user';
+import { store } from 'swagchat-sdk';
+import { setClientActionCreator, setAuthParamsActionCreator } from 'swagchat-sdk';
+import { fetchUserRequestActionCreator } from 'swagchat-sdk';
 export function init() {
   const realtimeConfig: IRealtimeConfig = {
     endpoint: 'ws://localhost:9100/v0',
@@ -41,6 +31,8 @@ export function init() {
   store.dispatch(fetchUserRequestActionCreator());
 }
 
+// ##################################################
+
 import { createMuiTheme, Theme } from 'material-ui/styles';
 export const theme: Theme = createMuiTheme({
   palette: {
@@ -60,3 +52,15 @@ export const theme: Theme = createMuiTheme({
     },
   },
 });
+
+// ##################################################
+
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+ReactDOM.render(
+  <App />,
+  document.getElementById('root') as HTMLElement
+);
+registerServiceWorker();

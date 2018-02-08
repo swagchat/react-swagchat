@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from 'material-ui/styles';
 import { init, theme } from '../';
-import { store } from '../store';
+import { store } from 'swagchat-sdk';
 
 export interface SwagchatProps {
   component?: React.ReactNode;

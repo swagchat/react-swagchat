@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IAddonMessageMenuProps } from 'swagchat-sdk';
 import Button from 'material-ui/Button';
 import KeyboardIcon from 'material-ui-icons/Keyboard';
 import {
   AddonActions,
   UpdateAddonMessageMenuIndexAction,
-  updateAddonMessageMenuIndexActionCreator
-} from '../../../action/addon';
+  updateAddonMessageMenuIndexActionCreator,
+  IAddonMessageMenuProps
+} from 'swagchat-sdk';
 
 interface MapStateToProps {
 }
