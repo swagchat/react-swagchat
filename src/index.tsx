@@ -50,6 +50,11 @@ export const theme: Theme = createMuiTheme({
         // boxShadow: 'none',
       },
     },
+    MuiAppBar: {
+      root: {
+        boxShadow: 'none',
+      }
+    },
   },
 });
 
