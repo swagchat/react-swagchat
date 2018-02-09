@@ -12,7 +12,10 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import blueGrey from 'material-ui/colors/blueGrey';
 import teal from 'material-ui/colors/teal';
-import AddCircleIcon from 'material-ui-icons/AddCircleOutline';
+import AddIcon from 'material-ui-icons/Add';
+import SwipeableViews from 'react-swipeable-views';
+import Tabs, { Tab } from 'material-ui/Tabs';
+
 import {
   IRoomForUser,
   dateHumanize,
@@ -48,9 +51,13 @@ const styles = (theme: Theme) => ({
     flex: 1,
     textAlign: 'center',
   },
+  content: {
+    marginTop: appBarHeight,
+  },
   searchFormControl: {
     width: `calc(100% - 20px)`,
     margin: 10,
+    height: 24,
   },
   textFieldRoot: {
     padding: 0,
@@ -62,7 +69,7 @@ const styles = (theme: Theme) => ({
     borderRadius: 4,
     backgroundColor: theme.palette.common.white,
     border: '1px solid #ced4da',
-    fontSize: 16,
+    fontSize: 12,
     padding: '10px 12px',
     width: 'calc(100% - 24px)',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
@@ -86,6 +93,10 @@ const styles = (theme: Theme) => ({
     width: 32,
     height: 32,
   },
+  tab: {
+    height: 30,
+    flexBasis: '33%',
+  },
 });
 
 type ClassNames = 
@@ -93,13 +104,29 @@ type ClassNames =
   'appBar' |
   'toolbar' |
   'typography' |
+  'content' |
   'searchFormControl' |
   'textFieldRoot' |
   'textFieldInput' |
   'textFieldFormLabel' |
   'onlineBadge' |
-  'addCircle'
+  'addCircle' |
+  'tab'
 ;
+
+interface TabContainerProps {
+  children: string | React.ReactNode;
+  dir: string;
+}
+
+function TabContainer(props: TabContainerProps) {
+  const { children, dir } = props;
+  return (
+    <Typography component="div" dir={dir}>
+      {children}
+    </Typography>
+  );
+}
 
 interface MapStateToProps {
   userRooms: {[key: string]: IRoomForUser} | null;
@@ -115,10 +142,21 @@ export interface RoomListProps {
 }
 
 class RoomListComponent extends React.Component<WithStyles<ClassNames> &
-  MapStateToProps & MapDispatchToProps & RoomListProps, {}> {
+    MapStateToProps & MapDispatchToProps & RoomListProps, {}> {
+  state = {
+    value: 0,
+  };
 
   handleItemClick(roomId: string) {
     this.props.setCurrentRoomId(roomId);
+  }
+
+  handleChange = (event: {}, value: number) => {
+    this.setState({ value });
+  }
+
+  handleChangeIndex = (index: number) => {
+    this.setState({ value: index });
   }
 
   render() {
@@ -133,51 +171,80 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
         >
           <Toolbar className={classes.toolbar} disableGutters={true}>
             <Typography variant="title" className={classes.typography}>
-              RoomList
+              トーク
             </Typography>
             <IconButton
               color="primary"
             >
-              <AddCircleIcon className={classes.addCircle} />
+              <AddIcon className={classes.addCircle} />
             </IconButton>
           </Toolbar>
         </AppBar>
-        <FormControl className={classes.searchFormControl}>
-          <TextField
-            autoComplete="abc,def" // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
-            placeholder="検索キーワードを入力してください"
-            InputProps={{
-              disableUnderline: true,
-              classes: {
-                root: classes.textFieldRoot,
-                input: classes.textFieldInput,
-              },
-            }}
-            InputLabelProps={{
-              shrink: true,
-              className: classes.textFieldFormLabel,
-            }}
-          />
-        </FormControl>
-        {userRooms ? Object.keys(userRooms).map((key: string) => (
-          <ListItem
-            key={userRooms[key].roomId}
-            button={true}
-            onClick={() => this.handleItemClick(userRooms[key].roomId)}
+        <div className={classes.content}>
+          <FormControl className={classes.searchFormControl}>
+            <TextField
+              autoComplete="abc,def" // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
+              placeholder="検索キーワードを入力してください"
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  root: classes.textFieldRoot,
+                  input: classes.textFieldInput,
+                },
+              }}
+              InputLabelProps={{
+                shrink: true,
+                className: classes.textFieldFormLabel,
+              }}
+            />
+          </FormControl>
+          <Tabs
+            style={{height: 20}}
+            value={this.state.value}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            fullWidth={true}
+            centered={true}
           >
-            {userRooms[key].ruUnreadCount > 0 ?
-              <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
-                <Avatar src={userRooms[key].pictureUrl} />
-              </Badge>
-            : <Avatar src={userRooms[key].pictureUrl} />}
-            {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
+            <Tab label="全て" className={classes.tab} />
+            <Tab label="未読" className={classes.tab}  />
+            <Tab label="オンライン中" className={classes.tab}  />
+          </Tabs>
+          <SwipeableViews
+            axis="x"
+            index={this.state.value}
+            onChangeIndex={this.handleChangeIndex}
+          >
+            <TabContainer dir="ltr">
+              {userRooms ? Object.keys(userRooms).map((key: string) => (
+                <ListItem
+                  key={userRooms[key].roomId}
+                  button={true}
+                  onClick={() => this.handleItemClick(userRooms[key].roomId)}
+                >
+                  {userRooms[key].ruUnreadCount > 0 ?
+                    <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
+                      <Avatar src={userRooms[key].pictureUrl} />
+                    </Badge>
+                  : <Avatar src={userRooms[key].pictureUrl} />}
+                  {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
 
-            <ListItemText primary={userRooms[key].name} secondary={userRooms[key].lastMessage} />
-              <Typography variant="caption" color="textSecondary">
-                {userRooms[key].lastMessageUpdated ? dateHumanize(userRooms[key].lastMessageUpdated) : ''}
-              </Typography>
-          </ListItem>
-        )) : null }
+                  <ListItemText primary={userRooms[key].name} secondary={userRooms[key].lastMessage} />
+                  <Typography variant="caption" color="textSecondary">
+                    {userRooms[key].lastMessageUpdated ? dateHumanize(userRooms[key].lastMessageUpdated) : ''}
+                  </Typography>
+                </ListItem>
+              )) : null }
+            </TabContainer>
+            <TabContainer dir="ltr">
+              <p>未読</p>
+            </TabContainer>
+            <TabContainer dir="ltr">
+              <p>オンライン中</p>
+            </TabContainer>
+          </SwipeableViews>
+        </div>
       </div>
     );
   }
