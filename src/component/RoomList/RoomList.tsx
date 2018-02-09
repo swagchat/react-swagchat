@@ -30,74 +30,95 @@ const appBarHeight = 60;
 type justifyContentType = 'center';
 type positionType = 'absolute';
 
-const styles = (theme: Theme) => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-  },
-  appBar: {
-    width: '100%',
-    height: appBarHeight,
-    left: 0,
-    background: 'white',
-    borderBottom: '1px solid ' + blueGrey[50],
-  },
-  toolbar: {
-    minHeight: appBarHeight,
-    justifyContent: 'center' as justifyContentType,
-    paddingLeft: 10,
-  },
-  typography: {
-    flex: 1,
-    textAlign: 'center',
-  },
-  content: {
-    marginTop: appBarHeight,
-  },
-  searchFormControl: {
-    width: `calc(100% - 20px)`,
-    margin: 10,
-    height: 24,
-  },
-  textFieldRoot: {
-    padding: 0,
-    'label + &': {
-      marginTop: theme.spacing.unit * 3,
+const styles = (theme: Theme) => {
+  theme!.overrides!.MuiTab = {
+    label: {
+      fontSize: '0.8125rem',
+      '@media (min-width: 960px)': {
+        fontSize: '0.8125rem',
+      },
     },
-  },
-  textFieldInput: {
-    borderRadius: 4,
-    backgroundColor: theme.palette.common.white,
-    border: '1px solid #ced4da',
-    fontSize: 12,
-    padding: '10px 12px',
-    width: 'calc(100% - 24px)',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    '&:focus': {
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    labelContainer: {
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0,
+      '@media (min-width: 960px)': {
+        paddingLeft: 0,
+        paddingRight: 0,
+      }
     },
-  },
-  textFieldFormLabel: {
-  },
-  onlineBadge: {
-    top: '46px',
-    left: '48px',
-    borderRadius: '50%',
-    height: 12,
-    width: 12,
-    backgroundColor: teal[400],
-    position: 'absolute' as positionType,
-  },
-  addCircle: {
-    width: 32,
-    height: 32,
-  },
-  tab: {
-    height: 30,
-    flexBasis: '33%',
-  },
-});
+  };
+  return {
+    root: {
+      width: '100%',
+      backgroundColor: theme.palette.background.paper,
+    },
+    appBar: {
+      width: '100%',
+      height: appBarHeight,
+      left: 0,
+      background: 'white',
+      borderBottom: '1px solid ' + blueGrey[50],
+    },
+    toolbar: {
+      minHeight: appBarHeight,
+      justifyContent: 'center' as justifyContentType,
+      paddingLeft: 10,
+    },
+    typography: {
+      flex: 1,
+      textAlign: 'center',
+    },
+    content: {
+      marginTop: appBarHeight,
+    },
+    searchFormControl: {
+      width: `calc(100% - 20px)`,
+      margin: 10,
+      height: 24,
+    },
+    textFieldRoot: {
+      padding: 0,
+      'label + &': {
+        marginTop: theme.spacing.unit * 3,
+      },
+    },
+    textFieldInput: {
+      borderRadius: 4,
+      backgroundColor: theme.palette.common.white,
+      border: '1px solid #ced4da',
+      fontSize: 12,
+      padding: '10px 12px',
+      width: 'calc(100% - 24px)',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      '&:focus': {
+        borderColor: '#80bdff',
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+      },
+    },
+    textFieldFormLabel: {
+    },
+    onlineBadge: {
+      top: '46px',
+      left: '48px',
+      borderRadius: '50%',
+      height: 12,
+      width: 12,
+      backgroundColor: teal[400],
+      position: 'absolute' as positionType,
+    },
+    addCircle: {
+      width: 32,
+      height: 32,
+    },
+    tab: {
+      height: 30,
+      flexBasis: '33%',
+      minWidth: '33%',
+    },
+  };
+};
 
 type ClassNames = 
   'root' |
@@ -209,7 +230,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
           >
             <Tab label="全て" className={classes.tab} />
             <Tab label="未読" className={classes.tab}  />
-            <Tab label="オンライン中" className={classes.tab}  />
+            <Tab label="オンライン中" className={classes.tab} style={{paddingLeft: 0, paddingRight: 0}}  />
           </Tabs>
           <SwipeableViews
             axis="x"
