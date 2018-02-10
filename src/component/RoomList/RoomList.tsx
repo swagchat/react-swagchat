@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { ListItem, ListItemText } from 'material-ui/List';
 import AppBar from 'material-ui/AppBar';
@@ -10,12 +11,9 @@ import TextField from 'material-ui/TextField';
 import { FormControl } from 'material-ui/Form';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-import blueGrey from 'material-ui/colors/blueGrey';
-import teal from 'material-ui/colors/teal';
 import AddIcon from 'material-ui-icons/Add';
 import SwipeableViews from 'react-swipeable-views';
 import Tabs, { Tab } from 'material-ui/Tabs';
-
 import {
   IRoomForUser,
   dateHumanize,
@@ -23,9 +21,18 @@ import {
   ClientActions,
   setCurrentRoomIdActionCreator,
   SetCurrentRoomIdAction,
+  setCurrentRoomNameActionCreator,
+  SetCurrentRoomNameAction,
+  store,
 } from 'swagchat-sdk';
-
-const appBarHeight = 60;
+import {
+  ICON_SIZE,
+  APP_BAR_HEIGHT,
+  TAB_HEIGHT,
+  BORDER_COLOR,
+  ONLINE_BADGE_COLOR,
+  ONLINE_BADGE_SIZE,
+} from '../../setting';
 
 type justifyContentType = 'center';
 type positionType = 'absolute';
@@ -56,13 +63,13 @@ const styles = (theme: Theme) => {
     },
     appBar: {
       width: '100%',
-      height: appBarHeight,
+      height: APP_BAR_HEIGHT,
       left: 0,
       background: 'white',
-      borderBottom: '1px solid ' + blueGrey[50],
+      borderBottom: '1px solid ' + BORDER_COLOR,
     },
     toolbar: {
-      minHeight: appBarHeight,
+      minHeight: APP_BAR_HEIGHT,
       justifyContent: 'center' as justifyContentType,
       paddingLeft: 10,
     },
@@ -71,7 +78,7 @@ const styles = (theme: Theme) => {
       textAlign: 'center',
     },
     content: {
-      marginTop: appBarHeight,
+      marginTop: APP_BAR_HEIGHT,
     },
     searchFormControl: {
       width: `calc(100% - 20px)`,
@@ -103,17 +110,17 @@ const styles = (theme: Theme) => {
       top: '46px',
       left: '48px',
       borderRadius: '50%',
-      height: 12,
-      width: 12,
-      backgroundColor: teal[400],
+      height: ONLINE_BADGE_SIZE,
+      width: ONLINE_BADGE_SIZE,
+      backgroundColor: ONLINE_BADGE_COLOR,
       position: 'absolute' as positionType,
     },
-    addCircle: {
-      width: 32,
-      height: 32,
+    icon: {
+      width: ICON_SIZE,
+      height: ICON_SIZE,
     },
     tab: {
-      height: 30,
+      height: TAB_HEIGHT,
       flexBasis: '33%',
       minWidth: '33%',
     },
@@ -131,7 +138,7 @@ type ClassNames =
   'textFieldInput' |
   'textFieldFormLabel' |
   'onlineBadge' |
-  'addCircle' |
+  'icon' |
   'tab'
 ;
 
@@ -155,11 +162,14 @@ interface MapStateToProps {
 
 interface MapDispatchToProps {
   setCurrentRoomId: (currentRoomId: string) => SetCurrentRoomIdAction;
+  setCurrentRoomName: (currentRoomName: string) => SetCurrentRoomNameAction;
 }
 
 export interface RoomListProps {
+  top?: number;
   left?: number;
   width?: number;
+  isPush?: boolean;
 }
 
 class RoomListComponent extends React.Component<WithStyles<ClassNames> &
@@ -168,8 +178,12 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     value: 0,
   };
 
-  handleItemClick(roomId: string) {
+  handleItemClick(roomId: string, roomName: string) {
     this.props.setCurrentRoomId(roomId);
+    this.props.setCurrentRoomName(roomName);
+    if (this.props.isPush === true) {
+      store.dispatch(push('/messages/' + roomId));
+    }
   }
 
   handleChange = (event: {}, value: number) => {
@@ -181,14 +195,18 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
   }
 
   render() {
-    const { classes, userRooms, left, width } = this.props;
+    const { classes, userRooms, top, left, width } = this.props;
+    const topStyle = top !== undefined ? {marginTop: top} : {};
+    const leftStyle = left !== undefined ? {marginLeft: left} : {};
+    const widthStyle = width !== undefined ? {width: width} : {};
+    const appBarStyle = Object.assign(topStyle, leftStyle, widthStyle);
 
     return (
       <div className={classes.root}>
         <AppBar
           position="fixed"
           className={classes.appBar}
-          style={left ? {width: width, marginLeft: left} : {}}
+          style={appBarStyle}
         >
           <Toolbar className={classes.toolbar} disableGutters={true}>
             <Typography variant="title" className={classes.typography}>
@@ -197,7 +215,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             <IconButton
               color="primary"
             >
-              <AddIcon className={classes.addCircle} />
+              <AddIcon className={classes.icon} />
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -242,7 +260,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                 <ListItem
                   key={userRooms[key].roomId}
                   button={true}
-                  onClick={() => this.handleItemClick(userRooms[key].roomId)}
+                  onClick={() => this.handleItemClick(userRooms[key].roomId, userRooms[key].name)}
                 >
                   {userRooms[key].ruUnreadCount > 0 ?
                     <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
@@ -280,6 +298,7 @@ const mapStateToProps = (state: State, ownProps: RoomListProps) => {
 const mapDispatchToProps = (dispatch: Dispatch<ClientActions>, ownProps: RoomListProps) => {
   return {
     setCurrentRoomId: (currentRoomId: string) => dispatch(setCurrentRoomIdActionCreator(currentRoomId)),
+    setCurrentRoomName: (currentRoomName: string) => dispatch(setCurrentRoomNameActionCreator(currentRoomName)),
   };
 };
 

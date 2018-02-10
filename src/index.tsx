@@ -8,7 +8,6 @@ export * from './component/Swagchat';
 import { Client, IRealtimeConfig } from 'swagchat-sdk';
 import { store } from 'swagchat-sdk';
 import { setClientActionCreator, setAuthParamsActionCreator } from 'swagchat-sdk';
-import { fetchUserRequestActionCreator } from 'swagchat-sdk';
 export function init() {
   const realtimeConfig: IRealtimeConfig = {
     endpoint: 'ws://localhost:9100/v0',
@@ -27,8 +26,6 @@ export function init() {
     '00581ea9-3547-4c81-930c-a3ed042e4b21',
     'dummy-token',
   ));
-
-  store.dispatch(fetchUserRequestActionCreator());
 }
 
 // ##################################################
