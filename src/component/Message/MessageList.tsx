@@ -12,6 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import { FormControl } from 'material-ui/Form';
 import {
   Client,
+  User,
   State,
   IMessage,
   IMessages,
@@ -27,6 +28,8 @@ import {
   fetchMessagesRequestActionCreator,
   fetchMessagesRequestSuccessActionCreator,
   fetchMessagesRequestFailureActionCreator,
+  createMessageActionCreator,
+  sendMessagesRequestActionCreator,
   ClearMessagesAction,
   BeforeFetchMessagesRequestAction,
   FetchRoomRequestSuccessAction,
@@ -34,6 +37,8 @@ import {
   FetchMessagesRequestAction,
   FetchMessagesRequestSuccessAction,
   FetchMessagesRequestFailureAction,
+  CreateMessageAction,
+  SendMessagesRequestAction,
 } from 'swagchat-sdk';
 import { TextItem } from '../../addons/messages/Text/TextItem';
 import {
@@ -116,6 +121,7 @@ type ClassNames =
 
 interface MapStateToProps {
   client: Client | null;
+  user: User | null;
   currentRoomId: string;
   currentRoomName: string;
   userRooms: {[key: string]: IRoomForUser} | null;
@@ -133,6 +139,8 @@ interface MapDispatchToProps {
   fetchMessagesRequest: () => FetchMessagesRequestAction;
   fetchMessagesRequestSuccess: (messages: IMessages) => FetchMessagesRequestSuccessAction;
   fetchMessagesRequestFailure: (problemDetail: IProblemDetail) => FetchMessagesRequestFailureAction;
+  createMessage: (roomId: string, userId: string, messageType: string, payload: {}) => CreateMessageAction;
+  sendMessagesRequest: () => SendMessagesRequestAction;
 }
 
 export interface MessageListProps {
@@ -189,6 +197,16 @@ class MessageListComponent extends
 
   handleMouseDownPassword = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
+  }
+
+  send = () => {
+    let emptyCheckString = this.state.text.replace(/\s|\n|　/g, '');
+    if (emptyCheckString === '') {
+      return;
+    }
+    this.props.createMessage(this.props.currentRoomId, this.props.user!.userId, 'text', {text: this.state.text});
+    this.props.sendMessagesRequest();
+    this.setState({text: ''});
   }
 
   render() {
@@ -256,7 +274,7 @@ class MessageListComponent extends
             <div className={classes.bottomRight}>
               <FormControl className={classes.formControl}>
               <TextField
-                defaultValue=""
+                value={this.state.text}
                 multiline={true}
                 rowsMax="4"
                 InputProps={{
@@ -265,7 +283,7 @@ class MessageListComponent extends
                 onChange={(e) => this.handleChange(e)}
               />
               </FormControl>
-              <IconButton color="primary">
+              <IconButton color="primary" onClick={() => this.send()}>
                 <SendIcon />
               </IconButton>
             </div>
@@ -279,6 +297,7 @@ class MessageListComponent extends
 const mapStateToProps = (state: State, ownProps: {}) => {
   return {
     client: state.client.client,
+    user: state.user.user,
     currentRoomId: state.client.currentRoomId,
     currentRoomName: state.client.currentRoomName,
     userRooms: state.user.userRooms,
@@ -301,6 +320,9 @@ const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: Messag
     fetchMessagesRequestSuccess: (messages: IMessages) => dispatch(fetchMessagesRequestSuccessActionCreator(messages)),
     fetchMessagesRequestFailure: (problemDetail: IProblemDetail) =>
       dispatch(fetchMessagesRequestFailureActionCreator(problemDetail)),
+    createMessage: (roomId: string, userId: string, messageType: string, payload: {}) => 
+      dispatch(createMessageActionCreator(roomId, userId, messageType, payload)),
+    sendMessagesRequest: () => dispatch(sendMessagesRequestActionCreator()),
   };
 };
 
