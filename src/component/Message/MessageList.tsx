@@ -9,6 +9,7 @@ import SendIcon from 'material-ui-icons/Send';
 import InfoOutlineIcon from 'material-ui-icons/InfoOutline';
 import CameraAltIcon from 'material-ui-icons/CameraAlt';
 import IconButton from 'material-ui/IconButton';
+import { LinearProgress } from 'material-ui/Progress';
 import { FormControl } from 'material-ui/Form';
 import {
   Client,
@@ -47,6 +48,7 @@ import {
   BORDER_COLOR,
   ICON_SIZE,
   APP_BAR_HEIGHT,
+  MESSAGE_BOTTOM_HEIGHT,
 } from '../../setting';
 
 type positionType = 'fixed';
@@ -80,12 +82,13 @@ const styles = (theme: Theme) => ({
     height: ICON_SIZE,
   },
   content: {
-    padding: 10,
+    padding: '0 10px',
     marginTop: APP_BAR_HEIGHT,
-    marginBottom: 80,
+    marginBottom: MESSAGE_BOTTOM_HEIGHT,
   },
   bottom: {
     width: '100%',
+    height: MESSAGE_BOTTOM_HEIGHT - 1,
     minWidth: MESSAGE_LIST_MIN_WIDTH,
     backgroundColor: MESSAGE_BOTTOM_BG_COLOR,
     display: 'flex' as displayType,
@@ -215,7 +218,7 @@ class MessageListComponent extends
       currentUserId, currentRoomId, currentRoomName, messages, roomUsers } = this.props;
 
     if (currentRoomId === '') {
-      return <p>No select</p>;
+      return <LinearProgress />;
     }
 
     const calcWidth = width ? width + 'px' : '100%';
@@ -224,6 +227,7 @@ class MessageListComponent extends
     const leftStyle = left !== undefined ? {marginLeft: left, width: `calc(${calcWidth} - ${left}px)`} : {};
     const appBarStyle = Object.assign(widthStyle, topStyle, leftStyle);
 
+    const contentMarginBottom = top ? MESSAGE_BOTTOM_HEIGHT + top : MESSAGE_BOTTOM_HEIGHT;
     return (
       <div className={classes.root} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
         <AppBar
@@ -242,7 +246,7 @@ class MessageListComponent extends
             </IconButton>
           </Toolbar>
         </AppBar>
-        <div className={classes.content}>
+        <div className={classes.content} style={{marginBottom: contentMarginBottom}}>
           {messages ? Object.keys(messages).map((key: string) => {
             // window.console.log(key);
             window.console.log(messages[key].type);
