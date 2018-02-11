@@ -7,7 +7,6 @@ import Reboot from 'material-ui/Reboot';
 import { store, routerHistory } from 'swagchat-sdk';
 import { init, theme } from './';
 import Main from './component/Main';
-import { Swagchat } from './component/Swagchat';
 import { Container1 } from './component/Component1';
 import { RoomList } from './component/RoomList/RoomList';
 import { MessageList } from './component/Message/MessageList';
@@ -29,12 +28,12 @@ class App extends React.Component {
                 <Route
                   exact={true}
                   path="/rooms"
-                  render={() => (<Swagchat component={<RoomList isPush={true} />} />)}
+                  render={() => (<RoomList isPush={true} />)}
                 />
                 <Route
                   exact={true}
                   path="/messages/:messageId"
-                  render={() => (<Swagchat component={<MessageList />} />)}
+                  render={() => (<MessageList />)}
                 />
               </Switch>
             </ConnectedRouter>

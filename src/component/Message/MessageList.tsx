@@ -17,7 +17,7 @@ import {
   State,
   IMessage,
   IMessages,
-  IRoom,
+  Room,
   IUserForRoom,
   IRoomForUser,
   IProblemDetail,
@@ -55,6 +55,7 @@ type positionType = 'fixed';
 type displayType = 'fixed';
 type justifyContentType = 'space-around';
 type alignItemsType = 'center';
+type overflowYType = 'scroll';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -85,6 +86,8 @@ const styles = (theme: Theme) => ({
     padding: '0 10px',
     marginTop: APP_BAR_HEIGHT,
     marginBottom: MESSAGE_BOTTOM_HEIGHT,
+    overflowY: 'scroll' as overflowYType,
+    scrollBehavior: 'smooth',
   },
   bottom: {
     width: '100%',
@@ -96,7 +99,6 @@ const styles = (theme: Theme) => ({
     alignItems: 'center' as alignItemsType,
     position: 'fixed' as positionType,
     bottom: 0,
-    zIndex: 1101,
     borderTop: '1px solid ' + BORDER_COLOR,
   },
   bottomRight: {
@@ -130,13 +132,14 @@ interface MapStateToProps {
   userRooms: {[key: string]: IRoomForUser} | null;
   currentUserId: string;
   messages: {[key: string]: IMessage};
+  scrollBottomAnimationDuration: number;
   roomResError: IProblemDetail | null;
   roomUsers: {[key: string]: IUserForRoom} | null;
 }
 
 interface MapDispatchToProps {
   clearMessages: () => ClearMessagesAction;
-  fetchRoomRequestSuccess: (room: IRoom) => FetchRoomRequestSuccessAction;
+  fetchRoomRequestSuccess: (room: Room) => FetchRoomRequestSuccessAction;
   fetchRoomRequestFailure: (problemDetail: IProblemDetail) => FetchRoomRequestFailureAction;
   beforeFetchMessagesRequest: (messagesAllCount: number, messagesLimit: number) => BeforeFetchMessagesRequestAction;
   fetchMessagesRequest: () => FetchMessagesRequestAction;
@@ -159,15 +162,37 @@ class MessageListComponent extends
     text: '',
   };
 
+  previousBodyHeight = 0;
+  lastInnerHeight = 0;
+  contentDom: HTMLDivElement | undefined | null;
+  bottomDom: HTMLDivElement | undefined | null;
+
   componentDidMount() {
     if (this.props.client !== null && this.props.currentRoomId !== '') {
       this.getMessages(this.props.client, this.props.currentRoomId);
     }
+    window.addEventListener('resize', this.handlerResizeEvent.bind(this));
   }
 
   componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
     if (this.props.client !== null && this.props.currentRoomId !== prevProps.currentRoomId) {
       this.getMessages(this.props.client, this.props.currentRoomId);
+    }
+    this.scrollBottom();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handlerResizeEvent);
+  }
+
+  handlerResizeEvent() {
+    if (this.lastInnerHeight !== window.innerHeight) {
+      this.lastInnerHeight = window.innerHeight;
+      if (this.contentDom !== undefined && this.contentDom !== null &&
+          this.bottomDom !== undefined && this.bottomDom !== null) {
+        const bottomRect = this.bottomDom.getBoundingClientRect();
+        this.contentDom.style.height = `${bottomRect.top}px`;
+      }
     }
   }
 
@@ -175,7 +200,7 @@ class MessageListComponent extends
     this.props.clearMessages();
     const roomRes = await client!.getRoom(roomId);
     if (roomRes.room) {
-      this.props.fetchRoomRequestSuccess(roomRes.room.data);
+      this.props.fetchRoomRequestSuccess(roomRes.room);
       this.props.beforeFetchMessagesRequest(roomRes.room.messageCount, 0);
       const messageRes = await roomRes.room.getMessages({
         limit: roomRes.room.messageCount,
@@ -183,6 +208,7 @@ class MessageListComponent extends
       });
       if (messageRes.messages) {
         this.props.fetchMessagesRequestSuccess(messageRes.messages);
+        this.scrollBottom();
       } else {
         this.props.fetchMessagesRequestFailure(messageRes.error!);
       }
@@ -191,11 +217,17 @@ class MessageListComponent extends
     }
   }
 
+  scrollBottom = () => {
+    if (this.contentDom !== undefined && this.contentDom !== null &&
+      this.bottomDom !== undefined && this.bottomDom !== null) {
+      const bottomRect = this.bottomDom.getBoundingClientRect();
+      this.contentDom.style.height = `${bottomRect.top}px`;
+      this.contentDom.scrollTo(0, this.contentDom.scrollHeight + MESSAGE_BOTTOM_HEIGHT + APP_BAR_HEIGHT); 
+    }
+  }
+
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      text: event.target.value
-    });
-    window.console.log(event.target.value);
+    this.setState({text: event.target.value});
   }
 
   handleMouseDownPassword = (event: React.MouseEvent<HTMLInputElement>) => {
@@ -246,12 +278,13 @@ class MessageListComponent extends
             </IconButton>
           </Toolbar>
         </AppBar>
-        <div className={classes.content} style={{marginBottom: contentMarginBottom}}>
+        <div
+          id="messageListContent"
+          ref={(child) => this.contentDom = child}
+          className={classes.content}
+          style={{marginBottom: contentMarginBottom}}
+        >
           {messages ? Object.keys(messages).map((key: string) => {
-            // window.console.log(key);
-            window.console.log(messages[key].type);
-            // window.console.log(roomUsers![messages[key].userId]);
-            // window.console.log(currentUserId);
             switch (messages[key].type) {
               case 'text':
                 return (
@@ -271,7 +304,12 @@ class MessageListComponent extends
           }) : null }
         </div>
         {this.props.roomResError === null ?
-          <div className={classes.bottom} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
+          <div
+            id="messageListBottom"
+            ref={(child) => this.bottomDom = child}
+            className={classes.bottom}
+            style={left ? {width: `calc(100% - ${left}px)`} : {}}
+          >
             <IconButton>
               <CameraAltIcon />
             </IconButton>
@@ -307,6 +345,7 @@ const mapStateToProps = (state: State, ownProps: {}) => {
     userRooms: state.user.userRooms,
     currentUserId: state.client.userId,
     messages: state.message.messageMap,
+    scrollBottomAnimationDuration: state.message.scrollBottomAnimationDuration,
     roomResError: state.room.problemDetail,
     roomUsers: state.room.roomUsers,
   };
@@ -315,7 +354,7 @@ const mapStateToProps = (state: State, ownProps: {}) => {
 const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: MessageListProps) => {
   return {
     clearMessages: () => dispatch(clearMessagesActionCreator()),
-    fetchRoomRequestSuccess: (room: IRoom) => dispatch(fetchRoomRequestSuccessActionCreator(room)),
+    fetchRoomRequestSuccess: (room: Room) => dispatch(fetchRoomRequestSuccessActionCreator(room)),
     fetchRoomRequestFailure: (problemDetail: IProblemDetail) =>
       dispatch(fetchRoomRequestFailureActionCreator(problemDetail)),
     beforeFetchMessagesRequest: (messagesAllCount: number, messagesLimit: number) =>
