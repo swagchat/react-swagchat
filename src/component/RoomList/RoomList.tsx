@@ -28,6 +28,7 @@ import {
 import {
   ICON_SIZE,
   APP_BAR_HEIGHT,
+  SEARCH_FORM_HEIGHT,
   TAB_HEIGHT,
   BORDER_COLOR,
   ONLINE_BADGE_COLOR,
@@ -59,31 +60,31 @@ const styles = (theme: Theme) => {
   return {
     root: {
       width: '100%',
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.common.white,
     },
     appBar: {
       width: '100%',
-      height: APP_BAR_HEIGHT,
+      height: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10,
       left: 0,
       background: 'white',
       borderBottom: '1px solid ' + BORDER_COLOR,
+      backgroundColor: theme.palette.common.white,
     },
     toolbar: {
       minHeight: APP_BAR_HEIGHT,
       justifyContent: 'center' as justifyContentType,
       paddingLeft: 10,
+      backgroundColor: theme.palette.common.white,
     },
     typography: {
       flex: 1,
       textAlign: 'center',
-    },
-    content: {
-      marginTop: APP_BAR_HEIGHT,
+      backgroundColor: 'white',
     },
     searchFormControl: {
-      width: `calc(100% - 20px)`,
-      margin: 10,
-      height: 24,
+      width: '100%',
+      padding: 5,
+      height: SEARCH_FORM_HEIGHT,
     },
     textFieldRoot: {
       padding: 0,
@@ -92,7 +93,7 @@ const styles = (theme: Theme) => {
       },
     },
     textFieldInput: {
-      borderRadius: 4,
+      borderRadius: 2,
       backgroundColor: theme.palette.common.white,
       border: '1px solid #ced4da',
       fontSize: 12,
@@ -105,6 +106,20 @@ const styles = (theme: Theme) => {
       },
     },
     textFieldFormLabel: {
+      backgroundColor: theme.palette.common.white,
+    },
+    tabs: {
+      backgroundColor: theme.palette.common.white,
+    },
+    tab: {
+      marginTop: 12,
+      height: TAB_HEIGHT,
+      flexBasis: '33%',
+      minWidth: '33%',
+      backgroundColor: theme.palette.common.white,
+    },
+    content: {
+      marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10,
     },
     onlineBadge: {
       top: '46px',
@@ -119,11 +134,6 @@ const styles = (theme: Theme) => {
       width: ICON_SIZE,
       height: ICON_SIZE,
     },
-    tab: {
-      height: TAB_HEIGHT,
-      flexBasis: '33%',
-      minWidth: '33%',
-    },
   };
 };
 
@@ -132,14 +142,15 @@ type ClassNames =
   'appBar' |
   'toolbar' |
   'typography' |
-  'content' |
+  'tabs' |
+  'tab' |
   'searchFormControl' |
   'textFieldRoot' |
   'textFieldInput' |
   'textFieldFormLabel' |
+  'content' |
   'onlineBadge' |
-  'icon' |
-  'tab'
+  'icon'
 ;
 
 interface TabContainerProps {
@@ -218,8 +229,6 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
               <AddIcon className={classes.icon} />
             </IconButton>
           </Toolbar>
-        </AppBar>
-        <div className={classes.content}>
           <FormControl className={classes.searchFormControl}>
             <TextField
               autoComplete="abc,def" // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
@@ -238,7 +247,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             />
           </FormControl>
           <Tabs
-            style={{height: 20}}
+            className={classes.tabs}
             value={this.state.value}
             onChange={this.handleChange}
             indicatorColor="primary"
@@ -247,9 +256,12 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             centered={true}
           >
             <Tab label="全て" className={classes.tab} />
-            <Tab label="未読" className={classes.tab}  />
-            <Tab label="オンライン中" className={classes.tab} style={{paddingLeft: 0, paddingRight: 0}}  />
+            <Tab label="未読" className={classes.tab} />
+            <Tab label="オンライン中" className={classes.tab} style={{paddingLeft: 0, paddingRight: 0}} />
           </Tabs>
+        </AppBar>
+        <div className={classes.content}>
+ 
           <SwipeableViews
             axis="x"
             index={this.state.value}
