@@ -7,8 +7,6 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
-import TextField from 'material-ui/TextField';
-import { FormControl } from 'material-ui/Form';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import AddIcon from 'material-ui-icons/Add';
@@ -17,14 +15,21 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import {
   IRoomForUser,
   dateHumanize,
+  store,
   State,
   ClientActions,
   setCurrentRoomIdActionCreator,
   SetCurrentRoomIdAction,
   setCurrentRoomNameActionCreator,
   SetCurrentRoomNameAction,
-  store,
+  setSearchTextActionCreator,
+  SetSearchTextAction,
+  MessageActions,
 } from 'swagchat-sdk';
+import { SearchText } from '../Search/SearchText';
+import { SearchResultTab } from '../Search/SearchResultTab';
+import { SearchResultView } from '../Search/SearchResultView';
+import { TabContainer } from '../TabContainer';
 import {
   ICON_SIZE,
   APP_BAR_HEIGHT,
@@ -150,27 +155,15 @@ type ClassNames =
   'icon'
 ;
 
-interface TabContainerProps {
-  children: string | React.ReactNode;
-  dir: string;
-}
-
-function TabContainer(props: TabContainerProps) {
-  const { children, dir } = props;
-  return (
-    <Typography component="div" dir={dir}>
-      {children}
-    </Typography>
-  );
-}
-
 interface MapStateToProps {
+  searchText: string;
   userRooms: {[key: string]: IRoomForUser} | null;
 }
 
 interface MapDispatchToProps {
   setCurrentRoomId: (currentRoomId: string) => SetCurrentRoomIdAction;
   setCurrentRoomName: (currentRoomName: string) => SetCurrentRoomNameAction;
+  setSearchText: (searchText: string) => SetSearchTextAction;
 }
 
 export interface RoomListProps {
@@ -184,8 +177,23 @@ export interface RoomListProps {
 class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     MapStateToProps & MapDispatchToProps & RoomListProps, {}> {
   state = {
-    value: 0,
+    accountDialogOpen: false,
+    tabIndex: 0,
   };
+
+  handleSearchInputOpen = () => {
+    this.setState({accountDialogOpen: true});
+  }
+
+  handleSearchInputClose = () => {
+    this.setState({accountDialogOpen: false});
+  }
+
+  handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // this.setState({searchText: e.target.value});
+    this.props.setSearchText(e.target.value);
+    // this.handleSearchInputOpen();
+  }
 
   handleItemClick(roomId: string, roomName: string) {
     this.props.setCurrentRoomId(roomId);
@@ -195,16 +203,29 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     }
   }
 
-  handleChange = (event: {}, value: number) => {
-    this.setState({ value });
+  handleTabChange = (e: {}, index: number) => {
+    this.setState({tabIndex: index});
   }
 
-  handleChangeIndex = (index: number) => {
-    this.setState({ value: index });
+  handleTabChangeIndex = (index: number) => {
+    this.setState({tabIndex: index});
+  }
+
+  onEscapeKeyDown = (e: {}) => {
+    window.console.log(e);
+  }
+
+  onEnter = (e: {}) => {
+    window.console.log(e);
+  }
+
+  onEntered = (e: {}) => {
+    window.console.log(e);
   }
 
   render() {
-    const { classes, userRooms, top, left, width, enableSearch } = this.props;
+    const { classes, userRooms, top, left, width, enableSearch, searchText } = this.props;
+
     const appBartopStyle = top !== undefined ? {marginTop: top} : {};
     const appBarleftStyle = left !== undefined ? {marginLeft: left} : {};
     const appBarwidthStyle = width !== undefined ? {width: width - 1} : {};
@@ -216,7 +237,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     const appBarStyle = Object.assign(appBartopStyle, appBarleftStyle, appBarwidthStyle, appBarHeightStyle);
 
     const contentStyle = enableSearch === true ? {
-      marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10
+      marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10 + 8
     } : {
       marginTop: APP_BAR_HEIGHT + TAB_HEIGHT + 10 + 8
     };
@@ -238,75 +259,59 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
               <AddIcon className={classes.icon} />
             </IconButton>
           </Toolbar>
-          {enableSearch === true ? (
-            <FormControl className={classes.searchFormControl}>
-              <TextField
-                autoComplete="abc,def"
-                // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
-                placeholder="検索キーワードを入力してください"
-                InputProps={{
-                  disableUnderline: true,
-                  classes: {
-                    root: classes.textFieldRoot,
-                    input: classes.textFieldInput,
-                  },
-                }}
-                InputLabelProps={{
-                  shrink: true,
-                  className: classes.textFieldFormLabel,
-                }}
-              />
-            </FormControl>
-          ) : null }
-          <Tabs
-            className={classes.tabs}
-            value={this.state.value}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            fullWidth={true}
-            centered={true}
-          >
-            <Tab label="全て" className={classes.tab} />
-            <Tab label="未読" className={classes.tab} />
-            <Tab label="オンライン中" className={classes.tab} style={{paddingLeft: 0, paddingRight: 0}} />
-          </Tabs>
+          {enableSearch === true ? <SearchText /> : null}
+          {searchText !== '' ? <SearchResultTab /> :
+            <Tabs
+              className={classes.tabs}
+              value={this.state.tabIndex}
+              onChange={this.handleTabChange}
+              indicatorColor="primary"
+              textColor="primary"
+              fullWidth={true}
+              centered={true}
+            >
+              <Tab label="全て" className={classes.tab} />
+              <Tab label="未読" className={classes.tab} />
+              <Tab label="オンライン中" className={classes.tab} style={{paddingLeft: 0, paddingRight: 0}} />
+            </Tabs>
+          }
         </AppBar>
         <div className={classes.content} style={contentStyle}>
- 
-          <SwipeableViews
-            axis="x"
-            index={this.state.value}
-            onChangeIndex={this.handleChangeIndex}
-          >
-            <TabContainer dir="ltr">
-              {userRooms ? Object.keys(userRooms).map((key: string) => (
-                <ListItem
-                  key={userRooms[key].roomId}
-                  button={true}
-                  onClick={() => this.handleItemClick(userRooms[key].roomId, userRooms[key].name)}
-                >
-                  {userRooms[key].ruUnreadCount > 0 ?
-                    <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
-                      <Avatar src={userRooms[key].pictureUrl} />
-                    </Badge>
-                  : <Avatar src={userRooms[key].pictureUrl} />}
-                  {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
+          {searchText !== '' ? <SearchResultView /> :
+            <SwipeableViews
+              axis="x"
+              index={this.state.tabIndex}
+              onChangeIndex={this.handleTabChangeIndex}
+            >
+              <TabContainer dir="ltr">
+                {userRooms ? Object.keys(userRooms).map((key: string) => (
+                  <ListItem
+                    key={userRooms[key].roomId}
+                    button={true}
+                    onClick={() => this.handleItemClick(userRooms[key].roomId, userRooms[key].name)}
+                  >
+                    {userRooms[key].ruUnreadCount > 0 ?
+                      <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
+                        <Avatar src={userRooms[key].pictureUrl} />
+                      </Badge>
+                    : <Avatar src={userRooms[key].pictureUrl} />}
+                    {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
 
-                  <ListItemText primary={userRooms[key].name} secondary={userRooms[key].lastMessage} />
-                  <Typography variant="caption" color="textSecondary">
-                    {userRooms[key].lastMessageUpdated ? dateHumanize(userRooms[key].lastMessageUpdated) : ''}
-                  </Typography>
-                </ListItem>
-              )) : null }
-            </TabContainer>
-            <TabContainer dir="ltr">
-              <p>未読</p>
-            </TabContainer>
-            <TabContainer dir="ltr">
-              <p>オンライン中</p>
-            </TabContainer>
-          </SwipeableViews>
+                    <ListItemText primary={userRooms[key].name} secondary={userRooms[key].lastMessage} />
+                    <Typography variant="caption" color="textSecondary">
+                      {userRooms[key].lastMessageUpdated ? dateHumanize(userRooms[key].lastMessageUpdated) : ''}
+                    </Typography>
+                  </ListItem>
+                )) : null }
+              </TabContainer>
+              <TabContainer dir="ltr">
+                <p>未読</p>
+              </TabContainer>
+              <TabContainer dir="ltr">
+                <p>オンライン中</p>
+              </TabContainer>
+            </SwipeableViews>
+          }
         </div>
       </div>
     );
@@ -315,14 +320,16 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
 
 const mapStateToProps = (state: State, ownProps: RoomListProps) => {
   return {
+    searchText: state.message.searchText,
     userRooms: state.user.userRooms,
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<ClientActions>, ownProps: RoomListProps) => {
+const mapDispatchToProps = (dispatch: Dispatch<ClientActions & MessageActions>, ownProps: RoomListProps) => {
   return {
     setCurrentRoomId: (currentRoomId: string) => dispatch(setCurrentRoomIdActionCreator(currentRoomId)),
     setCurrentRoomName: (currentRoomName: string) => dispatch(setCurrentRoomNameActionCreator(currentRoomName)),
+    setSearchText: (searchText: string) => dispatch(setSearchTextActionCreator(searchText)),
   };
 };
 
