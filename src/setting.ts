@@ -1,9 +1,9 @@
 import blueGrey from 'material-ui/colors/blueGrey';
 import teal from 'material-ui/colors/teal';
 
-export const ICON_SIZE = 32;
+export const ICON_SIZE = 22;
 export const ONLINE_BADGE_SIZE = 12;
-export const APP_BAR_HEIGHT = 60;
+export const APP_BAR_HEIGHT = 40;
 export const TAB_HEIGHT = 30;
 export const SEARCH_FORM_HEIGHT = 32;
 export const MESSAGE_LIST_MIN_WIDTH = 200;

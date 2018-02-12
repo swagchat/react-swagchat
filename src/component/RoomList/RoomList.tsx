@@ -63,7 +63,6 @@ const styles = (theme: Theme) => {
       backgroundColor: theme.palette.common.white,
     },
     appBar: {
-      width: '100%',
       height: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10,
       left: 0,
       background: 'white',
@@ -209,7 +208,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     const { classes, userRooms, top, left, width } = this.props;
     const topStyle = top !== undefined ? {marginTop: top} : {};
     const leftStyle = left !== undefined ? {marginLeft: left} : {};
-    const widthStyle = width !== undefined ? {width: width} : {};
+    const widthStyle = width !== undefined ? {width: width - 1} : {};
     const appBarStyle = Object.assign(topStyle, leftStyle, widthStyle);
 
     return (
@@ -220,7 +219,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
           style={appBarStyle}
         >
           <Toolbar className={classes.toolbar} disableGutters={true}>
-            <Typography variant="title" className={classes.typography}>
+            <Typography variant="subheading" className={classes.typography}>
               トーク
             </Typography>
             <IconButton

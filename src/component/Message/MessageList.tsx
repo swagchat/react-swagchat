@@ -268,7 +268,7 @@ class MessageListComponent extends
           style={appBarStyle}
         >
           <Toolbar className={classes.toolbar} disableGutters={true}>
-            <Typography variant="title" className={classes.typography}>
+            <Typography variant="subheading" className={classes.typography}>
               {currentRoomName}
             </Typography>
             <IconButton
