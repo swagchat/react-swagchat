@@ -84,7 +84,7 @@ const styles = (theme: Theme) => ({
   },
   content: {
     padding: '0 10px',
-    paddingTop: APP_BAR_HEIGHT,
+    paddingTop: APP_BAR_HEIGHT + 10,
     marginTop: APP_BAR_HEIGHT,
     position: 'relative' as positionType,
     bottom: MESSAGE_BOTTOM_HEIGHT,
@@ -172,7 +172,7 @@ class MessageListComponent extends
     if (this.props.client !== null && this.props.currentRoomId !== '') {
       this.getMessages(this.props.client, this.props.currentRoomId);
     }
-    // window.addEventListener('resize', this.handlerResizeEvent.bind(this));
+    window.addEventListener('resize', this.handlerResizeEvent.bind(this));
   }
 
   componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
@@ -183,7 +183,7 @@ class MessageListComponent extends
   }
 
   componentWillUnmount() {
-    // window.removeEventListener('resize', this.handlerResizeEvent);
+    window.removeEventListener('resize', this.handlerResizeEvent);
   }
 
   handlerResizeEvent() {

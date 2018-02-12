@@ -63,7 +63,6 @@ const styles = (theme: Theme) => {
       backgroundColor: theme.palette.common.white,
     },
     appBar: {
-      height: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10,
       left: 0,
       background: 'white',
       borderBottom: '1px solid ' + BORDER_COLOR,
@@ -118,7 +117,6 @@ const styles = (theme: Theme) => {
       backgroundColor: theme.palette.common.white,
     },
     content: {
-      marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10,
     },
     onlineBadge: {
       top: '46px',
@@ -179,7 +177,8 @@ export interface RoomListProps {
   top?: number;
   left?: number;
   width?: number;
-  isPush?: boolean;
+  enablePush?: boolean;
+  enableSearch?: boolean;
 }
 
 class RoomListComponent extends React.Component<WithStyles<ClassNames> &
@@ -191,7 +190,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
   handleItemClick(roomId: string, roomName: string) {
     this.props.setCurrentRoomId(roomId);
     this.props.setCurrentRoomName(roomName);
-    if (this.props.isPush === true) {
+    if (this.props.enablePush === true) {
       store.dispatch(push('/messages/' + roomId));
     }
   }
@@ -205,11 +204,22 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
   }
 
   render() {
-    const { classes, userRooms, top, left, width } = this.props;
-    const topStyle = top !== undefined ? {marginTop: top} : {};
-    const leftStyle = left !== undefined ? {marginLeft: left} : {};
-    const widthStyle = width !== undefined ? {width: width - 1} : {};
-    const appBarStyle = Object.assign(topStyle, leftStyle, widthStyle);
+    const { classes, userRooms, top, left, width, enableSearch } = this.props;
+    const appBartopStyle = top !== undefined ? {marginTop: top} : {};
+    const appBarleftStyle = left !== undefined ? {marginLeft: left} : {};
+    const appBarwidthStyle = width !== undefined ? {width: width - 1} : {};
+    const appBarHeightStyle = enableSearch === true ? {
+      height: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10
+    } : {
+      height: APP_BAR_HEIGHT + TAB_HEIGHT + 10
+    };
+    const appBarStyle = Object.assign(appBartopStyle, appBarleftStyle, appBarwidthStyle, appBarHeightStyle);
+
+    const contentStyle = enableSearch === true ? {
+      marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10
+    } : {
+      marginTop: APP_BAR_HEIGHT + TAB_HEIGHT + 10 + 8
+    };
 
     return (
       <div className={classes.root}>
@@ -228,23 +238,26 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
               <AddIcon className={classes.icon} />
             </IconButton>
           </Toolbar>
-          <FormControl className={classes.searchFormControl}>
-            <TextField
-              autoComplete="abc,def" // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
-              placeholder="検索キーワードを入力してください"
-              InputProps={{
-                disableUnderline: true,
-                classes: {
-                  root: classes.textFieldRoot,
-                  input: classes.textFieldInput,
-                },
-              }}
-              InputLabelProps={{
-                shrink: true,
-                className: classes.textFieldFormLabel,
-              }}
-            />
-          </FormControl>
+          {enableSearch === true ? (
+            <FormControl className={classes.searchFormControl}>
+              <TextField
+                autoComplete="abc,def"
+                // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
+                placeholder="検索キーワードを入力してください"
+                InputProps={{
+                  disableUnderline: true,
+                  classes: {
+                    root: classes.textFieldRoot,
+                    input: classes.textFieldInput,
+                  },
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                  className: classes.textFieldFormLabel,
+                }}
+              />
+            </FormControl>
+          ) : null }
           <Tabs
             className={classes.tabs}
             value={this.state.value}
@@ -259,7 +272,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             <Tab label="オンライン中" className={classes.tab} style={{paddingLeft: 0, paddingRight: 0}} />
           </Tabs>
         </AppBar>
-        <div className={classes.content}>
+        <div className={classes.content} style={contentStyle}>
  
           <SwipeableViews
             axis="x"
