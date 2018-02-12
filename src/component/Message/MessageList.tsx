@@ -87,7 +87,6 @@ const styles = (theme: Theme) => ({
     marginTop: APP_BAR_HEIGHT,
     marginBottom: MESSAGE_BOTTOM_HEIGHT,
     overflowY: 'scroll' as overflowYType,
-    scrollBehavior: 'smooth',
   },
   bottom: {
     width: '100%',
@@ -171,7 +170,7 @@ class MessageListComponent extends
     if (this.props.client !== null && this.props.currentRoomId !== '') {
       this.getMessages(this.props.client, this.props.currentRoomId);
     }
-    window.addEventListener('resize', this.handlerResizeEvent.bind(this));
+    // window.addEventListener('resize', this.handlerResizeEvent.bind(this));
   }
 
   componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
@@ -182,7 +181,7 @@ class MessageListComponent extends
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handlerResizeEvent);
+    // window.removeEventListener('resize', this.handlerResizeEvent);
   }
 
   handlerResizeEvent() {
@@ -208,7 +207,7 @@ class MessageListComponent extends
       });
       if (messageRes.messages) {
         this.props.fetchMessagesRequestSuccess(messageRes.messages);
-        this.scrollBottom();
+        // this.scrollBottom();
       } else {
         this.props.fetchMessagesRequestFailure(messageRes.error!);
       }

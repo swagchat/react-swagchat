@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
-import { store, State } from 'swagchat-sdk';
+import { State } from 'swagchat-sdk';
 import Cookie from '../util/cookie';
 
 const styles = (theme: Theme) => ({
@@ -32,13 +31,12 @@ class Main extends React.Component<WithStyles<ClassNames> & MapStateToProps & Ma
   componentDidMount() {
     const jwt = new Cookie().read('jwt');
     if (jwt === null) {
-      store.dispatch(push('/login'));
+      // store.dispatch(push('/login'));
     }
   }
 
   logout() {
     new Cookie().remove('jwt');
-    store.dispatch(push('/login'));
   }
 
   render() {
