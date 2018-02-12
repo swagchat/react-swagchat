@@ -85,7 +85,8 @@ const styles = (theme: Theme) => ({
   content: {
     padding: '0 10px',
     marginTop: APP_BAR_HEIGHT,
-    marginBottom: MESSAGE_BOTTOM_HEIGHT,
+    position: 'relative' as positionType,
+    bottom: MESSAGE_BOTTOM_HEIGHT,
     overflowY: 'scroll' as overflowYType,
   },
   bottom: {
@@ -258,7 +259,6 @@ class MessageListComponent extends
     const leftStyle = left !== undefined ? {marginLeft: left, width: `calc(${calcWidth} - ${left}px)`} : {};
     const appBarStyle = Object.assign(widthStyle, topStyle, leftStyle);
 
-    const contentMarginBottom = top ? MESSAGE_BOTTOM_HEIGHT + top : MESSAGE_BOTTOM_HEIGHT;
     return (
       <div className={classes.root} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
         <AppBar
@@ -281,7 +281,6 @@ class MessageListComponent extends
           id="messageListContent"
           ref={(child) => this.contentDom = child}
           className={classes.content}
-          style={{marginBottom: contentMarginBottom}}
         >
           {messages ? Object.keys(messages).map((key: string) => {
             switch (messages[key].type) {
