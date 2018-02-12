@@ -84,6 +84,7 @@ const styles = (theme: Theme) => ({
   },
   content: {
     padding: '0 10px',
+    paddingTop: APP_BAR_HEIGHT,
     marginTop: APP_BAR_HEIGHT,
     position: 'relative' as positionType,
     bottom: MESSAGE_BOTTOM_HEIGHT,
