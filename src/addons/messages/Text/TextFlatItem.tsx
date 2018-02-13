@@ -36,7 +36,7 @@ const styles = (theme: Theme) => ({
     paddingLeft: 10,
   },
   message: {
-    width: 'calc(100% - 20px)',
+    width: 'calc(100% - 30px)',
     fontSize: '1em',
     textAlign: 'left',
     wordWrap: 'break-word' as wordWrapType,
@@ -78,7 +78,7 @@ class TextFlatItemComponent extends
             <div className={classes.name}>{user.name}</div>
             <div className={classes.time}>{dateFormateHHMM(message.created!)}</div>
           </div>
-          <div className={classes.message}>{payload.text}</div>
+          <div className={classes.message}>{displayText}</div>
         </div>
       </div>
     );
