@@ -69,7 +69,7 @@ const styles = (theme: Theme) => {
     },
     appBar: {
       left: 0,
-      background: 'white',
+      background: theme.palette.common.white,
       borderBottom: '1px solid ' + BORDER_COLOR,
       backgroundColor: theme.palette.common.white,
     },
@@ -82,7 +82,7 @@ const styles = (theme: Theme) => {
     typography: {
       flex: 1,
       textAlign: 'center',
-      backgroundColor: 'white',
+      backgroundColor: theme.palette.common.white,
     },
     searchFormControl: {
       width: '100%',

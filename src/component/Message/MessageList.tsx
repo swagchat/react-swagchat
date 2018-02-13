@@ -66,7 +66,7 @@ const styles = (theme: Theme) => ({
     width: '100%',
     height: APP_BAR_HEIGHT,
     left: 0,
-    background: 'white',
+    background: theme.palette.common.white,
     borderBottom: '1px solid ' + BORDER_COLOR,
   },
   toolbar: {

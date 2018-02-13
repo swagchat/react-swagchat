@@ -39,7 +39,7 @@ const styles = (theme: Theme) => ({
   messageRight: {
     width: 'auto',
     maxWidth: '70%',
-    color: 'white',
+    color: theme.palette.common.white,
     position: 'relative' as positionType,
     background: 'rgb(33, 150, 243)',
     border: '0px solid #777',
