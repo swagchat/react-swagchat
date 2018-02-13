@@ -85,14 +85,14 @@ const styles = (theme: Theme) => ({
   content: {
     padding: '0 10px',
     paddingTop: APP_BAR_HEIGHT + 10,
-    marginTop: APP_BAR_HEIGHT,
+    top: -1 * (APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1),
     position: 'relative' as positionType,
-    bottom: MESSAGE_BOTTOM_HEIGHT,
+    marginTop: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1,
     overflowY: 'scroll' as overflowYType,
   },
   bottom: {
     width: '100%',
-    height: MESSAGE_BOTTOM_HEIGHT - 1,
+    minHeight: MESSAGE_BOTTOM_HEIGHT - 1,
     minWidth: MESSAGE_LIST_MIN_WIDTH,
     backgroundColor: MESSAGE_BOTTOM_BG_COLOR,
     display: 'flex' as displayType,
@@ -257,12 +257,16 @@ class MessageListComponent extends
 
     const leftVar = left !== undefined ? left : 0; 
     const rightVar = right !== undefined ? right : 0; 
-    const calcWidth = width ? width + 'px' : '100%';
+
+    const calcWidth = width !== undefined ? width + 'px' : '100%';
     const widthStyle = width !== undefined ? {width: width} : {};
     const topStyle = top !== undefined ? {marginTop: top} : {};
-    const leftRightStyle = left !== undefined ?
+    const appBarleftRightStyle = left !== undefined || right !== undefined ?
       {marginLeft: leftVar, width: `calc(${calcWidth} - ${leftVar}px - ${rightVar}px)`} : {};
-    const appBarStyle = Object.assign(widthStyle, topStyle, leftRightStyle);
+    const appBarStyle = Object.assign(widthStyle, topStyle, appBarleftRightStyle);
+
+    const bottomStyle = left !== undefined || right !== undefined ?
+      {width: `calc(${calcWidth} - ${leftVar}px - ${rightVar}px)`} : {};
 
     return (
       <div className={classes.root} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
@@ -311,7 +315,7 @@ class MessageListComponent extends
             id="messageListBottom"
             ref={(child) => this.bottomDom = child}
             className={classes.bottom}
-            style={left ? {width: `calc(100% - ${left}px)`} : {}}
+            style={bottomStyle}
           >
             <IconButton>
               <CameraAltIcon />

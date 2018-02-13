@@ -2,14 +2,22 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
+import { ListItem } from 'material-ui/List';
 import SwipeableViews from 'react-swipeable-views';
 import { TabContainer } from '../TabContainer';
+import ListSubheader from 'material-ui/List/ListSubheader';
 import {
   State,
   setSearchResultTabIndexActionCreator,
   SetSearchResultTabIndexAction,
   MessageActions,
+  IMessage,
+  IUserForRoom,
 } from 'swagchat-sdk';
+import { TextFlatItem } from '../../addons/messages/Text/TextFlatItem';
+
+const listItemMargin = 10;
+type fontWeightType = 'bold';
 
 const styles = (theme: Theme) => ({
   progress: {
@@ -19,15 +27,33 @@ const styles = (theme: Theme) => ({
     textAlign: 'center',
     width: '100%',
   },
+  listSubheader: {
+    textAlign: 'left',
+    fontWeight: 'bold' as fontWeightType,
+    height: 25,
+    lineHeight: '25px',
+  },
+  listItem: {
+    width: `calc(100% - ${listItemMargin * 2}px)`,
+    margin: listItemMargin,
+    padding: 0,
+    border: `1px solid #ccc`,
+    borderRadius: 5,
+  }
 });
 
 type ClassNames = 
+  'progress' |
   'swipeableViews' |
-  'progress'
+  'listSubheader' |
+  'listItem'
 ;
 
 interface MapStateToProps {
   searchResultTabIndex: number;
+  currentUserId: string;
+  messages: {[key: string]: IMessage};
+  roomUsers: {[key: string]: IUserForRoom} | null;
 }
 
 interface MapDispatchToProps {
@@ -51,7 +77,7 @@ class SearchResultViewComponent extends
   }
 
   render() {
-    const { classes, searchResultTabIndex } = this.props;
+    const { classes, searchResultTabIndex, currentUserId, messages, roomUsers } = this.props;
 
     return (
       <SwipeableViews
@@ -61,13 +87,33 @@ class SearchResultViewComponent extends
         className={classes.swipeableViews}
       >
         <TabContainer dir="ltr">
+          <ListSubheader className={classes.listSubheader}>メッセージ ( {Object.keys(messages).length} )</ListSubheader>
+          {messages ? Object.keys(messages).map((key: string) => {
+            switch (messages[key].type) {
+              case 'text':
+                return (
+                  <ListItem key={key} button={true} className={classes.listItem}>
+                    <TextFlatItem
+                      message={messages[key]}
+                      user={roomUsers![messages[key].userId]}
+                      myUserId={currentUserId}
+                      isLast={false}
+                    />
+                  </ListItem>
+                );
+              case 'image':
+                return (<div />);
+              default:
+                return (<div />);
+            }
+          }) : <CircularProgress className={classes.progress} /> }
+          <ListSubheader className={classes.listSubheader}>ファイル</ListSubheader>
+        </TabContainer>
+        <TabContainer dir="ltr">
           <CircularProgress className={classes.progress} />
         </TabContainer>
         <TabContainer dir="ltr">
-          <p>未読</p>
-        </TabContainer>
-        <TabContainer dir="ltr">
-          <p>オンライン中</p>
+          <p>ファイル</p>
         </TabContainer>
       </SwipeableViews>
     );
@@ -77,6 +123,9 @@ class SearchResultViewComponent extends
 const mapStateToProps = (state: State, ownProps: SearchResultViewProps) => {
   return {
     searchResultTabIndex: state.message.searchResultTabIndex,
+    currentUserId: state.client.userId,
+    messages: state.message.messageMap,
+    roomUsers: state.room.roomUsers,
   };
 };
 
