@@ -172,6 +172,7 @@ export interface RoomListProps {
   width?: number;
   enablePush?: boolean;
   enableSearch?: boolean;
+  enableSearchResult?: boolean;
 }
 
 class RoomListComponent extends React.Component<WithStyles<ClassNames> &
@@ -190,9 +191,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
   }
 
   handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // this.setState({searchText: e.target.value});
     this.props.setSearchText(e.target.value);
-    // this.handleSearchInputOpen();
   }
 
   handleItemClick(roomId: string, roomName: string) {
@@ -224,7 +223,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
   }
 
   render() {
-    const { classes, userRooms, top, left, width, enableSearch, searchText } = this.props;
+    const { classes, top, left, width, enableSearch, enableSearchResult, searchText, userRooms } = this.props;
 
     const appBartopStyle = top !== undefined ? {marginTop: top} : {};
     const appBarleftStyle = left !== undefined ? {marginLeft: left} : {};
@@ -260,7 +259,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             </IconButton>
           </Toolbar>
           {enableSearch === true ? <SearchText /> : null}
-          {searchText !== '' ? <SearchResultTab /> :
+          {enableSearchResult === true && searchText !== '' ? <SearchResultTab /> :
             <Tabs
               className={classes.tabs}
               value={this.state.tabIndex}
@@ -277,7 +276,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
           }
         </AppBar>
         <div className={classes.content} style={contentStyle}>
-          {searchText !== '' ? <SearchResultView /> :
+          {enableSearchResult === true && searchText !== '' ? <SearchResultView /> :
             <SwipeableViews
               axis="x"
               index={this.state.tabIndex}

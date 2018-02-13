@@ -26,7 +26,7 @@ class App extends React.Component {
               <Route
                 exact={true}
                 path="/rooms"
-                render={() => (<RoomList enablePush={true} enableSearch={true} />)}
+                render={() => (<RoomList enablePush={true} enableSearch={true} enableSearchResult={true} />)}
               />
               <Route
                 exact={true}

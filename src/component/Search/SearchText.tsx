@@ -10,18 +10,17 @@ import {
   MessageActions,
 } from 'swagchat-sdk';
 import {
-  SEARCH_FORM_HEIGHT,
+  // SEARCH_FORM_HEIGHT,
   SEARCH_FORM_INPUT_TEXT_HEIGHT,
   SEARCH_FORM_INPUT_TEXT_FONT_SIZE,
 } from '../../setting';
 
 const styles = (theme: Theme) => ({
   root: {
-    width: '100%',
   },
   searchFormControl: {
     width: '100%',
-    height: SEARCH_FORM_HEIGHT,
+    // height: SEARCH_FORM_HEIGHT,
     padding: 5,
     marginTop: -8,
   },
@@ -61,22 +60,24 @@ interface MapDispatchToProps {
   setSearchText: (searchText: string) => SetSearchTextAction;
 }
 
-export interface Props {
+export interface SearchTextProps {
+  width?: number | string;
+  enableBorder?: boolean;
 }
 
 class SearchTextComponent extends
-    React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
+    React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & SearchTextProps, {}> {
 
   handleSearchText = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.props.setSearchText(event.target.value);
   }
 
   render() {
-    const { classes, searchText } = this.props;
-
+    const { classes, width, searchText } = this.props;
+    
     return (
-      <div className={classes.root}>
-        <FormControl className={classes.searchFormControl}>
+      <div className={classes.root} style={width !== undefined ? {width: width} : {}}>
+        <FormControl className={classes.searchFormControl} style={width !== undefined ? {width: width} : {}}>
           <TextField
             value={searchText}
             margin="normal"
@@ -101,19 +102,19 @@ class SearchTextComponent extends
   }
 }
 
-const mapStateToProps = (state: State, ownProps: Props) => {
+const mapStateToProps = (state: State, ownProps: SearchTextProps) => {
   return {
     searchText: state.message.searchText,
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: Props) => {
+const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: SearchTextProps) => {
   return {
     setSearchText: (searchText: string) => dispatch(setSearchTextActionCreator(searchText)),
   };
 };
 
-export const SearchText = connect<MapStateToProps, MapDispatchToProps, Props>(
+export const SearchText = connect<MapStateToProps, MapDispatchToProps, SearchTextProps>(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles, { withTheme: true })(SearchTextComponent));

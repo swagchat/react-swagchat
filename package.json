@@ -27,7 +27,7 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "build:lib": "rm -rf ./build/dist && ./node_modules/.bin/tsc --pretty --watch"
+    "build:lib": "rm -rf ./build/dist && mkdir ./build/dist && cp ./src/index.css ./build/dist/ && ./node_modules/.bin/tsc --pretty --watch"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",

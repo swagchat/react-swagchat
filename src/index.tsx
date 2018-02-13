@@ -1,7 +1,10 @@
 export { default as Test2 } from './component/Test1';
+export * from './component/Swagchat';
 export * from './component/RoomList/RoomList';
 export * from './component/Message/MessageList';
-export * from './component/Swagchat';
+export * from './component/Search/SearchText';
+export * from './component/Search/SearchResultTab';
+export * from './component/Search/SearchResultView';
 
 // ##################################################
 
