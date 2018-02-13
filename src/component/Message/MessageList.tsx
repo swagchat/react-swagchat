@@ -154,6 +154,7 @@ export interface MessageListProps {
   width?: number;
   top?: number;
   left?: number;
+  right?: number;
   isPush?: boolean;
 }
 
@@ -247,18 +248,21 @@ class MessageListComponent extends
 
   render() {
     const {
-      classes, width, top, left,
+      classes, width, top, left, right,
       currentUserId, currentRoomId, currentRoomName, messages, roomUsers } = this.props;
 
     if (currentRoomId === '') {
       return <LinearProgress />;
     }
 
+    const leftVar = left !== undefined ? left : 0; 
+    const rightVar = right !== undefined ? right : 0; 
     const calcWidth = width ? width + 'px' : '100%';
     const widthStyle = width !== undefined ? {width: width} : {};
     const topStyle = top !== undefined ? {marginTop: top} : {};
-    const leftStyle = left !== undefined ? {marginLeft: left, width: `calc(${calcWidth} - ${left}px)`} : {};
-    const appBarStyle = Object.assign(widthStyle, topStyle, leftStyle);
+    const leftRightStyle = left !== undefined ?
+      {marginLeft: leftVar, width: `calc(${calcWidth} - ${leftVar}px - ${rightVar}px)`} : {};
+    const appBarStyle = Object.assign(widthStyle, topStyle, leftRightStyle);
 
     return (
       <div className={classes.root} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
