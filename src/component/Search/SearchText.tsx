@@ -10,19 +10,20 @@ import {
   MessageActions,
 } from 'swagchat-sdk';
 import {
-  // SEARCH_FORM_HEIGHT,
+  SEARCH_FORM_HEIGHT,
   SEARCH_FORM_INPUT_TEXT_HEIGHT,
   SEARCH_FORM_INPUT_TEXT_FONT_SIZE,
 } from '../../setting';
 
 const styles = (theme: Theme) => ({
   root: {
+    height: SEARCH_FORM_HEIGHT,
   },
   searchFormControl: {
     width: '100%',
-    // height: SEARCH_FORM_HEIGHT,
+    height: SEARCH_FORM_HEIGHT,
     padding: 5,
-    marginTop: -8,
+    marginTop: -17,
   },
   textFieldRoot: {
     padding: 0,
