@@ -12,6 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import AddIcon from 'material-ui-icons/Add';
 import SwipeableViews from 'react-swipeable-views';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import grey from 'material-ui/colors/grey';
 import {
   IRoomForUser,
   dateHumanize,
@@ -84,32 +85,9 @@ const styles = (theme: Theme) => {
       textAlign: 'center',
       backgroundColor: theme.palette.common.white,
     },
-    searchFormControl: {
-      width: '100%',
-      padding: 5,
-      height: SEARCH_FORM_HEIGHT,
-    },
-    textFieldRoot: {
-      padding: 0,
-      'label + &': {
-        marginTop: theme.spacing.unit * 3,
-      },
-    },
-    textFieldInput: {
-      borderRadius: 2,
-      backgroundColor: theme.palette.common.white,
-      border: '1px solid #ced4da',
-      fontSize: 12,
-      padding: '10px 12px',
-      width: 'calc(100% - 24px)',
-      transition: theme.transitions.create(['border-color', 'box-shadow']),
-      '&:focus': {
-        borderColor: '#80bdff',
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-      },
-    },
-    textFieldFormLabel: {
-      backgroundColor: theme.palette.common.white,
+    searchTextWrap: {
+      backgroundColor: grey[200],
+      // width: '100%',
     },
     tabs: {
       backgroundColor: theme.palette.common.white,
@@ -146,10 +124,7 @@ type ClassNames =
   'typography' |
   'tabs' |
   'tab' |
-  'searchFormControl' |
-  'textFieldRoot' |
-  'textFieldInput' |
-  'textFieldFormLabel' |
+  'searchTextWrap' |
   'content' |
   'onlineBadge' |
   'icon'
@@ -258,7 +233,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
               <AddIcon className={classes.icon} />
             </IconButton>
           </Toolbar>
-          {enableSearch === true ? <SearchText /> : null}
+          {enableSearch === true ? <div className={classes.searchTextWrap}><SearchText fullWidth={true} /></div> : null}
           {enableSearchResult === true && searchText !== '' ? <SearchResultTab /> :
             <Tabs
               className={classes.tabs}

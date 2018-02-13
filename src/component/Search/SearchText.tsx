@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import * as classNames from 'classnames';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
-import { FormControl } from 'material-ui/Form';
-import TextField from 'material-ui/TextField';
+import SearchIcon from 'material-ui-icons/Search';
+import { fade } from 'material-ui/styles/colorManipulator';
 import {
   State,
   setSearchTextActionCreator,
@@ -11,46 +12,92 @@ import {
 } from 'swagchat-sdk';
 import {
   SEARCH_FORM_HEIGHT,
-  SEARCH_FORM_INPUT_TEXT_HEIGHT,
-  SEARCH_FORM_INPUT_TEXT_FONT_SIZE,
 } from '../../setting';
+
+type positionType = 'relative' | 'absolute';
+type alignItemsType = 'center';
+type justifyContentType = 'center';
 
 const styles = (theme: Theme) => ({
   root: {
     height: SEARCH_FORM_HEIGHT,
+    position: 'relative' as positionType,
+    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    background: fade(theme.palette.common.white, 0.15),
+    // '&:hover': {
+    //   background: fade(theme.palette.common.white, 0.25),
+    // },
   },
-  searchFormControl: {
-    width: '100%',
-    height: SEARCH_FORM_HEIGHT,
-    padding: 5,
-    marginTop: -17,
-  },
-  textFieldRoot: {
-    padding: 0,
-    'label + &': {
-      marginTop: theme.spacing.unit * 3,
+  root100: {
+    '& $input': {
+      width: '100%',
     },
   },
-  textFieldInput: {
-    borderRadius: 2,
-    backgroundColor: theme.palette.common.white,
-    border: '1px solid #ced4da',
-    fontSize: SEARCH_FORM_INPUT_TEXT_FONT_SIZE,
-    padding: '10px 12px',
-    width: 'calc(100% - 24px)',
-    height: SEARCH_FORM_INPUT_TEXT_HEIGHT,
+  rootCustom: {
+    '& $input': {
+      transition: theme.transitions.create('width'),
+      width: '13em',
+      '&:focus': {
+        width: '20em',
+      },
+    },
   },
-  textFieldFormLabel: {
-    backgroundColor: theme.palette.common.white,
+  search: {
+    width: theme.spacing.unit * 5,
+    height: '100%',
+    position: 'absolute' as positionType,
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center' as alignItemsType,
+    justifyContent: 'center' as justifyContentType,
+    color: fade(theme.palette.common.white, 0.7),
   },
+  searchBlack: {
+    color: fade(theme.palette.common.black, 0.3),
+  },
+  input: {
+    fontSize: '0.8em',
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit}px ${theme.spacing.unit}px ${theme
+      .spacing.unit * 5}px`,
+    border: 0,
+    display: 'block',
+    verticalAlign: 'middle',
+    whiteSpace: 'normal',
+    background: 'none',
+    margin: 0, // Reset for Safari
+    width: '100%',
+    height: '100%',
+    color: theme.palette.common.white,
+    '&:focus': {
+      outline: 0,
+    },
+    '&::-webkit-input-placeholder': {
+      color: fade(theme.palette.common.white, 0.7),
+    },
+    '&::-moz-placeholder': {
+      color: fade(theme.palette.common.white, 0.7),
+    },
+  },
+  inputBlack: {
+    color: theme.palette.common.black,
+    '&::-webkit-input-placeholder': {
+      color: fade(theme.palette.common.black, 0.3),
+    },
+    '&::-moz-placeholder': {
+      color: fade(theme.palette.common.black, 0.3),
+    },
+  }
 });
 
 type ClassNames = 
   'root' |
-  'searchFormControl' |
-  'textFieldRoot' |
-  'textFieldInput' |
-  'textFieldFormLabel'
+  'root100' |
+  'rootCustom' |
+  'search' |
+  'searchBlack' |
+  'input' |
+  'inputBlack'
 ;
 
 interface MapStateToProps {
@@ -62,7 +109,7 @@ interface MapDispatchToProps {
 }
 
 export interface SearchTextProps {
-  width?: number | string;
+  fullWidth?: boolean;
   enableBorder?: boolean;
 }
 
@@ -74,31 +121,54 @@ class SearchTextComponent extends
   }
 
   render() {
-    const { classes, width, searchText } = this.props;
-    
+    const { classes, fullWidth } = this.props;
+
+    const rootClass = fullWidth === true
+      ? classNames(classes.root, classes.root100)
+      : classNames(classes.root, classes.rootCustom);
+
+    const searchClass = fullWidth === true
+      ? classNames(classes.search, classes.searchBlack)
+      : classNames(classes.search);
+
+    const inputClass = fullWidth === true
+    ? classNames(classes.input, classes.inputBlack)
+    : classNames(classes.input);
+
     return (
-      <div className={classes.root} style={width !== undefined ? {width: width} : {}}>
-        <FormControl className={classes.searchFormControl} style={width !== undefined ? {width: width} : {}}>
-          <TextField
-            value={searchText}
-            margin="normal"
-            autoFocus={true}
-            placeholder="検索キーワードを入力してください"
-            InputProps={{
-              disableUnderline: true,
-              classes: {
-                root: classes.textFieldRoot,
-                input: classes.textFieldInput,
-              },
-            }}
-            InputLabelProps={{
-              shrink: true,
-              className: classes.textFieldFormLabel,
-            }}
-            onChange={(e) => this.handleSearchText(e)}
-          />
-        </FormControl>
-      </div>
+      <div className={rootClass}>
+        <div className={searchClass}>
+          <SearchIcon />
+        </div>
+        <input
+          className={inputClass}
+          onChange={(e) => this.handleSearchText(e)}
+          placeholder="メッセージを検索"
+        />
+    </div>
+
+      // <div className={classes.root} style={width !== undefined ? {width: width} : {}}>
+      //   <FormControl className={classes.searchFormControl} style={width !== undefined ? {width: width} : {}}>
+      //     <TextField
+      //       value={searchText}
+      //       margin="normal"
+      //       autoFocus={true}
+      //       placeholder="検索キーワードを入力してください"
+      //       InputProps={{
+      //         disableUnderline: true,
+      //         classes: {
+      //           root: classes.textFieldRoot,
+      //           input: classes.textFieldInput,
+      //         },
+      //       }}
+      //       InputLabelProps={{
+      //         shrink: true,
+      //         className: classes.textFieldFormLabel,
+      //       }}
+      //       onChange={(e) => this.handleSearchText(e)}
+      //     />
+      //   </FormControl>
+      // </div>
     );
   }
 }
