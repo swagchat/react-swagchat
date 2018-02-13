@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
-import { LinearProgress } from 'material-ui/Progress';
+import { CircularProgress } from 'material-ui/Progress';
 import SwipeableViews from 'react-swipeable-views';
 import { TabContainer } from '../TabContainer';
 import {
@@ -12,11 +12,18 @@ import {
 } from 'swagchat-sdk';
 
 const styles = (theme: Theme) => ({
-  root: {},
+  progress: {
+    marginTop: 50,
+  },
+  swipeableViews: {
+    textAlign: 'center',
+    width: '100%',
+  },
 });
 
 type ClassNames = 
-  'root'
+  'swipeableViews' |
+  'progress'
 ;
 
 interface MapStateToProps {
@@ -44,16 +51,17 @@ class SearchResultViewComponent extends
   }
 
   render() {
-    const { searchResultTabIndex } = this.props;
+    const { classes, searchResultTabIndex } = this.props;
 
     return (
       <SwipeableViews
         axis="x"
         index={searchResultTabIndex}
         onChangeIndex={this.handleTabChangeIndex}
+        className={classes.swipeableViews}
       >
         <TabContainer dir="ltr">
-          <LinearProgress />
+          <CircularProgress className={classes.progress} />
         </TabContainer>
         <TabContainer dir="ltr">
           <p>未読</p>

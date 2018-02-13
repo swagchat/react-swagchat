@@ -31,29 +31,22 @@ export function init() {
 // ##################################################
 
 import { createMuiTheme, Theme } from 'material-ui/styles';
+import { common } from 'material-ui/colors';
 export const theme: Theme = createMuiTheme({
   palette: {
     // type: 'dark',
+    background: {
+      default: common.white,
+      paper: common.white,
+    },
   },
   overrides: {
-    MuiButton: {
-      root: {
-        // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        // borderRadius: 3,
-        // border: 0,
-        // color: 'white',
-        // height: 48,
-        // padding: '0 30px',
-        // boxShadow: 'none',
-      },
-    },
     MuiAppBar: {
       root: {
         boxShadow: 'none',
       }
     },
   },
-  
 });
 
 // ##################################################

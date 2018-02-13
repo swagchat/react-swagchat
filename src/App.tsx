@@ -3,7 +3,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from 'material-ui/styles';
-import Reboot from 'material-ui/Reboot';
 import { store, routerHistory } from 'swagchat-sdk';
 import { init, theme } from './';
 import Main from './component/Main';
@@ -19,27 +18,25 @@ class App extends React.Component {
 
   render() {
     return (
-      <Reboot>
-        <MuiThemeProvider theme={theme}>
-          <Provider store={store}>
-            <ConnectedRouter history={routerHistory}>
-              <Switch>
-                <Route exact={true} path="/" render={() => (<Main component={<Container1 name="test" />} />)} />
-                <Route
-                  exact={true}
-                  path="/rooms"
-                  render={() => (<RoomList enablePush={true} enableSearch={true} />)}
-                />
-                <Route
-                  exact={true}
-                  path="/messages/:messageId"
-                  render={() => (<MessageList />)}
-                />
-              </Switch>
-            </ConnectedRouter>
-          </Provider>
-        </MuiThemeProvider>
-      </Reboot>
+      <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
+          <ConnectedRouter history={routerHistory}>
+            <Switch>
+              <Route exact={true} path="/" render={() => (<Main component={<Container1 name="test" />} />)} />
+              <Route
+                exact={true}
+                path="/rooms"
+                render={() => (<RoomList enablePush={true} enableSearch={true} />)}
+              />
+              <Route
+                exact={true}
+                path="/messages/:messageId"
+                render={() => (<MessageList />)}
+              />
+            </Switch>
+          </ConnectedRouter>
+        </Provider>
+      </MuiThemeProvider>
     );
   }
 }
