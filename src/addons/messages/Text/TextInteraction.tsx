@@ -1,177 +1,115 @@
 import * as React from 'react';
-import Button from 'material-ui/Button';
+import { connect, Dispatch } from 'react-redux';
+import { Theme, withStyles, WithStyles } from 'material-ui/styles';
+import { FormControl } from 'material-ui/Form';
+import TextField from 'material-ui/TextField';
 import SendIcon from 'material-ui-icons/Send';
-import * as styles from './text-interaction.css';
+import IconButton from 'material-ui/IconButton';
 import {
-  countString,
   IAddonMessageInteractionProps,
-  isIphone,
-  store,
-  State
+  State,
+  User,
+  Room,
+  MessageActions,
+  CreateMessageAction,
+  SendMessagesRequestAction,
+  createMessageActionCreator,
+  sendMessagesRequestActionCreator,
 } from 'swagchat-sdk';
 
-export class TextInteraction extends React.Component
-    <IAddonMessageInteractionProps> {
-  // private sendIconStyle: Object;
-  fontSize: number = 18;
-  padding: number = 10;
-  textValue: string = '';
-  textareaDom: HTMLTextAreaElement | null;
-  newLineCount: number = 0;
-  onKeyDownName: string = '';
-  maxCharCount: number = 0;
-  previousLastLetter: string = '';
+type displayType = 'fixed';
+type justifyContentType = 'space-around';
+type alignItemsType = 'center';
 
-  initialInteractionStyle = {
-    textAreaStyle: {
-      fontSize: this.fontSize + 'px',
-      padding: this.padding + 'px',
-      height: this.fontSize + 'px',
-      overflowY: 'hidden',
-    },
-  };
+const styles = (theme: Theme) => ({
+  bottomRight: {
+    flex: '1 1 0%',
+    display: 'flex' as displayType,
+    justifyContent: 'space-around' as justifyContentType,
+    alignItems: 'center' as alignItemsType,
+  },
+  formControl: {
+    width: '100%',
+  },
+});
 
+type ClassNames = 
+  'bottomRight' |
+  'formControl'
+;
+
+interface MapStateToProps {
+  user: User | null;
+  room: Room | null;
+  currentRoomId: string;
+}
+
+interface MapDispatchToProps {
+  createMessage: (roomId: string, userId: string, messageType: string, payload: {}) => CreateMessageAction;
+  sendMessagesRequest: () => SendMessagesRequestAction;
+}
+
+class TextInteractionComponent extends
+    React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & IAddonMessageInteractionProps, {}> {
   state = {
     textAreaStyle: {},
+    textValue: '',
   };
 
-  // private initiaIphoneStyle: IMessageBodyMenuStyle = {
-  //   paddingBottom: '10px',
-  // };
-
-  onChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    e.preventDefault();
-
-    this.textValue = e.target.value;
-    let newLineCount = (e.target.value.match(new RegExp('\n', 'g')) || []).length + 1;
-
-    // Auto new line
-    const arrayTextValue = this.textValue.split('\n');
-    for (let i = 0; i < arrayTextValue.length; i++) {
-      const autoLineCount = Math.ceil((countString(arrayTextValue[i]) / this.maxCharCount)) - 1;
-      if (autoLineCount > 0) {
-        newLineCount += autoLineCount;
-      }
-    }
-    if (newLineCount === 0) {
-      newLineCount = 1;
-    }
-
-    if (this.newLineCount !== newLineCount && newLineCount <= 4) {
-      this.newLineCount = newLineCount;
-      const newTextAreaStyle = Object.assign(
-        {},
-        this.state.textAreaStyle,
-        {
-          height: this.fontSize * newLineCount + 'px',
-          overflowY: 'auto',
-        }
-      );
-      const newPluginMessageTextInteractionStyle = {
-        textAreaStyle: newTextAreaStyle,
-      };
-      this.setState(newPluginMessageTextInteractionStyle);
-    }
-    if (this.newLineCount === 1) {
-      const newTextAreaStyle = Object.assign(
-        {},
-        this.state.textAreaStyle,
-        {
-          height: this.fontSize * newLineCount + 'px',
-          overflowY: 'hidden',
-        }
-      );
-      const newPluginMessageTextInteractionStyle = {
-        textAreaStyle: newTextAreaStyle,
-      };
-      this.setState(newPluginMessageTextInteractionStyle);
-    }
-
-    // For iPhone creepy keyboard movement
-    const noCountLetterRegexp = '[\ \　]';
-    const lastLetter = this.textValue.slice(-1);
-    if (this.onKeyDownName === 'Backspace' || this.onKeyDownName === 'Enter') {
-      return;
-    }
-    const doubleByteCharacterRegExp = '[^\x01-\x7E]';
-    if ((lastLetter.match(new RegExp(doubleByteCharacterRegExp)) ||
-        lastLetter.match(new RegExp(noCountLetterRegexp)))) {
-      this.onTextareaFocus.bind(this);
-    }　else {
-      this.onTextareaBlur.bind(this);
-    }
-    if (!lastLetter.match(new RegExp(noCountLetterRegexp))) {
-      this.previousLastLetter = lastLetter;
-    }
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({textValue: event.target.value});
   }
 
-  onClick() {
-    let emptyCheckString = this.textValue.replace(/\s|\n|　/g, '');
+  send = () => {
+    let emptyCheckString = this.state.textValue.replace(/\s|\n|　/g, '');
     if (emptyCheckString === '') {
       return;
     }
-    // createMessageActionDispatch('text', {text: this.textValue});
-    // sendMessagesRequestActionDispatch();
-    this.setState(this.initialInteractionStyle);
-    this.textareaDom!.value = '';
-    this.textValue = '';
-  }
-
-  onKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    // this.onKeyDownName = e.key;
-  }
-
-  onTextareaFocus() {
-    window.console.log('onTextareaFocus', isIphone());
-    const state: State = store.getState();
-    state.addon.messages.map((messageAddon, i) => {
-      if (messageAddon.name === 'text') {
-        // updateAddonMessageMenuIndexActionDispatch(i);
-      }
-    });
-    if (isIphone()) {
-      // updateMessageBodyMenuStyleActionDispatch({paddingBottom: '45px'});
-    }
-  }
-
-  onTextareaBlur() {
-    window.console.log('onTextareaBlur', isIphone());
-    if (isIphone()) {
-      // updateMessageBodyMenuStyleActionDispatch(this.initiaIphoneStyle);
-    }
-  }
-
-  // private componentDidMount() {
-  //   this.setState(this.initialInteractionStyle);
-  //   this.maxCharCount =  (this.textareaDom!.clientWidth - 20) / (this.fontSize * 0.57);
-  // }
-
-  constructor(props: IAddonMessageInteractionProps) {
-    super(props);
-
-    this.state = this.initialInteractionStyle;
+    this.props.createMessage(this.props.currentRoomId, this.props.user!.userId, 'text', {text: this.state.textValue});
+    this.props.sendMessagesRequest();
+    this.setState({textValue: ''});
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className={styles.root}>
-        <textarea
-          ref={(child) => this.textareaDom = child}
-          className={styles.textarea}
-          style={this.state.textAreaStyle}
-          onChange={(e) => this.onChange(e)}
-          placeholder=""
-          onBlur={() => this.onTextareaBlur()}
-          onFocus={() => this.onTextareaFocus()}
-          onKeyDown={(e) => this.onKeyDown(e)}
+      <div className={classes.bottomRight}>
+        <FormControl className={classes.formControl}>
+        <TextField
+          value={this.state.textValue}
+          multiline={true}
+          rowsMax="4"
+          InputProps={{
+            disableUnderline: true,
+          }}
+          onChange={(e) => this.handleChange(e)}
         />
-        <Button
-          className={styles.sendButton}
-          onClick={() => this.onClick()}
-        >
+        </FormControl>
+        <IconButton color="primary" onClick={() => this.send()}>
           <SendIcon />
-        </Button>
+        </IconButton>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state: State, ownProps: IAddonMessageInteractionProps) => {
+  return {
+    user: state.user.user,
+    room: state.room.room,
+    currentRoomId: state.client.currentRoomId,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: IAddonMessageInteractionProps) => {
+  return {
+    createMessage: (roomId: string, userId: string, messageType: string, payload: {}) => 
+      dispatch(createMessageActionCreator(roomId, userId, messageType, payload)),
+    sendMessagesRequest: () => dispatch(sendMessagesRequestActionCreator()),
+  };
+};
+
+export const TextInteraction = connect<MapStateToProps, MapDispatchToProps, IAddonMessageInteractionProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles, { withTheme: true })(TextInteractionComponent));

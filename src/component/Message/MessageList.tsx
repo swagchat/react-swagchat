@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
-import TextField from 'material-ui/TextField';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import SendIcon from 'material-ui-icons/Send';
 import InfoOutlineIcon from 'material-ui-icons/InfoOutline';
 import CameraAltIcon from 'material-ui-icons/CameraAlt';
 import IconButton from 'material-ui/IconButton';
 import { LinearProgress } from 'material-ui/Progress';
-import { FormControl } from 'material-ui/Form';
 import {
   Client,
   User,
@@ -42,6 +39,8 @@ import {
   SendMessagesRequestAction,
 } from 'swagchat-sdk';
 import { TextItem } from '../../addons/messages/Text/TextItem';
+import { ImageItem } from '../../addons/messages/Image/ImageItem';
+import { TextInteraction } from '../../addons/messages/Text/TextInteraction';
 import {
   MESSAGE_LIST_MIN_WIDTH,
   MESSAGE_BOTTOM_BG_COLOR,
@@ -85,9 +84,9 @@ const styles = (theme: Theme) => ({
   content: {
     padding: '0 10px',
     paddingTop: APP_BAR_HEIGHT + 10,
+    marginTop: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1,
     top: -1 * (APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1),
     position: 'relative' as positionType,
-    marginTop: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1,
     overflowY: 'scroll' as overflowYType,
   },
   bottom: {
@@ -160,11 +159,6 @@ export interface MessageListProps {
 
 class MessageListComponent extends
     React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & MessageListProps, {}> {
-  state = {
-    text: '',
-  };
-
-  previousBodyHeight = 0;
   lastInnerHeight = 0;
   contentDom: HTMLDivElement | undefined | null;
   bottomDom: HTMLDivElement | undefined | null;
@@ -173,7 +167,7 @@ class MessageListComponent extends
     if (this.props.client !== null && this.props.currentRoomId !== '') {
       this.getMessages(this.props.client, this.props.currentRoomId);
     }
-    window.addEventListener('resize', this.handlerResizeEvent.bind(this));
+    // window.addEventListener('resize', this.handlerResizeEvent.bind(this));
   }
 
   componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
@@ -228,22 +222,8 @@ class MessageListComponent extends
     }
   }
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({text: event.target.value});
-  }
-
   handleMouseDownPassword = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
-  }
-
-  send = () => {
-    let emptyCheckString = this.state.text.replace(/\s|\n|　/g, '');
-    if (emptyCheckString === '') {
-      return;
-    }
-    this.props.createMessage(this.props.currentRoomId, this.props.user!.userId, 'text', {text: this.state.text});
-    this.props.sendMessagesRequest();
-    this.setState({text: ''});
   }
 
   render() {
@@ -304,7 +284,15 @@ class MessageListComponent extends
                   />
                 );
               case 'image':
-                return (<div />);
+                return (
+                  <ImageItem
+                    key={key}
+                    message={messages[key]}
+                    user={roomUsers![messages[key].userId]}
+                    myUserId={currentUserId}
+                    isLast={false}
+                  />
+                );
               default:
                 return (<div />);
             }
@@ -320,22 +308,10 @@ class MessageListComponent extends
             <IconButton>
               <CameraAltIcon />
             </IconButton>
-            <div className={classes.bottomRight}>
-              <FormControl className={classes.formControl}>
-              <TextField
-                value={this.state.text}
-                multiline={true}
-                rowsMax="4"
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                onChange={(e) => this.handleChange(e)}
-              />
-              </FormControl>
-              <IconButton color="primary" onClick={() => this.send()}>
-                <SendIcon />
-              </IconButton>
-            </div>
+            <TextInteraction
+              position="bottom"
+              isAlwaysDisplay={true}
+            />
           </div>
         : <p>{this.props.roomResError.title}</p>}
       </div>
