@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { dateFormateHHMM, IAddonMessageItemProps, ITextPayload } from 'swagchat-sdk';
 import Avatar from 'material-ui/Avatar';
+import { ListItem } from 'material-ui/List';
+
+const listItemMargin = 10;
 
 type displayType = 'flex';
 type flexDirectionType = 'column';
@@ -11,10 +14,11 @@ type wordWrapType = 'break-word';
 const styles = (theme: Theme) => ({
   root: {
     display: 'flex' as displayType,
-    width: '100%',
-    margin: '20px 10px',
+    width: 'calc(100% - 20px)',
+    margin: '20px 0',
   },
   wrap: {
+    width: 'calc(100% - 20px)',
     display: 'flex' as displayType,
     flexDirection: 'column' as flexDirectionType,
     paddingLeft: 10,
@@ -41,6 +45,13 @@ const styles = (theme: Theme) => ({
     textAlign: 'left',
     wordWrap: 'break-word' as wordWrapType,
   },
+  listItem: {
+    width: `calc(100% - ${listItemMargin * 2}px)`,
+    margin: listItemMargin,
+    padding: '0 10px',
+    border: `1px solid #ccc`,
+    borderRadius: 5,
+  },
 });
 
 type ClassNames = 
@@ -50,7 +61,8 @@ type ClassNames =
   'avatar' |
   'name' |
   'time' |
-  'message'
+  'message' |
+  'listItem'
 ;
 
 interface MapStateToProps {
@@ -59,10 +71,9 @@ interface MapStateToProps {
 interface MapDispatchToProps {
 }
 
-class TextFlatItemComponent extends
-    React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & IAddonMessageItemProps, {}> {
-  render(): JSX.Element {
-    const { classes, message, user } = this.props;
+const Item = withStyles(styles)<IAddonMessageItemProps>(
+  (props: IAddonMessageItemProps & WithStyles<ClassNames>) => {
+    const { classes, message, user } = props;
     const payload = message.payload as ITextPayload;
     let splitMessage = payload.text.split('\n');
     let displayText = new Array;
@@ -82,6 +93,24 @@ class TextFlatItemComponent extends
         </div>
       </div>
     );
+  }
+);
+
+class TextFlatItemComponent extends
+    React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & IAddonMessageItemProps, {}> {
+  render(): JSX.Element {
+    const { classes, isSearchResult } = this.props;
+
+    return isSearchResult !== undefined && isSearchResult === true
+      ?
+        (
+          <ListItem button={true} className={classes.listItem}>
+            <Item {...this.props} />
+          </ListItem>
+        )
+      :
+        <Item {...this.props} />
+    ;
   }
 }
 

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
-import { ListItem } from 'material-ui/List';
 import SwipeableViews from 'react-swipeable-views';
 import { TabContainer } from '../TabContainer';
 import ListSubheader from 'material-ui/List/ListSubheader';
@@ -15,8 +14,8 @@ import {
   IUserForRoom,
 } from 'swagchat-sdk';
 import { TextFlatItem } from '../../addons/messages/Text/TextFlatItem';
+import { TAB_HEIGHT } from '../../setting';
 
-const listItemMargin = 10;
 type fontWeightType = 'bold';
 
 const styles = (theme: Theme) => ({
@@ -26,6 +25,7 @@ const styles = (theme: Theme) => ({
   swipeableViews: {
     textAlign: 'center',
     width: '100%',
+    marginBottom: TAB_HEIGHT + 12,
   },
   listSubheader: {
     textAlign: 'left',
@@ -33,20 +33,12 @@ const styles = (theme: Theme) => ({
     height: 25,
     lineHeight: '25px',
   },
-  listItem: {
-    width: `calc(100% - ${listItemMargin * 2}px)`,
-    margin: listItemMargin,
-    padding: 0,
-    border: `1px solid #ccc`,
-    borderRadius: 5,
-  }
 });
 
 type ClassNames = 
   'progress' |
   'swipeableViews' |
-  'listSubheader' |
-  'listItem'
+  'listSubheader'
 ;
 
 interface MapStateToProps {
@@ -92,14 +84,14 @@ class SearchResultViewComponent extends
             switch (messages[key].type) {
               case 'text':
                 return (
-                  <ListItem key={key} button={true} className={classes.listItem}>
-                    <TextFlatItem
-                      message={messages[key]}
-                      user={roomUsers![messages[key].userId]}
-                      myUserId={currentUserId}
-                      isLast={false}
-                    />
-                  </ListItem>
+                  <TextFlatItem
+                    key={key}
+                    message={messages[key]}
+                    user={roomUsers![messages[key].userId]}
+                    myUserId={currentUserId}
+                    isLast={false}
+                    isSearchResult={true}
+                  />
                 );
               case 'image':
                 return (<div />);
