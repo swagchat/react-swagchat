@@ -12,8 +12,13 @@ import IconButton from 'material-ui/IconButton';
 import AddIcon from 'material-ui-icons/Add';
 import SwipeableViews from 'react-swipeable-views';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import Dialog, {
+  DialogContent,
+} from 'material-ui/Dialog';
+import Slide, { SlideProps } from 'material-ui/transitions/Slide';
 import grey from 'material-ui/colors/grey';
 import {
+  User,
   IRoomForUser,
   dateHumanize,
   store,
@@ -31,6 +36,7 @@ import { SearchText } from '../Search/SearchText';
 import { SearchResultTab } from '../Search/SearchResultTab';
 import { SearchResultView } from '../Search/SearchResultView';
 import { TabContainer } from '../TabContainer';
+import { ContactList } from '../ContactList/ContactList';
 import {
   ICON_SIZE,
   APP_BAR_HEIGHT,
@@ -63,6 +69,11 @@ const styles = (theme: Theme) => {
       }
     },
   };
+  theme!.overrides!.MuiDialogContent = {
+    root: {
+      padding: 0,
+    },
+  };
   return {
     root: {
       width: '100%',
@@ -86,8 +97,9 @@ const styles = (theme: Theme) => {
       backgroundColor: theme.palette.common.white,
     },
     searchTextWrap: {
+      margin: '0 10px',
       backgroundColor: grey[200],
-      // width: '100%',
+      borderRadius: 5,
     },
     tabs: {
       backgroundColor: theme.palette.common.white,
@@ -98,6 +110,9 @@ const styles = (theme: Theme) => {
       flexBasis: '33%',
       minWidth: '33%',
       backgroundColor: theme.palette.common.white,
+    },
+    dialog: {
+
     },
     content: {
     },
@@ -125,12 +140,14 @@ type ClassNames =
   'tabs' |
   'tab' |
   'searchTextWrap' |
+  'dialog' |
   'content' |
   'onlineBadge' |
   'icon'
 ;
 
 interface MapStateToProps {
+  user: User | null;
   searchText: string;
   userRooms: {[key: string]: IRoomForUser} | null;
 }
@@ -150,12 +167,25 @@ export interface RoomListProps {
   enableSearchResult?: boolean;
 }
 
+function Transition(props: SlideProps) {
+  return <Slide direction="up" {...props} />;
+}
+
 class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     MapStateToProps & MapDispatchToProps & RoomListProps, {}> {
   state = {
+    contactListDialogOpen: false,
     accountDialogOpen: false,
     tabIndex: 0,
   };
+
+  handleContactListClickOpen = () => {
+    this.setState({contactListDialogOpen: true});
+  }
+
+  handleContactListClose = () => {
+    this.setState({contactListDialogOpen: false});
+  }
 
   handleSearchInputOpen = () => {
     this.setState({accountDialogOpen: true});
@@ -198,7 +228,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
   }
 
   render() {
-    const { classes, top, left, width, enableSearch, enableSearchResult, searchText, userRooms } = this.props;
+    const { classes, top, left, width, enableSearch, enableSearchResult, user, searchText, userRooms } = this.props;
 
     const appBartopStyle = top !== undefined ? {marginTop: top} : {};
     const appBarleftStyle = left !== undefined ? {marginLeft: left} : {};
@@ -227,11 +257,30 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             <Typography variant="subheading" className={classes.typography}>
               トーク
             </Typography>
-            <IconButton
-              color="primary"
-            >
-              <AddIcon className={classes.icon} />
-            </IconButton>
+            {user !== null ?
+              <div>
+                <IconButton
+                  color="primary"
+                  onClick={this.handleContactListClickOpen}
+                >
+                  <AddIcon className={classes.icon} />
+                </IconButton>
+                <Dialog
+                  className={classes.dialog}
+                  fullScreen={true}
+                  transition={Transition}
+                  keepMounted={true}
+                  open={this.state.contactListDialogOpen}
+                  onClose={this.handleContactListClose}
+                  aria-labelledby="responsive-dialog-title"
+                  style={width !== undefined ? {width: width} : {}}
+                >
+                  <DialogContent>
+                    <ContactList enableSearch={true} onClose={this.handleContactListClose} />
+                  </DialogContent>
+                </Dialog>
+              </div>
+            : null}
           </Toolbar>
           {enableSearch === true ? <div className={classes.searchTextWrap}><SearchText fullWidth={true} /></div> : null}
           {enableSearchResult === true && searchText !== '' ? <SearchResultTab /> :
@@ -294,6 +343,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
 
 const mapStateToProps = (state: State, ownProps: RoomListProps) => {
   return {
+    user: state.user.user,
     searchText: state.message.searchText,
     userRooms: state.user.userRooms,
   };
