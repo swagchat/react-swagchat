@@ -78,7 +78,7 @@ class SearchResultViewComponent extends
         onChangeIndex={this.handleTabChangeIndex}
         className={classes.swipeableViews}
       >
-        <TabContainer dir="ltr">
+        <TabContainer key="searchresult-tab-container-1" dir="ltr">
           <ListSubheader className={classes.listSubheader}>メッセージ ( {Object.keys(messages).length} )</ListSubheader>
           {messages ? Object.keys(messages).map((key: string) => {
             switch (messages[key].type) {
@@ -101,10 +101,10 @@ class SearchResultViewComponent extends
           }) : <CircularProgress className={classes.progress} /> }
           <ListSubheader className={classes.listSubheader}>ファイル</ListSubheader>
         </TabContainer>
-        <TabContainer dir="ltr">
+        <TabContainer key="searchresult-tab-container-2" dir="ltr">
           <CircularProgress className={classes.progress} />
         </TabContainer>
-        <TabContainer dir="ltr">
+        <TabContainer key="searchresult-tab-container-3" dir="ltr">
           <p>ファイル</p>
         </TabContainer>
       </SwipeableViews>

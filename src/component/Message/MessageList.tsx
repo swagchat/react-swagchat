@@ -5,7 +5,6 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import InfoOutlineIcon from 'material-ui-icons/InfoOutline';
-import CameraAltIcon from 'material-ui-icons/CameraAlt';
 import IconButton from 'material-ui/IconButton';
 import { LinearProgress } from 'material-ui/Progress';
 import {
@@ -41,6 +40,7 @@ import {
 import { TextItem } from '../../addons/messages/Text/TextItem';
 import { ImageItem } from '../../addons/messages/Image/ImageItem';
 import { TextInteraction } from '../../addons/messages/Text/TextInteraction';
+import { ImageInteraction } from '../../addons/messages/Image/ImageInteraction';
 import {
   MESSAGE_LIST_MIN_WIDTH,
   MESSAGE_BOTTOM_BG_COLOR,
@@ -305,9 +305,12 @@ class MessageListComponent extends
             className={classes.bottom}
             style={bottomStyle}
           >
-            <IconButton>
-              <CameraAltIcon />
-            </IconButton>
+            <ImageInteraction
+              position="bottom"
+              isAlwaysDisplay={true}
+              left={left}
+              right={right}
+            />
             <TextInteraction
               position="bottom"
               isAlwaysDisplay={true}

@@ -306,7 +306,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
               index={this.state.tabIndex}
               onChangeIndex={this.handleTabChangeIndex}
             >
-              <TabContainer dir="ltr">
+              <TabContainer key="roomlist-tab-container-1" dir="ltr">
                 {userRooms ? Object.keys(userRooms).map((key: string) => (
                   <ListItem
                     key={userRooms[key].roomId}
@@ -327,10 +327,10 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                   </ListItem>
                 )) : null }
               </TabContainer>
-              <TabContainer dir="ltr">
+              <TabContainer key="roomlist-tab-container-2" dir="ltr">
                 <p>未読</p>
               </TabContainer>
-              <TabContainer dir="ltr">
+              <TabContainer key="roomlist-tab-container-3" dir="ltr">
                 <p>オンライン中</p>
               </TabContainer>
             </SwipeableViews>
