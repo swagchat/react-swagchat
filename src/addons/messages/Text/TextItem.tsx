@@ -108,7 +108,10 @@ class TextItemComponent extends
           </div>
         ) : (
           <div>
-            <Avatar className={classes.avatar} src={user.pictureUrl} />
+            {user.pictureUrl === undefined
+              ? <Avatar className={classes.avatar}>{user.name.slice(0, 1)}</Avatar>
+              : <Avatar className={classes.avatar} src={user.pictureUrl} />
+            }
             <p className={classes.name}>{user.name}</p>
             <div className={classes.messageLeft}>{payload.text}</div>
             <div className={classes.timeLeft}>{dateFormateHHMM(message.created!)}</div>

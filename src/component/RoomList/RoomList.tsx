@@ -18,19 +18,26 @@ import Dialog, {
 import Slide, { SlideProps } from 'material-ui/transitions/Slide';
 import grey from 'material-ui/colors/grey';
 import {
-  User,
+  IUser,
   IRoomForUser,
+  IProblemDetail,
   dateHumanize,
   store,
   State,
   ClientActions,
+  fetchUserRequestActionCreator,
+  FetchUserRequestAction,
   setCurrentRoomIdActionCreator,
   SetCurrentRoomIdAction,
   setCurrentRoomNameActionCreator,
   SetCurrentRoomNameAction,
   setSearchTextActionCreator,
+  clearSelectContactsActionCreator,
+  fetchContactsRequestActionCreator,
   SetSearchTextAction,
   MessageActions,
+  ClearSelectContactsAction,
+  FetchContactsRequestAction,
 } from 'swagchat-sdk';
 import { SearchText } from '../Search/SearchText';
 import { SearchResultTab } from '../Search/SearchResultTab';
@@ -147,15 +154,20 @@ type ClassNames =
 ;
 
 interface MapStateToProps {
-  user: User | null;
+  currentRoomId: string;
+  user: IUser | null;
   searchText: string;
   userRooms: {[key: string]: IRoomForUser} | null;
+  problemDetail: IProblemDetail | null;
 }
 
 interface MapDispatchToProps {
   setCurrentRoomId: (currentRoomId: string) => SetCurrentRoomIdAction;
   setCurrentRoomName: (currentRoomName: string) => SetCurrentRoomNameAction;
   setSearchText: (searchText: string) => SetSearchTextAction;
+  clearSelectContacts: () => ClearSelectContactsAction;
+  fetchContactsRequest: () => FetchContactsRequestAction;
+  fetchUserRequest: () => FetchUserRequestAction;
 }
 
 export interface RoomListProps {
@@ -179,7 +191,15 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     tabIndex: 0,
   };
 
+  componentDidMount() {
+    // if (this.props.userRooms === null) {
+    //   this.props.fetchUserRequest();
+    // }
+  }
+
   handleContactListClickOpen = () => {
+    this.props.clearSelectContacts();
+    this.props.fetchContactsRequest();
     this.setState({contactListDialogOpen: true});
   }
 
@@ -228,7 +248,10 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
   }
 
   render() {
-    const { classes, top, left, width, enableSearch, enableSearchResult, user, searchText, userRooms } = this.props;
+    const {
+      theme, classes, top, left, width, enableSearch, enableSearchResult,
+      currentRoomId, user, searchText, userRooms, problemDetail
+    } = this.props;
 
     const appBartopStyle = top !== undefined ? {marginTop: top} : {};
     const appBarleftStyle = left !== undefined ? {marginLeft: left} : {};
@@ -307,15 +330,21 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
               onChangeIndex={this.handleTabChangeIndex}
             >
               <TabContainer key="roomlist-tab-container-1" dir="ltr">
+                {problemDetail !== null ? <div>{problemDetail.title}</div> : null}
                 {userRooms ? Object.keys(userRooms).map((key: string) => (
                   <ListItem
                     key={userRooms[key].roomId}
                     button={true}
                     onClick={() => this.handleItemClick(userRooms[key].roomId, userRooms[key].name)}
+                    style={currentRoomId === userRooms[key].roomId ?
+                      {backgroundColor: theme!.palette.action.hover} : {}}
                   >
                     {userRooms[key].ruUnreadCount > 0 ?
                       <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
-                        <Avatar src={userRooms[key].pictureUrl} />
+                        {userRooms[key].pictureUrl === undefined
+                          ? <Avatar>{userRooms[key].name.slice(0, 1)}</Avatar>
+                          : <Avatar src={userRooms[key].pictureUrl} />
+                        }
                       </Badge>
                     : <Avatar src={userRooms[key].pictureUrl} />}
                     {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
@@ -343,9 +372,11 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
 
 const mapStateToProps = (state: State, ownProps: RoomListProps) => {
   return {
+    currentRoomId: state.client.currentRoomId,
     user: state.user.user,
     searchText: state.message.searchText,
     userRooms: state.user.userRooms,
+    problemDetail: state.user.problemDetail,
   };
 };
 
@@ -354,6 +385,9 @@ const mapDispatchToProps = (dispatch: Dispatch<ClientActions & MessageActions>, 
     setCurrentRoomId: (currentRoomId: string) => dispatch(setCurrentRoomIdActionCreator(currentRoomId)),
     setCurrentRoomName: (currentRoomName: string) => dispatch(setCurrentRoomNameActionCreator(currentRoomName)),
     setSearchText: (searchText: string) => dispatch(setSearchTextActionCreator(searchText)),
+    clearSelectContacts: () => dispatch(clearSelectContactsActionCreator()),
+    fetchUserRequest: () => dispatch(fetchUserRequestActionCreator()),
+    fetchContactsRequest: () => dispatch(fetchContactsRequestActionCreator()),
   };
 };
 

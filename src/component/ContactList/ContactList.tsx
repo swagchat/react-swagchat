@@ -20,9 +20,11 @@ import {
   fetchContactsRequestActionCreator,
   updateSelectContactsActionCreator,
   clearSelectContactsActionCreator,
+  createRoomAndFetchMessagesRequestActionCreator,
   FetchContactsRequestAction,
   UpdateSelectContactsAction,
   ClearSelectContactsAction,
+  CreateRoomAndFetchMessagesRequestAction,
 } from 'swagchat-sdk';
 import { SearchText } from '../Search/SearchText';
 import { BORDER_COLOR, APP_BAR_HEIGHT, SEARCH_FORM_HEIGHT, ICON_SIZE } from '../../setting';
@@ -53,7 +55,7 @@ const styles = (theme: Theme) => ({
   icon: {
     width: ICON_SIZE,
     height: ICON_SIZE,
-    fontSize: ICON_SIZE,
+    fontSize: ICON_SIZE * 0.7,
   },
   searchTextWrap: {
     margin: 10,
@@ -84,6 +86,7 @@ interface MapDispatchToProps {
   fetchContactsRequest: () => FetchContactsRequestAction;
   updateSelectContacts: (contact: IUser) => UpdateSelectContactsAction;
   clearSelectContacts: () => ClearSelectContactsAction;
+  createRoomAndFetchMessagesRequest: () => CreateRoomAndFetchMessagesRequestAction;
 }
 
 export interface ContactListProps {
@@ -97,13 +100,18 @@ class ContactListComponent extends
     checked: [0],
   };
 
-  componentDidMount() {
-    this.props.clearSelectContacts();
-    this.props.fetchContactsRequest();
-  }
+  // componentDidMount() {
+  //   this.props.clearSelectContacts();
+  //   this.props.fetchContactsRequest();
+  // }
 
   handleItemClick(contact: IUser) {
     this.props.updateSelectContacts(contact);
+  }
+
+  handleOKClick = () => {
+    this.props.createRoomAndFetchMessagesRequest();
+    this.props.onClose();
   }
 
   render() {
@@ -122,13 +130,16 @@ class ContactListComponent extends
               <Typography variant="subheading" className={classes.typography}>
                 ユーザを選択
               </Typography>
-              <IconButton color="primary"><span className={classes.icon}>OK</span></IconButton>
+              <IconButton
+                color="primary"
+                onClick={this.handleOKClick}
+              >
+                <span className={classes.icon}>OK</span>
+              </IconButton>
             </Toolbar>
             {enableSearch === true
-              ?
-                <div className={classes.searchTextWrap}><SearchText fullWidth={true} /></div>
-              :
-                null
+              ? <div className={classes.searchTextWrap}><SearchText fullWidth={true} /></div>
+              : null
             }
           </AppBar>
           <div className={classes.content}>
@@ -138,7 +149,10 @@ class ContactListComponent extends
                 key={key}
                 onClick={() => this.handleItemClick(contacts[key])}
               >
-                <Avatar src={contacts[key].pictureUrl} />
+                {contacts[key].pictureUrl === ''
+                  ? <Avatar>{contacts[key].name.slice(0, 1)}</Avatar>
+                  : <Avatar src={contacts[key].pictureUrl} />
+                }
                 <ListItemText primary={contacts[key].name} />
                 <Checkbox
                   checked={selectedContacts[contacts[key].userId] ? true : false}
@@ -165,6 +179,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UserActions>, ownProps: ContactLi
     fetchContactsRequest: () => dispatch(fetchContactsRequestActionCreator()),
     updateSelectContacts: (contact: IUser) => dispatch(updateSelectContactsActionCreator(contact)),
     clearSelectContacts: () => dispatch(clearSelectContactsActionCreator()),
+    createRoomAndFetchMessagesRequest: () => dispatch(createRoomAndFetchMessagesRequestActionCreator()),
   };
 };
 

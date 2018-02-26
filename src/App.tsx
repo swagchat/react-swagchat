@@ -3,17 +3,20 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from 'material-ui/styles';
-import { store, routerHistory } from 'swagchat-sdk';
+import { store, routerHistory, IClientParams } from 'swagchat-sdk';
 import { init, theme } from './';
-import Main from './component/Main';
-import { Container1 } from './component/Component1';
+import { Top } from './component/Top';
 import { RoomList } from './component/RoomList/RoomList';
 import { MessageList } from './component/Message/MessageList';
 
-class App extends React.Component {
-  constructor(props: {}, context: {}) {
+export interface AppProps {
+  clientParams: IClientParams;
+}
+
+class App extends React.Component<AppProps, {}> {
+  constructor(props: AppProps, context: {}) {
     super(props, context);
-    init();
+    init(props.clientParams);
   }
 
   render() {
@@ -22,7 +25,7 @@ class App extends React.Component {
         <Provider store={store}>
           <ConnectedRouter history={routerHistory}>
             <Switch>
-              <Route exact={true} path="/" render={() => (<Main component={<Container1 name="test" />} />)} />
+              <Route exact={true} path="/" render={() => (<Top />)} />
               <Route
                 exact={true}
                 path="/rooms"

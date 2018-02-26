@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import {
   IAddonMessageInteractionProps,
   State,
-  User,
+  IUser,
   Room,
   MessageActions,
   CreateMessageAction,
@@ -39,7 +39,7 @@ type ClassNames =
 ;
 
 interface MapStateToProps {
-  user: User | null;
+  user: IUser | null;
   room: Room | null;
   currentRoomId: string;
 }

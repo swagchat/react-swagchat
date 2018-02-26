@@ -115,7 +115,7 @@ class SearchResultViewComponent extends
 const mapStateToProps = (state: State, ownProps: SearchResultViewProps) => {
   return {
     searchResultTabIndex: state.message.searchResultTabIndex,
-    currentUserId: state.client.userId,
+    currentUserId: state.user.user!.userId,
     messages: state.message.messageMap,
     roomUsers: state.room.roomUsers,
   };

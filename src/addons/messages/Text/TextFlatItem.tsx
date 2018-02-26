@@ -84,6 +84,10 @@ const Item = withStyles(styles)<IAddonMessageItemProps>(
     return (
       <div className={classes.root}>
         <Avatar className={classes.avatar} src={user.pictureUrl} />
+        {user.pictureUrl === undefined
+          ? <Avatar className={classes.avatar}>{user.name.slice(0, 1)}</Avatar>
+          : <Avatar className={classes.avatar} src={user.pictureUrl} />
+        }
         <div className={classes.wrap}>
           <div className={classes.wrapNameTime}>
             <div className={classes.name}>{user.name}</div>

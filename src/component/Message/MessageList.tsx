@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import { LinearProgress } from 'material-ui/Progress';
 import {
   Client,
-  User,
+  IUser,
   State,
   IMessage,
   IMessages,
@@ -84,8 +84,9 @@ const styles = (theme: Theme) => ({
   content: {
     padding: '0 10px',
     paddingTop: APP_BAR_HEIGHT + 10,
-    marginTop: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1,
-    top: -1 * (APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1),
+    marginTop: 12,
+    // marginTop: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1,
+    // top: -1 * (APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1),
     position: 'relative' as positionType,
     overflowY: 'scroll' as overflowYType,
   },
@@ -126,7 +127,7 @@ type ClassNames =
 
 interface MapStateToProps {
   client: Client | null;
-  user: User | null;
+  user: IUser | null;
   currentRoomId: string;
   currentRoomName: string;
   userRooms: {[key: string]: IRoomForUser} | null;
@@ -329,7 +330,7 @@ const mapStateToProps = (state: State, ownProps: {}) => {
     currentRoomId: state.client.currentRoomId,
     currentRoomName: state.client.currentRoomName,
     userRooms: state.user.userRooms,
-    currentUserId: state.client.userId,
+    currentUserId: state.user.user ? state.user.user.userId : '',
     messages: state.message.messageMap,
     scrollBottomAnimationDuration: state.message.scrollBottomAnimationDuration,
     roomResError: state.room.problemDetail,

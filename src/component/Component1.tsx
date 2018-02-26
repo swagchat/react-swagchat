@@ -31,7 +31,7 @@ class Component1 extends React.Component<WithStyles<ClassNames> & MapStateToProp
 
     return (
         <div className={classes.root}>
-          <p>name is {name}</p>
+          <p>name is 2 {name}</p>
         </div>
     );
   }
