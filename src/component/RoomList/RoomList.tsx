@@ -15,7 +15,6 @@ import Dialog, {
   DialogContent,
 } from 'material-ui/Dialog';
 import Slide, { SlideProps } from 'material-ui/transitions/Slide';
-import grey from 'material-ui/colors/grey';
 import {
   IUser,
   IRoomForUser,
@@ -93,8 +92,15 @@ const styles = (theme: Theme) => {
     toolbar: {
       minHeight: APP_BAR_HEIGHT,
       justifyContent: 'center' as justifyContentType,
-      paddingLeft: 10,
       backgroundColor: theme.palette.common.white,
+    },
+    toolbarButton: {
+      width: 40,
+      height: 40,
+    },
+    toolbarIcon: {
+      width: ICON_SIZE,
+      margin: '0 5px',
     },
     typography: {
       flex: 1,
@@ -102,9 +108,6 @@ const styles = (theme: Theme) => {
       backgroundColor: theme.palette.common.white,
     },
     searchTextWrap: {
-      margin: '0 10px',
-      backgroundColor: grey[200],
-      borderRadius: 5,
     },
     tabs: {
       backgroundColor: theme.palette.common.white,
@@ -130,10 +133,6 @@ const styles = (theme: Theme) => {
       backgroundColor: ONLINE_BADGE_COLOR,
       position: 'absolute' as positionType,
     },
-    icon: {
-      width: ICON_SIZE,
-      height: ICON_SIZE,
-    },
   };
 };
 
@@ -141,14 +140,15 @@ type ClassNames =
   'root' |
   'appBar' |
   'toolbar' |
+  'toolbarButton' |
+  'toolbarIcon' |
   'typography' |
   'tabs' |
   'tab' |
   'searchTextWrap' |
   'dialog' |
   'content' |
-  'onlineBadge' |
-  'icon'
+  'onlineBadge'
 ;
 
 interface MapStateToProps {
@@ -273,6 +273,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
           style={appBarStyle}
         >
           <Toolbar className={classes.toolbar} disableGutters={true}>
+            <IconButton className={classes.toolbarButton} />
             <Typography variant="subheading" className={classes.typography}>
               トーク
             </Typography>
@@ -281,8 +282,9 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                 <IconButton
                   color="primary"
                   onClick={this.handleContactListClickOpen}
+                  className={classes.toolbarButton}
                 >
-                  <AddIcon className={classes.icon} />
+                  <AddIcon className={classes.toolbarIcon} />
                 </IconButton>
                 <Dialog
                   className={classes.dialog}
@@ -301,7 +303,13 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
               </div>
             : null}
           </Toolbar>
-          {enableSearch === true ? <div className={classes.searchTextWrap}><SearchText fullWidth={true} /></div> : null}
+          {enableSearch === true
+            ?
+              <div className={classes.searchTextWrap}>
+                <SearchText fullWidth={true} placeholder="全てのメッセージから検索" />
+              </div>
+            : null
+          }
           {enableSearchResult === true && searchText !== '' ? <SearchResultTab /> :
             <Tabs
               className={classes.tabs}

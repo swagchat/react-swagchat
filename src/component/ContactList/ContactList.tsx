@@ -12,7 +12,6 @@ import Avatar from 'material-ui/Avatar';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import { LinearProgress } from 'material-ui/Progress';
-import grey from 'material-ui/colors/grey';
 import {
   State,
   IUser,
@@ -58,9 +57,6 @@ const styles = (theme: Theme) => ({
     fontSize: ICON_SIZE * 0.7,
   },
   searchTextWrap: {
-    margin: 10,
-    backgroundColor: grey[200],
-    borderRadius: 5,
   },
   content: {
     marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT,
@@ -138,7 +134,7 @@ class ContactListComponent extends
               </IconButton>
             </Toolbar>
             {enableSearch === true
-              ? <div className={classes.searchTextWrap}><SearchText fullWidth={true} /></div>
+              ? <div className={classes.searchTextWrap}><SearchText fullWidth={true} placeholder="連絡先を検索" /></div>
               : null
             }
           </AppBar>

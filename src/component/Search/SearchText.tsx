@@ -2,7 +2,9 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import * as classNames from 'classnames';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
+import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui-icons/Search';
+import CloseIcon from 'material-ui-icons/Close';
 import { fade } from 'material-ui/styles/colorManipulator';
 import {
   State,
@@ -12,6 +14,7 @@ import {
 } from 'swagchat-sdk';
 import {
   SEARCH_FORM_HEIGHT,
+  BORDER_RADIUS,
 } from '../../setting';
 
 type positionType = 'relative' | 'absolute';
@@ -22,12 +25,15 @@ const styles = (theme: Theme) => ({
   root: {
     height: SEARCH_FORM_HEIGHT,
     position: 'relative' as positionType,
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
-    background: fade(theme.palette.common.white, 0.15),
+    // background: fade(theme.palette.common.white, 0.15),
+    display: 'flex',
     // '&:hover': {
     //   background: fade(theme.palette.common.white, 0.25),
     // },
+    backgroundColor: '#efefef',
+    borderRadius: BORDER_RADIUS,
+    boxFlex: 1,
+    margin: '4px 10px',
   },
   root100: {
     '& $input': {
@@ -43,7 +49,7 @@ const styles = (theme: Theme) => ({
       },
     },
   },
-  search: {
+  searchIcon: {
     width: theme.spacing.unit * 5,
     height: '100%',
     position: 'absolute' as positionType,
@@ -51,14 +57,14 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     alignItems: 'center' as alignItemsType,
     justifyContent: 'center' as justifyContentType,
-    color: fade(theme.palette.common.white, 0.7),
+    color: fade(theme.palette.grey.A700, 0.7),
   },
   searchBlack: {
     color: fade(theme.palette.common.black, 0.3),
   },
   input: {
     fontSize: '0.8em',
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit}px ${theme.spacing.unit}px ${theme
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 5}px ${theme.spacing.unit}px ${theme
       .spacing.unit * 5}px`,
     border: 0,
     display: 'block',
@@ -68,15 +74,15 @@ const styles = (theme: Theme) => ({
     margin: 0, // Reset for Safari
     width: '100%',
     height: '100%',
-    color: theme.palette.common.white,
+    color: theme.palette.grey.A700,
     '&:focus': {
       outline: 0,
     },
     '&::-webkit-input-placeholder': {
-      color: fade(theme.palette.common.white, 0.7),
+      color: fade(theme.palette.grey.A700, 0.7),
     },
     '&::-moz-placeholder': {
-      color: fade(theme.palette.common.white, 0.7),
+      color: fade(theme.palette.grey.A700, 0.7),
     },
   },
   inputBlack: {
@@ -87,17 +93,28 @@ const styles = (theme: Theme) => ({
     '&::-moz-placeholder': {
       color: fade(theme.palette.common.black, 0.3),
     },
-  }
+  },
+  clearIcon: {
+    right: 0,
+    width: theme.spacing.unit * 5,
+    height: '100%',
+    position: 'absolute' as positionType,
+    display: 'flex',
+    alignItems: 'center' as alignItemsType,
+    justifyContent: 'center' as justifyContentType,
+    color: fade(theme.palette.grey.A700, 0.7),
+  },
 });
 
 type ClassNames = 
   'root' |
   'root100' |
   'rootCustom' |
-  'search' |
+  'searchIcon' |
   'searchBlack' |
   'input' |
-  'inputBlack'
+  'inputBlack' |
+  'clearIcon'
 ;
 
 interface MapStateToProps {
@@ -113,6 +130,7 @@ export interface SearchTextProps {
   style?: Partial<React.CSSProperties>;
   fullWidth?: boolean;
   enableBorder?: boolean;
+  placeholder?: string;
 }
 
 class SearchTextComponent extends
@@ -122,19 +140,23 @@ class SearchTextComponent extends
     this.props.setSearchText(event.target.value);
   }
 
+  handleClearClick = () => {
+    this.props.setSearchText('');
+  }
+
   render() {
-    const { classes, className, style, fullWidth } = this.props;
+    const { classes, className, style, fullWidth, searchText, placeholder } = this.props;
 
     const rootClass = fullWidth === true
       ? classNames(classes.root, classes.root100, className)
       : classNames(classes.root, classes.rootCustom, className);
 
     const searchClass = fullWidth === true
-      ? classNames(classes.search, classes.searchBlack)
-      : classNames(classes.search);
+      ? classNames(classes.searchIcon)
+      : classNames(classes.searchIcon);
 
     const inputClass = fullWidth === true
-    ? classNames(classes.input, classes.inputBlack)
+    ? classNames(classes.input)
     : classNames(classes.input);
 
     return (
@@ -144,33 +166,14 @@ class SearchTextComponent extends
         </div>
         <input
           className={inputClass}
+          value={searchText}
           onChange={(e) => this.handleSearchText(e)}
-          placeholder="メッセージを検索"
+          placeholder={placeholder ? placeholder : ''}
         />
-    </div>
-
-      // <div className={classes.root} style={width !== undefined ? {width: width} : {}}>
-      //   <FormControl className={classes.searchFormControl} style={width !== undefined ? {width: width} : {}}>
-      //     <TextField
-      //       value={searchText}
-      //       margin="normal"
-      //       autoFocus={true}
-      //       placeholder="検索キーワードを入力してください"
-      //       InputProps={{
-      //         disableUnderline: true,
-      //         classes: {
-      //           root: classes.textFieldRoot,
-      //           input: classes.textFieldInput,
-      //         },
-      //       }}
-      //       InputLabelProps={{
-      //         shrink: true,
-      //         className: classes.textFieldFormLabel,
-      //       }}
-      //       onChange={(e) => this.handleSearchText(e)}
-      //     />
-      //   </FormControl>
-      // </div>
+        <IconButton onClick={this.handleClearClick} className={classNames(classes.clearIcon)}>
+          <CloseIcon />
+        </IconButton>
+      </div>
     );
   }
 }

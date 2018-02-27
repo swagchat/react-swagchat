@@ -36,6 +36,7 @@ import {
   updateMessagesActionCreator,
   markAsReadRequestActionCreator,
   setProfileUserIdActionCreator,
+  setSearchTextActionCreator,
   ClearMessagesAction,
   BeforeFetchMessagesRequestAction,
   FetchRoomRequestSuccessAction,
@@ -48,6 +49,7 @@ import {
   UpdateMessagesAction,
   MarkAsReadRequestAction,
   SetProfileUserIdAction,
+  SetSearchTextAction,
   routerHistory,
   RoomType,
   opponentUser,
@@ -63,7 +65,7 @@ import {
   ICON_SIZE,
   APP_BAR_HEIGHT,
   MESSAGE_BOTTOM_HEIGHT,
-  BORDER_RADIUS,
+  // BORDER_RADIUS,
 } from '../../setting';
 import { logger } from '../../util/logger';
 
@@ -90,6 +92,13 @@ const styles = (theme: Theme) => ({
     justifyContent: 'center' as justifyContentType,
     // paddingLeft: 10,
   },
+  searchToolbar: {
+    minHeight: APP_BAR_HEIGHT,
+    display: 'box',
+  },
+  cancelButton: {
+    margin: 2,
+  },
   toolbarButton: {
     width: 40,
     height: 40,
@@ -99,9 +108,10 @@ const styles = (theme: Theme) => ({
     margin: '0 5px',
   },
   searchText: {
-    backgroundColor: theme.palette.grey.A700,
-    borderRadius: BORDER_RADIUS,
-    width: '65%',
+    // backgroundColor: theme.palette.text.hint,
+    // borderRadius: BORDER_RADIUS,
+    // boxFlex: 1,
+    // margin: 4,
   },
   typography: {
     flex: 1,
@@ -142,6 +152,8 @@ type ClassNames =
   'root' |
   'appBar' |
   'toolbar' |
+  'searchToolbar' |
+  'cancelButton' |
   'toolbarButton' |
   'toolbarIcon' |
   'typography' |
@@ -179,6 +191,7 @@ interface MapDispatchToProps {
   updateMessages: (messages: IMessage[]) => UpdateMessagesAction;
   markAsReadRequest: (roomId: string) => MarkAsReadRequestAction;
   setProfileUserId: (profileUserId: string) => SetProfileUserIdAction;
+  setSearchText: (searchText: string) => SetSearchTextAction;
 }
 
 export interface MessageListProps {
@@ -230,6 +243,7 @@ class MessageListComponent extends
 
   handleSearchCancelClick = () => {
     this.setState({enableSearchText: false});
+    this.props.setSearchText('');
   }
 
   subMsgFunc = (message: IMessage) => {
@@ -333,9 +347,9 @@ class MessageListComponent extends
         >
           {enableSearchText
             ?
-              <Toolbar className={classes.toolbar} disableGutters={true}>
-                <SearchText className={classes.searchText} />
-                <Button onClick={this.handleSearchCancelClick}>キャンセル</Button>
+              <Toolbar className={classes.searchToolbar} disableGutters={true}>
+                <SearchText fullWidth={true} placeholder="メッセージを検索"　className={classes.searchText} />
+                <Button className={classes.cancelButton} onClick={this.handleSearchCancelClick}>キャンセル</Button>
               </Toolbar>
             :
               <Toolbar className={classes.toolbar} disableGutters={true}>
@@ -456,6 +470,7 @@ const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: Messag
     updateMessages: (messages: IMessage[]) => dispatch(updateMessagesActionCreator(messages)),
     markAsReadRequest: (roomId: string) => dispatch(markAsReadRequestActionCreator(roomId)),
     setProfileUserId: (profileUserId: string) => dispatch(setProfileUserIdActionCreator(profileUserId)),
+    setSearchText: (searchText: string) => dispatch(setSearchTextActionCreator(searchText)),
   };
 };
 
