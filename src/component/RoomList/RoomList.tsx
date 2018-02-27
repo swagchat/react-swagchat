@@ -5,7 +5,6 @@ import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { ListItem, ListItemText } from 'material-ui/List';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
@@ -44,6 +43,7 @@ import { SearchResultTab } from '../Search/SearchResultTab';
 import { SearchResultView } from '../Search/SearchResultView';
 import { TabContainer } from '../TabContainer';
 import { ContactList } from '../ContactList/ContactList';
+import { SwagAvator } from '../SwagAvator';
 import {
   ICON_SIZE,
   APP_BAR_HEIGHT,
@@ -339,14 +339,13 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                     style={currentRoomId === userRooms[key].roomId ?
                       {backgroundColor: theme!.palette.action.hover} : {}}
                   >
-                    {userRooms[key].ruUnreadCount > 0 ?
-                      <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
-                        {userRooms[key].pictureUrl === undefined
-                          ? <Avatar>{userRooms[key].name.slice(0, 1)}</Avatar>
-                          : <Avatar src={userRooms[key].pictureUrl} />
-                        }
-                      </Badge>
-                    : <Avatar src={userRooms[key].pictureUrl} />}
+                    {userRooms[key].ruUnreadCount > 0
+                      ?
+                        <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
+                          <SwagAvator user={userRooms[key]} />
+                        </Badge>
+                      : <SwagAvator user={userRooms[key]} />
+                    }
                     {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
 
                     <ListItemText primary={userRooms[key].name} secondary={userRooms[key].lastMessage} />

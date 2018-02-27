@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { dateFormateHHMM, IAddonMessageItemProps, ITextPayload } from 'swagchat-sdk';
-import Avatar from 'material-ui/Avatar';
+import { SwagAvator } from '../../../component/SwagAvator';
 
 type wordWrapType = 'break-word';
 type positionType = 'relative';
@@ -108,10 +108,7 @@ class TextItemComponent extends
           </div>
         ) : (
           <div>
-            {user.pictureUrl === undefined
-              ? <Avatar className={classes.avatar}>{user.name.slice(0, 1)}</Avatar>
-              : <Avatar className={classes.avatar} src={user.pictureUrl} />
-            }
+            <SwagAvator user={user} />
             <p className={classes.name}>{user.name}</p>
             <div className={classes.messageLeft}>{payload.text}</div>
             <div className={classes.timeLeft}>{dateFormateHHMM(message.created!)}</div>

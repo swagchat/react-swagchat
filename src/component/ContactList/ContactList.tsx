@@ -149,7 +149,7 @@ class ContactListComponent extends
                 key={key}
                 onClick={() => this.handleItemClick(contacts[key])}
               >
-                {contacts[key].pictureUrl === ''
+                {contacts[key].pictureUrl === '' || contacts[key].pictureUrl === undefined
                   ? <Avatar>{contacts[key].name.slice(0, 1)}</Avatar>
                   : <Avatar src={contacts[key].pictureUrl} />
                 }

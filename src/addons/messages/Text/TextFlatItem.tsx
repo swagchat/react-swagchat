@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { dateFormateHHMM, IAddonMessageItemProps, ITextPayload } from 'swagchat-sdk';
-import Avatar from 'material-ui/Avatar';
 import { ListItem } from 'material-ui/List';
+import { SwagAvator } from '../../../component/SwagAvator';
 
 const listItemMargin = 10;
 
@@ -83,11 +83,7 @@ const Item = withStyles(styles)<IAddonMessageItemProps>(
 
     return (
       <div className={classes.root}>
-        <Avatar className={classes.avatar} src={user.pictureUrl} />
-        {user.pictureUrl === undefined
-          ? <Avatar className={classes.avatar}>{user.name.slice(0, 1)}</Avatar>
-          : <Avatar className={classes.avatar} src={user.pictureUrl} />
-        }
+        <SwagAvator className={classes.avatar} user={user} />
         <div className={classes.wrap}>
           <div className={classes.wrapNameTime}>
             <div className={classes.name}>{user.name}</div>

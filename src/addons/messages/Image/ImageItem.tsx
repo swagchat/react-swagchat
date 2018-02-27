@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { dateFormateHHMM, IAddonMessageItemProps, IImagePayload } from 'swagchat-sdk';
 import { CircularProgress } from 'material-ui/Progress';
-import Avatar from 'material-ui/Avatar';
+import { SwagAvator } from '../../../component/SwagAvator';
 
 type positionType = 'relative';
 
@@ -133,7 +133,7 @@ class ImageItemComponent extends
           </div>
         ) : (
           <div>
-            <Avatar className={classes.avatar} src={user.pictureUrl} />
+            <SwagAvator className={classes.avatar} user={user} />
             <p className={classes.name}>{user.name}</p>
             {this.state.isLoaded ? (
               <img

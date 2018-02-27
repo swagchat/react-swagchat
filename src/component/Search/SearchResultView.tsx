@@ -12,6 +12,7 @@ import {
   MessageActions,
   IMessage,
   IUserForRoom,
+  IUser,
 } from 'swagchat-sdk';
 import { TextFlatItem } from '../../addons/messages/Text/TextFlatItem';
 import { TAB_HEIGHT } from '../../setting';
@@ -43,7 +44,7 @@ type ClassNames =
 
 interface MapStateToProps {
   searchResultTabIndex: number;
-  currentUserId: string;
+  user: IUser | null;
   messages: {[key: string]: IMessage};
   roomUsers: {[key: string]: IUserForRoom} | null;
 }
@@ -69,7 +70,11 @@ class SearchResultViewComponent extends
   }
 
   render() {
-    const { classes, searchResultTabIndex, currentUserId, messages, roomUsers } = this.props;
+    const { classes, searchResultTabIndex, user, messages, roomUsers } = this.props;
+
+    if (user === null) {
+      return <div>loading ...</div>;
+    }
 
     return (
       <SwipeableViews
@@ -88,7 +93,7 @@ class SearchResultViewComponent extends
                     key={key}
                     message={messages[key]}
                     user={roomUsers![messages[key].userId]}
-                    myUserId={currentUserId}
+                    myUserId={user.userId}
                     isLast={false}
                     isSearchResult={true}
                   />
@@ -115,7 +120,7 @@ class SearchResultViewComponent extends
 const mapStateToProps = (state: State, ownProps: SearchResultViewProps) => {
   return {
     searchResultTabIndex: state.message.searchResultTabIndex,
-    currentUserId: state.user.user!.userId,
+    user: state.user.user,
     messages: state.message.messageMap,
     roomUsers: state.room.roomUsers,
   };

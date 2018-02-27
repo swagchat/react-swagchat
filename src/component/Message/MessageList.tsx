@@ -27,6 +27,8 @@ import {
   fetchMessagesRequestFailureActionCreator,
   createMessageActionCreator,
   sendMessagesRequestActionCreator,
+  updateMessagesActionCreator,
+  markAsReadRequestActionCreator,
   ClearMessagesAction,
   BeforeFetchMessagesRequestAction,
   FetchRoomRequestSuccessAction,
@@ -36,6 +38,8 @@ import {
   FetchMessagesRequestFailureAction,
   CreateMessageAction,
   SendMessagesRequestAction,
+  UpdateMessagesAction,
+  MarkAsReadRequestAction,
 } from 'swagchat-sdk';
 import { TextItem } from '../../addons/messages/Text/TextItem';
 import { ImageItem } from '../../addons/messages/Image/ImageItem';
@@ -49,6 +53,7 @@ import {
   APP_BAR_HEIGHT,
   MESSAGE_BOTTOM_HEIGHT,
 } from '../../setting';
+import { logger } from '../../util/logger';
 
 type positionType = 'fixed';
 type displayType = 'fixed';
@@ -84,8 +89,8 @@ const styles = (theme: Theme) => ({
   content: {
     padding: '0 10px',
     paddingTop: APP_BAR_HEIGHT + 10,
-    marginTop: 12,
-    // marginTop: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1,
+    bottom: MESSAGE_BOTTOM_HEIGHT,
+    marginTop: MESSAGE_BOTTOM_HEIGHT + 10,
     // top: -1 * (APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1),
     position: 'relative' as positionType,
     overflowY: 'scroll' as overflowYType,
@@ -136,6 +141,7 @@ interface MapStateToProps {
   scrollBottomAnimationDuration: number;
   roomResError: IProblemDetail | null;
   roomUsers: {[key: string]: IUserForRoom} | null;
+  room: Room | null;
 }
 
 interface MapDispatchToProps {
@@ -148,6 +154,8 @@ interface MapDispatchToProps {
   fetchMessagesRequestFailure: (problemDetail: IProblemDetail) => FetchMessagesRequestFailureAction;
   createMessage: (roomId: string, userId: string, messageType: string, payload: {}) => CreateMessageAction;
   sendMessagesRequest: () => SendMessagesRequestAction;
+  updateMessages: (messages: IMessage[]) => UpdateMessagesAction;
+  markAsReadRequest: (roomId: string) => MarkAsReadRequestAction;
 }
 
 export interface MessageListProps {
@@ -174,12 +182,19 @@ class MessageListComponent extends
   componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
     if (this.props.client !== null && this.props.currentRoomId !== prevProps.currentRoomId) {
       this.getMessages(this.props.client, this.props.currentRoomId);
+      this.props.markAsReadRequest(this.props.currentRoomId);
     }
     this.scrollBottom();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handlerResizeEvent);
+  }
+
+  subMsgFunc = (message: IMessage) => {
+    logger('CHAT-API', 'info', 'Receive message(push)');
+    this.props.updateMessages([message]);
+    this.props.markAsReadRequest(this.props.currentRoomId);
   }
 
   handlerResizeEvent() {
@@ -199,6 +214,7 @@ class MessageListComponent extends
     if (roomRes.room) {
       this.props.fetchRoomRequestSuccess(roomRes.room);
       this.props.beforeFetchMessagesRequest(roomRes.room.messageCount, 0);
+      roomRes.room.subscribeMessage(this.subMsgFunc);
       const messageRes = await roomRes.room.getMessages({
         limit: roomRes.room.messageCount,
         offset: 0,
@@ -335,6 +351,7 @@ const mapStateToProps = (state: State, ownProps: {}) => {
     scrollBottomAnimationDuration: state.message.scrollBottomAnimationDuration,
     roomResError: state.room.problemDetail,
     roomUsers: state.room.roomUsers,
+    room: state.room.room,
   };
 };
 
@@ -353,6 +370,8 @@ const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: Messag
     createMessage: (roomId: string, userId: string, messageType: string, payload: {}) => 
       dispatch(createMessageActionCreator(roomId, userId, messageType, payload)),
     sendMessagesRequest: () => dispatch(sendMessagesRequestActionCreator()),
+    updateMessages: (messages: IMessage[]) => dispatch(updateMessagesActionCreator(messages)),
+    markAsReadRequest: (roomId: string) => dispatch(markAsReadRequestActionCreator(roomId)),
   };
 };
 
