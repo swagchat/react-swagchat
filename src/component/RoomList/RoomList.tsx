@@ -24,8 +24,6 @@ import {
   store,
   State,
   ClientActions,
-  fetchUserRequestActionCreator,
-  FetchUserRequestAction,
   setCurrentRoomIdActionCreator,
   SetCurrentRoomIdAction,
   setCurrentRoomNameActionCreator,
@@ -43,7 +41,7 @@ import { SearchResultTab } from '../Search/SearchResultTab';
 import { SearchResultView } from '../Search/SearchResultView';
 import { TabContainer } from '../TabContainer';
 import { ContactList } from '../ContactList/ContactList';
-import { SwagAvator } from '../SwagAvator';
+import { SwagAvatar } from '../SwagAvatar';
 import {
   ICON_SIZE,
   APP_BAR_HEIGHT,
@@ -167,7 +165,6 @@ interface MapDispatchToProps {
   setSearchText: (searchText: string) => SetSearchTextAction;
   clearSelectContacts: () => ClearSelectContactsAction;
   fetchContactsRequest: () => FetchContactsRequestAction;
-  fetchUserRequest: () => FetchUserRequestAction;
 }
 
 export interface RoomListProps {
@@ -191,10 +188,9 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     tabIndex: 0,
   };
 
-  componentDidMount() {
-    // if (this.props.userRooms === null) {
-    //   this.props.fetchUserRequest();
-    // }
+  componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
+    window.console.log(prevProps);
+    window.console.log(this.props);
   }
 
   handleContactListClickOpen = () => {
@@ -342,9 +338,9 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                     {userRooms[key].ruUnreadCount > 0
                       ?
                         <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
-                          <SwagAvator user={userRooms[key]} />
+                          <SwagAvatar user={userRooms[key]} />
                         </Badge>
-                      : <SwagAvator user={userRooms[key]} />
+                      : <SwagAvatar user={userRooms[key]} />
                     }
                     {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
 
@@ -356,7 +352,36 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                 )) : null }
               </TabContainer>
               <TabContainer key="roomlist-tab-container-2" dir="ltr">
-                <p>未読</p>
+              {problemDetail !== null ? <div>{problemDetail.title}</div> : null}
+                {userRooms ? Object.keys(userRooms).map((key: string) => {
+                  if (userRooms[key].ruUnreadCount > 0) {
+                    return (
+                      <ListItem
+                        key={userRooms[key].roomId}
+                        button={true}
+                        onClick={() => this.handleItemClick(userRooms[key].roomId, userRooms[key].name)}
+                        style={currentRoomId === userRooms[key].roomId ?
+                          {backgroundColor: theme!.palette.action.hover} : {}}
+                      >
+                        {userRooms[key].ruUnreadCount > 0
+                          ?
+                            <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
+                              <SwagAvatar user={userRooms[key]} />
+                            </Badge>
+                          : <SwagAvatar user={userRooms[key]} />
+                        }
+                        {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
+
+                        <ListItemText primary={userRooms[key].name} secondary={userRooms[key].lastMessage} />
+                        <Typography variant="caption" color="textSecondary">
+                          {userRooms[key].lastMessageUpdated ? dateHumanize(userRooms[key].lastMessageUpdated) : ''}
+                        </Typography>
+                      </ListItem>
+                    );
+                  } else {
+                    return null;
+                  }
+                }) : null }
               </TabContainer>
               <TabContainer key="roomlist-tab-container-3" dir="ltr">
                 <p>オンライン中</p>
@@ -385,7 +410,6 @@ const mapDispatchToProps = (dispatch: Dispatch<ClientActions & MessageActions>, 
     setCurrentRoomName: (currentRoomName: string) => dispatch(setCurrentRoomNameActionCreator(currentRoomName)),
     setSearchText: (searchText: string) => dispatch(setSearchTextActionCreator(searchText)),
     clearSelectContacts: () => dispatch(clearSelectContactsActionCreator()),
-    fetchUserRequest: () => dispatch(fetchUserRequestActionCreator()),
     fetchContactsRequest: () => dispatch(fetchContactsRequestActionCreator()),
   };
 };

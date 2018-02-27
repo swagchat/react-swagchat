@@ -8,6 +8,8 @@ import { init, theme } from './';
 import { Top } from './component/Top';
 import { RoomList } from './component/RoomList/RoomList';
 import { MessageList } from './component/Message/MessageList';
+import { RoomSetting } from './component/RoomSetting/RoomSetting';
+import { Profile } from './component/Profile/Profile';
 
 export interface AppProps {
   clientParams: IClientParams;
@@ -33,8 +35,18 @@ class App extends React.Component<AppProps, {}> {
               />
               <Route
                 exact={true}
-                path="/messages/:messageId"
+                path="/messages/:roomId"
                 render={() => (<MessageList />)}
+              />
+              <Route
+                exact={true}
+                path="/roomSetting/:roomId"
+                render={() => (<RoomSetting />)}
+              />
+              <Route
+                exact={true}
+                path="/profile/:userId"
+                render={() => (<Profile />)}
               />
             </Switch>
           </ConnectedRouter>

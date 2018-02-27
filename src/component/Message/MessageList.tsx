@@ -1,16 +1,22 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import InfoOutlineIcon from 'material-ui-icons/InfoOutline';
 import IconButton from 'material-ui/IconButton';
+import InfoOutlineIcon from 'material-ui-icons/InfoOutline';
+import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
+import SearchIcon from 'material-ui-icons/Search';
+import { SearchText } from '../Search/SearchText';
 import { LinearProgress } from 'material-ui/Progress';
+import Button from 'material-ui/Button';
 import {
+  State,
+  store,
   Client,
   IUser,
-  State,
   IMessage,
   IMessages,
   Room,
@@ -29,6 +35,7 @@ import {
   sendMessagesRequestActionCreator,
   updateMessagesActionCreator,
   markAsReadRequestActionCreator,
+  setProfileUserIdActionCreator,
   ClearMessagesAction,
   BeforeFetchMessagesRequestAction,
   FetchRoomRequestSuccessAction,
@@ -40,18 +47,23 @@ import {
   SendMessagesRequestAction,
   UpdateMessagesAction,
   MarkAsReadRequestAction,
+  SetProfileUserIdAction,
+  routerHistory,
+  RoomType,
+  opponentUser,
 } from 'swagchat-sdk';
 import { TextItem } from '../../addons/messages/Text/TextItem';
 import { ImageItem } from '../../addons/messages/Image/ImageItem';
 import { TextInteraction } from '../../addons/messages/Text/TextInteraction';
 import { ImageInteraction } from '../../addons/messages/Image/ImageInteraction';
 import {
-  MESSAGE_LIST_MIN_WIDTH,
+  MIN_WIDTH,
   MESSAGE_BOTTOM_BG_COLOR,
   BORDER_COLOR,
   ICON_SIZE,
   APP_BAR_HEIGHT,
   MESSAGE_BOTTOM_HEIGHT,
+  BORDER_RADIUS,
 } from '../../setting';
 import { logger } from '../../util/logger';
 
@@ -63,7 +75,7 @@ type overflowYType = 'scroll';
 
 const styles = (theme: Theme) => ({
   root: {
-    minWidth: MESSAGE_LIST_MIN_WIDTH,
+    minWidth: MIN_WIDTH,
     backgroundColor: theme.palette.background.paper,
   },
   appBar: {
@@ -76,29 +88,37 @@ const styles = (theme: Theme) => ({
   toolbar: {
     minHeight: APP_BAR_HEIGHT,
     justifyContent: 'center' as justifyContentType,
-    paddingLeft: 10,
+    // paddingLeft: 10,
+  },
+  toolbarButton: {
+    width: 40,
+    height: 40,
+  },
+  toolbarIcon: {
+    width: ICON_SIZE,
+    margin: '0 5px',
+  },
+  searchText: {
+    backgroundColor: theme.palette.grey.A700,
+    borderRadius: BORDER_RADIUS,
+    width: '65%',
   },
   typography: {
     flex: 1,
     textAlign: 'center',
   },
-  icon: {
-    width: ICON_SIZE,
-    height: ICON_SIZE,
-  },
   content: {
     padding: '0 10px',
     paddingTop: APP_BAR_HEIGHT + 10,
-    bottom: MESSAGE_BOTTOM_HEIGHT,
-    marginTop: MESSAGE_BOTTOM_HEIGHT + 10,
-    // top: -1 * (APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 1),
+    bottom: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT,
+    marginTop: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 10,
     position: 'relative' as positionType,
     overflowY: 'scroll' as overflowYType,
   },
   bottom: {
     width: '100%',
     minHeight: MESSAGE_BOTTOM_HEIGHT - 1,
-    minWidth: MESSAGE_LIST_MIN_WIDTH,
+    minWidth: MIN_WIDTH,
     backgroundColor: MESSAGE_BOTTOM_BG_COLOR,
     display: 'flex' as displayType,
     justifyContent: 'space-around' as justifyContentType,
@@ -122,8 +142,10 @@ type ClassNames =
   'root' |
   'appBar' |
   'toolbar' |
+  'toolbarButton' |
+  'toolbarIcon' |
   'typography' |
-  'icon' |
+  'searchText' |
   'content' |
   'bottom' |
   'bottomRight' |
@@ -156,6 +178,7 @@ interface MapDispatchToProps {
   sendMessagesRequest: () => SendMessagesRequestAction;
   updateMessages: (messages: IMessage[]) => UpdateMessagesAction;
   markAsReadRequest: (roomId: string) => MarkAsReadRequestAction;
+  setProfileUserId: (profileUserId: string) => SetProfileUserIdAction;
 }
 
 export interface MessageListProps {
@@ -163,11 +186,14 @@ export interface MessageListProps {
   top?: number;
   left?: number;
   right?: number;
-  isPush?: boolean;
 }
 
 class MessageListComponent extends
     React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & MessageListProps, {}> {
+  state = {
+    enableSearchText: false,
+  };
+
   lastInnerHeight = 0;
   contentDom: HTMLDivElement | undefined | null;
   bottomDom: HTMLDivElement | undefined | null;
@@ -189,6 +215,21 @@ class MessageListComponent extends
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handlerResizeEvent);
+    if (this.props.room !== null) {
+      this.props.room.unsubscribeMessage();
+    }
+  }
+
+  handleBackClick = () => {
+    routerHistory.goBack();
+  }
+
+  handleSearchClick = () => {
+    this.setState({enableSearchText: true});
+  }
+
+  handleSearchCancelClick = () => {
+    this.setState({enableSearchText: false});
   }
 
   subMsgFunc = (message: IMessage) => {
@@ -243,10 +284,28 @@ class MessageListComponent extends
     event.preventDefault();
   }
 
+  handleRoomSettingClick = () => {
+    const room = this.props.room;
+    if (room !== null) {
+      if (room.type === RoomType.ONE_ON_ONE) {
+        const users = opponentUser(room.users!, this.props.currentUserId);
+        if (users !== null) {
+          const profileUserId = users[0].userId;
+          this.props.setProfileUserId(profileUserId);
+          store.dispatch(push('/profile/' + profileUserId));
+        }
+      } else {
+        store.dispatch(push('/roomSetting/' + this.props.currentRoomId));
+      }
+    }
+  }
+
   render() {
     const {
       classes, width, top, left, right,
-      currentUserId, currentRoomId, currentRoomName, messages, roomUsers } = this.props;
+      currentUserId, currentRoomId, currentRoomName, messages, roomUsers
+    } = this.props;
+    const { enableSearchText } = this.state;
 
     if (currentRoomId === '') {
       return <LinearProgress />;
@@ -272,16 +331,40 @@ class MessageListComponent extends
           className={classes.appBar}
           style={appBarStyle}
         >
-          <Toolbar className={classes.toolbar} disableGutters={true}>
-            <Typography variant="subheading" className={classes.typography}>
-              {currentRoomName}
-            </Typography>
-            <IconButton
-              color="primary"
-            >
-              <InfoOutlineIcon className={classes.icon} />
-            </IconButton>
-          </Toolbar>
+          {enableSearchText
+            ?
+              <Toolbar className={classes.toolbar} disableGutters={true}>
+                <SearchText className={classes.searchText} />
+                <Button onClick={this.handleSearchCancelClick}>キャンセル</Button>
+              </Toolbar>
+            :
+              <Toolbar className={classes.toolbar} disableGutters={true}>
+                <IconButton
+                  className={classes.toolbarButton}
+                  color="primary"
+                  onClick={this.handleBackClick}
+                >
+                  <KeyboardArrowLeftIcon className={classes.toolbarIcon} />
+                </IconButton>
+                <Typography variant="subheading" className={classes.typography}>
+                  {currentRoomName}
+                </Typography>
+                <IconButton
+                  className={classes.toolbarButton}
+                  color="primary"
+                  onClick={this.handleSearchClick}
+                >
+                  <SearchIcon className={classes.toolbarIcon} />
+                </IconButton>
+                <IconButton
+                  className={classes.toolbarButton}
+                  color="primary"
+                  onClick={this.handleRoomSettingClick}
+                >
+                  <InfoOutlineIcon className={classes.toolbarIcon} />
+                </IconButton>
+              </Toolbar>
+          }
         </AppBar>
         <div
           id="messageListContent"
@@ -372,6 +455,7 @@ const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: Messag
     sendMessagesRequest: () => dispatch(sendMessagesRequestActionCreator()),
     updateMessages: (messages: IMessage[]) => dispatch(updateMessagesActionCreator(messages)),
     markAsReadRequest: (roomId: string) => dispatch(markAsReadRequestActionCreator(roomId)),
+    setProfileUserId: (profileUserId: string) => dispatch(setProfileUserIdActionCreator(profileUserId)),
   };
 };
 

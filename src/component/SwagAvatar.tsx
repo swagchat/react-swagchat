@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
-import { IUser } from 'swagchat-sdk';
+import { IUser, IRoom } from 'swagchat-sdk';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -22,10 +22,10 @@ interface MapDispatchToProps {
 export interface Props {
   className?: string;
   style?: Partial<React.CSSProperties>;
-  user: IUser;
+  user: IUser | IRoom;
 }
 
-class SwagAvatorComponent
+class SwagAvatarComponent
     extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
   render() {
     const { className, style, user } = this.props;
@@ -63,7 +63,7 @@ const mapDispatchToProps = (dispatch: {}, ownProps: Props) => {
   return {};
 };
 
-export const SwagAvator = connect<MapStateToProps, MapDispatchToProps, Props>(
+export const SwagAvatar = connect<MapStateToProps, MapDispatchToProps, Props>(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles, { withTheme: true })(SwagAvatorComponent));
+)(withStyles(styles, { withTheme: true })(SwagAvatarComponent));

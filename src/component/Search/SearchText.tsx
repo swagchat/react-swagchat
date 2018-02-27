@@ -109,6 +109,8 @@ interface MapDispatchToProps {
 }
 
 export interface SearchTextProps {
+  className?: string;
+  style?: Partial<React.CSSProperties>;
   fullWidth?: boolean;
   enableBorder?: boolean;
 }
@@ -121,11 +123,11 @@ class SearchTextComponent extends
   }
 
   render() {
-    const { classes, fullWidth } = this.props;
+    const { classes, className, style, fullWidth } = this.props;
 
     const rootClass = fullWidth === true
-      ? classNames(classes.root, classes.root100)
-      : classNames(classes.root, classes.rootCustom);
+      ? classNames(classes.root, classes.root100, className)
+      : classNames(classes.root, classes.rootCustom, className);
 
     const searchClass = fullWidth === true
       ? classNames(classes.search, classes.searchBlack)
@@ -136,7 +138,7 @@ class SearchTextComponent extends
     : classNames(classes.input);
 
     return (
-      <div className={rootClass}>
+      <div className={rootClass} style={style ? style : {}}>
         <div className={searchClass}>
           <SearchIcon />
         </div>

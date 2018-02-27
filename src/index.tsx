@@ -48,22 +48,22 @@ export const theme: Theme = createMuiTheme({
 
 // ##################################################
 
-// import * as React from 'react';
-// import * as ReactDOM from 'react-dom';
-// import App from './App';
-// import './index.css';
-// import registerServiceWorker from './registerServiceWorker';
-// const clientParams = {
-//   apiEndpoint: 'http://customer0001.swagchat.io:8000/chat-api',
-//   wsEndpoint: 'ws://customer0001.swagchat.io:8000/rtm-api/v0',
-//   // tslint:disable-next-line:max-line-length
-//   accessToken: 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2ZnRRR3gyTWNHSGdUbmJFUGRIU3J3LTJjSzRHLThEbUN0eFhKbU9wRWZzIn0.eyJqdGkiOiI3NWE3MDdhZi1lOTVlLTRlNGMtYWFiZS0xZjVmOTg0MzRjNTUiLCJleHAiOjE1MTk2NjE3NTIsIm5iZiI6MCwiaWF0IjoxNTE5NjU0NTUyLCJpc3MiOiJodHRwOi8vYWNjb3VudHMuc3dhZ2NoYXQuaW8vYXV0aC9yZWFsbXMvY3VzdG9tZXIwMDAxLnN3YWdjaGF0LmlvIiwiYXVkIjoiYnJvd3NlciIsInN1YiI6IjkzMGQ5NTFhLWZhNzctNDA5Yy04OWI5LThkMzAxODU0OWQxNyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImJyb3dzZXIiLCJub25jZSI6ImI1N2M5MzQ4LTdiMjUtNGQxNy04MjI2LTgxOTE3NWRmZDhjZCIsImF1dGhfdGltZSI6MTUxOTY1NDQ5MCwic2Vzc2lvbl9zdGF0ZSI6ImM0YWRhZmZjLTdhOWItNDkxNC1hMjIyLTllMDYyYTdhZDBkMCIsImFjciI6IjAiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2N1c3RvbWVyMDAwMS5zd2FnY2hhdC5pbzozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJhZG1pbiIsInVzZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJuYW1lIjoi55yf5LiAIOe-jua_g-mDqCIsInByZWZlcnJlZF91c2VybmFtZSI6InN3YWdjaGF0MDAwMSIsImdpdmVuX25hbWUiOiLnnJ_kuIAiLCJmYW1pbHlfbmFtZSI6Iue-jua_g-mDqCIsImVtYWlsIjoic3dhZ2NoYXQwMDAxQGdtYWlsLmNvbSJ9.flLX74YwGg8isF8hTv2Vk2ka-U3-sb4itOIgJC576OwvLQDGK7s8JwglDPdr4S4oQoPsJSpaqC7j6uf-V-fp0BIOdwh2vwYVOA0tpD9UwqRZRgZCHaXLEXiRYuEELLduaWLzjhepYy0rgZM_2VZiTvlg3wTTo0qx3c0oE712vRlukD7axXneRa5v5DnKoa2ME40Es84usJum7mU94qli3H356yLXnOJW76wZyZGwWDO61QpTdSE6oCVhOn9qFEXNOSXlvBDovnY98kxfrQeYf5TRwdJOa6bRRSydkYDaLSLBTDDtqS8yN0or_2mTheBNwrFrORwJXcVkhc2yRgrtRw',
-//   userId: '930d951a-fa77-409c-89b9-8d3018549d17',
-//   username: 'swagchat0001',
-// };
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
+import registerServiceWorker from './registerServiceWorker';
+const clientParams = {
+  apiEndpoint: 'http://customer0001.swagchat.io:8000/chat-api',
+  wsEndpoint: 'ws://customer0001.swagchat.io:8000/rtm-api/v0',
+  // tslint:disable-next-line:max-line-length
+  accessToken: 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2ZnRRR3gyTWNHSGdUbmJFUGRIU3J3LTJjSzRHLThEbUN0eFhKbU9wRWZzIn0.eyJqdGkiOiI4MzE2YmNmZC03OWJiLTRhNmItOTkzYS04YzQ3Zjk2ODdjYWEiLCJleHAiOjE1MTk3Mzg0OTIsIm5iZiI6MCwiaWF0IjoxNTE5NzE2ODkyLCJpc3MiOiJodHRwOi8vYWNjb3VudHMuc3dhZ2NoYXQuaW8vYXV0aC9yZWFsbXMvY3VzdG9tZXIwMDAxLnN3YWdjaGF0LmlvIiwiYXVkIjoiYnJvd3NlciIsInN1YiI6IjE1NzI4NmI2LTRjOGYtNDA3Mi04MWI4LTUxZjhlNDdmY2UwZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImJyb3dzZXIiLCJub25jZSI6ImRiZjY3ZGY4LTc2MmEtNDI3OC04N2ZmLWQ0ZTM4ZjcxZjhlOSIsImF1dGhfdGltZSI6MTUxOTcxNjg4OSwic2Vzc2lvbl9zdGF0ZSI6ImM1M2IxYTI4LTI0MmItNGZmOS1hODg2LTJlOTFiNWRhMjhmNiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2N1c3RvbWVyMDAwMS5zd2FnY2hhdC5pbzozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJhZG1pbiIsInVzZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJuYW1lIjoic2hpbmljaGkgbWlub2JlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2hpbmljaGkubWlub2JlQGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJzaGluaWNoaSIsImZhbWlseV9uYW1lIjoibWlub2JlIiwiZW1haWwiOiJzaGluaWNoaS5taW5vYmVAZ21haWwuY29tIn0.Vs8GrSForvdxPsOXppQdFZj_VjYBSaQ3PevbdVJCzOA-poGYVo7Y2WdoC0Sod6qQ1AGjq8lQFXw-W0pFX-Z-Wc8HHMj6l3uThRI3XudMlPxW_c4pl8N9WGhZ-G7nplizaaczUUS1gngdxHgHVBFlOB1hPgvteFP3myZOZLppLmBoNi5Pfj-BHMHflEr6GUnZpzppBTkw650qN504CRm1y53Lx5CicjC8iUcrcHVdEY6xID5Ii0nSCUvtBZg3e_xFu3crqdke2kaPSGhNMOfQ9FYqmV7GNc43mFOeS171eOIwiQQMmoMrTeyyQwJPRWaGkHfDHhHhH9vxFfV2v8VfTA',
+  userId: '157286b6-4c8f-4072-81b8-51f8e47fce0e',
+  username: 'shinichi.minobe@gmail.com',
+};
 
-// ReactDOM.render(
-//   <App clientParams={clientParams} />,
-//   document.getElementById('root') as HTMLElement
-// );
-// registerServiceWorker();
+ReactDOM.render(
+  <App clientParams={clientParams} />,
+  document.getElementById('root') as HTMLElement
+);
+registerServiceWorker();
