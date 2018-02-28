@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -12,12 +13,14 @@ import NotificationsIcon from 'material-ui-icons/Notifications';
 // import NotificationsOffIcon from 'material-ui-icons/NotificationsOff';
 import ExitToAppIcon from 'material-ui-icons/ExitToApp';
 import RemoveIcon from 'material-ui-icons/Remove';
-import List, { ListItem, ListItemText, ListSubheader, ListItemIcon } from 'material-ui/List';
+import List, { ListItem, ListItemText, ListSubheader } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { LinearProgress } from 'material-ui/Progress';
 import {
-  State, Client, Room, routerHistory,
+  State, store, Client, Room, routerHistory,
   fetchRoomRequestActionCreator, FetchRoomRequestAction,
+  setProfileUserIdActionCreator, SetProfileUserIdAction,
+  clearProfileUserActionCreator, ClearProfileUserAction,
   RoomActions,
 } from 'swagchat-sdk';
 import { SwagAvatar } from '../SwagAvatar';
@@ -68,10 +71,6 @@ const styles = (theme: Theme) => ({
   listItemIcon: {
     color: theme.palette.primary.main,
   },
-  iconButton: {
-    position: 'relative' as positionType,
-    right: '-12px',
-  },
 });
 
 type ClassNames = 
@@ -82,8 +81,7 @@ type ClassNames =
   'toolbarIcon' |
   'typography' |
   'content' |
-  'listItemIcon' |
-  'iconButton'
+  'listItemIcon'
 ;
 
 interface MapStateToProps {
@@ -95,6 +93,8 @@ interface MapStateToProps {
 
 interface MapDispatchToProps {
   fetchRoomRequest: (roomId: string) => FetchRoomRequestAction;
+  setProfileUserId: (profileUserId: string) => SetProfileUserIdAction;
+  clearProfileUser: () => ClearProfileUserAction;
 }
 
 export interface RoomSettingProps {
@@ -106,14 +106,32 @@ export interface RoomSettingProps {
 
 class RoomSettingComponent
     extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & RoomSettingProps, {}> {
+
+  componentDidMount() {
+    if (this.props.client !== null && this.props.room === null && this.props.currentRoomId !== '') {
+      this.props.fetchRoomRequest(this.props.currentRoomId);
+    }
+  }
+
   componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
-    if (this.props.client !== null && this.props.currentRoomId !== prevProps.currentRoomId) {
+    if (this.props.client !== null && this.props.room === null && this.props.currentRoomId !== '') {
       this.props.fetchRoomRequest(this.props.currentRoomId);
     }
   }
 
   handleBackClick = () => {
     routerHistory.goBack();
+  }
+
+  handleRemoveRoomUserClick = (e: React.MouseEvent<HTMLElement>) => {
+    window.console.log('handleRemoveRoomUserClick');
+    e.stopPropagation();
+  }
+
+  handleProfileClick = (profileUserId: string) => {
+    this.props.clearProfileUser();
+    this.props.setProfileUserId(profileUserId);
+    store.dispatch(push('/profile/' + profileUserId));
   }
 
   render() {
@@ -161,7 +179,6 @@ class RoomSettingComponent
           </Toolbar>
         </AppBar>
         <div className={classes.content}>
-          {window.console.log(room)}
           <ListItem
             key={room.roomId}
             button={true}
@@ -171,30 +188,41 @@ class RoomSettingComponent
           </ListItem>
           <Divider />
           <List subheader={<ListSubheader component="div">メンバー管理</ListSubheader>}>
-            <ListItem key="room-setting-add-room-user" button={true}>
-              <ListItemIcon className={classes.listItemIcon}><AddIcon /></ListItemIcon>
+            <ListItem disableGutters={true} key="room-setting-add-room-user" button={true}>
+              <IconButton className={classes.listItemIcon}><AddIcon /></IconButton>
               <ListItemText primary="メンバーを追加" />
             </ListItem>
             {room.users !== null ? Object.keys(room.users).map((key: string) => (
               <ListItem
                 key={room.users![key].userId}
                 button={true}
+                disableGutters={true}
+                onClick={() => this.handleProfileClick(room.users![key].userId)}
               >
-                <ListItemIcon className={classes.listItemIcon}><RemoveIcon /></ListItemIcon>
+                <IconButton
+                  className={classes.listItemIcon}
+                  onClick={(e: React.MouseEvent<HTMLElement>) => this.handleRemoveRoomUserClick(e)}
+                >
+                  <RemoveIcon />
+                </IconButton>
                 <SwagAvatar user={room.users![key]} />
                 <ListItemText primary={room.users![key].name} />
-                <IconButton className={classes.iconButton}><KeyboardArrowRightIcon /></IconButton>
+                <IconButton
+                  onClick={() => this.handleProfileClick(room.users![key].userId)}
+                >
+                  <KeyboardArrowRightIcon />
+                </IconButton>
               </ListItem>
             )) : null }
           </List>
           <Divider />
           <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
-            <ListItem key="room-setting-notifications" button={true}>
-              <ListItemIcon className={classes.listItemIcon}><NotificationsIcon /></ListItemIcon>
+            <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
+              <IconButton className={classes.listItemIcon}><NotificationsIcon /></IconButton>
               <ListItemText primary="このルームの通知をオフにする" />
             </ListItem>
-            <ListItem key="room-setting-exit-room" button={true}>
-              <ListItemIcon className={classes.listItemIcon}><ExitToAppIcon /></ListItemIcon>
+            <ListItem disableGutters={true} key="room-setting-exit-room" button={true}>
+              <IconButton className={classes.listItemIcon}><ExitToAppIcon /></IconButton>
               <ListItemText primary="このルームから退出する" />
             </ListItem>
           </List>
@@ -216,6 +244,8 @@ const mapStateToProps = (state: State, ownProps: RoomSettingProps) => {
 const mapDispatchToProps = (dispatch: Dispatch<RoomActions>, ownProps: RoomSettingProps) => {
   return {
     fetchRoomRequest: (roomId: string) => dispatch(fetchRoomRequestActionCreator(roomId)),
+    setProfileUserId: (profileUserId: string) => dispatch(setProfileUserIdActionCreator(profileUserId)),
+    clearProfileUser: () => dispatch(clearProfileUserActionCreator()),
   };
 };
 

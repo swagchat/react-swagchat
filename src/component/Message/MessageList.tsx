@@ -35,7 +35,6 @@ import {
   sendMessagesRequestActionCreator,
   updateMessagesActionCreator,
   markAsReadRequestActionCreator,
-  setProfileUserIdActionCreator,
   setSearchTextActionCreator,
   ClearMessagesAction,
   BeforeFetchMessagesRequestAction,
@@ -48,11 +47,8 @@ import {
   SendMessagesRequestAction,
   UpdateMessagesAction,
   MarkAsReadRequestAction,
-  SetProfileUserIdAction,
   SetSearchTextAction,
   routerHistory,
-  RoomType,
-  opponentUser,
 } from 'swagchat-sdk';
 import { TextItem } from '../../addons/messages/Text/TextItem';
 import { ImageItem } from '../../addons/messages/Image/ImageItem';
@@ -190,7 +186,6 @@ interface MapDispatchToProps {
   sendMessagesRequest: () => SendMessagesRequestAction;
   updateMessages: (messages: IMessage[]) => UpdateMessagesAction;
   markAsReadRequest: (roomId: string) => MarkAsReadRequestAction;
-  setProfileUserId: (profileUserId: string) => SetProfileUserIdAction;
   setSearchText: (searchText: string) => SetSearchTextAction;
 }
 
@@ -299,19 +294,21 @@ class MessageListComponent extends
   }
 
   handleRoomSettingClick = () => {
-    const room = this.props.room;
-    if (room !== null) {
-      if (room.type === RoomType.ONE_ON_ONE) {
-        const users = opponentUser(room.users!, this.props.currentUserId);
-        if (users !== null) {
-          const profileUserId = users[0].userId;
-          this.props.setProfileUserId(profileUserId);
-          store.dispatch(push('/profile/' + profileUserId));
-        }
-      } else {
-        store.dispatch(push('/roomSetting/' + this.props.currentRoomId));
-      }
-    }
+    store.dispatch(push('/roomSetting/' + this.props.currentRoomId));
+    // const room = this.props.room;
+    // if (room !== null) {
+    //   if (room.type === RoomType.ONE_ON_ONE) {
+    //     const users = opponentUser(room.users!, this.props.currentUserId);
+    //     if (users !== null) {
+    //       const profileUserId = users[0].userId;
+    //       this.props.clearProfileUser();
+    //       this.props.setProfileUserId(profileUserId);
+    //       store.dispatch(push('/profile/' + profileUserId));
+    //     }
+    //   } else {
+    //     store.dispatch(push('/roomSetting/' + this.props.currentRoomId));
+    //   }
+    // }
   }
 
   render() {
@@ -469,7 +466,6 @@ const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: Messag
     sendMessagesRequest: () => dispatch(sendMessagesRequestActionCreator()),
     updateMessages: (messages: IMessage[]) => dispatch(updateMessagesActionCreator(messages)),
     markAsReadRequest: (roomId: string) => dispatch(markAsReadRequestActionCreator(roomId)),
-    setProfileUserId: (profileUserId: string) => dispatch(setProfileUserIdActionCreator(profileUserId)),
     setSearchText: (searchText: string) => dispatch(setSearchTextActionCreator(searchText)),
   };
 };

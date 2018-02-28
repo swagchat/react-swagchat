@@ -6,13 +6,13 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from 'material-ui-icons/KeyboardArrowRight';
-import AddIcon from 'material-ui-icons/Add';
+// import KeyboardArrowRightIcon from 'material-ui-icons/KeyboardArrowRight';
 import NotificationsIcon from 'material-ui-icons/Notifications';
 // import NotificationsOffIcon from 'material-ui-icons/NotificationsOff';
 import ExitToAppIcon from 'material-ui-icons/ExitToApp';
-import RemoveIcon from 'material-ui-icons/Remove';
+// import RemoveIcon from 'material-ui-icons/Remove';
 import List, { ListItem, ListItemText, ListSubheader, ListItemIcon } from 'material-ui/List';
+import Card, { CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import { LinearProgress } from 'material-ui/Progress';
 import {
@@ -91,7 +91,7 @@ interface MapStateToProps {
   client: Client | null;
   profileUserId: string;
   room: Room | null;
-  user: IUser | null;
+  profileUser: IUser | null;
 }
 
 interface MapDispatchToProps {
@@ -108,8 +108,14 @@ export interface ProfileProps {
 
 class ProfileComponent
     extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & ProfileProps, {}> {
+  componentDidMount() {
+    if (this.props.client !== null && this.props.profileUser === null && this.props.profileUserId !== '') {
+      this.props.fetchProfileUserRequest(this.props.profileUserId);
+    }
+  }
+
   componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
-    if (this.props.client !== null && this.props.profileUserId !== prevProps.profileUserId) {
+    if (this.props.client !== null && this.props.profileUser === null && this.props.profileUserId !== '') {
       this.props.fetchProfileUserRequest(this.props.profileUserId);
     }
   }
@@ -121,10 +127,10 @@ class ProfileComponent
   render() {
     const {
       classes, width, top, left, right,
-      room,
+      profileUser,
     } = this.props;
 
-    if (room === null) {
+    if (profileUser === null) {
       return <LinearProgress />;
     }
 
@@ -163,40 +169,28 @@ class ProfileComponent
           </Toolbar>
         </AppBar>
         <div className={classes.content}>
+          <Card>
+            <CardMedia
+              image={profileUser.pictureUrl}
+              style={{height: 200}}
+              title="Contemplative Reptile"
+            />
+          </Card>
           <ListItem
-            key={room.roomId}
-            button={true}
+            key={profileUser.userId}
           >
-            <SwagAvatar user={room} />
-            <ListItemText primary={room.name} />
+            <SwagAvatar user={profileUser} />
+            <ListItemText primary={profileUser.name} />
           </ListItem>
-          <Divider />
-          <List subheader={<ListSubheader component="div">メンバー管理</ListSubheader>}>
-            <ListItem key="room-setting-add-room-user" button={true}>
-              <ListItemIcon className={classes.listItemIcon}><AddIcon /></ListItemIcon>
-              <ListItemText primary="メンバーを追加" />
-            </ListItem>
-            {room.users !== null ? Object.keys(room.users).map((key: string) => (
-              <ListItem
-                key={room.users![key].userId}
-                button={true}
-              >
-                <ListItemIcon className={classes.listItemIcon}><RemoveIcon /></ListItemIcon>
-                <SwagAvatar user={room.users![key]} />
-                <ListItemText primary={room.users![key].name} />
-                <IconButton className={classes.iconButton}><KeyboardArrowRightIcon /></IconButton>
-              </ListItem>
-            )) : null }
-          </List>
           <Divider />
           <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
             <ListItem key="room-setting-notifications" button={true}>
               <ListItemIcon className={classes.listItemIcon}><NotificationsIcon /></ListItemIcon>
-              <ListItemText primary="このルームの通知をオフにする" />
+              <ListItemText primary="通知をオフにする" />
             </ListItem>
             <ListItem key="room-setting-exit-room" button={true}>
               <ListItemIcon className={classes.listItemIcon}><ExitToAppIcon /></ListItemIcon>
-              <ListItemText primary="このルームから退出する" />
+              <ListItemText primary="ブロックする" />
             </ListItem>
           </List>
         </div>
@@ -210,7 +204,7 @@ const mapStateToProps = (state: State, ownProps: ProfileProps) => {
     client: state.client.client,
     profileUserId: state.client.profileUserId,
     room: state.room.room,
-    user: state.user.user,
+    profileUser: state.user.profileUser,
   };
 };
 
