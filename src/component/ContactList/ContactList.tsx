@@ -19,11 +19,9 @@ import {
   fetchContactsRequestActionCreator,
   updateSelectContactsActionCreator,
   clearSelectContactsActionCreator,
-  createRoomAndFetchMessagesRequestActionCreator,
   FetchContactsRequestAction,
   UpdateSelectContactsAction,
   ClearSelectContactsAction,
-  CreateRoomAndFetchMessagesRequestAction,
 } from 'swagchat-sdk';
 import { SearchText } from '../Search/SearchText';
 import { BORDER_COLOR, APP_BAR_HEIGHT, SEARCH_FORM_HEIGHT, ICON_SIZE } from '../../setting';
@@ -82,12 +80,12 @@ interface MapDispatchToProps {
   fetchContactsRequest: () => FetchContactsRequestAction;
   updateSelectContacts: (contact: IUser) => UpdateSelectContactsAction;
   clearSelectContacts: () => ClearSelectContactsAction;
-  createRoomAndFetchMessagesRequest: () => CreateRoomAndFetchMessagesRequestAction;
 }
 
 export interface ContactListProps {
   enableSearch?: boolean;
-  onClose: () => void;
+  handleClose: (e: React.MouseEvent<HTMLElement>) => void;
+  handleOK: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 class ContactListComponent extends
@@ -96,22 +94,12 @@ class ContactListComponent extends
     checked: [0],
   };
 
-  // componentDidMount() {
-  //   this.props.clearSelectContacts();
-  //   this.props.fetchContactsRequest();
-  // }
-
   handleItemClick(contact: IUser) {
     this.props.updateSelectContacts(contact);
   }
 
-  handleOKClick = () => {
-    this.props.createRoomAndFetchMessagesRequest();
-    this.props.onClose();
-  }
-
   render() {
-    const { classes, contacts, selectedContacts, enableSearch, onClose } = this.props;
+    const { classes, contacts, selectedContacts, enableSearch, handleClose, handleOK } = this.props;
 
     return (
         <div className={classes.root}>
@@ -120,15 +108,15 @@ class ContactListComponent extends
             className={classes.appBar}
           >
             <Toolbar className={classes.toolbar} disableGutters={true}>
-              <IconButton color="primary">
-                <CloseIcon className={classes.icon} onClick={onClose} />
+              <IconButton color="primary" onClick={(e: React.MouseEvent<HTMLElement>) => handleClose(e)}>
+                <CloseIcon className={classes.icon} />
               </IconButton>
               <Typography variant="subheading" className={classes.typography}>
                 ユーザを選択
               </Typography>
               <IconButton
                 color="primary"
-                onClick={this.handleOKClick}
+                onClick={(e: React.MouseEvent<HTMLElement>) => handleOK(e)}
               >
                 <span className={classes.icon}>OK</span>
               </IconButton>
@@ -175,7 +163,6 @@ const mapDispatchToProps = (dispatch: Dispatch<UserActions>, ownProps: ContactLi
     fetchContactsRequest: () => dispatch(fetchContactsRequestActionCreator()),
     updateSelectContacts: (contact: IUser) => dispatch(updateSelectContactsActionCreator(contact)),
     clearSelectContacts: () => dispatch(clearSelectContactsActionCreator()),
-    createRoomAndFetchMessagesRequest: () => dispatch(createRoomAndFetchMessagesRequestActionCreator()),
   };
 };
 

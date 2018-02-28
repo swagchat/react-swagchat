@@ -141,7 +141,9 @@ class SearchTextComponent extends
   }
 
   handleClearClick = () => {
-    this.props.setSearchText('');
+    if (this.props.searchText !== '') {
+      this.props.setSearchText('');
+    }
   }
 
   render() {

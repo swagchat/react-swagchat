@@ -9,6 +9,7 @@ import Badge from 'material-ui/Badge';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import AddIcon from 'material-ui-icons/Add';
+import AccountCircleIcon from 'material-ui-icons/AccountCircle';
 import SwipeableViews from 'react-swipeable-views';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Dialog, {
@@ -16,24 +17,21 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Slide, { SlideProps } from 'material-ui/transitions/Slide';
 import {
+  State,
+  store,
   IUser,
+  Room,
   IRoomForUser,
   IProblemDetail,
   dateHumanize,
-  store,
-  State,
   ClientActions,
-  setCurrentRoomIdActionCreator,
-  SetCurrentRoomIdAction,
-  setCurrentRoomNameActionCreator,
-  SetCurrentRoomNameAction,
-  setSearchTextActionCreator,
-  clearSelectContactsActionCreator,
-  fetchContactsRequestActionCreator,
-  SetSearchTextAction,
   MessageActions,
-  ClearSelectContactsAction,
-  FetchContactsRequestAction,
+  setCurrentRoomIdActionCreator, SetCurrentRoomIdAction,
+  setCurrentRoomNameActionCreator, SetCurrentRoomNameAction,
+  setSearchTextActionCreator, SetSearchTextAction,
+  clearSelectContactsActionCreator, ClearSelectContactsAction,
+  fetchContactsRequestActionCreator, FetchContactsRequestAction,
+  createRoomAndFetchMessagesRequestActionCreator, CreateRoomAndFetchMessagesRequestAction,
 } from 'swagchat-sdk';
 import { SearchText } from '../Search/SearchText';
 import { SearchResultTab } from '../Search/SearchResultTab';
@@ -154,6 +152,7 @@ type ClassNames =
 interface MapStateToProps {
   currentRoomId: string;
   user: IUser | null;
+  room: Room | null;
   searchText: string;
   userRooms: {[key: string]: IRoomForUser} | null;
   problemDetail: IProblemDetail | null;
@@ -165,6 +164,7 @@ interface MapDispatchToProps {
   setSearchText: (searchText: string) => SetSearchTextAction;
   clearSelectContacts: () => ClearSelectContactsAction;
   fetchContactsRequest: () => FetchContactsRequestAction;
+  createRoomAndFetchMessagesRequest: () => CreateRoomAndFetchMessagesRequestAction;
 }
 
 export interface RoomListProps {
@@ -188,11 +188,6 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     tabIndex: 0,
   };
 
-  componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
-    window.console.log(prevProps);
-    window.console.log(this.props);
-  }
-
   handleContactListClickOpen = () => {
     this.props.clearSelectContacts();
     this.props.fetchContactsRequest();
@@ -201,6 +196,11 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
 
   handleContactListClose = () => {
     this.setState({contactListDialogOpen: false});
+  }
+
+  handleContactListOKClick = (e: React.MouseEvent<HTMLElement>) => {
+    this.props.createRoomAndFetchMessagesRequest();
+    this.handleContactListClose();
   }
 
   handleSearchInputOpen = () => {
@@ -273,7 +273,9 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
           style={appBarStyle}
         >
           <Toolbar className={classes.toolbar} disableGutters={true}>
-            <IconButton className={classes.toolbarButton} />
+            <IconButton color="primary" className={classes.toolbarButton}>
+              <AccountCircleIcon className={classes.toolbarIcon} />
+            </IconButton>
             <Typography variant="subheading" className={classes.typography}>
               トーク
             </Typography>
@@ -297,7 +299,11 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                   style={width !== undefined ? {width: width} : {}}
                 >
                   <DialogContent>
-                    <ContactList enableSearch={true} onClose={this.handleContactListClose} />
+                    <ContactList
+                      enableSearch={true}
+                      handleClose={this.handleContactListClose}
+                      handleOK={this.handleContactListOKClick}
+                    />
                   </DialogContent>
                 </Dialog>
               </div>
@@ -406,6 +412,7 @@ const mapStateToProps = (state: State, ownProps: RoomListProps) => {
   return {
     currentRoomId: state.client.currentRoomId,
     user: state.user.user,
+    room: state.room.room,
     searchText: state.message.searchText,
     userRooms: state.user.userRooms,
     problemDetail: state.user.problemDetail,
@@ -419,6 +426,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ClientActions & MessageActions>, 
     setSearchText: (searchText: string) => dispatch(setSearchTextActionCreator(searchText)),
     clearSelectContacts: () => dispatch(clearSelectContactsActionCreator()),
     fetchContactsRequest: () => dispatch(fetchContactsRequestActionCreator()),
+    createRoomAndFetchMessagesRequest: () => dispatch(createRoomAndFetchMessagesRequestActionCreator()),
   };
 };
 

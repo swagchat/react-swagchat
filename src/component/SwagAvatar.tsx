@@ -38,9 +38,7 @@ class SwagAvatarComponent
           src={user.pictureUrl}
         />
       );
-    }
-
-    if (user.name !== undefined && user.name !== '') {
+    } else if (user.name !== undefined && user.name !== '') {
       return (
         <Avatar
           className={className}
@@ -49,9 +47,9 @@ class SwagAvatarComponent
           {user.name.slice(0, 1)}
         </Avatar>
       );
+    } else {
+      return <div />;
     }
-
-    return null;
   }
 }
 

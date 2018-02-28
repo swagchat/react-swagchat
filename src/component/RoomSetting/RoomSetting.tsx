@@ -1,29 +1,25 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from 'material-ui-icons/KeyboardArrowRight';
-import AddIcon from 'material-ui-icons/Add';
 import NotificationsIcon from 'material-ui-icons/Notifications';
 // import NotificationsOffIcon from 'material-ui-icons/NotificationsOff';
 import ExitToAppIcon from 'material-ui-icons/ExitToApp';
-import RemoveIcon from 'material-ui-icons/Remove';
 import List, { ListItem, ListItemText, ListSubheader } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { LinearProgress } from 'material-ui/Progress';
 import {
-  State, store, Client, Room, routerHistory,
+  State, Client, IUser, Room, routerHistory,
   fetchRoomRequestActionCreator, FetchRoomRequestAction,
-  setProfileUserIdActionCreator, SetProfileUserIdAction,
-  clearProfileUserActionCreator, ClearProfileUserAction,
   RoomActions,
 } from 'swagchat-sdk';
 import { SwagAvatar } from '../SwagAvatar';
+import { AddRoomMemberListItem } from './AddRoomMemberListItem';
+import { RoomMemberListItem } from './RoomMemberListItem';
 import {
   MIN_WIDTH,
   BORDER_COLOR,
@@ -87,14 +83,13 @@ type ClassNames =
 interface MapStateToProps {
   client: Client | null;
   room: Room | null;
+  user: IUser | null;
   currentRoomId: string;
   currentRoomName: string;
 }
 
 interface MapDispatchToProps {
   fetchRoomRequest: (roomId: string) => FetchRoomRequestAction;
-  setProfileUserId: (profileUserId: string) => SetProfileUserIdAction;
-  clearProfileUser: () => ClearProfileUserAction;
 }
 
 export interface RoomSettingProps {
@@ -106,7 +101,6 @@ export interface RoomSettingProps {
 
 class RoomSettingComponent
     extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & RoomSettingProps, {}> {
-
   componentDidMount() {
     if (this.props.client !== null && this.props.room === null && this.props.currentRoomId !== '') {
       this.props.fetchRoomRequest(this.props.currentRoomId);
@@ -123,24 +117,13 @@ class RoomSettingComponent
     routerHistory.goBack();
   }
 
-  handleRemoveRoomUserClick = (e: React.MouseEvent<HTMLElement>) => {
-    window.console.log('handleRemoveRoomUserClick');
-    e.stopPropagation();
-  }
-
-  handleProfileClick = (profileUserId: string) => {
-    this.props.clearProfileUser();
-    this.props.setProfileUserId(profileUserId);
-    store.dispatch(push('/profile/' + profileUserId));
-  }
-
   render() {
     const {
       classes, width, top, left, right,
-      room
+      room, user,
     } = this.props;
 
-    if (room === null) {
+    if (room === null || user === null) {
       return <LinearProgress />;
     }
 
@@ -188,32 +171,13 @@ class RoomSettingComponent
           </ListItem>
           <Divider />
           <List subheader={<ListSubheader component="div">メンバー管理</ListSubheader>}>
-            <ListItem disableGutters={true} key="room-setting-add-room-user" button={true}>
-              <IconButton className={classes.listItemIcon}><AddIcon /></IconButton>
-              <ListItemText primary="メンバーを追加" />
-            </ListItem>
-            {room.users !== null ? Object.keys(room.users).map((key: string) => (
-              <ListItem
-                key={room.users![key].userId}
-                button={true}
-                disableGutters={true}
-                onClick={() => this.handleProfileClick(room.users![key].userId)}
-              >
-                <IconButton
-                  className={classes.listItemIcon}
-                  onClick={(e: React.MouseEvent<HTMLElement>) => this.handleRemoveRoomUserClick(e)}
-                >
-                  <RemoveIcon />
-                </IconButton>
-                <SwagAvatar user={room.users![key]} />
-                <ListItemText primary={room.users![key].name} />
-                <IconButton
-                  onClick={() => this.handleProfileClick(room.users![key].userId)}
-                >
-                  <KeyboardArrowRightIcon />
-                </IconButton>
-              </ListItem>
-            )) : null }
+            <AddRoomMemberListItem />
+            {room.users !== null
+              ? Object.keys(room.users).map((key: string) => (
+                <RoomMemberListItem key={key} userForRoom={room.users![key]} />
+              ))
+              : null
+            }
           </List>
           <Divider />
           <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
@@ -236,6 +200,7 @@ const mapStateToProps = (state: State, ownProps: RoomSettingProps) => {
   return {
     client: state.client.client,
     room: state.room.room,
+    user: state.user.user,
     currentRoomId: state.client.currentRoomId,
     currentRoomName: state.client.currentRoomName,
   };
@@ -244,8 +209,6 @@ const mapStateToProps = (state: State, ownProps: RoomSettingProps) => {
 const mapDispatchToProps = (dispatch: Dispatch<RoomActions>, ownProps: RoomSettingProps) => {
   return {
     fetchRoomRequest: (roomId: string) => dispatch(fetchRoomRequestActionCreator(roomId)),
-    setProfileUserId: (profileUserId: string) => dispatch(setProfileUserIdActionCreator(profileUserId)),
-    clearProfileUser: () => dispatch(clearProfileUserActionCreator()),
   };
 };
 
