@@ -5,6 +5,7 @@ export const MIN_WIDTH = 320;
 export const ICON_SIZE = 22;
 export const ONLINE_BADGE_SIZE = 12;
 export const APP_BAR_HEIGHT = 40;
+export const BIG_ABATAR_SIZE = 80;
 export const TAB_HEIGHT = 30;
 export const BORDER_RADIUS = 2;
 export const SEARCH_FORM_HEIGHT = 32;

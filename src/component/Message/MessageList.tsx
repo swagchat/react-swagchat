@@ -216,7 +216,6 @@ class MessageListComponent extends
   componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
     if (this.props.client !== null && this.props.currentRoomId !== prevProps.currentRoomId) {
       this.getMessages(this.props.client, this.props.currentRoomId);
-      this.props.markAsReadRequest(this.props.currentRoomId);
     }
     this.scrollBottom();
   }
@@ -271,12 +270,16 @@ class MessageListComponent extends
       });
       if (messageRes.messages) {
         this.props.fetchMessagesRequestSuccess(messageRes.messages);
+        this.props.markAsReadRequest(roomId);
         // this.scrollBottom();
       } else {
         this.props.fetchMessagesRequestFailure(messageRes.error!);
       }
     } else {
       this.props.fetchRoomRequestFailure(roomRes.error!);
+      if (client.paths !== undefined && client.paths!.roomListPath !== undefined) {
+        store.dispatch(push(client.paths!.roomListPath!));
+      }
     }
   }
 

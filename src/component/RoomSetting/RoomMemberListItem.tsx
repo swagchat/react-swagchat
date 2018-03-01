@@ -19,6 +19,7 @@ import {
   clearProfileUserActionCreator, ClearProfileUserAction,
   removeRoomUserRequestActionCreator, RemoveRoomUserRequestAction,
 } from 'swagchat-sdk';
+import { BIG_ABATAR_SIZE } from '../../setting';
 
 const styles = (theme: Theme) => {
   theme!.overrides!.MuiDialogActions = {
@@ -33,10 +34,14 @@ const styles = (theme: Theme) => {
       color: theme.palette.primary.main,
     },
     dialogContent: {
-      margin: '0 auto',
+      margin: '0 auto 20px',
     },
     dialogActions: {
       justifyContent: 'space-around' as 'space-around',
+    },
+    avatar: {
+      width: BIG_ABATAR_SIZE,
+      height: BIG_ABATAR_SIZE,
     },
   };
 };
@@ -45,7 +50,8 @@ type ClassNames =
   'root' |
   'listItemIcon' |
   'dialogContent' |
-  'dialogActions'
+  'dialogActions' |
+  'avatar'
 ;
 
 interface MapStateToProps {
@@ -58,6 +64,7 @@ interface MapDispatchToProps {
 }
 
 export interface Props {
+  enableRemoveIcon: boolean;
   userForRoom: IUserForRoom;
 }
 
@@ -68,18 +75,18 @@ class RoomMemberListItemComponent
   };
 
   handleOpen = (e: React.MouseEvent<HTMLElement>) => {
-    this.setState({dialog: true });
+    this.setState({dialog: true});
     e.stopPropagation();
   }
 
   handleClose = (e: React.MouseEvent<HTMLElement>) => {
-    this.setState({dialog: false });
+    this.setState({dialog: false});
     e.stopPropagation();
   }
 
   handleAgree = (e: React.MouseEvent<HTMLElement>) => {
     this.props.removeRoomUserRequest([this.props.userForRoom.userId]);
-    this.setState({dialog: false });
+    this.setState({dialog: false});
     e.stopPropagation();
   }
 
@@ -91,20 +98,23 @@ class RoomMemberListItemComponent
   }
 
   render() {
-    const { classes, userForRoom } = this.props;
+    const { classes, enableRemoveIcon, userForRoom } = this.props;
 
     return (
       <ListItem
         button={true}
-        disableGutters={true}
+        disableGutters={enableRemoveIcon}
         onClick={(e: React.MouseEvent<HTMLElement>) => this.handleProfileClick(e)}
       >
-        <IconButton
-          className={classes.listItemIcon}
-          onClick={(e: React.MouseEvent<HTMLElement>) => this.handleOpen(e)}
-        >
-          <RemoveIcon />
-        </IconButton>
+        {enableRemoveIcon ?
+          <IconButton
+            className={classes.listItemIcon}
+            onClick={(e: React.MouseEvent<HTMLElement>) => this.handleOpen(e)}
+          >
+            <RemoveIcon />
+          </IconButton>
+        : null
+        }
         <Dialog
           open={this.state.dialog}
           onBackdropClick={(e: React.MouseEvent<HTMLElement>) => this.handleClose(e)}
@@ -118,7 +128,7 @@ class RoomMemberListItemComponent
             className={classes.dialogContent}
             onClick={(e: React.MouseEvent<HTMLElement>) => this.handleClose(e)}
           >
-            <SwagAvatar user={userForRoom} />
+            <SwagAvatar className={classes.avatar} data={userForRoom} />
           </DialogContent>
           <DialogActions
             className={classes.dialogActions}
@@ -143,7 +153,7 @@ class RoomMemberListItemComponent
           </DialogActions>
         </Dialog>
 
-        <SwagAvatar user={userForRoom} />
+        <SwagAvatar data={userForRoom} />
         <ListItemText primary={userForRoom.name} />
         <IconButton
           onClick={(e: React.MouseEvent<HTMLElement>) => this.handleProfileClick(e)}

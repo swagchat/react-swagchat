@@ -6,9 +6,8 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
-import NotificationsIcon from 'material-ui-icons/Notifications';
+import NotificationsActiveIcon from 'material-ui-icons/NotificationsActive';
 // import NotificationsOffIcon from 'material-ui-icons/NotificationsOff';
-import ExitToAppIcon from 'material-ui-icons/ExitToApp';
 import List, { ListItem, ListItemText, ListSubheader } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { LinearProgress } from 'material-ui/Progress';
@@ -16,10 +15,14 @@ import {
   State, Client, IUser, Room, routerHistory,
   fetchRoomRequestActionCreator, FetchRoomRequestAction,
   RoomActions,
+  RoomType,
+  opponentUser,
+  generateRoomName,
 } from 'swagchat-sdk';
 import { SwagAvatar } from '../SwagAvatar';
 import { AddRoomMemberListItem } from './AddRoomMemberListItem';
 import { RoomMemberListItem } from './RoomMemberListItem';
+import { LeftRoomListItem } from './LeftRoomListItem';
 import {
   MIN_WIDTH,
   BORDER_COLOR,
@@ -99,6 +102,85 @@ export interface RoomSettingProps {
   right?: number;
 }
 
+const OneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToProps & RoomSettingProps>(
+  (props: MapStateToProps & MapDispatchToProps & RoomSettingProps & WithStyles<ClassNames>) => {
+    const { classes, room, user } = props;
+
+    if (room === null || user === null) {
+      return <LinearProgress />;
+    }
+
+    const dmUser = opponentUser(room.users!, user.userId);
+    if (dmUser === null || dmUser.length === 0) {
+      return <LinearProgress />;
+    }
+
+    return (
+      <div className={classes.content}>
+        <RoomMemberListItem key={dmUser[0].userId} enableRemoveIcon={false} userForRoom={dmUser[0]} />
+        <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
+          <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
+            <IconButton className={classes.listItemIcon}><NotificationsActiveIcon /></IconButton>
+            <ListItemText primary="このルームの通知をオフにする" />
+          </ListItem>
+          <LeftRoomListItem />
+        </List>
+      </div>
+    );
+  }
+);
+
+const NotOneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToProps & RoomSettingProps>(
+  (props: MapStateToProps & MapDispatchToProps & RoomSettingProps & WithStyles<ClassNames>) => {
+    const { classes, room, user } = props;
+
+    if (room === null || user === null) {
+      return <LinearProgress />;
+    }
+
+    let avatarData = {pictureUrl: room.pictureUrl, name: room.name};
+    const dmUser = opponentUser(room.users!, user.userId);
+    if (room.type === RoomType.ONE_ON_ONE && room.users !== undefined && room.users !== null) {
+      if (dmUser !== null) {
+        avatarData.pictureUrl = dmUser[0].pictureUrl;
+        avatarData.name = dmUser[0].name;
+      }
+    }
+
+    return (
+      <div className={classes.content}>
+      <ListItem
+        key={room.roomId}
+        button={true}
+      >
+        <SwagAvatar data={avatarData} />
+        <ListItemText primary={room.name === '' ? generateRoomName(room.users!, user.userId) : room.name} />
+      </ListItem>
+      <div>
+        <Divider />
+        <List subheader={<ListSubheader component="div">メンバー管理</ListSubheader>}>
+          <AddRoomMemberListItem />
+          {room.users !== null
+            ? Object.keys(room.users).map((key: string) => (
+              <RoomMemberListItem key={key} enableRemoveIcon={true} userForRoom={room.users![key]} />
+            ))
+            : null
+          }
+        </List>
+      </div>
+      <Divider />
+      <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
+        <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
+          <IconButton className={classes.listItemIcon}><NotificationsActiveIcon /></IconButton>
+          <ListItemText primary="このルームの通知をオフにする" />
+        </ListItem>
+        <LeftRoomListItem />
+      </List>
+    </div>
+    );
+  }
+);
+
 class RoomSettingComponent
     extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & RoomSettingProps, {}> {
   componentDidMount() {
@@ -153,7 +235,7 @@ class RoomSettingComponent
               <KeyboardArrowLeftIcon className={classes.toolbarIcon} />
             </IconButton>
             <Typography variant="subheading" className={classes.typography}>
-              ルーム設定
+              {room.type === RoomType.ONE_ON_ONE ? 'ダイレクトメール設定' : 'ルーム設定'}
             </Typography>
             <IconButton
               className={classes.toolbarButton}
@@ -161,36 +243,10 @@ class RoomSettingComponent
             />
           </Toolbar>
         </AppBar>
-        <div className={classes.content}>
-          <ListItem
-            key={room.roomId}
-            button={true}
-          >
-            <SwagAvatar user={room} />
-            <ListItemText primary={room.name} />
-          </ListItem>
-          <Divider />
-          <List subheader={<ListSubheader component="div">メンバー管理</ListSubheader>}>
-            <AddRoomMemberListItem />
-            {room.users !== null
-              ? Object.keys(room.users).map((key: string) => (
-                <RoomMemberListItem key={key} userForRoom={room.users![key]} />
-              ))
-              : null
-            }
-          </List>
-          <Divider />
-          <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
-            <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
-              <IconButton className={classes.listItemIcon}><NotificationsIcon /></IconButton>
-              <ListItemText primary="このルームの通知をオフにする" />
-            </ListItem>
-            <ListItem disableGutters={true} key="room-setting-exit-room" button={true}>
-              <IconButton className={classes.listItemIcon}><ExitToAppIcon /></IconButton>
-              <ListItemText primary="このルームから退出する" />
-            </ListItem>
-          </List>
-        </div>
+        {room.type === RoomType.ONE_ON_ONE
+          ? <OneOnOneContent {...this.props} />
+          : <NotOneOnOneContent {...this.props} />
+        }
       </div>
     );
   }

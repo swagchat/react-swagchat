@@ -81,7 +81,7 @@ class AddRoomMemberListItemComponent
   handlerOpen = (e: React.MouseEvent<HTMLElement>) => {
     this.props.clearSelectContacts();
     this.props.fetchContactsRequest();
-    this.setState({dialog: true });
+    this.setState({dialog: true});
     e.stopPropagation();
   }
 
@@ -90,13 +90,13 @@ class AddRoomMemberListItemComponent
   }
 
   handleContactListClose = (e: React.MouseEvent<HTMLElement>) => {
-    this.setState({dialog: false });
+    this.setState({dialog: false});
     e.stopPropagation();
   }
 
   handleContactListOK = (e: React.MouseEvent<HTMLElement>) => {
     this.props.addRoomUserRequest(Object.keys(this.props.selectedContacts));
-    this.setState({dialog: false });
+    this.setState({dialog: false});
     e.stopPropagation();
   }
 

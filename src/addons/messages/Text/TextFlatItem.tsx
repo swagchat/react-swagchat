@@ -83,7 +83,7 @@ const Item = withStyles(styles)<IAddonMessageItemProps>(
 
     return (
       <div className={classes.root}>
-        <SwagAvatar className={classes.avatar} user={user} />
+        <SwagAvatar className={classes.avatar} data={user} />
         <div className={classes.wrap}>
           <div className={classes.wrapNameTime}>
             <div className={classes.name}>{user.name}</div>

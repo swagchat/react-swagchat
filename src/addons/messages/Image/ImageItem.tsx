@@ -133,7 +133,7 @@ class ImageItemComponent extends
           </div>
         ) : (
           <div>
-            <SwagAvatar className={classes.avatar} user={user} />
+            <SwagAvatar className={classes.avatar} data={user} />
             <p className={classes.name}>{user.name}</p>
             {this.state.isLoaded ? (
               <img

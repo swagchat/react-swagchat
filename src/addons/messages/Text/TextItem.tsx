@@ -108,7 +108,7 @@ class TextItemComponent extends
           </div>
         ) : (
           <div>
-            <SwagAvatar className={classes.avatar} user={user} />
+            <SwagAvatar className={classes.avatar} data={user} />
             <p className={classes.name}>{user.name}</p>
             <div className={classes.messageLeft}>{displayText}</div>
             <div className={classes.timeLeft}>{dateFormateHHMM(message.created!)}</div>

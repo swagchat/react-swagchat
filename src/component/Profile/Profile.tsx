@@ -6,14 +6,8 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
-// import KeyboardArrowRightIcon from 'material-ui-icons/KeyboardArrowRight';
 import NotificationsIcon from 'material-ui-icons/Notifications';
-// import NotificationsOffIcon from 'material-ui-icons/NotificationsOff';
-import ExitToAppIcon from 'material-ui-icons/ExitToApp';
-// import RemoveIcon from 'material-ui-icons/Remove';
-import List, { ListItem, ListItemText, ListSubheader, ListItemIcon } from 'material-ui/List';
-import Card, { CardMedia } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 import { LinearProgress } from 'material-ui/Progress';
 import {
   State, Client, IUser, Room, routerHistory,
@@ -22,11 +16,12 @@ import {
   RoomActions,
 } from 'swagchat-sdk';
 import { SwagAvatar } from '../SwagAvatar';
+import { UserBlockListItem } from './UserBlockListItem';
 import {
   MIN_WIDTH,
-  BORDER_COLOR,
   ICON_SIZE,
   APP_BAR_HEIGHT,
+  BORDER_RADIUS,
 } from '../../setting';
 
 type positionType = 'fixed';
@@ -41,12 +36,10 @@ const styles = (theme: Theme) => ({
     width: '100%',
     height: APP_BAR_HEIGHT,
     left: 0,
-    background: theme.palette.common.white,
-    borderBottom: '1px solid ' + BORDER_COLOR,
   },
   toolbar: {
     minHeight: APP_BAR_HEIGHT,
-    justifyContent: 'center' as justifyContentType,
+    justifyContent: 'left' as justifyContentType,
     // paddingLeft: 10,
   },
   toolbarButton: {
@@ -56,15 +49,31 @@ const styles = (theme: Theme) => ({
   toolbarIcon: {
     width: ICON_SIZE,
     margin: '0 5px',
-  },
-  typography: {
-    flex: 1,
-    textAlign: 'center',
+    color: theme.palette.common.white,
   },
   content: {
-    paddingTop: APP_BAR_HEIGHT,
     position: 'relative' as positionType,
     overflowY: 'scroll' as overflowYType,
+  },
+  profileBackground: {
+    background: 'linear-gradient(to top, #00c6ff, #0072ff)',
+    paddingTop: 1,
+    paddingBottom: 10,
+  },
+  profileWrap: {
+    margin: '40px 20px 10px',
+    borderRadius: BORDER_RADIUS,
+  },
+  profileAvatar: {
+    width: 120,
+    height: 120,
+    margin: '20px auto',
+  },
+  profileName: {
+    fontSize: '2em',
+    flex: 1,
+    textAlign: 'center',
+    color: theme.palette.common.white,
   },
   listItemIcon: {
     color: theme.palette.primary.main,
@@ -83,6 +92,10 @@ type ClassNames =
   'toolbarIcon' |
   'typography' |
   'content' |
+  'profileBackground' |
+  'profileWrap' |
+  'profileAvatar' |
+  'profileName' |
   'listItemIcon' |
   'iconButton'
 ;
@@ -141,7 +154,11 @@ class ProfileComponent
     const widthStyle = width !== undefined ? {width: width} : {};
     const topStyle = top !== undefined ? {marginTop: top} : {};
     const appBarleftRightStyle = left !== undefined || right !== undefined ?
-      {marginLeft: leftVar, width: `calc(${calcWidth} - ${leftVar}px - ${rightVar}px)`} : {};
+      {
+        background: 'rgba(255, 255, 255, 0)',
+        marginLeft: leftVar,
+        width: `calc(${calcWidth} - ${leftVar}px - ${rightVar}px)`
+      } : {background: 'rgba(255, 255, 255, 0)'};
     const appBarStyle = Object.assign(widthStyle, topStyle, appBarleftRightStyle);
 
     return (
@@ -159,39 +176,23 @@ class ProfileComponent
             >
               <KeyboardArrowLeftIcon className={classes.toolbarIcon} />
             </IconButton>
-            <Typography variant="subheading" className={classes.typography}>
-              プロフィール
-            </Typography>
-            <IconButton
-              className={classes.toolbarButton}
-              color="primary"
-            />
           </Toolbar>
         </AppBar>
         <div className={classes.content}>
-          <Card>
-            <CardMedia
-              image={profileUser.pictureUrl}
-              style={{height: 200}}
-              title="Contemplative Reptile"
-            />
-          </Card>
-          <ListItem
-            key={profileUser.userId}
-          >
-            <SwagAvatar user={profileUser} />
-            <ListItemText primary={profileUser.name} />
-          </ListItem>
-          <Divider />
-          <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
+          <div className={classes.profileBackground}>
+            <div className={classes.profileWrap}>
+              <SwagAvatar className={classes.profileAvatar} data={profileUser} />
+              <Typography variant="subheading" className={classes.profileName}>
+                {profileUser.name}
+              </Typography>
+            </div>
+          </div>
+          <List>
             <ListItem key="room-setting-notifications" button={true}>
               <ListItemIcon className={classes.listItemIcon}><NotificationsIcon /></ListItemIcon>
               <ListItemText primary="通知をオフにする" />
             </ListItem>
-            <ListItem key="room-setting-exit-room" button={true}>
-              <ListItemIcon className={classes.listItemIcon}><ExitToAppIcon /></ListItemIcon>
-              <ListItemText primary="ブロックする" />
-            </ListItem>
+            <UserBlockListItem />
           </List>
         </div>
       </div>

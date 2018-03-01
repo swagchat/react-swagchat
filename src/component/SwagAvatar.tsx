@@ -1,16 +1,17 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
-import { IUser, IRoom } from 'swagchat-sdk';
 
 const styles = (theme: Theme) => ({
-  root: {
+  border: {
+    border: '2px solid rgba(200, 200, 200, 0.8)',
   },
 });
 
 type ClassNames = 
-  'root'
+  'border'
 ;
 
 interface MapStateToProps {
@@ -22,29 +23,34 @@ interface MapDispatchToProps {
 export interface Props {
   className?: string;
   style?: Partial<React.CSSProperties>;
-  user: IUser | IRoom;
+  data: {
+    pictureUrl?: string;
+    name?: string;
+  };
 }
 
 class SwagAvatarComponent
     extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
   render() {
-    const { className, style, user } = this.props;
+    const { classes, className, style, data } = this.props;
 
-    if (user.pictureUrl !== undefined && user.pictureUrl !== '') {
+    const avatarClass = classNames(classes.border, className ? className : '');
+
+    if (data.pictureUrl !== undefined && data.pictureUrl !== '') {
       return (
         <Avatar
-          className={className}
+          className={avatarClass}
           style={style}
-          src={user.pictureUrl}
+          src={data.pictureUrl}
         />
       );
-    } else if (user.name !== undefined && user.name !== '') {
+    } else if (data.name !== undefined && data.name !== '') {
       return (
         <Avatar
-          className={className}
+          className={avatarClass}
           style={style}
         >
-          {user.name.slice(0, 1)}
+          {data.name.slice(0, 1)}
         </Avatar>
       );
     } else {

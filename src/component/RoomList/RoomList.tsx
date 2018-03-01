@@ -188,6 +188,14 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     tabIndex: 0,
   };
 
+  componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
+    if (this.props.currentRoomId !== prevProps.currentRoomId) {
+      if (this.props.enablePush === true) {
+        store.dispatch(push('/messages/' + this.props.currentRoomId));
+      }
+    }
+  }
+
   handleContactListClickOpen = () => {
     this.props.clearSelectContacts();
     this.props.fetchContactsRequest();
@@ -260,7 +268,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     const appBarStyle = Object.assign(appBartopStyle, appBarleftStyle, appBarwidthStyle, appBarHeightStyle);
 
     const contentStyle = enableSearch === true ? {
-      marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10 + 8
+      marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + TAB_HEIGHT + 10 + 8 + 8
     } : {
       marginTop: APP_BAR_HEIGHT + TAB_HEIGHT + 10 + 8
     };
@@ -279,34 +287,32 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             <Typography variant="subheading" className={classes.typography}>
               トーク
             </Typography>
+            <IconButton
+              color="primary"
+              onClick={this.handleContactListClickOpen}
+              className={classes.toolbarButton}
+            >
+              <AddIcon className={classes.toolbarIcon} />
+            </IconButton>
             {user !== null ?
-              <div>
-                <IconButton
-                  color="primary"
-                  onClick={this.handleContactListClickOpen}
-                  className={classes.toolbarButton}
-                >
-                  <AddIcon className={classes.toolbarIcon} />
-                </IconButton>
-                <Dialog
-                  className={classes.dialog}
-                  fullScreen={true}
-                  transition={Transition}
-                  keepMounted={true}
-                  open={this.state.contactListDialogOpen}
-                  onClose={this.handleContactListClose}
-                  aria-labelledby="responsive-dialog-title"
-                  style={width !== undefined ? {width: width} : {}}
-                >
-                  <DialogContent>
-                    <ContactList
-                      enableSearch={true}
-                      handleClose={this.handleContactListClose}
-                      handleOK={this.handleContactListOKClick}
-                    />
-                  </DialogContent>
-                </Dialog>
-              </div>
+              <Dialog
+                className={classes.dialog}
+                fullScreen={true}
+                transition={Transition}
+                keepMounted={true}
+                open={this.state.contactListDialogOpen}
+                onClose={this.handleContactListClose}
+                aria-labelledby="responsive-dialog-title"
+                style={width !== undefined ? {width: width} : {}}
+              >
+                <DialogContent>
+                  <ContactList
+                    enableSearch={true}
+                    handleClose={this.handleContactListClose}
+                    handleOK={this.handleContactListOKClick}
+                  />
+                </DialogContent>
+              </Dialog>
             : null}
           </Toolbar>
           {enableSearch === true
@@ -352,9 +358,9 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                     {userRooms[key].ruUnreadCount > 0
                       ?
                         <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
-                          <SwagAvatar user={userRooms[key]} />
+                          <SwagAvatar data={userRooms[key]} />
                         </Badge>
-                      : <SwagAvatar user={userRooms[key]} />
+                      : <SwagAvatar data={userRooms[key]} />
                     }
                     {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
 
@@ -380,9 +386,9 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                         {userRooms[key].ruUnreadCount > 0
                           ?
                             <Badge color="secondary" badgeContent={userRooms[key].ruUnreadCount}>
-                              <SwagAvatar user={userRooms[key]} />
+                              <SwagAvatar data={userRooms[key]} />
                             </Badge>
-                          : <SwagAvatar user={userRooms[key]} />
+                          : <SwagAvatar data={userRooms[key]} />
                         }
                         {false ? <Badge badgeContent="" className={classes.onlineBadge}><p /></Badge> : null}
 

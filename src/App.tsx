@@ -22,6 +22,19 @@ class App extends React.Component<AppProps, {}> {
   }
 
   render() {
+    const { clientParams } = this.props;
+    let roomListPath = '/rooms';
+    let messageListPath = '/messages/:roomId';
+    let roomSettingPath = '/roomSetting/:roomId';
+    let profilePath = '/profile/:userId';
+
+    if (clientParams.paths !== undefined) {
+      roomListPath = clientParams.paths.roomListPath ? clientParams.paths.roomListPath : roomListPath;
+      messageListPath = clientParams.paths.messageListPath ? clientParams.paths.messageListPath : messageListPath;
+      roomSettingPath = clientParams.paths.roomSettingPath ? clientParams.paths.roomSettingPath : roomSettingPath;
+      profilePath = clientParams.paths.profilePath ? clientParams.paths.profilePath : profilePath;
+    }
+
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
@@ -30,22 +43,22 @@ class App extends React.Component<AppProps, {}> {
               <Route exact={true} path="/" render={() => (<Top />)} />
               <Route
                 exact={true}
-                path="/rooms"
+                path={roomListPath}
                 render={() => (<RoomList enablePush={true} enableSearch={true} enableSearchResult={true} />)}
               />
               <Route
                 exact={true}
-                path="/messages/:roomId"
+                path={messageListPath}
                 render={() => (<MessageList />)}
               />
               <Route
                 exact={true}
-                path="/roomSetting/:roomId"
+                path={roomSettingPath}
                 render={() => (<RoomSetting />)}
               />
               <Route
                 exact={true}
-                path="/profile/:userId"
+                path={profilePath}
                 render={() => (<Profile />)}
               />
             </Switch>
