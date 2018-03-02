@@ -10,6 +10,8 @@ import { RoomList } from './component/RoomList/RoomList';
 import { MessageList } from './component/Message/MessageList';
 import { RoomSetting } from './component/RoomSetting/RoomSetting';
 import { Profile } from './component/Profile/Profile';
+import { Account } from './component/Account/Account';
+import { NotFound } from './component/NotFound';
 
 export interface AppProps {
   clientParams: IClientParams;
@@ -27,12 +29,14 @@ class App extends React.Component<AppProps, {}> {
     let messageListPath = '/messages/:roomId';
     let roomSettingPath = '/roomSetting/:roomId';
     let profilePath = '/profile/:userId';
+    let accountPath = '/account';
 
     if (clientParams.paths !== undefined) {
       roomListPath = clientParams.paths.roomListPath ? clientParams.paths.roomListPath : roomListPath;
       messageListPath = clientParams.paths.messageListPath ? clientParams.paths.messageListPath : messageListPath;
       roomSettingPath = clientParams.paths.roomSettingPath ? clientParams.paths.roomSettingPath : roomSettingPath;
       profilePath = clientParams.paths.profilePath ? clientParams.paths.profilePath : profilePath;
+      accountPath = clientParams.paths.accountPath ? clientParams.paths.accountPath : accountPath;
     }
 
     return (
@@ -59,7 +63,15 @@ class App extends React.Component<AppProps, {}> {
               <Route
                 exact={true}
                 path={profilePath}
-                render={() => (<Profile />)}
+                render={() => (<Profile isModal={false} />)}
+              />
+              <Route
+                exact={true}
+                path={accountPath}
+                render={() => (<Account isModal={false} />)}
+              />
+              <Route
+                render={() => (<NotFound />)}
               />
             </Switch>
           </ConnectedRouter>

@@ -14,7 +14,7 @@ import RemoveIcon from 'material-ui-icons/Remove';
 import KeyboardArrowRightIcon from 'material-ui-icons/KeyboardArrowRight';
 import { SwagAvatar } from '../SwagAvatar';
 import {
-  State, store, IUserForRoom, RoomActions,
+  State, store, IUserForRoom, IUser, RoomActions,
   setProfileUserIdActionCreator, SetProfileUserIdAction,
   clearProfileUserActionCreator, ClearProfileUserAction,
   removeRoomUserRequestActionCreator, RemoveRoomUserRequestAction,
@@ -55,6 +55,7 @@ type ClassNames =
 ;
 
 interface MapStateToProps {
+  user: IUser | null;
 }
 
 interface MapDispatchToProps {
@@ -91,9 +92,13 @@ class RoomMemberListItemComponent
   }
 
   handleProfileClick = (e: React.MouseEvent<HTMLElement>) => {
-    this.props.clearProfileUser();
-    this.props.setProfileUserId(this.props.userForRoom.userId);
-    store.dispatch(push('/profile/' + this.props.userForRoom.userId));
+    if (this.props.user!.userId === this.props.userForRoom.userId) {
+      store.dispatch(push('/account/'));
+    } else {
+      this.props.clearProfileUser();
+      this.props.setProfileUserId(this.props.userForRoom.userId);
+      store.dispatch(push('/profile/' + this.props.userForRoom.userId));
+    }
     e.stopPropagation();
   }
 
@@ -167,6 +172,7 @@ class RoomMemberListItemComponent
 
 const mapStateToProps = (state: State, ownProps: Props) => {
   return {
+    user: state.user.user,
   };
 };
 

@@ -112,6 +112,9 @@ const styles = (theme: Theme) => ({
   typography: {
     flex: 1,
     textAlign: 'center',
+    overflow: 'hidden' as 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   content: {
     padding: '0 10px',

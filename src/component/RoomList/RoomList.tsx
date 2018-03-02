@@ -39,6 +39,7 @@ import { SearchResultView } from '../Search/SearchResultView';
 import { TabContainer } from '../TabContainer';
 import { ContactList } from '../ContactList/ContactList';
 import { SwagAvatar } from '../SwagAvatar';
+import { Account } from '../Account/Account';
 import {
   ICON_SIZE,
   APP_BAR_HEIGHT,
@@ -74,6 +75,9 @@ const styles = (theme: Theme) => {
   theme!.overrides!.MuiDialogContent = {
     root: {
       padding: 0,
+      '&:first-child': {
+        paddingTop: 0,
+      },
     },
   };
   return {
@@ -183,8 +187,8 @@ function Transition(props: SlideProps) {
 class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     MapStateToProps & MapDispatchToProps & RoomListProps, {}> {
   state = {
-    contactListDialogOpen: false,
     accountDialogOpen: false,
+    contactListDialogOpen: false,
     tabIndex: 0,
   };
 
@@ -196,19 +200,27 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     }
   }
 
+  handleAccountClickOpen = () => {
+    this.setState({accountDialogOpen: true});
+  }
+
+  handleAccountClose = (e: React.MouseEvent<HTMLElement>) => {
+    this.setState({accountDialogOpen: false});
+  }
+
   handleContactListClickOpen = () => {
     this.props.clearSelectContacts();
     this.props.fetchContactsRequest();
     this.setState({contactListDialogOpen: true});
   }
 
-  handleContactListClose = () => {
+  handleContactListClose = (e: React.MouseEvent<HTMLElement>) => {
     this.setState({contactListDialogOpen: false});
   }
 
   handleContactListOKClick = (e: React.MouseEvent<HTMLElement>) => {
     this.props.createRoomAndFetchMessagesRequest();
-    this.handleContactListClose();
+    this.handleContactListClose(e);
   }
 
   handleSearchInputOpen = () => {
@@ -281,9 +293,24 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
           style={appBarStyle}
         >
           <Toolbar className={classes.toolbar} disableGutters={true}>
-            <IconButton color="primary" className={classes.toolbarButton}>
+            <IconButton color="primary" className={classes.toolbarButton} onClick={this.handleAccountClickOpen}>
               <AccountCircleIcon className={classes.toolbarIcon} />
             </IconButton>
+            {user !== null ?
+              <Dialog
+                className={classes.dialog}
+                fullScreen={true}
+                transition={Transition}
+                keepMounted={true}
+                open={this.state.accountDialogOpen}
+                onClose={this.handleAccountClose}
+                style={width !== undefined ? {width: width} : {}}
+              >
+                <DialogContent>
+                  <Account isModal={true}  handleClose={this.handleAccountClose} />
+                </DialogContent>
+              </Dialog>
+            : null}
             <Typography variant="subheading" className={classes.typography}>
               トーク
             </Typography>
@@ -302,7 +329,6 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                 keepMounted={true}
                 open={this.state.contactListDialogOpen}
                 onClose={this.handleContactListClose}
-                aria-labelledby="responsive-dialog-title"
                 style={width !== undefined ? {width: width} : {}}
               >
                 <DialogContent>

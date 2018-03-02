@@ -23,6 +23,9 @@ const styles = (theme: Theme) => {
   theme!.overrides!.MuiDialogContent = {
     root: {
       padding: 0,
+      '&:first-child': {
+        paddingTop: 0,
+      },
     },
   };
   return {
@@ -32,7 +35,6 @@ const styles = (theme: Theme) => {
       color: theme.palette.primary.main,
     },
     dialogContent: {
-      margin: '0 auto',
     },
     dialogActions: {
       justifyContent: 'space-around' as 'space-around',
@@ -124,7 +126,6 @@ class AddRoomMemberListItemComponent
           keepMounted={true}
           open={this.state.dialog}
           onClose={this.handleContactListClose}
-          aria-labelledby="responsive-dialog-title"
         >
           <DialogContent>
             <ContactList

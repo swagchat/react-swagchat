@@ -17,7 +17,6 @@ import {
   RoomActions,
 } from 'swagchat-sdk';
 import { SwagAvatar } from '../SwagAvatar';
-import { UserBlockListItem } from './UserBlockListItem';
 import {
   MIN_WIDTH,
   ICON_SIZE,
@@ -37,11 +36,11 @@ const styles = (theme: Theme) => ({
     width: '100%',
     height: APP_BAR_HEIGHT,
     left: 0,
+    background: 'rgba(255, 255, 255, 0)',
   },
   toolbar: {
     minHeight: APP_BAR_HEIGHT,
     justifyContent: 'left' as justifyContentType,
-    // paddingLeft: 10,
   },
   toolbarButton: {
     width: 40,
@@ -105,9 +104,8 @@ type ClassNames =
 
 interface MapStateToProps {
   client: Client | null;
-  profileUserId: string;
   room: Room | null;
-  profileUser: IUser | null;
+  user: IUser | null;
 }
 
 interface MapDispatchToProps {
@@ -115,28 +113,13 @@ interface MapDispatchToProps {
   fetchProfileUserRequest: (userId: string) => FetchProfileUserRequestAction;
 }
 
-export interface ProfileProps {
-  width?: number;
-  top?: number;
-  left?: number;
-  right?: number;
+export interface AccountProps {
   isModal: boolean;
   handleClose?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-class ProfileComponent
-    extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & ProfileProps, {}> {
-  componentDidMount() {
-    if (this.props.client !== null && this.props.profileUser === null && this.props.profileUserId !== '') {
-      this.props.fetchProfileUserRequest(this.props.profileUserId);
-    }
-  }
-
-  componentDidUpdate(prevProps: MapStateToProps, prevState: {}) {
-    if (this.props.client !== null && this.props.profileUser === null && this.props.profileUserId !== '') {
-      this.props.fetchProfileUserRequest(this.props.profileUserId);
-    }
-  }
+class AccountComponent
+    extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & AccountProps, {}> {
 
   handleBackClick = () => {
     routerHistory.goBack();
@@ -144,30 +127,19 @@ class ProfileComponent
 
   render() {
     const {
-      classes, width, top, left, right, isModal, handleClose,
-      profileUser,
+      classes, isModal, handleClose,
+      user,
     } = this.props;
 
-    const leftVar = left !== undefined ? left : 0; 
-    const rightVar = right !== undefined ? right : 0; 
-
-    const calcWidth = width !== undefined ? width + 'px' : '100%';
-    const widthStyle = width !== undefined ? {width: width} : {};
-    const topStyle = top !== undefined ? {marginTop: top} : {};
-    const appBarleftRightStyle = left !== undefined || right !== undefined ?
-      {
-        background: 'rgba(255, 255, 255, 0)',
-        marginLeft: leftVar,
-        width: `calc(${calcWidth} - ${leftVar}px - ${rightVar}px)`
-      } : {background: 'rgba(255, 255, 255, 0)'};
-    const appBarStyle = Object.assign(widthStyle, topStyle, appBarleftRightStyle);
+    if (user === null) {
+      return <LinearProgress />;
+    }
 
     return (
-      <div className={classes.root} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
+      <div className={classes.root}>
         <AppBar
           position="fixed"
           className={classes.appBar}
-          style={appBarStyle}
         >
           <Toolbar className={classes.toolbar} disableGutters={true}>
             {isModal
@@ -182,49 +154,43 @@ class ProfileComponent
             }
           </Toolbar>
         </AppBar>
-        {profileUser !== null
-          ?
-            <div className={classes.content}>
-              <div className={classes.profileBackground}>
-                <div className={classes.profileWrap}>
-                  <SwagAvatar className={classes.profileAvatar} data={profileUser} />
-                  <Typography variant="subheading" className={classes.profileName}>
-                    {profileUser.name}
-                  </Typography>
-                </div>
-              </div>
-              <List>
-                <ListItem key="room-setting-notifications" button={true}>
-                  <ListItemIcon className={classes.listItemIcon}><NotificationsIcon /></ListItemIcon>
-                  <ListItemText primary="通知をオフにする" />
-                </ListItem>
-                <UserBlockListItem />
-              </List>
+        <div className={classes.content}>
+          <div className={classes.profileBackground}>
+            <div className={classes.profileWrap}>
+              <SwagAvatar className={classes.profileAvatar} data={user} />
+              <Typography variant="subheading" className={classes.profileName}>
+                {user.name}
+              </Typography>
             </div>
-          : <LinearProgress />
-        }
+          </div>
+          <List>
+            <ListItem key="room-setting-notifications" button={true}>
+              <ListItemIcon className={classes.listItemIcon}><NotificationsIcon /></ListItemIcon>
+              <ListItemText primary="通知をオフにする" />
+            </ListItem>
+          </List>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: State, ownProps: ProfileProps) => {
+const mapStateToProps = (state: State, ownProps: AccountProps) => {
   return {
     client: state.client.client,
-    profileUserId: state.client.profileUserId,
     room: state.room.room,
-    profileUser: state.user.profileUser,
+    user: state.user.user,
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<RoomActions>, ownProps: ProfileProps) => {
+const mapDispatchToProps = (dispatch: Dispatch<RoomActions>, ownProps: AccountProps) => {
   return {
     fetchRoomRequest: (roomId: string) => dispatch(fetchRoomRequestActionCreator(roomId)),
     fetchProfileUserRequest: (userId: string) => dispatch(fetchProfileUserRequestActionCreator(userId)),
   };
 };
 
-export const Profile = connect<MapStateToProps, MapDispatchToProps, ProfileProps>(
+export const Account = connect<MapStateToProps, MapDispatchToProps, AccountProps>(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles, { withTheme: true })(ProfileComponent));
+)(withStyles(styles, { withTheme: true })(AccountComponent));

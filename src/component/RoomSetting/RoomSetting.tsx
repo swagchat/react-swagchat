@@ -12,7 +12,7 @@ import List, { ListItem, ListItemText, ListSubheader } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { LinearProgress } from 'material-ui/Progress';
 import {
-  State, Client, IUser, Room, routerHistory,
+  State, Client, IUser, Room, IProblemDetail, routerHistory,
   fetchRoomRequestActionCreator, FetchRoomRequestAction,
   RoomActions,
   RoomType,
@@ -34,43 +34,53 @@ type positionType = 'fixed';
 type justifyContentType = 'space-around';
 type overflowYType = 'scroll';
 
-const styles = (theme: Theme) => ({
-  root: {
-    minWidth: MIN_WIDTH,
-  },
-  appBar: {
-    width: '100%',
-    height: APP_BAR_HEIGHT,
-    left: 0,
-    background: theme.palette.common.white,
-    borderBottom: '1px solid ' + BORDER_COLOR,
-  },
-  toolbar: {
-    minHeight: APP_BAR_HEIGHT,
-    justifyContent: 'center' as justifyContentType,
-    // paddingLeft: 10,
-  },
-  toolbarButton: {
-    width: 40,
-    height: 40,
-  },
-  toolbarIcon: {
-    width: ICON_SIZE,
-    margin: '0 5px',
-  },
-  typography: {
-    flex: 1,
-    textAlign: 'center',
-  },
-  content: {
-    paddingTop: APP_BAR_HEIGHT,
-    position: 'relative' as positionType,
-    overflowY: 'scroll' as overflowYType,
-  },
-  listItemIcon: {
-    color: theme.palette.primary.main,
-  },
-});
+const styles = (theme: Theme) => {
+  theme!.overrides!.MuiDialogContent = {
+    root: {
+      padding: 0,
+      '&:first-child': {
+        paddingTop: 0,
+      },
+    },
+  };
+  return {
+    root: {
+      minWidth: MIN_WIDTH,
+    },
+    appBar: {
+      width: '100%',
+      height: APP_BAR_HEIGHT,
+      left: 0,
+      background: theme.palette.common.white,
+      borderBottom: '1px solid ' + BORDER_COLOR,
+    },
+    toolbar: {
+      minHeight: APP_BAR_HEIGHT,
+      justifyContent: 'center' as justifyContentType,
+      // paddingLeft: 10,
+    },
+    toolbarButton: {
+      width: 40,
+      height: 40,
+    },
+    toolbarIcon: {
+      width: ICON_SIZE,
+      margin: '0 5px',
+    },
+    typography: {
+      flex: 1,
+      textAlign: 'center',
+    },
+    content: {
+      paddingTop: APP_BAR_HEIGHT,
+      position: 'relative' as positionType,
+      overflowY: 'scroll' as overflowYType,
+    },
+    listItemIcon: {
+      color: theme.palette.primary.main,
+    },
+  };
+};
 
 type ClassNames = 
   'root' |
@@ -89,6 +99,7 @@ interface MapStateToProps {
   user: IUser | null;
   currentRoomId: string;
   currentRoomName: string;
+  userProblemDetail: IProblemDetail | null;
 }
 
 interface MapDispatchToProps {
@@ -202,8 +213,12 @@ class RoomSettingComponent
   render() {
     const {
       classes, width, top, left, right,
-      room, user,
+      room, user, userProblemDetail,
     } = this.props;
+
+    if (userProblemDetail !== null) {
+      return <LinearProgress />;
+    }
 
     if (room === null || user === null) {
       return <LinearProgress />;
@@ -259,6 +274,7 @@ const mapStateToProps = (state: State, ownProps: RoomSettingProps) => {
     user: state.user.user,
     currentRoomId: state.client.currentRoomId,
     currentRoomName: state.client.currentRoomName,
+    userProblemDetail: state.user.problemDetail,
   };
 };
 

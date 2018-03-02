@@ -28,38 +28,48 @@ import { BORDER_COLOR, APP_BAR_HEIGHT, SEARCH_FORM_HEIGHT, ICON_SIZE } from '../
 
 type justifyContentType = 'center';
 
-const styles = (theme: Theme) => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.common.white,
-  },
-  appBar: {
-    left: 0,
-    background: theme.palette.common.white,
-    borderBottom: '1px solid ' + BORDER_COLOR,
-    backgroundColor: theme.palette.common.white,
-  },
-  toolbar: {
-    minHeight: APP_BAR_HEIGHT,
-    justifyContent: 'center' as justifyContentType,
-    backgroundColor: theme.palette.common.white,
-  },
-  typography: {
-    flex: 1,
-    textAlign: 'center',
-    backgroundColor: theme.palette.common.white,
-  },
-  icon: {
-    width: ICON_SIZE,
-    height: ICON_SIZE,
-    fontSize: ICON_SIZE * 0.7,
-  },
-  searchTextWrap: {
-  },
-  content: {
-    marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT,
-  },
-});
+const styles = (theme: Theme) => {
+  theme!.overrides!.MuiDialogContent = {
+    root: {
+      padding: 0,
+      '&:first-child': {
+        paddingTop: 0,
+      },
+    },
+  };
+  return {
+    root: {
+      width: '100%',
+      backgroundColor: theme.palette.common.white,
+    },
+    appBar: {
+      left: 0,
+      background: theme.palette.common.white,
+      borderBottom: '1px solid ' + BORDER_COLOR,
+      backgroundColor: theme.palette.common.white,
+    },
+    toolbar: {
+      minHeight: APP_BAR_HEIGHT,
+      justifyContent: 'center' as justifyContentType,
+      backgroundColor: theme.palette.common.white,
+    },
+    typography: {
+      flex: 1,
+      textAlign: 'center',
+      backgroundColor: theme.palette.common.white,
+    },
+    icon: {
+      width: ICON_SIZE,
+      height: ICON_SIZE,
+      fontSize: ICON_SIZE * 0.7,
+    },
+    searchTextWrap: {
+    },
+    content: {
+      marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + 8 + 8,
+    },
+  };
+};
 
 type ClassNames = 
   'root' |
@@ -108,7 +118,7 @@ class ContactListComponent extends
             className={classes.appBar}
           >
             <Toolbar className={classes.toolbar} disableGutters={true}>
-              <IconButton color="primary" onClick={(e: React.MouseEvent<HTMLElement>) => handleClose(e)}>
+              <IconButton color="primary" onClick={handleClose}>
                 <CloseIcon className={classes.icon} />
               </IconButton>
               <Typography variant="subheading" className={classes.typography}>
@@ -116,7 +126,7 @@ class ContactListComponent extends
               </Typography>
               <IconButton
                 color="primary"
-                onClick={(e: React.MouseEvent<HTMLElement>) => handleOK(e)}
+                onClick={handleOK}
               >
                 <span className={classes.icon}>OK</span>
               </IconButton>

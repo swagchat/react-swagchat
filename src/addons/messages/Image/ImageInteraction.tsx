@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
-import CameraAltIcon from 'material-ui-icons/CameraAlt';
+import PhotoLibraryIcon from 'material-ui-icons/PhotoLibrary';
 import CloseIcon from 'material-ui-icons/Close';
 import IconButton from 'material-ui/IconButton';
 import {
@@ -162,7 +162,7 @@ class ImageInteractionComponent extends
           accept="image/*"
           onChange={e => this.onFileUploadChange(e)}
         />
-        <IconButton color="primary" onClick={this.handleIconClick}><CameraAltIcon /></IconButton>
+        <IconButton color="primary" onClick={this.handleIconClick}><PhotoLibraryIcon /></IconButton>
       </div>
     );
   }
