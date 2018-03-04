@@ -78,15 +78,12 @@ const styles = (theme: Theme) => ({
   },
   appBar: {
     width: '100%',
-    height: APP_BAR_HEIGHT,
     left: 0,
     background: theme.palette.common.white,
     borderBottom: '1px solid ' + BORDER_COLOR,
   },
   toolbar: {
-    minHeight: APP_BAR_HEIGHT,
     justifyContent: 'center' as justifyContentType,
-    // paddingLeft: 10,
   },
   searchToolbar: {
     minHeight: APP_BAR_HEIGHT,
@@ -443,8 +440,8 @@ const mapStateToProps = (state: State, ownProps: {}) => {
   return {
     client: state.client.client,
     user: state.user.user,
-    currentRoomId: state.client.currentRoomId,
-    currentRoomName: state.client.currentRoomName,
+    currentRoomId: state.room.currentRoomId,
+    currentRoomName: state.room.currentRoomName,
     userRooms: state.user.userRooms,
     currentUserId: state.user.user ? state.user.user.userId : '',
     messages: state.message.messageMap,

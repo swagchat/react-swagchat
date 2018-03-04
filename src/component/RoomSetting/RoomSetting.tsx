@@ -17,12 +17,11 @@ import {
   RoomActions,
   RoomType,
   opponentUser,
-  generateRoomName,
 } from 'swagchat-sdk';
-import { SwagAvatar } from '../SwagAvatar';
 import { AddRoomMemberListItem } from './AddRoomMemberListItem';
 import { RoomMemberListItem } from './RoomMemberListItem';
 import { LeftRoomListItem } from './LeftRoomListItem';
+import { RoomEditListItem } from './RoomEditListItem';
 import {
   MIN_WIDTH,
   BORDER_COLOR,
@@ -132,7 +131,7 @@ const OneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToProps 
         <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
           <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
             <IconButton className={classes.listItemIcon}><NotificationsActiveIcon /></IconButton>
-            <ListItemText primary="このルームの通知をオフにする" />
+            <ListItemText primary="このダイレクトルームの通知をオフにする" />
           </ListItem>
           <LeftRoomListItem />
         </List>
@@ -143,31 +142,15 @@ const OneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToProps 
 
 const NotOneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToProps & RoomSettingProps>(
   (props: MapStateToProps & MapDispatchToProps & RoomSettingProps & WithStyles<ClassNames>) => {
-    const { classes, room, user } = props;
+    const { classes, room } = props;
 
-    if (room === null || user === null) {
+    if (room === null) {
       return <LinearProgress />;
-    }
-
-    let avatarData = {pictureUrl: room.pictureUrl, name: room.name};
-    const dmUser = opponentUser(room.users!, user.userId);
-    if (room.type === RoomType.ONE_ON_ONE && room.users !== undefined && room.users !== null) {
-      if (dmUser !== null) {
-        avatarData.pictureUrl = dmUser[0].pictureUrl;
-        avatarData.name = dmUser[0].name;
-      }
     }
 
     return (
       <div className={classes.content}>
-      <ListItem
-        key={room.roomId}
-        button={true}
-      >
-        <SwagAvatar data={avatarData} />
-        <ListItemText primary={room.name === '' ? generateRoomName(room.users!, user.userId) : room.name} />
-      </ListItem>
-      <div>
+        <RoomEditListItem />
         <Divider />
         <List subheader={<ListSubheader component="div">メンバー管理</ListSubheader>}>
           <AddRoomMemberListItem />
@@ -178,16 +161,15 @@ const NotOneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToPro
             : null
           }
         </List>
+        <Divider />
+        <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
+          <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
+            <IconButton className={classes.listItemIcon}><NotificationsActiveIcon /></IconButton>
+            <ListItemText primary="このルームの通知をオフにする" />
+          </ListItem>
+          <LeftRoomListItem />
+        </List>
       </div>
-      <Divider />
-      <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
-        <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
-          <IconButton className={classes.listItemIcon}><NotificationsActiveIcon /></IconButton>
-          <ListItemText primary="このルームの通知をオフにする" />
-        </ListItem>
-        <LeftRoomListItem />
-      </List>
-    </div>
     );
   }
 );
@@ -272,8 +254,8 @@ const mapStateToProps = (state: State, ownProps: RoomSettingProps) => {
     client: state.client.client,
     room: state.room.room,
     user: state.user.user,
-    currentRoomId: state.client.currentRoomId,
-    currentRoomName: state.client.currentRoomName,
+    currentRoomId: state.room.currentRoomId,
+    currentRoomName: state.room.currentRoomName,
     userProblemDetail: state.user.problemDetail,
   };
 };

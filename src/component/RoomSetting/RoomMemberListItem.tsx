@@ -19,7 +19,7 @@ import {
   clearProfileUserActionCreator, ClearProfileUserAction,
   removeRoomUserRequestActionCreator, RemoveRoomUserRequestAction,
 } from 'swagchat-sdk';
-import { BIG_ABATAR_SIZE } from '../../setting';
+import { LARGE_ABATAR_SIZE } from '../../setting';
 
 const styles = (theme: Theme) => {
   theme!.overrides!.MuiDialogActions = {
@@ -40,8 +40,8 @@ const styles = (theme: Theme) => {
       justifyContent: 'space-around' as 'space-around',
     },
     avatar: {
-      width: BIG_ABATAR_SIZE,
-      height: BIG_ABATAR_SIZE,
+      width: LARGE_ABATAR_SIZE,
+      height: LARGE_ABATAR_SIZE,
     },
   };
 };
@@ -103,68 +103,33 @@ class RoomMemberListItemComponent
   }
 
   render() {
-    const { classes, enableRemoveIcon, userForRoom } = this.props;
+    const { classes, enableRemoveIcon, user, userForRoom } = this.props;
 
     return (
-      <ListItem
-        button={true}
-        disableGutters={enableRemoveIcon}
-        onClick={(e: React.MouseEvent<HTMLElement>) => this.handleProfileClick(e)}
-      >
-        {enableRemoveIcon ?
-          <IconButton
-            className={classes.listItemIcon}
-            onClick={(e: React.MouseEvent<HTMLElement>) => this.handleOpen(e)}
-          >
-            <RemoveIcon />
-          </IconButton>
-        : null
+      <ListItem button={true} disableGutters={enableRemoveIcon} onClick={this.handleProfileClick}>
+        {enableRemoveIcon
+          ? 
+            <div>
+              {user!.userId !== userForRoom.userId
+                ? <IconButton className={classes.listItemIcon} onClick={this.handleOpen}><RemoveIcon /></IconButton>
+                : <IconButton className={classes.listItemIcon} />
+              }
+              <Dialog open={this.state.dialog} onBackdropClick={this.handleClose} onEscapeKeyDown={this.handleClose}>
+                <DialogTitle onClick={this.handleClose}>{userForRoom.name}をこのルームから外しますか？</DialogTitle>
+                <DialogContent className={classes.dialogContent} onClick={this.handleClose}>
+                  <SwagAvatar className={classes.avatar} data={userForRoom} />
+                </DialogContent>
+                <DialogActions className={classes.dialogActions} onClick={this.handleClose}>
+                  <Button fullWidth={true} variant="raised" onClick={this.handleClose} color="inherit">キャンセル</Button>
+                  <Button fullWidth={true} variant="raised" onClick={this.handleAgree} color="primary">OK</Button>
+                </DialogActions>
+              </Dialog>
+            </div>
+          : null
         }
-        <Dialog
-          open={this.state.dialog}
-          onBackdropClick={(e: React.MouseEvent<HTMLElement>) => this.handleClose(e)}
-          onEscapeKeyDown={(e: React.MouseEvent<HTMLElement>) => this.handleClose(e)}
-        >
-          <DialogTitle
-            onClick={(e: React.MouseEvent<HTMLElement>) => this.handleClose(e)}
-          >{userForRoom.name}をこのルームから外しますか？
-          </DialogTitle>
-          <DialogContent
-            className={classes.dialogContent}
-            onClick={(e: React.MouseEvent<HTMLElement>) => this.handleClose(e)}
-          >
-            <SwagAvatar className={classes.avatar} data={userForRoom} />
-          </DialogContent>
-          <DialogActions
-            className={classes.dialogActions}
-            onClick={(e: React.MouseEvent<HTMLElement>) => this.handleClose(e)}
-          >
-            <Button
-              fullWidth={true}
-              variant="raised"
-              onClick={(e: React.MouseEvent<HTMLElement>) => this.handleClose(e)}
-              color="inherit"
-            >
-              キャンセル
-            </Button>
-            <Button
-              fullWidth={true}
-              variant="raised"
-              onClick={(e: React.MouseEvent<HTMLElement>) => this.handleAgree(e)}
-              color="primary"
-            >
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
-
         <SwagAvatar data={userForRoom} />
         <ListItemText primary={userForRoom.name} />
-        <IconButton
-          onClick={(e: React.MouseEvent<HTMLElement>) => this.handleProfileClick(e)}
-        >
-          <KeyboardArrowRightIcon />
-        </IconButton>
+        <IconButton onClick={this.handleProfileClick}><KeyboardArrowRightIcon /></IconButton>
       </ListItem>
     );
   }

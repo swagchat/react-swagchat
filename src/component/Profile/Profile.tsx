@@ -211,7 +211,7 @@ class ProfileComponent
 const mapStateToProps = (state: State, ownProps: ProfileProps) => {
   return {
     client: state.client.client,
-    profileUserId: state.client.profileUserId,
+    profileUserId: state.user.profileUserId,
     room: state.room.room,
     profileUser: state.user.profileUser,
   };

@@ -83,7 +83,6 @@ const styles = (theme: Theme) => {
   return {
     root: {
       width: '100%',
-      backgroundColor: theme.palette.common.white,
     },
     appBar: {
       left: 0,
@@ -92,9 +91,7 @@ const styles = (theme: Theme) => {
       backgroundColor: theme.palette.common.white,
     },
     toolbar: {
-      minHeight: APP_BAR_HEIGHT,
       justifyContent: 'center' as justifyContentType,
-      backgroundColor: theme.palette.common.white,
     },
     toolbarButton: {
       width: 40,
@@ -108,8 +105,6 @@ const styles = (theme: Theme) => {
       flex: 1,
       textAlign: 'center',
       backgroundColor: theme.palette.common.white,
-    },
-    searchTextWrap: {
     },
     tabs: {
       backgroundColor: theme.palette.common.white,
@@ -147,7 +142,6 @@ type ClassNames =
   'typography' |
   'tabs' |
   'tab' |
-  'searchTextWrap' |
   'dialog' |
   'content' |
   'onlineBadge'
@@ -342,10 +336,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             : null}
           </Toolbar>
           {enableSearch === true
-            ?
-              <div className={classes.searchTextWrap}>
-                <SearchText fullWidth={true} placeholder="全てのメッセージから検索" />
-              </div>
+            ? <div><SearchText fullWidth={true} placeholder="全てのメッセージから検索" /></div>
             : null
           }
           {enableSearchResult === true && searchText !== '' ? <SearchResultTab /> :
@@ -442,7 +433,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
 
 const mapStateToProps = (state: State, ownProps: RoomListProps) => {
   return {
-    currentRoomId: state.client.currentRoomId,
+    currentRoomId: state.room.currentRoomId,
     user: state.user.user,
     room: state.room.room,
     searchText: state.message.searchText,

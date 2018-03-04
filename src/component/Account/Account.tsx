@@ -11,22 +11,18 @@ import NotificationsIcon from 'material-ui-icons/Notifications';
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 import { LinearProgress } from 'material-ui/Progress';
 import {
-  State, Client, IUser, Room, routerHistory,
-  fetchRoomRequestActionCreator, FetchRoomRequestAction,
-  fetchProfileUserRequestActionCreator, FetchProfileUserRequestAction,
+  State, IUser, routerHistory,
   RoomActions,
 } from 'swagchat-sdk';
 import { SwagAvatar } from '../SwagAvatar';
+import { ProfileEditButton } from './ProfileEditButton';
 import {
   MIN_WIDTH,
   ICON_SIZE,
-  APP_BAR_HEIGHT,
   BORDER_RADIUS,
+  X_LARGE_ABATAR_SIZE,
+  X_LARGE_ABATAR_FONT_SIZE,
 } from '../../setting';
-
-type positionType = 'fixed';
-type justifyContentType = 'space-around';
-type overflowYType = 'scroll';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -34,13 +30,11 @@ const styles = (theme: Theme) => ({
   },
   appBar: {
     width: '100%',
-    height: APP_BAR_HEIGHT,
     left: 0,
-    background: 'rgba(255, 255, 255, 0)',
+    background: 'transparent',
   },
   toolbar: {
-    minHeight: APP_BAR_HEIGHT,
-    justifyContent: 'left' as justifyContentType,
+    justifyContent: 'left' as 'space-around',
   },
   toolbarButton: {
     width: 40,
@@ -52,8 +46,8 @@ const styles = (theme: Theme) => ({
     color: theme.palette.common.white,
   },
   content: {
-    position: 'relative' as positionType,
-    overflowY: 'scroll' as overflowYType,
+    position: 'relative' as 'relative',
+    overflowY: 'scroll' as 'scroll',
   },
   profileBackground: {
     background: 'linear-gradient(to top, #00c6ff, #0072ff)',
@@ -65,10 +59,10 @@ const styles = (theme: Theme) => ({
     borderRadius: BORDER_RADIUS,
   },
   profileAvatar: {
-    width: 120,
-    height: 120,
-    fontSize: 60,
-    margin: '20px auto',
+    width: X_LARGE_ABATAR_SIZE,
+    height: X_LARGE_ABATAR_SIZE,
+    fontSize: X_LARGE_ABATAR_FONT_SIZE,
+    margin: theme.spacing.unit * 3 + 'px auto',
   },
   profileName: {
     fontSize: '2em',
@@ -76,13 +70,21 @@ const styles = (theme: Theme) => ({
     textAlign: 'center',
     color: theme.palette.common.white,
     wordWrap: 'break-word',
+    margin: theme.spacing.unit * 3 + 'px auto',
   },
   listItemIcon: {
     color: theme.palette.primary.main,
   },
   iconButton: {
-    position: 'relative' as positionType,
+    position: 'relative' as 'relative',
     right: '-12px',
+  },
+  button: {
+    margin: '0 auto',
+    color: theme.palette.common.white,
+    display: 'block',
+    border: '1px solid ' + theme.palette.common.white,
+    borderRadius: BORDER_RADIUS,
   },
 });
 
@@ -99,18 +101,15 @@ type ClassNames =
   'profileAvatar' |
   'profileName' |
   'listItemIcon' |
-  'iconButton'
+  'iconButton' |
+  'button'
 ;
 
 interface MapStateToProps {
-  client: Client | null;
-  room: Room | null;
   user: IUser | null;
 }
 
 interface MapDispatchToProps {
-  fetchRoomRequest: (roomId: string) => FetchRoomRequestAction;
-  fetchProfileUserRequest: (userId: string) => FetchProfileUserRequestAction;
 }
 
 export interface AccountProps {
@@ -123,6 +122,10 @@ class AccountComponent
 
   handleBackClick = () => {
     routerHistory.goBack();
+  }
+
+  handleEditProfile = () => {
+    window.console.log('handleEditProfile');
   }
 
   render() {
@@ -144,11 +147,11 @@ class AccountComponent
           <Toolbar className={classes.toolbar} disableGutters={true}>
             {isModal
               ?
-                <IconButton color="primary" onClick={handleClose}>
+                <IconButton color="primary" className={classes.toolbarButton} onClick={handleClose}>
                   <CloseIcon className={classes.toolbarIcon} />
                 </IconButton>
               :
-                <IconButton className={classes.toolbarButton} color="primary" onClick={this.handleBackClick}>
+                <IconButton color="primary" className={classes.toolbarButton} onClick={this.handleBackClick}>
                   <KeyboardArrowLeftIcon className={classes.toolbarIcon} />
                 </IconButton>
             }
@@ -161,6 +164,7 @@ class AccountComponent
               <Typography variant="subheading" className={classes.profileName}>
                 {user.name}
               </Typography>
+              <ProfileEditButton />
             </div>
           </div>
           <List>
@@ -177,17 +181,12 @@ class AccountComponent
 
 const mapStateToProps = (state: State, ownProps: AccountProps) => {
   return {
-    client: state.client.client,
-    room: state.room.room,
     user: state.user.user,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<RoomActions>, ownProps: AccountProps) => {
-  return {
-    fetchRoomRequest: (roomId: string) => dispatch(fetchRoomRequestActionCreator(roomId)),
-    fetchProfileUserRequest: (userId: string) => dispatch(fetchProfileUserRequestActionCreator(userId)),
-  };
+  return {};
 };
 
 export const Account = connect<MapStateToProps, MapDispatchToProps, AccountProps>(

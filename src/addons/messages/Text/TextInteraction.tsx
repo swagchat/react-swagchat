@@ -97,7 +97,7 @@ const mapStateToProps = (state: State, ownProps: IAddonMessageInteractionProps) 
   return {
     user: state.user.user,
     room: state.room.room,
-    currentRoomId: state.client.currentRoomId,
+    currentRoomId: state.room.currentRoomId,
   };
 };
 

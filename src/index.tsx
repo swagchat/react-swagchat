@@ -16,8 +16,8 @@ export { IClientParams } from 'swagchat-sdk';
 export function init(params: IClientParams) {
   store.dispatch(setClientActionCreator(
     new Client({
-      apiEndpoint: params.apiEndpoint, // 'http://localhost:8000/v0',
-      wsEndpoint: params.wsEndpoint ? params.wsEndpoint : undefined, // 'ws://localhost:9100/v0',
+      apiEndpoint: params.apiEndpoint,
+      wsEndpoint: params.wsEndpoint ? params.wsEndpoint : undefined,
       accessToken: params.accessToken,
       userId: params.userId,
       username: params.username,
@@ -49,6 +49,14 @@ export const theme: Theme = createMuiTheme({
         boxShadow: 'none',
       },
     },
+    MuiToolbar: {
+      root: {
+        minHeight: 40,
+        '@media (min-width: 600px)': {
+          minHeight: 40,
+        }
+      },
+    },
     MuiCardMedia: {
       root: {
         boxShadow: 'none',
@@ -73,9 +81,9 @@ const clientParams = {
   apiEndpoint: 'http://customer0001.swagchat.io:8000/chat-api',
   wsEndpoint: 'ws://customer0001.swagchat.io:8000/rtm-api/v0',
   // tslint:disable-next-line:max-line-length
-  accessToken: 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2ZnRRR3gyTWNHSGdUbmJFUGRIU3J3LTJjSzRHLThEbUN0eFhKbU9wRWZzIn0.eyJqdGkiOiIzZWNkMzRmNC1mY2YzLTQ3OGEtYmIzYy04YzBiNGNhNTY0ZjgiLCJleHAiOjE1MTk5MTgzNzEsIm5iZiI6MCwiaWF0IjoxNTE5ODk2NzcxLCJpc3MiOiJodHRwOi8vYWNjb3VudHMuc3dhZ2NoYXQuaW8vYXV0aC9yZWFsbXMvY3VzdG9tZXIwMDAxLnN3YWdjaGF0LmlvIiwiYXVkIjoiYnJvd3NlciIsInN1YiI6IjE1NzI4NmI2LTRjOGYtNDA3Mi04MWI4LTUxZjhlNDdmY2UwZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImJyb3dzZXIiLCJub25jZSI6IjBmYjVjZmI3LTIyNGUtNDUzMi04YjRjLWQ2YzIzM2Q1OTE1ZSIsImF1dGhfdGltZSI6MTUxOTg5Njc2OCwic2Vzc2lvbl9zdGF0ZSI6Ijk1MzVjODVmLTI4YWUtNGU2OS1iN2FkLWRiNDFmMzQ4NWI2MyIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2N1c3RvbWVyMDAwMS5zd2FnY2hhdC5pbzozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJhZG1pbiIsInVzZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJuYW1lIjoic2hpbmljaGkgbWlub2JlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2hpbmljaGkubWlub2JlQGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJzaGluaWNoaSIsImZhbWlseV9uYW1lIjoibWlub2JlIiwiZW1haWwiOiJzaGluaWNoaS5taW5vYmVAZ21haWwuY29tIn0.X4790n1m3_qJB_UlkbvEJoOaWe2negY2EdHJc1358EP01gG59ygZUDetFiGhlDhaV-LClfkKeZALdbDi6YyBp31lybhW-cegIxmaqtHpa1u8fpMEVBkmd_KopFvLdoI7bmUXSx_c4tg3Cazj4yjZHdpuqBpgZQmsW8EoRAZ7wyx7atu3LlD1r949r_GyNgTtMq5dhoqQjf9gBT2tQfsi1YjONvYyoq9sql1akNvUyztJfJ4f1MePWfgrt3UQ70PivuOrPYxTmpY7QKDztcuYnVySqf7im4HbtZYv2gFT67TG-WfrpWwDxbA-vg2g7Fkz1zYulDsPUU9mc6JQLA-jYA',
-  userId: '157286b6-4c8f-4072-81b8-51f8e47fce0e',
-  username: 'shinichi.minobe@gmail.com',
+  accessToken: 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4U2pHeWdsT2lHMGpaandzX0hEUVNleEdiV0F4VjdiY1YyU3pYdkdjb2tZIn0.eyJqdGkiOiI5NTMzNWYwNy0zMDcwLTRjOTMtYmI0Yi1lMjMzMDM3ZTJmNTQiLCJleHAiOjE1MjAyMDQ5OTMsIm5iZiI6MCwiaWF0IjoxNTIwMTY5MjYyLCJpc3MiOiJodHRwOi8vYWNjb3VudHMuc3dhZ2NoYXQuaW8vYXV0aC9yZWFsbXMvY3VzdG9tZXIwMDAxLnN3YWdjaGF0LmlvIiwiYXVkIjoiYnJvd3NlciIsInN1YiI6Ijk1OGM3NzVhLTlkNzEtNGIyNi04YjE3LTVhMjEwOTI2YTc1ZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImJyb3dzZXIiLCJub25jZSI6ImJiNjk2YWI1LWUwNTgtNGU1OS1iMTc2LWM0YTA5MDFkMTBhOSIsImF1dGhfdGltZSI6MTUyMDE2ODk5Mywic2Vzc2lvbl9zdGF0ZSI6ImQxYzk4OWNhLWZiODgtNGI5Yi04NmI4LTRhNWRmYmI2OWMyZiIsImFjciI6IjAiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2N1c3RvbWVyMDAwMS5zd2FnY2hhdC5pbzozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sIm5hbWUiOiJzaGluaWNoaSBtaW5vYmUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzaGluaWNoaS5taW5vYmVAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6InNoaW5pY2hpIiwiZmFtaWx5X25hbWUiOiJtaW5vYmUiLCJlbWFpbCI6InNoaW5pY2hpLm1pbm9iZUBnbWFpbC5jb20ifQ.QnwjBcccQE8WD2MNh13uZEj2hiV4yKZkOr5K7ljBeAFRVWgCpCWltSHY0WMiBEARz2XR1hShQAI2FNb4Aaq4T-JsfzFSuSSTxuh6L7mnVGx5TUhnCcUWpfqCYNeR9DKzl5jXAJE6YtIR4Nk01GSPhfWKsE5Uf0oalKrzUHhZtQ7boSQNl7Oy_g0txIR4wzmwOj-4y7QF6sTXglSBSH_ed49CCkZVhK5Tz6gbE0Z4jKvLp1nQg3bX-E5-qOVtByODRAFEoFpRy8FCVFKwZxN9BSMaP3luoZK8Eu9TxC9e5S-XA8WURiW3chOGdARtvBPZhmCSl9Rmw3wWxCDl1LFBDA',
+  userId: '958c775a-9d71-4b26-8b17-5a210926a75e',
+  username: 'minobe',
   paths: {
     roomListPath: '/rooms',
   }
@@ -83,6 +91,15 @@ const clientParams = {
 
 ReactDOM.render(
   <App clientParams={clientParams} />,
-  document.getElementById('root') as HTMLElement
+  document.getElementById('swag') as HTMLElement
 );
 registerServiceWorker();
+
+// ##################################################
+
+// For browser
+import { renderMessenger } from './App';
+// tslint:disable-next-line:no-any
+(window as any).Swag = {};
+// tslint:disable-next-line:no-any
+(window as any).Swag.renderMessenger = renderMessenger;

@@ -6,7 +6,7 @@ import Avatar from 'material-ui/Avatar';
 
 const styles = (theme: Theme) => ({
   border: {
-    border: '2px solid rgba(200, 200, 200, 0.8)',
+    border: '1px solid rgba(200, 200, 200, 0.8)',
   },
 });
 
@@ -27,12 +27,13 @@ export interface Props {
     pictureUrl?: string;
     name?: string;
   };
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 class SwagAvatarComponent
     extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
   render() {
-    const { classes, className, style, data } = this.props;
+    const { classes, className, style, data, onClick } = this.props;
 
     const avatarClass = classNames(classes.border, className ? className : '');
 
@@ -42,6 +43,7 @@ class SwagAvatarComponent
           className={avatarClass}
           style={style}
           src={data.pictureUrl}
+          onClick={onClick}
         />
       );
     } else if (data.name !== undefined && data.name !== '') {
@@ -49,6 +51,7 @@ class SwagAvatarComponent
         <Avatar
           className={avatarClass}
           style={style}
+          onClick={onClick}
         >
           {data.name.slice(0, 1)}
         </Avatar>
