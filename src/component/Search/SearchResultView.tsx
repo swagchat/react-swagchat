@@ -6,18 +6,12 @@ import SwipeableViews from 'react-swipeable-views';
 import { TabContainer } from '../TabContainer';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import {
-  State,
-  setSearchResultTabIndexActionCreator,
-  SetSearchResultTabIndexAction,
+  State, IMessage, IUserForRoom, IUser,
+  SetSearchResultTabIndexAction, setSearchResultTabIndexActionCreator,
   MessageActions,
-  IMessage,
-  IUserForRoom,
-  IUser,
 } from 'swagchat-sdk';
 import { TextFlatItem } from '../../addons/messages/Text/TextFlatItem';
 import { TAB_HEIGHT } from '../../setting';
-
-type fontWeightType = 'bold';
 
 const styles = (theme: Theme) => ({
   progress: {
@@ -30,7 +24,7 @@ const styles = (theme: Theme) => ({
   },
   listSubheader: {
     textAlign: 'left',
-    fontWeight: 'bold' as fontWeightType,
+    fontWeight: 'bold' as 'bold',
     height: 25,
     lineHeight: '25px',
   },

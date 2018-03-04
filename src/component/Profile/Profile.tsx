@@ -19,15 +19,8 @@ import {
 import { SwagAvatar } from '../SwagAvatar';
 import { UserBlockListItem } from './UserBlockListItem';
 import {
-  MIN_WIDTH,
-  ICON_SIZE,
-  APP_BAR_HEIGHT,
-  BORDER_RADIUS,
+  MIN_WIDTH, ICON_SIZE, APP_BAR_HEIGHT, BORDER_RADIUS,
 } from '../../setting';
-
-type positionType = 'fixed';
-type justifyContentType = 'space-around';
-type overflowYType = 'scroll';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -40,8 +33,7 @@ const styles = (theme: Theme) => ({
   },
   toolbar: {
     minHeight: APP_BAR_HEIGHT,
-    justifyContent: 'left' as justifyContentType,
-    // paddingLeft: 10,
+    justifyContent: 'left' as 'space-around',
   },
   toolbarButton: {
     width: 40,
@@ -53,8 +45,8 @@ const styles = (theme: Theme) => ({
     color: theme.palette.common.white,
   },
   content: {
-    position: 'relative' as positionType,
-    overflowY: 'scroll' as overflowYType,
+    position: 'relative' as 'relative',
+    overflowY: 'scroll' as 'scroll',
   },
   profileBackground: {
     background: 'linear-gradient(to top, #00c6ff, #0072ff)',
@@ -82,7 +74,7 @@ const styles = (theme: Theme) => ({
     color: theme.palette.primary.main,
   },
   iconButton: {
-    position: 'relative' as positionType,
+    position: 'relative' as 'relative',
     right: '-12px',
   },
 });

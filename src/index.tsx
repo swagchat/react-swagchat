@@ -1,4 +1,3 @@
-export { default as Test2 } from './component/Test1';
 export * from './component/Swagchat';
 export * from './component/RoomList/RoomList';
 export * from './component/Message/MessageList';
@@ -39,22 +38,15 @@ export const theme: Theme = createMuiTheme({
     },
   },
   overrides: {
-    MuiButton: {
-      raised: {
-        boxShadow: 'none',
-      },
-    },
     MuiAppBar: {
       root: {
         boxShadow: 'none',
+        minWidth: 320,
       },
     },
-    MuiToolbar: {
-      root: {
-        minHeight: 40,
-        '@media (min-width: 600px)': {
-          minHeight: 40,
-        }
+    MuiButton: {
+      raised: {
+        boxShadow: 'none',
       },
     },
     MuiCardMedia: {
@@ -65,6 +57,19 @@ export const theme: Theme = createMuiTheme({
     MuiPaper: {
       shadow2: {
         boxShadow: 'none',
+      },
+    },
+    // MuiTabs: {
+    //   root: {
+    //     minHeight: 40,
+    //   },
+    // },
+    MuiToolbar: {
+      root: {
+        minHeight: 40,
+        '@media (min-width: 600px)': {
+          minHeight: 40,
+        }
       },
     },
   },

@@ -9,8 +9,6 @@ export interface TabContainerProps {
 export function TabContainer(props: TabContainerProps) {
   const { children, dir } = props;
   return (
-    <Typography component="div" dir={dir}>
-      {children}
-    </Typography>
+    <Typography component="div" dir={dir}>{children}</Typography>
   );
 }

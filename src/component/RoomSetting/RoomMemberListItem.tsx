@@ -3,11 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { ListItem, ListItemText } from 'material-ui/List';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui/Dialog';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
 import RemoveIcon from 'material-ui-icons/Remove';

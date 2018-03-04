@@ -58,6 +58,7 @@ const styles = (theme: Theme) => {
       height: X_LARGE_ABATAR_SIZE,
       fontSize: X_LARGE_ABATAR_FONT_SIZE,
       margin: '20px auto',
+      cursor: 'pointer',
     },
     cameraIcon: {
       position: 'absolute' as 'absolute',

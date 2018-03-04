@@ -13,20 +13,13 @@ import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import { LinearProgress } from 'material-ui/Progress';
 import {
-  State,
-  IUser,
-  UserActions,
-  fetchContactsRequestActionCreator,
-  updateSelectContactsActionCreator,
-  clearSelectContactsActionCreator,
-  FetchContactsRequestAction,
-  UpdateSelectContactsAction,
-  ClearSelectContactsAction,
+  State, IUser, UserActions,
+  FetchContactsRequestAction, fetchContactsRequestActionCreator,
+  UpdateSelectContactsAction, updateSelectContactsActionCreator,
+  ClearSelectContactsAction, clearSelectContactsActionCreator,
 } from 'swagchat-sdk';
 import { SearchText } from '../Search/SearchText';
-import { BORDER_COLOR, APP_BAR_HEIGHT, SEARCH_FORM_HEIGHT, ICON_SIZE } from '../../setting';
-
-type justifyContentType = 'center';
+import { BORDER_COLOR, APP_BAR_HEIGHT, SEARCH_FORM_HEIGHT, ICON_SIZE, MIN_WIDTH } from '../../setting';
 
 const styles = (theme: Theme) => {
   theme!.overrides!.MuiDialogContent = {
@@ -39,8 +32,7 @@ const styles = (theme: Theme) => {
   };
   return {
     root: {
-      width: '100%',
-      backgroundColor: theme.palette.common.white,
+      minWidth: MIN_WIDTH,
     },
     appBar: {
       left: 0,
@@ -50,20 +42,17 @@ const styles = (theme: Theme) => {
     },
     toolbar: {
       minHeight: APP_BAR_HEIGHT,
-      justifyContent: 'center' as justifyContentType,
+      justifyContent: 'center' as 'center',
       backgroundColor: theme.palette.common.white,
     },
     typography: {
       flex: 1,
       textAlign: 'center',
-      backgroundColor: theme.palette.common.white,
     },
     icon: {
       width: ICON_SIZE,
       height: ICON_SIZE,
       fontSize: ICON_SIZE * 0.7,
-    },
-    searchTextWrap: {
     },
     content: {
       marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + 8 + 8,
@@ -77,7 +66,6 @@ type ClassNames =
   'toolbar' |
   'typography' |
   'icon' |
-  'searchTextWrap' |
   'content'
 ;
 
@@ -118,21 +106,14 @@ class ContactListComponent extends
             className={classes.appBar}
           >
             <Toolbar className={classes.toolbar} disableGutters={true}>
-              <IconButton color="primary" onClick={handleClose}>
-                <CloseIcon className={classes.icon} />
-              </IconButton>
+              <IconButton color="primary" onClick={handleClose}><CloseIcon className={classes.icon} /></IconButton>
               <Typography variant="subheading" className={classes.typography}>
                 ユーザを選択
               </Typography>
-              <IconButton
-                color="primary"
-                onClick={handleOK}
-              >
-                <span className={classes.icon}>OK</span>
-              </IconButton>
+              <IconButton color="primary" onClick={handleOK}><span className={classes.icon}>OK</span></IconButton>
             </Toolbar>
             {enableSearch === true
-              ? <div className={classes.searchTextWrap}><SearchText fullWidth={true} placeholder="連絡先を検索" /></div>
+              ? <div><SearchText fullWidth={true} placeholder="連絡先を検索" /></div>
               : null
             }
           </AppBar>

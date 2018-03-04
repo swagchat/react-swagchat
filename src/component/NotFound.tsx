@@ -56,10 +56,7 @@ class NotFoundComponent
   render() {
     const { classes } = this.props;
     return (
-      <Dialog
-        fullScreen={true}
-        open={true}
-      >
+      <Dialog fullScreen={true} open={true}>
         <Typography variant="subheading" className={classes.typography}>ページがみつかりません</Typography>
         <Button color="primary" className={classes.button} onClick={this.handleTop}>トップへ</Button>
       </Dialog>

@@ -17,21 +17,15 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Slide, { SlideProps } from 'material-ui/transitions/Slide';
 import {
-  State,
-  store,
-  IUser,
-  Room,
-  IRoomForUser,
-  IProblemDetail,
-  dateHumanize,
-  ClientActions,
-  MessageActions,
+  State, store, IUser, Room, IRoomForUser, IProblemDetail,
+  ClientActions, MessageActions,
   setCurrentRoomIdActionCreator, SetCurrentRoomIdAction,
   setCurrentRoomNameActionCreator, SetCurrentRoomNameAction,
   setSearchTextActionCreator, SetSearchTextAction,
   clearSelectContactsActionCreator, ClearSelectContactsAction,
   fetchContactsRequestActionCreator, FetchContactsRequestAction,
   createRoomAndFetchMessagesRequestActionCreator, CreateRoomAndFetchMessagesRequestAction,
+  dateHumanize,
 } from 'swagchat-sdk';
 import { SearchText } from '../Search/SearchText';
 import { SearchResultTab } from '../Search/SearchResultTab';
@@ -41,20 +35,17 @@ import { ContactList } from '../ContactList/ContactList';
 import { SwagAvatar } from '../SwagAvatar';
 import { Account } from '../Account/Account';
 import {
-  ICON_SIZE,
-  APP_BAR_HEIGHT,
-  SEARCH_FORM_HEIGHT,
-  TAB_HEIGHT,
-  BORDER_COLOR,
-  ONLINE_BADGE_COLOR,
+  ICON_SIZE, APP_BAR_HEIGHT, SEARCH_FORM_HEIGHT, TAB_HEIGHT, BORDER_COLOR, ONLINE_BADGE_COLOR,
   ONLINE_BADGE_SIZE,
 } from '../../setting';
 
-type justifyContentType = 'center';
-type positionType = 'absolute';
-
 const styles = (theme: Theme) => {
   theme!.overrides!.MuiTab = {
+    root: {
+      height: TAB_HEIGHT,
+      flexBasis: '33%',
+      minWidth: '33%',
+    },
     label: {
       fontSize: '0.8125rem',
       '@media (min-width: 960px)': {
@@ -81,17 +72,13 @@ const styles = (theme: Theme) => {
     },
   };
   return {
-    root: {
-      width: '100%',
-    },
     appBar: {
       left: 0,
       background: theme.palette.common.white,
       borderBottom: '1px solid ' + BORDER_COLOR,
-      backgroundColor: theme.palette.common.white,
     },
     toolbar: {
-      justifyContent: 'center' as justifyContentType,
+      justifyContent: 'center' as 'center',
     },
     toolbarButton: {
       width: 40,
@@ -104,22 +91,6 @@ const styles = (theme: Theme) => {
     typography: {
       flex: 1,
       textAlign: 'center',
-      backgroundColor: theme.palette.common.white,
-    },
-    tabs: {
-      backgroundColor: theme.palette.common.white,
-    },
-    tab: {
-      marginTop: 12,
-      height: TAB_HEIGHT,
-      flexBasis: '33%',
-      minWidth: '33%',
-      backgroundColor: theme.palette.common.white,
-    },
-    dialog: {
-
-    },
-    content: {
     },
     onlineBadge: {
       top: '46px',
@@ -128,22 +99,17 @@ const styles = (theme: Theme) => {
       height: ONLINE_BADGE_SIZE,
       width: ONLINE_BADGE_SIZE,
       backgroundColor: ONLINE_BADGE_COLOR,
-      position: 'absolute' as positionType,
+      position: 'absolute' as 'absolute',
     },
   };
 };
 
 type ClassNames = 
-  'root' |
   'appBar' |
   'toolbar' |
   'toolbarButton' |
   'toolbarIcon' |
   'typography' |
-  'tabs' |
-  'tab' |
-  'dialog' |
-  'content' |
   'onlineBadge'
 ;
 
@@ -280,7 +246,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
     };
 
     return (
-      <div className={classes.root}>
+      <div>
         <AppBar
           position="fixed"
           className={classes.appBar}
@@ -292,7 +258,6 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             </IconButton>
             {user !== null ?
               <Dialog
-                className={classes.dialog}
                 fullScreen={true}
                 transition={Transition}
                 keepMounted={true}
@@ -305,9 +270,7 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                 </DialogContent>
               </Dialog>
             : null}
-            <Typography variant="subheading" className={classes.typography}>
-              トーク
-            </Typography>
+            <Typography variant="subheading" className={classes.typography}>トーク</Typography>
             <IconButton
               color="primary"
               onClick={this.handleContactListClickOpen}
@@ -317,7 +280,6 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
             </IconButton>
             {user !== null ?
               <Dialog
-                className={classes.dialog}
                 fullScreen={true}
                 transition={Transition}
                 keepMounted={true}
@@ -341,7 +303,6 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
           }
           {enableSearchResult === true && searchText !== '' ? <SearchResultTab /> :
             <Tabs
-              className={classes.tabs}
               value={this.state.tabIndex}
               onChange={this.handleTabChange}
               indicatorColor="primary"
@@ -349,13 +310,13 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
               fullWidth={true}
               centered={true}
             >
-              <Tab label="全て" className={classes.tab} />
-              <Tab label="未読" className={classes.tab} />
-              <Tab label="オンライン中" className={classes.tab} style={{paddingLeft: 0, paddingRight: 0}} />
+              <Tab label="全て" />
+              <Tab label="未読" />
+              <Tab label="オンライン中" />
             </Tabs>
           }
         </AppBar>
-        <div className={classes.content} style={contentStyle}>
+        <div style={contentStyle}>
           {enableSearchResult === true && searchText !== '' ? <SearchResultView /> :
             <SwipeableViews
               axis="x"

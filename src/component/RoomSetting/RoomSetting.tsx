@@ -7,31 +7,22 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
 import NotificationsActiveIcon from 'material-ui-icons/NotificationsActive';
-// import NotificationsOffIcon from 'material-ui-icons/NotificationsOff';
 import List, { ListItem, ListItemText, ListSubheader } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { LinearProgress } from 'material-ui/Progress';
 import {
-  State, Client, IUser, Room, IProblemDetail, routerHistory,
+  State, Client, IUser, Room, IProblemDetail, RoomType,
   fetchRoomRequestActionCreator, FetchRoomRequestAction,
   RoomActions,
-  RoomType,
-  opponentUser,
+  routerHistory, opponentUser,
 } from 'swagchat-sdk';
 import { AddRoomMemberListItem } from './AddRoomMemberListItem';
 import { RoomMemberListItem } from './RoomMemberListItem';
 import { LeftRoomListItem } from './LeftRoomListItem';
 import { RoomEditListItem } from './RoomEditListItem';
 import {
-  MIN_WIDTH,
-  BORDER_COLOR,
-  ICON_SIZE,
-  APP_BAR_HEIGHT,
+  MIN_WIDTH, BORDER_COLOR, ICON_SIZE, APP_BAR_HEIGHT,
 } from '../../setting';
-
-type positionType = 'fixed';
-type justifyContentType = 'space-around';
-type overflowYType = 'scroll';
 
 const styles = (theme: Theme) => {
   theme!.overrides!.MuiDialogContent = {
@@ -55,8 +46,7 @@ const styles = (theme: Theme) => {
     },
     toolbar: {
       minHeight: APP_BAR_HEIGHT,
-      justifyContent: 'center' as justifyContentType,
-      // paddingLeft: 10,
+      justifyContent: 'center' as 'center',
     },
     toolbarButton: {
       width: 40,
@@ -72,8 +62,8 @@ const styles = (theme: Theme) => {
     },
     content: {
       paddingTop: APP_BAR_HEIGHT,
-      position: 'relative' as positionType,
-      overflowY: 'scroll' as overflowYType,
+      position: 'relative' as 'relative',
+      overflowY: 'scroll' as 'scroll',
     },
     listItemIcon: {
       color: theme.palette.primary.main,

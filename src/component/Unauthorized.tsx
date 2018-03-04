@@ -58,10 +58,7 @@ class UnauthorizedComponent
   render() {
     const { classes } = this.props;
     return (
-      <Dialog
-        fullScreen={true}
-        open={true}
-      >
+      <Dialog fullScreen={true} open={true}>
         <Typography variant="subheading" className={classes.typography}>このサービスの利用権限がありません</Typography>
         <Button color="primary" className={classes.button} onClick={this.handleReflesh}>再読み込みする</Button>
         <Button color="primary" className={classes.button} onClick={this.handleLogout}>別のユーザでログインする</Button>

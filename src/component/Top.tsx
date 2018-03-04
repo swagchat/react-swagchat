@@ -4,7 +4,6 @@ import { push } from 'react-router-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import { store } from 'swagchat-sdk';
-// type positionType = 'absolute';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -24,18 +23,17 @@ type ClassNames =
   'root'
 ;
 
-class TopComponent extends
-    React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & TopProps, {}> {
+class TopComponent
+    extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & TopProps, {}> {
+
   componentDidMount() {
     store.dispatch(push('/rooms'));
   }
+
   render() {
     const { classes } = this.props;
-
     return (
-      <div className={classes.root}>
-        <CircularProgress />
-      </div>
+      <div className={classes.root}><CircularProgress /></div>
     );
   }
 }

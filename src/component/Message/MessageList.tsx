@@ -9,81 +9,44 @@ import IconButton from 'material-ui/IconButton';
 import InfoOutlineIcon from 'material-ui-icons/InfoOutline';
 import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
 import SearchIcon from 'material-ui-icons/Search';
-import { SearchText } from '../Search/SearchText';
 import { LinearProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import {
-  State,
-  store,
-  Client,
-  IUser,
-  IMessage,
-  IMessages,
-  Room,
-  IUserForRoom,
-  IRoomForUser,
-  IProblemDetail,
-  MessageActions,
-  clearMessagesActionCreator,
-  fetchRoomRequestSuccessActionCreator,
-  fetchRoomRequestFailureActionCreator,
-  beforeFetchMessagesRequestActionCreator,
-  fetchMessagesRequestActionCreator,
-  fetchMessagesRequestSuccessActionCreator,
-  fetchMessagesRequestFailureActionCreator,
-  createMessageActionCreator,
-  sendMessagesRequestActionCreator,
-  updateMessagesActionCreator,
-  markAsReadRequestActionCreator,
-  setSearchTextActionCreator,
-  ClearMessagesAction,
-  BeforeFetchMessagesRequestAction,
-  FetchRoomRequestSuccessAction,
-  FetchRoomRequestFailureAction,
-  FetchMessagesRequestAction,
-  FetchMessagesRequestSuccessAction,
-  FetchMessagesRequestFailureAction,
-  CreateMessageAction,
-  SendMessagesRequestAction,
-  UpdateMessagesAction,
-  MarkAsReadRequestAction,
-  SetSearchTextAction,
-  routerHistory,
+  State, store, Client, IUser, IMessage, IMessages, Room, IUserForRoom, IRoomForUser, IProblemDetail,
+  ClearMessagesAction, clearMessagesActionCreator,
+  FetchRoomRequestSuccessAction, fetchRoomRequestSuccessActionCreator,
+  FetchRoomRequestFailureAction, fetchRoomRequestFailureActionCreator,
+  BeforeFetchMessagesRequestAction, beforeFetchMessagesRequestActionCreator,
+  FetchMessagesRequestAction, fetchMessagesRequestActionCreator,
+  FetchMessagesRequestSuccessAction, fetchMessagesRequestSuccessActionCreator,
+  FetchMessagesRequestFailureAction, fetchMessagesRequestFailureActionCreator,
+  CreateMessageAction, createMessageActionCreator,
+  SendMessagesRequestAction, sendMessagesRequestActionCreator,
+  UpdateMessagesAction, updateMessagesActionCreator,
+  MarkAsReadRequestAction, markAsReadRequestActionCreator,
+  SetSearchTextAction, setSearchTextActionCreator,
+  MessageActions, routerHistory,
 } from 'swagchat-sdk';
 import { TextItem } from '../../addons/messages/Text/TextItem';
 import { ImageItem } from '../../addons/messages/Image/ImageItem';
 import { TextInteraction } from '../../addons/messages/Text/TextInteraction';
 import { ImageInteraction } from '../../addons/messages/Image/ImageInteraction';
+import { SearchText } from '../Search/SearchText';
 import {
-  MIN_WIDTH,
-  MESSAGE_BOTTOM_BG_COLOR,
-  BORDER_COLOR,
-  ICON_SIZE,
-  APP_BAR_HEIGHT,
-  MESSAGE_BOTTOM_HEIGHT,
-  // BORDER_RADIUS,
+  MIN_WIDTH, MESSAGE_BOTTOM_BG_COLOR, BORDER_COLOR, ICON_SIZE, APP_BAR_HEIGHT, MESSAGE_BOTTOM_HEIGHT,
 } from '../../setting';
-import { logger } from '../../util/logger';
-
-type positionType = 'fixed';
-type displayType = 'fixed';
-type justifyContentType = 'space-around';
-type alignItemsType = 'center';
-type overflowYType = 'scroll';
 
 const styles = (theme: Theme) => ({
   root: {
     minWidth: MIN_WIDTH,
-    backgroundColor: theme.palette.background.paper,
   },
   appBar: {
-    width: '100%',
     left: 0,
     background: theme.palette.common.white,
     borderBottom: '1px solid ' + BORDER_COLOR,
   },
   toolbar: {
-    justifyContent: 'center' as justifyContentType,
+    justifyContent: 'center' as 'center',
   },
   searchToolbar: {
     minHeight: APP_BAR_HEIGHT,
@@ -100,12 +63,6 @@ const styles = (theme: Theme) => ({
     width: ICON_SIZE,
     margin: '0 5px',
   },
-  searchText: {
-    // backgroundColor: theme.palette.text.hint,
-    // borderRadius: BORDER_RADIUS,
-    // boxFlex: 1,
-    // margin: 4,
-  },
   typography: {
     flex: 1,
     textAlign: 'center',
@@ -118,26 +75,26 @@ const styles = (theme: Theme) => ({
     paddingTop: APP_BAR_HEIGHT + 10,
     bottom: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT,
     marginTop: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 10,
-    position: 'relative' as positionType,
-    overflowY: 'scroll' as overflowYType,
+    position: 'relative' as 'relative',
+    overflowY: 'scroll' as 'scroll',
   },
   bottom: {
     width: '100%',
     minHeight: MESSAGE_BOTTOM_HEIGHT - 1,
     minWidth: MIN_WIDTH,
     backgroundColor: MESSAGE_BOTTOM_BG_COLOR,
-    display: 'flex' as displayType,
-    justifyContent: 'space-around' as justifyContentType,
-    alignItems: 'center' as alignItemsType,
-    position: 'fixed' as positionType,
+    display: 'flex',
+    justifyContent: 'space-around' as 'space-around',
+    alignItems: 'center' as 'center',
+    position: 'fixed' as 'fixed',
     bottom: 0,
     borderTop: '1px solid ' + BORDER_COLOR,
   },
   bottomRight: {
     flex: '1 1 0%',
-    display: 'flex' as displayType,
-    justifyContent: 'space-around' as justifyContentType,
-    alignItems: 'center' as alignItemsType,
+    display: 'flex' as 'flex',
+    justifyContent: 'space-around' as 'space-around',
+    alignItems: 'center' as 'center',
   },
   formControl: {
     width: '100%',
@@ -153,7 +110,6 @@ type ClassNames =
   'toolbarButton' |
   'toolbarIcon' |
   'typography' |
-  'searchText' |
   'content' |
   'bottom' |
   'bottomRight' |
@@ -241,7 +197,6 @@ class MessageListComponent extends
   }
 
   subMsgFunc = (message: IMessage) => {
-    logger('CHAT-API', 'info', 'Receive message(push)');
     this.props.updateMessages([message]);
     this.props.markAsReadRequest(this.props.currentRoomId);
   }
@@ -298,20 +253,6 @@ class MessageListComponent extends
 
   handleRoomSettingClick = () => {
     store.dispatch(push('/roomSetting/' + this.props.currentRoomId));
-    // const room = this.props.room;
-    // if (room !== null) {
-    //   if (room.type === RoomType.ONE_ON_ONE) {
-    //     const users = opponentUser(room.users!, this.props.currentUserId);
-    //     if (users !== null) {
-    //       const profileUserId = users[0].userId;
-    //       this.props.clearProfileUser();
-    //       this.props.setProfileUserId(profileUserId);
-    //       store.dispatch(push('/profile/' + profileUserId));
-    //     }
-    //   } else {
-    //     store.dispatch(push('/roomSetting/' + this.props.currentRoomId));
-    //   }
-    // }
   }
 
   render() {
@@ -348,7 +289,7 @@ class MessageListComponent extends
           {enableSearchText
             ?
               <Toolbar className={classes.searchToolbar} disableGutters={true}>
-                <SearchText fullWidth={true} placeholder="メッセージを検索"　className={classes.searchText} />
+                <SearchText fullWidth={true} placeholder="メッセージを検索"　/>
                 <Button className={classes.cancelButton} onClick={this.handleSearchCancelClick}>キャンセル</Button>
               </Toolbar>
             :

@@ -17,11 +17,7 @@ import {
 import { SwagAvatar } from '../SwagAvatar';
 import { ProfileEditButton } from './ProfileEditButton';
 import {
-  MIN_WIDTH,
-  ICON_SIZE,
-  BORDER_RADIUS,
-  X_LARGE_ABATAR_SIZE,
-  X_LARGE_ABATAR_FONT_SIZE,
+  MIN_WIDTH, ICON_SIZE, BORDER_RADIUS, X_LARGE_ABATAR_SIZE, X_LARGE_ABATAR_FONT_SIZE,
 } from '../../setting';
 
 const styles = (theme: Theme) => ({

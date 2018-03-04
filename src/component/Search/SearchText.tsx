@@ -8,28 +8,18 @@ import CloseIcon from 'material-ui-icons/Close';
 import { fade } from 'material-ui/styles/colorManipulator';
 import {
   State,
-  setSearchTextActionCreator,
-  SetSearchTextAction,
+  SetSearchTextAction, setSearchTextActionCreator,
   MessageActions,
 } from 'swagchat-sdk';
 import {
-  SEARCH_FORM_HEIGHT,
-  BORDER_RADIUS,
+  SEARCH_FORM_HEIGHT, BORDER_RADIUS,
 } from '../../setting';
-
-type positionType = 'relative' | 'absolute';
-type alignItemsType = 'center';
-type justifyContentType = 'center';
 
 const styles = (theme: Theme) => ({
   root: {
     height: SEARCH_FORM_HEIGHT,
-    position: 'relative' as positionType,
-    // background: fade(theme.palette.common.white, 0.15),
+    position: 'relative' as 'relative',
     display: 'flex',
-    // '&:hover': {
-    //   background: fade(theme.palette.common.white, 0.25),
-    // },
     backgroundColor: '#efefef',
     borderRadius: BORDER_RADIUS,
     boxFlex: 1,
@@ -52,11 +42,11 @@ const styles = (theme: Theme) => ({
   searchIcon: {
     width: theme.spacing.unit * 5,
     height: '100%',
-    position: 'absolute' as positionType,
+    position: 'absolute' as 'absolute',
     pointerEvents: 'none',
     display: 'flex',
-    alignItems: 'center' as alignItemsType,
-    justifyContent: 'center' as justifyContentType,
+    alignItems: 'center' as 'center',
+    justifyContent: 'center' as 'center',
     color: fade(theme.palette.grey.A700, 0.7),
   },
   searchBlack: {
@@ -98,10 +88,10 @@ const styles = (theme: Theme) => ({
     right: 0,
     width: theme.spacing.unit * 5,
     height: '100%',
-    position: 'absolute' as positionType,
+    position: 'absolute' as 'absolute',
     display: 'flex',
-    alignItems: 'center' as alignItemsType,
-    justifyContent: 'center' as justifyContentType,
+    alignItems: 'center' as 'center',
+    justifyContent: 'center' as 'center',
     color: fade(theme.palette.grey.A700, 0.7),
   },
 });

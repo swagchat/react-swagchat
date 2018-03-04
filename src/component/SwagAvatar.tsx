@@ -34,27 +34,15 @@ class SwagAvatarComponent
     extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
   render() {
     const { classes, className, style, data, onClick } = this.props;
-
     const avatarClass = classNames(classes.border, className ? className : '');
 
     if (data.pictureUrl !== undefined && data.pictureUrl !== '') {
       return (
-        <Avatar
-          className={avatarClass}
-          style={style}
-          src={data.pictureUrl}
-          onClick={onClick}
-        />
+        <Avatar className={avatarClass} style={style} src={data.pictureUrl} onClick={onClick} />
       );
     } else if (data.name !== undefined && data.name !== '') {
       return (
-        <Avatar
-          className={avatarClass}
-          style={style}
-          onClick={onClick}
-        >
-          {data.name.slice(0, 1)}
-        </Avatar>
+        <Avatar className={avatarClass} style={style} onClick={onClick}>{data.name.slice(0, 1)}</Avatar>
       );
     } else {
       return <div />;
