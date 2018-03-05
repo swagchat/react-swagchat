@@ -8,7 +8,6 @@ import IconButton from 'material-ui/IconButton';
 import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
 import NotificationsActiveIcon from 'material-ui-icons/NotificationsActive';
 import List, { ListItem, ListItemText, ListSubheader } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
 import { LinearProgress } from 'material-ui/Progress';
 import {
   State, Client, IUser, Room, IProblemDetail, RoomType,
@@ -25,6 +24,24 @@ import {
 } from '../../setting';
 
 const styles = (theme: Theme) => {
+  theme.overrides!.MuiList = {
+    root: {
+      backgroundColor: theme.palette.grey[100],
+    },
+    padding: {
+      paddingBottom: 0,
+    },
+  };
+  theme.overrides!.MuiListSubheader = {
+    root: {
+      lineHeight: '32px',
+    }
+  };
+  theme.overrides!.MuiListItem = {
+    button: {
+      backgroundColor: theme.palette.common.white,
+    },
+  };
   return {
     root: {
       minWidth: MIN_WIDTH,
@@ -106,7 +123,6 @@ const NotOneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToPro
     return (
       <div className={classes.content}>
         <RoomEditListItem />
-        <Divider />
         <List subheader={<ListSubheader component="div">メンバー管理</ListSubheader>}>
           <AddRoomMemberListItem />
           {room.users !== null
@@ -116,7 +132,6 @@ const NotOneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToPro
             : null
           }
         </List>
-        <Divider />
         <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
           <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
             <IconButton><NotificationsActiveIcon color="primary" /></IconButton>

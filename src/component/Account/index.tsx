@@ -67,6 +67,9 @@ const styles = (theme: Theme) => ({
     border: '1px solid ' + BG_TRANSPARENT_1,
     borderRadius: BORDER_RADIUS,
   },
+  profileEditButton: {
+    margin: theme.spacing.unit * 2,
+  },
 });
 
 type ClassNames = 
@@ -80,7 +83,8 @@ type ClassNames =
   'profileName' |
   'listItemIcon' |
   'iconButton' |
-  'button'
+  'button' |
+  'profileEditButton'
 ;
 
 interface MapStateToProps {
@@ -138,13 +142,13 @@ class AccountComponent
               <Typography variant="subheading" className={classes.profileName}>
                 {user.name}
               </Typography>
-              <ProfileEditButton />
+              <ProfileEditButton className={classes.profileEditButton} />
             </div>
           </div>
           <List>
             <ListItem key="room-setting-notifications" button={true}>
               <ListItemIcon className={classes.listItemIcon}><NotificationsIcon /></ListItemIcon>
-              <ListItemText primary="通知をオフにする" />
+              <ListItemText primary="全ての通知をオフにする" />
             </ListItem>
           </List>
         </div>

@@ -15,19 +15,16 @@ import {
 import { ContactList } from '../ContactList';
 
 const styles = (theme: Theme) => {
-  theme.overrides!.MuiDialogContent = {
-    root: {
+  return {
+    dialogContent: {
+      margin: 0,
       padding: 0,
-      '&:first-child': {
-        paddingTop: 0,
-      },
     },
   };
-  return {};
 };
 
 type ClassNames = 
-  ''
+  'dialogContent'
 ;
 
 interface MapStateToProps {
@@ -85,6 +82,8 @@ class AddRoomMemberListItemComponent
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
       <ListItem button={true} disableGutters={true} onClick={this.handleOpen}>
         <IconButton onClick={this.handleOpen}><AddIcon color="primary" /></IconButton>
@@ -97,7 +96,7 @@ class AddRoomMemberListItemComponent
           open={this.state.dialog}
           onClose={this.handleContactListClose}
         >
-          <DialogContent>
+          <DialogContent className={classes.dialogContent}>
             <ContactList
               enableSearch={true}
               handleClose={this.handleContactListClose}

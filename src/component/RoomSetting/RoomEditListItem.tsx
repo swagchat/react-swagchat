@@ -188,7 +188,7 @@ class RoomEditListItemComponent
       <ListItem button={true} onClick={this.handleOpen}>
         <SwagAvatar className={classes.avatar} data={avatarData} />
         <ListItemText primary={currentRoomName} />
-        <IconButton color="primary"><ModeEditIcon /></IconButton>
+        <Button variant="fab"><ModeEditIcon color="primary" /></Button>
         <Dialog
           className={classes.dialog}
           open={this.state.dialog}

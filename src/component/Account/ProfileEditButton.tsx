@@ -90,6 +90,8 @@ interface MapDispatchToProps {
 }
 
 export interface ProfileEditButtonProps {
+  className?: string;
+  style?: Partial<React.CSSProperties>;
 }
 
 export interface ProfileEditButtonState {
@@ -179,7 +181,7 @@ class ProfileEditButtonComponent
   }
 
   render() {
-    const { classes, user } = this.props;
+    const { classes, user, className, style } = this.props;
 
     if (user === null) {
       return null;
@@ -191,7 +193,7 @@ class ProfileEditButtonComponent
     };
 
     return (
-      <div>
+      <div className={className} style={style}>
         <Button className={classes.button} color="primary" onClick={this.handleOpen}>
           プロフィールを編集
         </Button>
