@@ -14,17 +14,12 @@ import {
   generateRoomPictureUrl,
 } from 'swagchat-sdk';
 import { SwagAvatar } from '../SwagAvatar';
-import { X_LARGE_ABATAR_SIZE, X_LARGE_ABATAR_FONT_SIZE } from '../../setting';
+import { X_LARGE_ABATAR_SIZE, X_LARGE_ABATAR_FONT_SIZE, BG_TRANSPARENT_1 } from '../../setting';
 
 const styles = (theme: Theme) => {
   theme!.overrides!.MuiDialogActions = {
     action: {
       width: '50%',
-    },
-  };
-  theme!.overrides!.MuiDialogContent = {
-    root: {
-      padding: 0,
     },
   };
   theme!.overrides!.MuiInput = {
@@ -33,11 +28,6 @@ const styles = (theme: Theme) => {
     },
   };
   return {
-    root: {
-    },
-    listItemIcon: {
-      color: theme.palette.primary.main,
-    },
     dialog: {
       minWidth: 260,
     },
@@ -47,23 +37,21 @@ const styles = (theme: Theme) => {
     },
     dialogContent: {
       margin: theme.spacing.unit,
-    },
-    dialogActions: {
-      justifyContent: 'space-around' as 'space-around',
-    },
-    textField: {
+      padding: 0,
     },
     avatar: {
       width: X_LARGE_ABATAR_SIZE,
       height: X_LARGE_ABATAR_SIZE,
       fontSize: X_LARGE_ABATAR_FONT_SIZE,
-      margin: '20px auto',
+      margin: theme.spacing.unit + 'px auto',
       cursor: 'pointer',
     },
     cameraIcon: {
       position: 'absolute' as 'absolute',
-      bottom: 128,
-      right: 68,
+      bottom: 120,
+      right: 60,
+      backgroundColor: BG_TRANSPARENT_1,
+      border: '1px solid ' + BG_TRANSPARENT_1,
     },
     imageInput: {
       display: 'none',
@@ -72,13 +60,9 @@ const styles = (theme: Theme) => {
 };
 
 type ClassNames = 
-  'root' |
-  'listItemIcon' |
   'dialog' |
   'dialogTitle' |
   'dialogContent' |
-  'dialogActions' |
-  'textField' |
   'avatar' |
   'cameraIcon' |
   'imageInput'
@@ -201,7 +185,7 @@ class RoomEditListItemComponent
     };
 
     return (
-      <ListItem className={classes.root} button={true} onClick={this.handleOpen}>
+      <ListItem button={true} onClick={this.handleOpen}>
         <SwagAvatar className={classes.avatar} data={avatarData} />
         <ListItemText primary={currentRoomName} />
         <IconButton color="primary"><ModeEditIcon /></IconButton>
@@ -230,13 +214,12 @@ class RoomEditListItemComponent
             />
             <TextField
               fullWidth={true}
-              className={classes.textField}
               value={this.state.roomName}
               onChange={this.handleChangeText}
               margin="normal"
             />
           </DialogContent>
-          <DialogActions className={classes.dialogActions} onClick={this.handleClose}>
+          <DialogActions onClick={this.handleClose}>
             <Button fullWidth={true} variant="raised" onClick={this.handleClose} color="inherit">キャンセル</Button>
             <Button fullWidth={true} variant="raised" onClick={this.handleAgree} color="primary">OK</Button>
           </DialogActions>

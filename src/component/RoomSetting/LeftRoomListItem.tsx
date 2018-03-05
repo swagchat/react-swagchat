@@ -12,33 +12,11 @@ import {
 } from 'swagchat-sdk';
 
 const styles = (theme: Theme) => {
-  theme!.overrides!.MuiDialogActions = {
-    action: {
-      width: '50%',
-    },
-  };
-  theme!.overrides!.MuiDialogContent = {
-    root: {
-      padding: 0,
-    },
-  };
-  return {
-    listItemIcon: {
-      color: theme.palette.primary.main,
-    },
-    dialogContent: {
-      margin: '0 auto',
-    },
-    dialogActions: {
-      justifyContent: 'space-around' as 'space-around',
-    },
-  };
+  return {};
 };
 
 type ClassNames = 
-  'listItemIcon' |
-  'dialogContent' |
-  'dialogActions'
+  'root'
 ;
 
 interface MapStateToProps {
@@ -76,7 +54,7 @@ class LeftRoomListItemComponent
   }
 
   render() {
-    const { classes, room } = this.props;
+    const { room } = this.props;
 
     if (room === null) {
       return null;
@@ -84,14 +62,13 @@ class LeftRoomListItemComponent
 
     return (
       <ListItem button={true} disableGutters={true} onClick={this.handleOpen}>
-        <IconButton className={classes.listItemIcon} onClick={this.handleOpen}><ExitToAppIcon /></IconButton>
+        <IconButton onClick={this.handleOpen}><ExitToAppIcon color="primary" /></IconButton>
         <ListItemText primary={room.type === RoomType.ONE_ON_ONE ? 'このダイレクトメールを削除する' : 'このルームから退出する'} />
         <Dialog open={this.state.dialog} onBackdropClick={this.handleClose} onEscapeKeyDown={this.handleClose}>
-          <DialogTitle
-            onClick={this.handleClose}
-          >{room.type === RoomType.ONE_ON_ONE ? 'このダイレクトメールを削除しますか？（元には戻せません！）' : 'このルームから退出しますか？'}
+          <DialogTitle onClick={this.handleClose}>
+            {room.type === RoomType.ONE_ON_ONE ? 'このダイレクトメールを削除しますか？（元には戻せません！）' : 'このルームから退出しますか？'}
           </DialogTitle>
-          <DialogActions className={classes.dialogActions} onClick={this.handleClose}>
+          <DialogActions onClick={this.handleClose}>
             <Button fullWidth={true} variant="raised" onClick={this.handleClose} color="inherit">キャンセル</Button>
             <Button fullWidth={true} variant="raised" onClick={this.handleAgree} color="primary">OK</Button>
           </DialogActions>

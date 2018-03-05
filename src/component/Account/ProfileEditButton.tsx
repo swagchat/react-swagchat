@@ -11,17 +11,17 @@ import {
   uploadAssetAndUpdateUserRequestActionCreator, UploadAssetAndUpdateRoomRequestAction,
 } from 'swagchat-sdk';
 import { SwagAvatar } from '../SwagAvatar';
-import { X_LARGE_ABATAR_SIZE, X_LARGE_ABATAR_FONT_SIZE, BORDER_RADIUS } from '../../setting';
+import { X_LARGE_ABATAR_SIZE, X_LARGE_ABATAR_FONT_SIZE, BORDER_RADIUS, BG_TRANSPARENT_1 } from '../../setting';
 
 const styles = (theme: Theme) => {
-  theme!.overrides!.MuiDialogActions = {
-    action: {
-      width: '50%',
-    },
-  };
   theme!.overrides!.MuiDialogContent = {
     root: {
       padding: 0,
+    },
+  };
+  theme!.overrides!.MuiDialogActions = {
+    action: {
+      width: '50%',
     },
   };
   theme!.overrides!.MuiInput = {
@@ -30,11 +30,6 @@ const styles = (theme: Theme) => {
     },
   };
   return {
-    root: {
-    },
-    listItemIcon: {
-      color: theme.palette.primary.main,
-    },
     dialog: {
       minWidth: 260,
     },
@@ -48,18 +43,19 @@ const styles = (theme: Theme) => {
     dialogActions: {
       justifyContent: 'space-around' as 'space-around',
     },
-    textField: {
-    },
     avatar: {
       width: X_LARGE_ABATAR_SIZE,
       height: X_LARGE_ABATAR_SIZE,
       fontSize: X_LARGE_ABATAR_FONT_SIZE,
-      margin: '20px auto',
+      margin: theme.spacing.unit + 'px auto',
+      cursor: 'pointer',
     },
     cameraIcon: {
       position: 'absolute' as 'absolute',
-      bottom: 128,
-      right: 68,
+      bottom: 120,
+      right: 60,
+      backgroundColor: BG_TRANSPARENT_1,
+      border: '1px solid ' + BG_TRANSPARENT_1,
     },
     imageInput: {
       display: 'none',
@@ -68,20 +64,17 @@ const styles = (theme: Theme) => {
       margin: '0 auto',
       color: theme.palette.common.white,
       display: 'block',
-      border: '1px solid ' + theme.palette.common.white,
+      border: '1px solid ' + BG_TRANSPARENT_1,
       borderRadius: BORDER_RADIUS,
     },
   };
 };
 
 type ClassNames = 
-  'root' |
-  'listItemIcon' |
   'dialog' |
   'dialogTitle' |
   'dialogContent' |
   'dialogActions' |
-  'textField' |
   'avatar' |
   'cameraIcon' |
   'imageInput' |
@@ -227,7 +220,6 @@ class ProfileEditButtonComponent
             />
             <TextField
               fullWidth={true}
-              className={classes.textField}
               value={this.state.userName}
               onChange={this.handleChangeText}
               margin="normal"

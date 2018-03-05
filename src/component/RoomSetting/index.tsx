@@ -21,40 +21,13 @@ import { RoomMemberListItem } from './RoomMemberListItem';
 import { LeftRoomListItem } from './LeftRoomListItem';
 import { RoomEditListItem } from './RoomEditListItem';
 import {
-  MIN_WIDTH, BORDER_COLOR, ICON_SIZE, APP_BAR_HEIGHT,
+  MIN_WIDTH, APP_BAR_HEIGHT,
 } from '../../setting';
 
 const styles = (theme: Theme) => {
-  theme!.overrides!.MuiDialogContent = {
-    root: {
-      padding: 0,
-      '&:first-child': {
-        paddingTop: 0,
-      },
-    },
-  };
   return {
     root: {
       minWidth: MIN_WIDTH,
-    },
-    appBar: {
-      width: '100%',
-      height: APP_BAR_HEIGHT,
-      left: 0,
-      background: theme.palette.common.white,
-      borderBottom: '1px solid ' + BORDER_COLOR,
-    },
-    toolbar: {
-      minHeight: APP_BAR_HEIGHT,
-      justifyContent: 'center' as 'center',
-    },
-    toolbarButton: {
-      width: 40,
-      height: 40,
-    },
-    toolbarIcon: {
-      width: ICON_SIZE,
-      margin: '0 5px',
     },
     typography: {
       flex: 1,
@@ -65,21 +38,13 @@ const styles = (theme: Theme) => {
       position: 'relative' as 'relative',
       overflowY: 'scroll' as 'scroll',
     },
-    listItemIcon: {
-      color: theme.palette.primary.main,
-    },
   };
 };
 
 type ClassNames = 
   'root' |
-  'appBar' |
-  'toolbar' |
-  'toolbarButton' |
-  'toolbarIcon' |
   'typography' |
-  'content' |
-  'listItemIcon'
+  'content'
 ;
 
 interface MapStateToProps {
@@ -120,7 +85,7 @@ const OneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToProps 
         <RoomMemberListItem key={dmUser[0].userId} enableRemoveIcon={false} userForRoom={dmUser[0]} />
         <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
           <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
-            <IconButton className={classes.listItemIcon}><NotificationsActiveIcon /></IconButton>
+            <IconButton><NotificationsActiveIcon color="primary" /></IconButton>
             <ListItemText primary="このダイレクトルームの通知をオフにする" />
           </ListItem>
           <LeftRoomListItem />
@@ -154,7 +119,7 @@ const NotOneOnOneContent = withStyles(styles)<MapStateToProps & MapDispatchToPro
         <Divider />
         <List subheader={<ListSubheader component="div">設定</ListSubheader>}>
           <ListItem disableGutters={true} key="room-setting-notifications" button={true}>
-            <IconButton className={classes.listItemIcon}><NotificationsActiveIcon /></IconButton>
+            <IconButton><NotificationsActiveIcon color="primary" /></IconButton>
             <ListItemText primary="このルームの通知をオフにする" />
           </ListItem>
           <LeftRoomListItem />
@@ -208,26 +173,13 @@ class RoomSettingComponent
 
     return (
       <div className={classes.root} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
-        <AppBar
-          position="fixed"
-          className={classes.appBar}
-          style={appBarStyle}
-        >
-          <Toolbar className={classes.toolbar} disableGutters={true}>
-            <IconButton
-              className={classes.toolbarButton}
-              color="primary"
-              onClick={this.handleBackClick}
-            >
-              <KeyboardArrowLeftIcon className={classes.toolbarIcon} />
-            </IconButton>
+        <AppBar position="fixed" style={appBarStyle}>
+          <Toolbar disableGutters={true}>
+            <IconButton color="primary" onClick={this.handleBackClick}><KeyboardArrowLeftIcon /></IconButton>
             <Typography variant="subheading" className={classes.typography}>
               {room.type === RoomType.ONE_ON_ONE ? 'ダイレクトメール設定' : 'ルーム設定'}
             </Typography>
-            <IconButton
-              className={classes.toolbarButton}
-              color="primary"
-            />
+            <IconButton color="primary" />
           </Toolbar>
         </AppBar>
         {room.type === RoomType.ONE_ON_ONE

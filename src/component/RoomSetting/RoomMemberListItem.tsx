@@ -18,23 +18,12 @@ import {
 import { LARGE_ABATAR_SIZE } from '../../setting';
 
 const styles = (theme: Theme) => {
-  theme!.overrides!.MuiDialogActions = {
-    action: {
-      width: '50%',
+  theme!.overrides!.MuiDialogContent = {
+    root: {
+      margin: theme.spacing.unit * 2 + 'px auto',
     },
   };
   return {
-    root: {
-    },
-    listItemIcon: {
-      color: theme.palette.primary.main,
-    },
-    dialogContent: {
-      margin: '0 auto 20px',
-    },
-    dialogActions: {
-      justifyContent: 'space-around' as 'space-around',
-    },
     avatar: {
       width: LARGE_ABATAR_SIZE,
       height: LARGE_ABATAR_SIZE,
@@ -43,10 +32,6 @@ const styles = (theme: Theme) => {
 };
 
 type ClassNames = 
-  'root' |
-  'listItemIcon' |
-  'dialogContent' |
-  'dialogActions' |
   'avatar'
 ;
 
@@ -107,15 +92,15 @@ class RoomMemberListItemComponent
           ? 
             <div>
               {user!.userId !== userForRoom.userId
-                ? <IconButton className={classes.listItemIcon} onClick={this.handleOpen}><RemoveIcon /></IconButton>
-                : <IconButton className={classes.listItemIcon} />
+                ? <IconButton onClick={this.handleOpen}><RemoveIcon color="primary" /></IconButton>
+                : <IconButton />
               }
               <Dialog open={this.state.dialog} onBackdropClick={this.handleClose} onEscapeKeyDown={this.handleClose}>
                 <DialogTitle onClick={this.handleClose}>{userForRoom.name}をこのルームから外しますか？</DialogTitle>
-                <DialogContent className={classes.dialogContent} onClick={this.handleClose}>
+                <DialogContent onClick={this.handleClose}>
                   <SwagAvatar className={classes.avatar} data={userForRoom} />
                 </DialogContent>
-                <DialogActions className={classes.dialogActions} onClick={this.handleClose}>
+                <DialogActions onClick={this.handleClose}>
                   <Button fullWidth={true} variant="raised" onClick={this.handleClose} color="inherit">キャンセル</Button>
                   <Button fullWidth={true} variant="raised" onClick={this.handleAgree} color="primary">OK</Button>
                 </DialogActions>

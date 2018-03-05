@@ -19,7 +19,7 @@ import {
 import { SwagAvatar } from '../SwagAvatar';
 import { UserBlockListItem } from './UserBlockListItem';
 import {
-  MIN_WIDTH, ICON_SIZE, APP_BAR_HEIGHT, BORDER_RADIUS,
+  MIN_WIDTH, BORDER_RADIUS, BG_COLOR_1, X_LARGE_ABATAR_SIZE, X_LARGE_ABATAR_FONT_SIZE
 } from '../../setting';
 
 const styles = (theme: Theme) => ({
@@ -27,41 +27,26 @@ const styles = (theme: Theme) => ({
     minWidth: MIN_WIDTH,
   },
   appBar: {
-    width: '100%',
-    height: APP_BAR_HEIGHT,
-    left: 0,
-  },
-  toolbar: {
-    minHeight: APP_BAR_HEIGHT,
-    justifyContent: 'left' as 'space-around',
-  },
-  toolbarButton: {
-    width: 40,
-    height: 40,
+    background: 'transparent',
+    border: 'none',
   },
   toolbarIcon: {
-    width: ICON_SIZE,
-    margin: '0 5px',
     color: theme.palette.common.white,
   },
-  content: {
-    position: 'relative' as 'relative',
-    overflowY: 'scroll' as 'scroll',
-  },
   profileBackground: {
-    background: 'linear-gradient(to top, #00c6ff, #0072ff)',
-    paddingTop: 1,
-    paddingBottom: 10,
+    background: BG_COLOR_1,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
   },
   profileWrap: {
-    margin: '40px 20px 10px',
+    margin: theme.spacing.unit * 4 + 'px ' + theme.spacing.unit * 2 + 'px ' + theme.spacing.unit + 'px',
     borderRadius: BORDER_RADIUS,
   },
   profileAvatar: {
-    width: 120,
-    height: 120,
-    fontSize: 60,
-    margin: '20px auto',
+    width: X_LARGE_ABATAR_SIZE,
+    height: X_LARGE_ABATAR_SIZE,
+    fontSize: X_LARGE_ABATAR_FONT_SIZE,
+    margin: theme.spacing.unit + 'px auto',
   },
   profileName: {
     fontSize: '2em',
@@ -70,29 +55,17 @@ const styles = (theme: Theme) => ({
     color: theme.palette.common.white,
     wordWrap: 'break-word',
   },
-  listItemIcon: {
-    color: theme.palette.primary.main,
-  },
-  iconButton: {
-    position: 'relative' as 'relative',
-    right: '-12px',
-  },
 });
 
 type ClassNames = 
   'root' |
   'appBar' |
-  'toolbar' |
-  'toolbarButton' |
   'toolbarIcon' |
   'typography' |
-  'content' |
   'profileBackground' |
   'profileWrap' |
   'profileAvatar' |
-  'profileName' |
-  'listItemIcon' |
-  'iconButton'
+  'profileName'
 ;
 
 interface MapStateToProps {
@@ -161,14 +134,14 @@ class ProfileComponent
           className={classes.appBar}
           style={appBarStyle}
         >
-          <Toolbar className={classes.toolbar} disableGutters={true}>
+          <Toolbar disableGutters={true}>
             {isModal
               ?
                 <IconButton color="primary" onClick={handleClose}>
                   <CloseIcon className={classes.toolbarIcon} />
                 </IconButton>
               :
-                <IconButton className={classes.toolbarButton} color="primary" onClick={this.handleBackClick}>
+                <IconButton color="primary" onClick={this.handleBackClick}>
                   <KeyboardArrowLeftIcon className={classes.toolbarIcon} />
                 </IconButton>
             }
@@ -176,7 +149,7 @@ class ProfileComponent
         </AppBar>
         {profileUser !== null
           ?
-            <div className={classes.content}>
+            <div>
               <div className={classes.profileBackground}>
                 <div className={classes.profileWrap}>
                   <SwagAvatar className={classes.profileAvatar} data={profileUser} />
@@ -187,7 +160,7 @@ class ProfileComponent
               </div>
               <List>
                 <ListItem key="room-setting-notifications" button={true}>
-                  <ListItemIcon className={classes.listItemIcon}><NotificationsIcon /></ListItemIcon>
+                  <ListItemIcon><NotificationsIcon color="primary" /></ListItemIcon>
                   <ListItemText primary="通知をオフにする" />
                 </ListItem>
                 <UserBlockListItem />

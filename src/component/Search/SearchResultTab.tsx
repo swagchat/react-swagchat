@@ -4,30 +4,17 @@ import { Theme, withStyles, WithStyles } from 'material-ui/styles';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import {
   State,
-  setSearchResultTabIndexActionCreator,
-  SetSearchResultTabIndexAction,
+  SetSearchResultTabIndexAction, setSearchResultTabIndexActionCreator,
   MessageActions,
 } from 'swagchat-sdk';
-import {
-  TAB_HEIGHT,
-} from '../../setting';
 
 const styles = (theme: Theme) => ({
   tabs: {
-    backgroundColor: theme.palette.common.white,
-  },
-  tab: {
-    marginTop: 12,
-    height: TAB_HEIGHT,
-    flexBasis: '33%',
-    minWidth: '33%',
-    backgroundColor: theme.palette.common.white,
   },
 });
 
 type ClassNames = 
-  'tabs' |
-  'tab'
+  'tabs'
 ;
 
 interface MapStateToProps {
@@ -64,9 +51,9 @@ class SearchResultTabComponent extends
         fullWidth={true}
         centered={true}
       >
-        <Tab label="全て" className={classes.tab} />
-        <Tab label="メッセージ" className={classes.tab} />
-        <Tab label="ファイル" className={classes.tab} style={{paddingLeft: 0, paddingRight: 0}} />
+        <Tab label="全て" />
+        <Tab label="メッセージ" />
+        <Tab label="ファイル" />
       </Tabs>
     );
   }

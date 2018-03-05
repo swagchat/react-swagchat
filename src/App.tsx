@@ -7,11 +7,11 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import { store, routerHistory, IClientParams } from 'swagchat-sdk';
 import { init, theme } from './';
 import { Top } from './component/Top';
-import { RoomList } from './component/RoomList/RoomList';
-import { MessageList } from './component/Message/MessageList';
-import { RoomSetting } from './component/RoomSetting/RoomSetting';
-import { Profile } from './component/Profile/Profile';
-import { Account } from './component/Account/Account';
+import { RoomList } from './component/RoomList';
+import { MessageList } from './component/MessageList';
+import { RoomSetting } from './component/RoomSetting';
+import { Profile } from './component/Profile';
+import { Account } from './component/Account';
 import { NotFound } from './component/NotFound';
 
 export interface AppProps {

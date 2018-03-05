@@ -17,7 +17,7 @@ import {
 import { SwagAvatar } from '../SwagAvatar';
 import { ProfileEditButton } from './ProfileEditButton';
 import {
-  MIN_WIDTH, ICON_SIZE, BORDER_RADIUS, X_LARGE_ABATAR_SIZE, X_LARGE_ABATAR_FONT_SIZE,
+  MIN_WIDTH, BORDER_RADIUS, BG_COLOR_1, X_LARGE_ABATAR_SIZE, X_LARGE_ABATAR_FONT_SIZE, BG_TRANSPARENT_1
 } from '../../setting';
 
 const styles = (theme: Theme) => ({
@@ -25,40 +25,26 @@ const styles = (theme: Theme) => ({
     minWidth: MIN_WIDTH,
   },
   appBar: {
-    width: '100%',
-    left: 0,
     background: 'transparent',
-  },
-  toolbar: {
-    justifyContent: 'left' as 'space-around',
-  },
-  toolbarButton: {
-    width: 40,
-    height: 40,
+    border: 'none',
   },
   toolbarIcon: {
-    width: ICON_SIZE,
-    margin: '0 5px',
     color: theme.palette.common.white,
   },
-  content: {
-    position: 'relative' as 'relative',
-    overflowY: 'scroll' as 'scroll',
-  },
   profileBackground: {
-    background: 'linear-gradient(to top, #00c6ff, #0072ff)',
-    paddingTop: 1,
-    paddingBottom: 10,
+    background: BG_COLOR_1,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
   },
   profileWrap: {
-    margin: '40px 20px 10px',
+    margin: theme.spacing.unit * 4 + 'px ' + theme.spacing.unit * 2 + 'px ' + theme.spacing.unit + 'px',
     borderRadius: BORDER_RADIUS,
   },
   profileAvatar: {
     width: X_LARGE_ABATAR_SIZE,
     height: X_LARGE_ABATAR_SIZE,
     fontSize: X_LARGE_ABATAR_FONT_SIZE,
-    margin: theme.spacing.unit * 3 + 'px auto',
+    margin: theme.spacing.unit + 'px auto',
   },
   profileName: {
     fontSize: '2em',
@@ -66,7 +52,6 @@ const styles = (theme: Theme) => ({
     textAlign: 'center',
     color: theme.palette.common.white,
     wordWrap: 'break-word',
-    margin: theme.spacing.unit * 3 + 'px auto',
   },
   listItemIcon: {
     color: theme.palette.primary.main,
@@ -79,7 +64,7 @@ const styles = (theme: Theme) => ({
     margin: '0 auto',
     color: theme.palette.common.white,
     display: 'block',
-    border: '1px solid ' + theme.palette.common.white,
+    border: '1px solid ' + BG_TRANSPARENT_1,
     borderRadius: BORDER_RADIUS,
   },
 });
@@ -87,11 +72,8 @@ const styles = (theme: Theme) => ({
 type ClassNames = 
   'root' |
   'appBar' |
-  'toolbar' |
-  'toolbarButton' |
   'toolbarIcon' |
   'typography' |
-  'content' |
   'profileBackground' |
   'profileWrap' |
   'profileAvatar' |
@@ -120,10 +102,6 @@ class AccountComponent
     routerHistory.goBack();
   }
 
-  handleEditProfile = () => {
-    window.console.log('handleEditProfile');
-  }
-
   render() {
     const {
       classes, isModal, handleClose,
@@ -140,20 +118,20 @@ class AccountComponent
           position="fixed"
           className={classes.appBar}
         >
-          <Toolbar className={classes.toolbar} disableGutters={true}>
+          <Toolbar disableGutters={true}>
             {isModal
               ?
-                <IconButton color="primary" className={classes.toolbarButton} onClick={handleClose}>
+                <IconButton color="primary" onClick={handleClose}>
                   <CloseIcon className={classes.toolbarIcon} />
                 </IconButton>
               :
-                <IconButton color="primary" className={classes.toolbarButton} onClick={this.handleBackClick}>
+                <IconButton color="primary" onClick={this.handleBackClick}>
                   <KeyboardArrowLeftIcon className={classes.toolbarIcon} />
                 </IconButton>
             }
           </Toolbar>
         </AppBar>
-        <div className={classes.content}>
+        <div>
           <div className={classes.profileBackground}>
             <div className={classes.profileWrap}>
               <SwagAvatar className={classes.profileAvatar} data={user} />

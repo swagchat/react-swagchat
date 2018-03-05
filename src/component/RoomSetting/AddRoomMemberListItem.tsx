@@ -12,15 +12,10 @@ import {
   fetchContactsRequestActionCreator, FetchContactsRequestAction,
   addRoomUserRequestActionCreator, AddRoomUserRequestAction,
 } from 'swagchat-sdk';
-import { ContactList } from '../ContactList/ContactList';
+import { ContactList } from '../ContactList';
 
 const styles = (theme: Theme) => {
-  theme!.overrides!.MuiDialogActions = {
-    action: {
-      width: '50%',
-    },
-  };
-  theme!.overrides!.MuiDialogContent = {
+  theme.overrides!.MuiDialogContent = {
     root: {
       padding: 0,
       '&:first-child': {
@@ -28,25 +23,11 @@ const styles = (theme: Theme) => {
       },
     },
   };
-  return {
-    root: {
-    },
-    listItemIcon: {
-      color: theme.palette.primary.main,
-    },
-    dialogContent: {
-    },
-    dialogActions: {
-      justifyContent: 'space-around' as 'space-around',
-    },
-  };
+  return {};
 };
 
 type ClassNames = 
-  'root' |
-  'listItemIcon' |
-  'dialogContent' |
-  'dialogActions'
+  ''
 ;
 
 interface MapStateToProps {
@@ -60,7 +41,7 @@ interface MapDispatchToProps {
   addRoomUserRequest: (userIds: string[]) => AddRoomUserRequestAction;
 }
 
-export interface Props {
+export interface AddRoomMemberListItemProps {
 }
 
 function Transition(props: SlideProps) {
@@ -68,7 +49,8 @@ function Transition(props: SlideProps) {
 }
 
 class AddRoomMemberListItemComponent
-    extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & Props, {}> {
+    extends React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps &
+    AddRoomMemberListItemProps, {}> {
   state = {
     dialog: false,
   };
@@ -80,7 +62,7 @@ class AddRoomMemberListItemComponent
     return false;
   }
 
-  handlerOpen = (e: React.MouseEvent<HTMLElement>) => {
+  handleOpen = (e: React.MouseEvent<HTMLElement>) => {
     this.props.clearSelectContacts();
     this.props.fetchContactsRequest();
     this.setState({dialog: true});
@@ -103,24 +85,12 @@ class AddRoomMemberListItemComponent
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <ListItem
-        button={true}
-        disableGutters={true}
-        onClick={(e: React.MouseEvent<HTMLElement>) => this.handlerOpen(e)}
-      >
-        <IconButton
-          className={classes.listItemIcon}
-          onClick={(e: React.MouseEvent<HTMLElement>) => this.handlerOpen(e)}
-        >
-          <AddIcon />
-        </IconButton>
+      <ListItem button={true} disableGutters={true} onClick={this.handleOpen}>
+        <IconButton onClick={this.handleOpen}><AddIcon color="primary" /></IconButton>
         <ListItemText primary="メンバーを追加" />
         <Dialog
-          className={classes.dialogContent}
-          onClick={(e: React.MouseEvent<HTMLElement>) => this.handleClose(e)}
+          onClick={this.handleClose}
           fullScreen={true}
           transition={Transition}
           keepMounted={true}
@@ -130,8 +100,8 @@ class AddRoomMemberListItemComponent
           <DialogContent>
             <ContactList
               enableSearch={true}
-              handleClose={(e: React.MouseEvent<HTMLElement>) => this.handleContactListClose(e)}
-              handleOK={(e: React.MouseEvent<HTMLElement>) => this.handleContactListOK(e)}
+              handleClose={this.handleContactListClose}
+              handleOK={this.handleContactListOK}
             />
           </DialogContent>
         </Dialog>
@@ -140,14 +110,14 @@ class AddRoomMemberListItemComponent
   }
 }
 
-const mapStateToProps = (state: State, ownProps: Props) => {
+const mapStateToProps = (state: State, ownProps: AddRoomMemberListItemProps) => {
   return {
     contacts: state.user.contacts,
     selectedContacts: state.user.selectedContacts,
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<RoomActions>, ownProps: Props) => {
+const mapDispatchToProps = (dispatch: Dispatch<RoomActions>, ownProps: AddRoomMemberListItemProps) => {
   return {
     clearSelectContacts: () => dispatch(clearSelectContactsActionCreator()),
     fetchContactsRequest: () => dispatch(fetchContactsRequestActionCreator()),
@@ -155,7 +125,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RoomActions>, ownProps: Props) =>
   };
 };
 
-export const AddRoomMemberListItem = connect<MapStateToProps, MapDispatchToProps, Props>(
+export const AddRoomMemberListItem = connect<MapStateToProps, MapDispatchToProps, AddRoomMemberListItemProps>(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles, { withTheme: true })(AddRoomMemberListItemComponent));

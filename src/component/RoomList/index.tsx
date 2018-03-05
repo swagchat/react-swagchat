@@ -31,39 +31,16 @@ import { SearchText } from '../Search/SearchText';
 import { SearchResultTab } from '../Search/SearchResultTab';
 import { SearchResultView } from '../Search/SearchResultView';
 import { TabContainer } from '../TabContainer';
-import { ContactList } from '../ContactList/ContactList';
+import { ContactList } from '../ContactList';
 import { SwagAvatar } from '../SwagAvatar';
-import { Account } from '../Account/Account';
+import { Account } from '../Account';
 import {
-  ICON_SIZE, APP_BAR_HEIGHT, SEARCH_FORM_HEIGHT, TAB_HEIGHT, BORDER_COLOR, ONLINE_BADGE_COLOR,
+  APP_BAR_HEIGHT, SEARCH_FORM_HEIGHT, TAB_HEIGHT, ONLINE_BADGE_COLOR,
   ONLINE_BADGE_SIZE,
 } from '../../setting';
 
 const styles = (theme: Theme) => {
-  theme!.overrides!.MuiTab = {
-    root: {
-      height: TAB_HEIGHT,
-      flexBasis: '33%',
-      minWidth: '33%',
-    },
-    label: {
-      fontSize: '0.8125rem',
-      '@media (min-width: 960px)': {
-        fontSize: '0.8125rem',
-      },
-    },
-    labelContainer: {
-      paddingTop: 0,
-      paddingBottom: 0,
-      paddingLeft: 0,
-      paddingRight: 0,
-      '@media (min-width: 960px)': {
-        paddingLeft: 0,
-        paddingRight: 0,
-      }
-    },
-  };
-  theme!.overrides!.MuiDialogContent = {
+  theme.overrides!.MuiDialogContent = {
     root: {
       padding: 0,
       '&:first-child': {
@@ -72,22 +49,6 @@ const styles = (theme: Theme) => {
     },
   };
   return {
-    appBar: {
-      left: 0,
-      background: theme.palette.common.white,
-      borderBottom: '1px solid ' + BORDER_COLOR,
-    },
-    toolbar: {
-      justifyContent: 'center' as 'center',
-    },
-    toolbarButton: {
-      width: 40,
-      height: 40,
-    },
-    toolbarIcon: {
-      width: ICON_SIZE,
-      margin: '0 5px',
-    },
     typography: {
       flex: 1,
       textAlign: 'center',
@@ -105,10 +66,6 @@ const styles = (theme: Theme) => {
 };
 
 type ClassNames = 
-  'appBar' |
-  'toolbar' |
-  'toolbarButton' |
-  'toolbarIcon' |
   'typography' |
   'onlineBadge'
 ;
@@ -247,14 +204,10 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
 
     return (
       <div>
-        <AppBar
-          position="fixed"
-          className={classes.appBar}
-          style={appBarStyle}
-        >
-          <Toolbar className={classes.toolbar} disableGutters={true}>
-            <IconButton color="primary" className={classes.toolbarButton} onClick={this.handleAccountClickOpen}>
-              <AccountCircleIcon className={classes.toolbarIcon} />
+        <AppBar position="fixed" style={appBarStyle}>
+          <Toolbar disableGutters={true}>
+            <IconButton color="primary" onClick={this.handleAccountClickOpen}>
+              <AccountCircleIcon />
             </IconButton>
             {user !== null ?
               <Dialog
@@ -266,17 +219,13 @@ class RoomListComponent extends React.Component<WithStyles<ClassNames> &
                 style={width !== undefined ? {width: width} : {}}
               >
                 <DialogContent>
-                  <Account isModal={true}  handleClose={this.handleAccountClose} />
+                  <Account isModal={true} handleClose={this.handleAccountClose} />
                 </DialogContent>
               </Dialog>
             : null}
             <Typography variant="subheading" className={classes.typography}>トーク</Typography>
-            <IconButton
-              color="primary"
-              onClick={this.handleContactListClickOpen}
-              className={classes.toolbarButton}
-            >
-              <AddIcon className={classes.toolbarIcon} />
+            <IconButton color="primary" onClick={this.handleContactListClickOpen}>
+              <AddIcon />
             </IconButton>
             {user !== null ?
               <Dialog

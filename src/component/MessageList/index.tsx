@@ -33,20 +33,12 @@ import { TextInteraction } from '../../addons/messages/Text/TextInteraction';
 import { ImageInteraction } from '../../addons/messages/Image/ImageInteraction';
 import { SearchText } from '../Search/SearchText';
 import {
-  MIN_WIDTH, MESSAGE_BOTTOM_BG_COLOR, BORDER_COLOR, ICON_SIZE, APP_BAR_HEIGHT, MESSAGE_BOTTOM_HEIGHT,
+  MIN_WIDTH, BG_TRANSPARENT_1, BORDER_COLOR, APP_BAR_HEIGHT, MESSAGE_BOTTOM_HEIGHT,
 } from '../../setting';
 
 const styles = (theme: Theme) => ({
   root: {
     minWidth: MIN_WIDTH,
-  },
-  appBar: {
-    left: 0,
-    background: theme.palette.common.white,
-    borderBottom: '1px solid ' + BORDER_COLOR,
-  },
-  toolbar: {
-    justifyContent: 'center' as 'center',
   },
   searchToolbar: {
     minHeight: APP_BAR_HEIGHT,
@@ -54,14 +46,6 @@ const styles = (theme: Theme) => ({
   },
   cancelButton: {
     margin: 2,
-  },
-  toolbarButton: {
-    width: 40,
-    height: 40,
-  },
-  toolbarIcon: {
-    width: ICON_SIZE,
-    margin: '0 5px',
   },
   typography: {
     flex: 1,
@@ -82,7 +66,7 @@ const styles = (theme: Theme) => ({
     width: '100%',
     minHeight: MESSAGE_BOTTOM_HEIGHT - 1,
     minWidth: MIN_WIDTH,
-    backgroundColor: MESSAGE_BOTTOM_BG_COLOR,
+    backgroundColor: BG_TRANSPARENT_1,
     display: 'flex',
     justifyContent: 'space-around' as 'space-around',
     alignItems: 'center' as 'center',
@@ -90,30 +74,15 @@ const styles = (theme: Theme) => ({
     bottom: 0,
     borderTop: '1px solid ' + BORDER_COLOR,
   },
-  bottomRight: {
-    flex: '1 1 0%',
-    display: 'flex' as 'flex',
-    justifyContent: 'space-around' as 'space-around',
-    alignItems: 'center' as 'center',
-  },
-  formControl: {
-    width: '100%',
-  },
 });
 
 type ClassNames = 
   'root' |
-  'appBar' |
-  'toolbar' |
   'searchToolbar' |
   'cancelButton' |
-  'toolbarButton' |
-  'toolbarIcon' |
   'typography' |
   'content' |
-  'bottom' |
-  'bottomRight' |
-  'formControl'
+  'bottom'
 ;
 
 interface MapStateToProps {
@@ -281,11 +250,7 @@ class MessageListComponent extends
 
     return (
       <div className={classes.root} style={left ? {width: `calc(100% - ${left}px)`} : {}}>
-        <AppBar
-          position="fixed"
-          className={classes.appBar}
-          style={appBarStyle}
-        >
+        <AppBar position="fixed" style={appBarStyle}>
           {enableSearchText
             ?
               <Toolbar className={classes.searchToolbar} disableGutters={true}>
@@ -293,39 +258,15 @@ class MessageListComponent extends
                 <Button className={classes.cancelButton} onClick={this.handleSearchCancelClick}>キャンセル</Button>
               </Toolbar>
             :
-              <Toolbar className={classes.toolbar} disableGutters={true}>
-                <IconButton
-                  className={classes.toolbarButton}
-                  color="primary"
-                  onClick={this.handleBackClick}
-                >
-                  <KeyboardArrowLeftIcon className={classes.toolbarIcon} />
-                </IconButton>
-                <Typography variant="subheading" className={classes.typography}>
-                  {currentRoomName}
-                </Typography>
-                <IconButton
-                  className={classes.toolbarButton}
-                  color="primary"
-                  onClick={this.handleSearchClick}
-                >
-                  <SearchIcon className={classes.toolbarIcon} />
-                </IconButton>
-                <IconButton
-                  className={classes.toolbarButton}
-                  color="primary"
-                  onClick={this.handleRoomSettingClick}
-                >
-                  <InfoOutlineIcon className={classes.toolbarIcon} />
-                </IconButton>
+              <Toolbar disableGutters={true}>
+                <IconButton color="primary" onClick={this.handleBackClick}><KeyboardArrowLeftIcon /></IconButton>
+                <Typography variant="subheading" className={classes.typography}>{currentRoomName}</Typography>
+                <IconButton color="primary" onClick={this.handleSearchClick}><SearchIcon /></IconButton>
+                <IconButton color="primary" onClick={this.handleRoomSettingClick}><InfoOutlineIcon /></IconButton>
               </Toolbar>
           }
         </AppBar>
-        <div
-          id="messageListContent"
-          ref={(child) => this.contentDom = child}
-          className={classes.content}
-        >
+        <div id="messageListContent" ref={(child) => this.contentDom = child} className={classes.content}>
           {messages ? Object.keys(messages).map((key: string) => {
             switch (messages[key].type) {
               case 'text':
