@@ -56,6 +56,9 @@ const styles = (theme: Theme) => {
     imageInput: {
       display: 'none',
     },
+    okButton: {
+      color: theme.palette.common.white,
+    },
   };
 };
 
@@ -65,7 +68,8 @@ type ClassNames =
   'dialogContent' |
   'avatar' |
   'cameraIcon' |
-  'imageInput'
+  'imageInput' |
+  'okButton'
 ;
 
 interface MapStateToProps {
@@ -221,7 +225,15 @@ class RoomEditListItemComponent
           </DialogContent>
           <DialogActions onClick={this.handleClose}>
             <Button fullWidth={true} variant="raised" onClick={this.handleClose} color="inherit">キャンセル</Button>
-            <Button fullWidth={true} variant="raised" onClick={this.handleAgree} color="primary">OK</Button>
+            <Button
+              fullWidth={true}
+              variant="raised"
+              onClick={this.handleAgree}
+              color="primary"
+              className={classes.okButton}
+            >
+              OK
+            </Button>
           </DialogActions>
         </Dialog>
       </ListItem>

@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import RadioButtonCheckedIcon from 'material-ui-icons/RadioButtonChecked';
 import RadioButtonUncheckedIcon from 'material-ui-icons/RadioButtonUnchecked';
-import Avatar from 'material-ui/Avatar';
+import { SwagAvatar } from '../SwagAvatar';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import { LinearProgress } from 'material-ui/Progress';
@@ -25,6 +25,7 @@ const styles = (theme: Theme) => {
   return {
     root: {
       minWidth: MIN_WIDTH,
+      WebkitOverflowScrolling: 'touch',
     },
     typography: {
       flex: 1,
@@ -35,6 +36,7 @@ const styles = (theme: Theme) => {
     },
     content: {
       marginTop: APP_BAR_HEIGHT + SEARCH_FORM_HEIGHT + 8 + 8,
+      WebkitOverflowScrolling: 'touch',
     },
   };
 };
@@ -89,10 +91,7 @@ class ContactListComponent
         <div className={classes.content}>
           {contacts ? Object.keys(contacts).map((key: string) => (
             <ListItem button={true} key={key} onClick={() => this.handleItemClick(contacts[key])}>
-              {contacts[key].pictureUrl === '' || contacts[key].pictureUrl === undefined
-                ? <Avatar>{contacts[key].name.slice(0, 1)}</Avatar>
-                : <Avatar src={contacts[key].pictureUrl} />
-              }
+              <SwagAvatar data={{name: contacts[key].name, pictureUrl: contacts[key].pictureUrl}} />
               <ListItemText primary={contacts[key].name} />
               <Checkbox
                 checked={selectedContacts[contacts[key].userId] ? true : false}

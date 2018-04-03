@@ -17,25 +17,26 @@ import {
   sendMessagesRequestActionCreator,
 } from 'swagchat-sdk';
 
-type displayType = 'fixed';
-type justifyContentType = 'space-around';
-type alignItemsType = 'center';
-
 const styles = (theme: Theme) => ({
   bottomRight: {
     flex: '1 1 0%',
-    display: 'flex' as displayType,
-    justifyContent: 'space-around' as justifyContentType,
-    alignItems: 'center' as alignItemsType,
+    display: 'flex',
+    justifyContent: 'space-around' as 'space-around',
+    alignItems: 'center' as 'center',
   },
   formControl: {
     width: '100%',
+    textAlign: 'left',
+  },
+  textField: {
+    textAlign: 'left',
   },
 });
 
 type ClassNames = 
   'bottomRight' |
-  'formControl'
+  'formControl' |
+  'textField'
 ;
 
 interface MapStateToProps {
@@ -75,19 +76,18 @@ class TextInteractionComponent extends
     return (
       <div className={classes.bottomRight}>
         <FormControl className={classes.formControl}>
-        <TextField
-          value={this.state.textValue}
-          multiline={true}
-          rowsMax="4"
-          InputProps={{
-            disableUnderline: true,
-          }}
-          onChange={(e) => this.handleChange(e)}
-        />
+          <TextField
+            value={this.state.textValue}
+            className={classes.textField}
+            multiline={true}
+            rowsMax="4"
+            InputProps={{
+              disableUnderline: true,
+            }}
+            onChange={(e) => this.handleChange(e)}
+          />
         </FormControl>
-        <IconButton color="primary" onClick={() => this.send()}>
-          <SendIcon />
-        </IconButton>
+        <IconButton color="primary" onClick={() => this.send()}><SendIcon /></IconButton>
       </div>
     );
   }

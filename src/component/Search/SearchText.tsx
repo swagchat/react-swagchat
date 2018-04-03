@@ -54,6 +54,8 @@ const styles = (theme: Theme) => ({
   },
   input: {
     fontSize: '0.8em',
+    textAlign: 'left',
+    overflowY: 'scroll' as 'scroll',
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 5}px ${theme.spacing.unit}px ${theme
       .spacing.unit * 5}px`,
     border: 0,
@@ -63,7 +65,6 @@ const styles = (theme: Theme) => ({
     background: 'none',
     margin: 0, // Reset for Safari
     width: '100%',
-    height: '100%',
     color: theme.palette.grey.A700,
     '&:focus': {
       outline: 0,

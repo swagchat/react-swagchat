@@ -61,6 +61,7 @@ const styles = (theme: Theme) => ({
     marginTop: APP_BAR_HEIGHT + MESSAGE_BOTTOM_HEIGHT + 10,
     position: 'relative' as 'relative',
     overflowY: 'scroll' as 'scroll',
+    WebkitOverflowScrolling: 'touch',
   },
   bottom: {
     width: '100%',

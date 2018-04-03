@@ -26,10 +26,15 @@ const styles = (theme: Theme) => {
       padding: 0,
     },
   };
+  return {
+    okButton: {
+      color: theme.palette.common.white,
+    },
+  };
 };
 
 type ClassNames = 
-  'root'
+  'okButton'
 ;
 
 interface MapStateToProps {
@@ -72,7 +77,7 @@ class UserBlockListItemComponent
   }
 
   render() {
-    const { blocks, profileUser } = this.props;
+    const { classes, blocks, profileUser } = this.props;
 
     if (profileUser === null) {
       return null;
@@ -88,7 +93,15 @@ class UserBlockListItemComponent
           </DialogTitle>
           <DialogActions onClick={this.handleClose}>
             <Button fullWidth={true} variant="raised" onClick={this.handleClose} color="inherit">キャンセル</Button>
-            <Button fullWidth={true} variant="raised" onClick={this.handleAgree} color="primary">OK</Button>
+            <Button
+              fullWidth={true}
+              variant="raised"
+              onClick={this.handleAgree}
+              color="primary"
+              className={classes.okButton}
+            >
+              OK
+            </Button>
           </DialogActions>
         </Dialog>
       </ListItem>

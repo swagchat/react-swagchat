@@ -92,7 +92,6 @@ class ImageInteractionComponent extends
   }
 
   onFileUploadChange(e: React.ChangeEvent<HTMLInputElement>) {
-    window.console.log('onFileUploadChange', e);
     if (e.target.files === null) {
       return;
     }
@@ -178,7 +177,7 @@ const mapStateToProps = (state: State, ownProps: IAddonMessageInteractionProps) 
 
 const mapDispatchToProps = (dispatch: Dispatch<MessageActions>, ownProps: IAddonMessageInteractionProps) => {
   return {
-    uploadAssetAndSendMessageRequest: (file: Blob) => dispatch(uploadAssetAndSendMessageRequestActionCreator(file)),
+    uploadAssetAndSendMessageRequest: (file: File) => dispatch(uploadAssetAndSendMessageRequestActionCreator(file)),
   };
 };
 

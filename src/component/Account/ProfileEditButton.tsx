@@ -53,7 +53,7 @@ const styles = (theme: Theme) => {
     cameraIcon: {
       position: 'absolute' as 'absolute',
       bottom: 120,
-      right: 60,
+      right: 80,
       backgroundColor: BG_TRANSPARENT_1,
       border: '1px solid ' + BG_TRANSPARENT_1,
     },
@@ -67,6 +67,9 @@ const styles = (theme: Theme) => {
       border: '1px solid ' + BG_TRANSPARENT_1,
       borderRadius: BORDER_RADIUS,
     },
+    okButton: {
+      color: theme.palette.common.white,
+    },
   };
 };
 
@@ -78,7 +81,8 @@ type ClassNames =
   'avatar' |
   'cameraIcon' |
   'imageInput' |
-  'button'
+  'button' |
+  'okButton'
 ;
 
 interface MapStateToProps {
@@ -229,7 +233,15 @@ class ProfileEditButtonComponent
           </DialogContent>
           <DialogActions className={classes.dialogActions} onClick={this.handleClose}>
             <Button fullWidth={true} variant="raised" onClick={this.handleClose} color="inherit">キャンセル</Button>
-            <Button fullWidth={true} variant="raised" onClick={this.handleAgree} color="primary">OK</Button>
+            <Button
+              fullWidth={true}
+              variant="raised"
+              onClick={this.handleAgree}
+              color="primary"
+              className={classes.okButton}
+            >
+              OK
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

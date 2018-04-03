@@ -21,7 +21,6 @@ export interface AppProps {
 class App extends React.Component<AppProps, {}> {
   constructor(props: AppProps, context: {}) {
     super(props, context);
-    window.console.log('props', props);
     init(props.clientParams);
   }
 
@@ -86,7 +85,6 @@ class App extends React.Component<AppProps, {}> {
 export default App;
 
 export const renderMessenger = (params: AppProps) => {
-  window.console.log('params', params);
   ReactDom.render(
     <App clientParams={params.clientParams}/>, document.getElementById('swag')
   );

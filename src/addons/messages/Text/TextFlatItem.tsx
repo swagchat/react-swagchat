@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
+import Typography from 'material-ui/Typography';
 import { dateFormateHHMM, IAddonMessageItemProps, ITextPayload } from 'swagchat-sdk';
 import { ListItem } from 'material-ui/List';
 import { SwagAvatar } from '../../../component/SwagAvatar';
@@ -86,10 +87,10 @@ const Item = withStyles(styles)<IAddonMessageItemProps>(
         <SwagAvatar className={classes.avatar} data={user} />
         <div className={classes.wrap}>
           <div className={classes.wrapNameTime}>
-            <div className={classes.name}>{user.name}</div>
-            <div className={classes.time}>{dateFormateHHMM(message.created!)}</div>
+            <Typography className={classes.name}>{user.name}</Typography>
+            <Typography className={classes.time}>{dateFormateHHMM(message.created!)}</Typography>
           </div>
-          <div className={classes.message}>{displayText}</div>
+          <Typography className={classes.message}>{displayText}</Typography>
         </div>
       </div>
     );

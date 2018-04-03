@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Theme, withStyles, WithStyles } from 'material-ui/styles';
+import Typography from 'material-ui/Typography';
 import { dateFormateHHMM, IAddonMessageItemProps, ITextPayload } from 'swagchat-sdk';
 import { SwagAvatar } from '../../../component/SwagAvatar';
 
@@ -20,14 +21,14 @@ const styles = (theme: Theme) => ({
   name: {
     fontSize: '0.6em',
     marginTop: '-45px',
-    margineft: 70,
+    // marginLeft: 70,
     marginBottom: 0,
     color: 'rgb(33, 33, 33)',
   },
   messageLeft: {
     width: 'auto',
     maxWidth: '60%',
-    background: 'rgb(224, 224, 224)',
+    background: theme.palette.grey[100],
     border: '0px solid #777',
     padding: '5px 10px',
     margin: '5px 10px 5px 50px',
@@ -41,7 +42,7 @@ const styles = (theme: Theme) => ({
     maxWidth: '70%',
     color: theme.palette.common.white,
     position: 'relative' as positionType,
-    background: 'rgb(33, 150, 243)',
+    background: theme.palette.primary.main,
     border: '0px solid #777',
     padding: '5px 10px',
     margin: '10px 0px 5px 10px',
@@ -50,16 +51,17 @@ const styles = (theme: Theme) => ({
     clear: 'both',
     float: 'right',
     wordWrap: 'break-word' as wordWrapType,
+    fontSize: '1em',
   },
   timeLeft: {
     fontSize: '0.6em',
-    color: 'rgb(33, 33, 33)',
+    color: theme.palette.grey.A400,
     marginTop: 5,
     float: 'left',
   },
   timeRight: {
     fontSize: '0.6em',
-    color: 'rgb(33, 33, 33)',
+    color: theme.palette.grey.A400,
     marginTop: 10,
     marginRight: 10,
     float: 'right',
@@ -78,6 +80,7 @@ type ClassNames =
   'messageRight' |
   'timeLeft' |
   'timeRight' |
+  'text' |
   'clear'
 ;
 
@@ -91,6 +94,11 @@ class TextItemComponent extends
     React.Component<WithStyles<ClassNames> & MapStateToProps & MapDispatchToProps & IAddonMessageItemProps, {}> {
   render(): JSX.Element {
     const { classes, message, myUserId, user } = this.props;
+
+    if (!user) {
+      return <div />;
+    }
+
     const payload = message.payload as ITextPayload;
     let splitMessage = payload.text.split('\n');
     let displayText = new Array;
@@ -102,16 +110,16 @@ class TextItemComponent extends
       <div className={classes.root}>
         {user.userId === myUserId ? (
           <div>
-            <div className={classes.messageRight}>{displayText}</div>
-            <div className={classes.timeRight}>{dateFormateHHMM(message.created!)}</div>
+            <Typography className={classes.messageRight}>{displayText}</Typography>
+            <Typography className={classes.timeRight}>{dateFormateHHMM(message.created!)}</Typography>
             <div className={classes.clear} />
           </div>
         ) : (
           <div>
             <SwagAvatar className={classes.avatar} data={user} />
-            <p className={classes.name}>{user.name}</p>
-            <div className={classes.messageLeft}>{displayText}</div>
-            <div className={classes.timeLeft}>{dateFormateHHMM(message.created!)}</div>
+            <Typography className={classes.name}>{user.name}</Typography>
+            <Typography className={classes.messageLeft}>{displayText}</Typography>
+            <Typography className={classes.timeLeft}>{dateFormateHHMM(message.created!)}</Typography>
             <div className={classes.clear} />
           </div>
         )}

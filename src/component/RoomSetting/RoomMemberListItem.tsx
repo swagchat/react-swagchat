@@ -28,11 +28,15 @@ const styles = (theme: Theme) => {
       width: LARGE_ABATAR_SIZE,
       height: LARGE_ABATAR_SIZE,
     },
+    okButton: {
+      color: theme.palette.common.white,
+    },
   };
 };
 
 type ClassNames = 
-  'avatar'
+  'avatar' |
+  'okButton'
 ;
 
 interface MapStateToProps {
@@ -102,7 +106,15 @@ class RoomMemberListItemComponent
                 </DialogContent>
                 <DialogActions onClick={this.handleClose}>
                   <Button fullWidth={true} variant="raised" onClick={this.handleClose} color="inherit">キャンセル</Button>
-                  <Button fullWidth={true} variant="raised" onClick={this.handleAgree} color="primary">OK</Button>
+                  <Button
+                    fullWidth={true}
+                    variant="raised"
+                    onClick={this.handleAgree}
+                    color="primary"
+                    className={classes.okButton}
+                  >
+                    OK
+                  </Button>
                 </DialogActions>
               </Dialog>
             </div>

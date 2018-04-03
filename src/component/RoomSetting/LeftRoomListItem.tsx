@@ -12,11 +12,15 @@ import {
 } from 'swagchat-sdk';
 
 const styles = (theme: Theme) => {
-  return {};
+  return {
+    okButton: {
+      color: theme.palette.common.white,
+    },
+  };
 };
 
 type ClassNames = 
-  'root'
+  'okButton'
 ;
 
 interface MapStateToProps {
@@ -54,7 +58,7 @@ class LeftRoomListItemComponent
   }
 
   render() {
-    const { room } = this.props;
+    const { classes, room } = this.props;
 
     if (room === null) {
       return null;
@@ -70,7 +74,15 @@ class LeftRoomListItemComponent
           </DialogTitle>
           <DialogActions onClick={this.handleClose}>
             <Button fullWidth={true} variant="raised" onClick={this.handleClose} color="inherit">キャンセル</Button>
-            <Button fullWidth={true} variant="raised" onClick={this.handleAgree} color="primary">OK</Button>
+            <Button
+              fullWidth={true}
+              variant="raised"
+              onClick={this.handleAgree}
+              color="primary"
+              className={classes.okButton}
+            >
+              OK
+            </Button>
           </DialogActions>
         </Dialog>
       </ListItem>
